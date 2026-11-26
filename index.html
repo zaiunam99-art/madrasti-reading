@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#176b55"><title>مدرستي – تعلم القراءة</title>
+<style>
+:root{--green:#176b55;--mint:#e8f5ef;--ink:#18352d;--gold:#f2c66d;--paper:#fbfdfb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.8}
+header{background:linear-gradient(135deg,#145b49,#23856b);color:white;padding:25px 18px 35px;border-radius:0 0 28px 28px}
+.wrap{max-width:850px;margin:auto;padding:0 16px}h1{font-size:27px;margin:0}header p{margin:4px 0 0;color:#e2f5ed}
+main{padding:18px 0 50px}.welcome,.lesson,.unit{background:white;border:1px solid #e2eee8;border-radius:18px;padding:17px;margin:12px 0;box-shadow:0 5px 18px #1232}
+.welcome{margin-top:-18px;position:relative}.muted{color:#61776e;font-size:14px}.progress{height:9px;background:#e8f0ec;border-radius:10px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;background:#2d9b76;width:0}
+button{border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:bold;cursor:pointer;background:var(--green);color:white;margin:4px 2px}button.secondary{background:var(--mint);color:var(--green)}button:disabled{opacity:.45;cursor:not-allowed}
+h2{font-size:20px;margin:0 0 8px}.units{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.unit{margin:0}.unit h3{margin:0;font-size:17px}.tag{display:inline-block;background:var(--mint);color:var(--green);border-radius:20px;padding:2px 10px;font-size:12px}
+.lesson{border:2px solid #dceee5}.activity{background:#f4faf6;padding:14px;border-radius:14px;margin:12px 0}.big{font-size:42px;font-weight:bold;color:var(--green);text-align:center;padding:8px}
+.options{display:flex;gap:8px;flex-wrap:wrap}.options button{flex:1;min-width:100px}.feedback{font-weight:bold;min-height:30px}.footer{text-align:center;color:#71847c;font-size:12px;margin-top:25px}
+</style></head>
+<body>
+<header><div class="wrap"><h1>📚 مدرستي – تعلّم القراءة</h1><p>رحلتك اليومية في تعلّم الحروف والقراءة خطوة بخطوة</p></div></header>
+<main class="wrap">
+<section class="welcome"><h2>أهلاً بك في درس اليوم 🌟</h2><p class="muted">درس واحد يومياً، مع شرح صوتي وأنشطة قصيرة. يُحفظ تقدمك على هذا الجهاز.</p><div class="progress"><span id="bar"></span></div><div class="muted" id="progressText">لم تُكمل أي درس بعد</div><button onclick="startToday()">ابدأ درس اليوم</button><button class="secondary" onclick="speak('أهلاً بك! هيا نتعلم القراءة معاً.')">🔊 استمع للترحيب</button></section>
+<section id="today" class="lesson" hidden><h2 id="lessonTitle">درس اليوم</h2><p id="lessonIntro"></p><div class="activity"><div class="big" id="letter">أ</div><p id="lessonExplain"></p><button class="secondary" onclick="speakLesson()">🔊 استمع إلى الشرح</button></div><h2>اختبر فهمك</h2><p id="question"></p><div class="options" id="choices"></div><div class="feedback" id="feedback" aria-live="polite"></div><button id="complete" disabled onclick="completeLesson()">إكمال الدرس</button></section>
+<h2 style="margin-top:24px">مراحل الكتاب</h2><p class="muted">الترتيب العام وفق فهرس كتاب «قراءتي الجديدة – الصف الأول الابتدائي».</p>
+<div class="units" id="units"></div>
+<div class="footer">نسخة أولية قابلة للتطوير · يُفضّل استخدام متصفح يدعم الصوت العربي</div>
+</main>
+<script>
+const units=[
+{name:"التهيئة",pages:"٧–١٦",lessons:["الاستماع والملاحظة","التمييز بين المتشابه والمختلف","الأطول والأقصر","المكان والاتجاهات","الأصوات القصيرة والطويلة","أصوات المد"]},
+{name:"الوحدة الأولى: أسرتي",pages:"١٧–٣٠",letters:"ب، م، د، ف",lessons:["الاستماع","المحادثة","القراءة","نشيد ماما بابا"]},
+{name:"الوحدة الثانية: مدرستي",pages:"٣١–٤٨",letters:"ر، س، ن، ت، ق",lessons:["الاستماع","المحادثة","القراءة","تنوين الضم","نشيد مدرستي"]},
+{name:"الوحدة الثالثة: وطني",pages:"٤٩–٧٠",letters:"و، ي، ذ، ل، ط، ع",lessons:["الاستماع","المحادثة","القراءة","تنوين الفتح","نشيد أطفال العراق"]},
+{name:"الوحدة الرابعة: صحتي وسلامتي",pages:"٧١–٨٨",letters:"ح، ش، ز، ج، ص",lessons:["الاستماع","المحادثة","القراءة","تنوين الكسر"]},
+{name:"الوحدة الخامسة: هواياتي وألعابي",pages:"٨٩–١٠٨",letters:"ا، ض، خ، ث، ك",lessons:["الاستماع","المحادثة","القراءة","الشدة","نشيد نغني"]},
+{name:"الوحدة السادسة: العالم من حولي",pages:"١٠٩–١٢٨",letters:"غ، هـ، ذ، ظ",lessons:["الاستماع","المحادثة","القراءة","اللام الشمسية واللام القمرية","نشيد الحاسوب"]}
+];
+const lessonData=[
+{title:"التهيئة: التمييز بين الأصوات",intro:"نتدرّب على الانتباه للصوت ومقارنة الكلمات قبل البدء بالحروف.",letter:"أَ",explain:"استمع إلى الصوت، ثم اختر الكلمة التي تبدأ بصوت الألف.",question:"أي كلمة تبدأ بصوت الألف؟",choices:["أسد","باب","موز"],answer:"أسد"}
+];
+let done=Number(localStorage.getItem("madrastiDone")||0),answered=false;
+function render(){document.getElementById("bar").style.width=Math.min(done/lessonData.length*100,100)+"%";document.getElementById("progressText").textContent=done?"أكملت "+done+" درس":"لم تُكمل أي درس بعد";document.getElementById("units").innerHTML=units.map((u,i)=>'<article class="unit"><span class="tag">الصفحات '+u.pages+'</span><h3>'+u.name+'</h3><p class="muted">'+(u.letters?"الحروف: "+u.letters:"أنشطة تأسيسية")+'</p><p class="muted">'+u.lessons.join(" · ")+'</p></article>').join("")}
+function startToday(){if(done>=lessonData.length){alert("أحسنت! أكملت الدرس التجريبي.");return}const d=lessonData[done];document.getElementById("today").hidden=false;document.getElementById("lessonTitle").textContent=d.title;document.getElementById("lessonIntro").textContent=d.intro;document.getElementById("letter").textContent=d.letter;document.getElementById("lessonExplain").textContent=d.explain;document.getElementById("question").textContent=d.question;document.getElementById("feedback").textContent="";document.getElementById("complete").disabled=true;answered=false;document.getElementById("choices").innerHTML=d.choices.map(c=>'<button class="secondary" onclick="choose(\''+c+'\')">'+c+'</button>').join("");document.getElementById("today").scrollIntoView({behavior:"smooth"})}
+function choose(c){const d=lessonData[done];const f=document.getElementById("feedback");if(c===d.answer){f.textContent="أحسنت! إجابة صحيحة ⭐";f.style.color="#176b55";answered=true;document.getElementById("complete").disabled=false}else{f.textContent="حاول مرة أخرى، استمع إلى السؤال.";f.style.color="#a45a22"}}
+function completeLesson(){if(!answered)return;done++;localStorage.setItem("madrastiDone",done);document.getElementById("today").hidden=true;render();alert("تم حفظ إكمال الدرس على هذا الجهاز.")}
+function speak(t){if(!("speechSynthesis"in window)){alert("ميزة الصوت غير مدعومة في هذا المتصفح.");return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="ar-IQ";u.rate=.85;speechSynthesis.speak(u)}
+function speakLesson(){const d=lessonData[done];if(d)speak(d.title+". "+d.intro+". "+d.explain+". "+d.question)}
+render();
+</script></body></html>
