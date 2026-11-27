@@ -8,7 +8,7 @@ import { resolve } from "node:path";
 const here = fileURLToPath(new URL(".", import.meta.url));
 const runtimePath = resolve(here, "../curriculum-runtime.js");
 const runtimeSource = readFileSync(runtimePath, "utf8");
-const helperMatch = runtimeSource.match(/  function readCompletedMap\(\) \{[\\s\\S]*?\n  \}/);
+const helperMatch = runtimeSource.match(/  function readCompletedMap\(\) \{[\s\S]*?\n  \}/);
 
 assert.ok(helperMatch, "readCompletedMap helper must exist");
 const helperSource = helperMatch[0];
