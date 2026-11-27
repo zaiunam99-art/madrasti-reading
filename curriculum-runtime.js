@@ -168,6 +168,8 @@
   }
   let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), utterance = null;
   function renderQuestion() {
+    if ("speechSynthesis" in window) speechSynthesis.cancel();
+    setTeacherSpeaking(false);
     const lesson = current;
     const qs = questionList(lesson);
     const q = qs[questionIndex];
@@ -200,6 +202,8 @@
     finish.textContent = "إكمال الدرس ⭐";
     const submit = (value, selectedButton) => {
       if (answered.has(questionIndex)) return;
+      if ("speechSynthesis" in window) speechSynthesis.cancel();
+      setTeacherSpeaking(false);
       let correctAnswer = false;
       if (q.type === "sequence_order") {
         const expected = Array.isArray(q.answer) ? q.answer : [];
