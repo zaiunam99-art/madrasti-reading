@@ -19,7 +19,7 @@ const validChild = {
   subjects: ["القراءة", "الرياضيات"], completed: 1
 };
 function helpers(storage) {
-  const sandbox = { storage };
+  const sandbox = { storage, KEY: "madrastiFamilyDemoV2" };
   runInNewContext(source + "; globalThis.validateFamilyBackup=validateFamilyBackup; globalThis.applyFamilyBackup=applyFamilyBackup;", sandbox);
   return sandbox;
 }
