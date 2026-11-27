@@ -11,13 +11,22 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) return;
-  event.respondWith(
-    caches.match(request).then(cached => cached || fetch(request).then(response => {
+  event.respondWith((async () => {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    try {
+      const response = await fetch(request);
       if (response.ok && request.destination !== "document") {
-        const copy = response.clone();
-        caches.open(CACHE).then(cache => cache.put(request, copy));
+        const write = caches.open(CACHE).then(cache => cache.put(request, response.clone()));
+        event.waitUntil(write.catch(error => console.warn("تعذر تخزين مورد للعمل دون اتصال:", error)));
       }
       return response;
-    }).catch(() => caches.match("/index.html")))
-  );
+    } catch (error) {
+      if (request.mode === "navigate" || request.destination === "document") {
+        const fallback = await caches.match("/index.html");
+        if (fallback) return fallback;
+      }
+      throw error;
+    }
+  })());
 });
