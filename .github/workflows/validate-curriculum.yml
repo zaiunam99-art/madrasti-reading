@@ -50,3 +50,5 @@ jobs:
         run: node --test scripts/test-view-navigation.test.mjs
       - name: Test offline service worker behavior
         run: node --test scripts/test-service-worker.test.mjs
+      - name: Test local PDF preview validation
+        run: node --test scripts/test-pdf-preview.test.mjs
