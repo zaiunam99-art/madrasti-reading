@@ -281,9 +281,9 @@
         const select = document.createElement("select");
         select.setAttribute("aria-label", "الموقع " + (index + 1));
         select.innerHTML = '<option value="">الاختيار ' + (index + 1) + '</option>' +
-          items.map(item => '<option value="' + escHtml(item) + '">' + escHtml(item) + '</option>').join("");
+          items.map((item, itemIndex) => '<option value="' + itemIndex + '">' + escHtml(item) + '</option>').join("");
         select.addEventListener("change", () => {
-          const chosen = selects.map(control => control.value).filter(Boolean);
+          const chosen = selects.map(control => control.value).filter(value => value !== "");
           selects.forEach(control => Array.from(control.options).forEach(option => {
             if (!option.value) { option.disabled = false; return; }
             option.disabled = option.value !== control.value && chosen.includes(option.value);
@@ -294,9 +294,9 @@
       const check = document.createElement("button");
       check.type = "button"; check.textContent = "تحقق من الترتيب";
       check.addEventListener("click", () => {
-        const values = selects.map(select => select.value);
-        if (values.some(value => !value)) { feedback.textContent = "أكمل جميع المواقع أولاً."; return; }
-        submit(values);
+        const selectedIndexes = selects.map(select => select.value);
+        if (selectedIndexes.some(value => value === "")) { feedback.textContent = "أكمل جميع المواقع أولاً."; return; }
+        submit(selectedIndexes.map(value => items[Number(value)]));
       });
       answers.appendChild(check);
     } else if (options.length && q.answer !== undefined &&
