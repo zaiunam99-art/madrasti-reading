@@ -34,3 +34,5 @@ jobs:
         run: node --test scripts/test-runtime-question-list.test.mjs
       - name: Test Arabic answer normalization
         run: node --test scripts/test-answer-normalization.test.mjs
+      - name: Test family profile save rollback
+        run: node --test scripts/test-family-save.test.mjs
