@@ -40,6 +40,13 @@
       "status": "official-printing-status-not-pdf-availability",
       "date": "2026-10-07",
       "note": "The parliamentary report says primary textbook printing reached 100%; this does not prove every PDF is publicly available online."
+    },
+    {
+      "label": "بيان وزارة التربية عن اكتمال طباعة كتب الصفوف الأولية وتحديث بعض المناهج",
+      "url": "https://t.me/s/Educationiq?before=34536",
+      "status": "official-ministry-announcement",
+      "date": "2026-10-08",
+      "note": "الوزارة ذكرت اكتمال طباعة كتب الصفوف الأولية بنسبة 100% وتحديث كتاب قراءة الصف الأول ورياضيات الصف الرابع. هذا لا يعني أن ملفات PDF الكاملة لكل الصفوف والمواد منشورة على بوابة المناهج."
     }
   ],
   "grades": [
@@ -2568,6 +2575,20 @@
         }
       ],
       "caution": "Search results are not proof of non-publication. Only a limited official ministry scope was confirmed in the sources reviewed; do not mark any secondary listing as officially verified."
+    },
+    "ministryUpdateNov27": {
+      "date": "2026-10-08",
+      "source": "وزارة التربية العراقية – القناة الرسمية",
+      "confirmed": [
+        "اكتمال طباعة كتب الصفوف الأولية بحسب البيان الوزاري",
+        "تحديثات على كتاب القراءة للصف الأول ورياضيات الصف الرابع",
+        "إتاحة إلكترونية جزئية للوحدة الأولى من قراءتي للصف الأول 2026-2027"
+      ],
+      "notConfirmed": [
+        "توفر PDF كامل لكل كتب الصفوف 1–6 للعام 2026-2027",
+        "اكتمال نشر كتب النشاط والأدلة لكل المواد",
+        "مطابقة ملفات الفهارس الثانوية للطبعات الرسمية"
+      ]
     }
   }
 }
