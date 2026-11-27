@@ -792,7 +792,8 @@
     "تدقيق الصف الأول: فهرس IraqEdu يعرض 13 مادة/موردًا، منها 4 أدلة معلم يجب استبعادها من مسار التلميذ. ظهرت مخالفة مهمة في القراءة: الفهرس الثانوي يذكر 112 صفحة بينما ملف المستخدم 129 صفحة؛ لم تُحسم هوية الطبعة ولا يجوز الاستبدال قبل المقارنة. تم فتح صفحات البيانات الفردية للعلوم والرياضيات والقراءة والإسلامية، لكنها ليست فحصاً كاملاً لملفات PDF.",
     "تحديث تدقيق الصف الأول: فصل سجلات طبعة 2025-2026 عن نتائج 2026-2027. نتائج القراءة الجديدة 127 صفحة ونشاطها 114 صفحة تبقى إدراجات فهرس ثانوي؛ الإعلان الرسمي المتاح يثبت الوحدة الأولى فقط. لا فحص كامل لملفات PDF حتى الآن.",
     "تدقيق جديد 2026-11-27: فتح صفحة IraqEdu العامة وصفحة الأستاذ العراقي العامة ومراجعة قناة الوزارة الرسمية. الفهارس العامة مختلطة ومصدر الوزارة لم يكن قابلاً للفتح آلياً في هذه الجلسة؛ لم ندّعِ تنزيل أو فحص PDF. أضيفت بيانات إدراج الإنكليزي السادس 2026-2027 ودليل المعلم مع الفصل بينهما.",
-    "دفعة 2026-11-27: أضيفت بيانات فهارس الصفوف الثاني والرابع والخامس مع صفحات وأحجام كما تعرضها IraqEdu، وتقاطعات مستقلة لبعض العناوين مع StadIraq وMlazemna. لم يتم تنزيل أو فحص ملفات PDF في هذه الدفعة؛ تبقى جميعها مرشحة."
+    "دفعة 2026-11-27: أضيفت بيانات فهارس الصفوف الثاني والرابع والخامس مع صفحات وأحجام كما تعرضها IraqEdu، وتقاطعات مستقلة لبعض العناوين مع StadIraq وMlazemna. لم يتم تنزيل أو فحص ملفات PDF في هذه الدفعة؛ تبقى جميعها مرشحة.",
+    "دفعة جديدة: استكمال جزئي لبيانات الصفوف الثالث والرابع والخامس والسادس 2025-2026، مع تسجيل أعداد الصفحات والأحجام ومصادر فردية. أدلة المعلمين مفصولة عن كتب التلاميذ. كل السجلات مرشحة فهرسياً ولم يتم فحص PDF كاملاً."
   ],
   "latestResearch": {
     "checkedAt": "2026-11-27",
@@ -1723,6 +1724,175 @@
         "caution": "This official announcement does not establish full 2026-2027 primary textbook availability."
       },
       "inspectionStatus": "All entries above are catalog metadata only; PDFs have not been downloaded and visually inspected in this batch."
+    },
+    "batchNext": {
+      "checkedAt": "2026-11-27",
+      "grade3_2025_2026": {
+        "source": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+        "items": [
+          {
+            "subject": "القراءة",
+            "pages": 144,
+            "sizeMB": 20.97,
+            "status": "listed; corroborated by individual page"
+          },
+          {
+            "subject": "الرياضيات",
+            "pages": 176,
+            "sizeMB": 13.24,
+            "status": "listed"
+          },
+          {
+            "subject": "تمرينات الرياضيات",
+            "pages": 64,
+            "sizeMB": 13.69,
+            "status": "listed"
+          },
+          {
+            "subject": "الإنكليزي",
+            "pages": 122,
+            "sizeMB": 11.69,
+            "status": "listed"
+          },
+          {
+            "subject": "نشاط الإنكليزي",
+            "pages": 108,
+            "sizeMB": 8.08,
+            "status": "listed"
+          },
+          {
+            "subject": "الإسلامية",
+            "pages": 72,
+            "sizeMB": 7.15,
+            "status": "listed"
+          },
+          {
+            "subject": "دليل معلم الإنكليزي",
+            "pages": 201,
+            "sizeMB": 17.64,
+            "status": "teacher guide; excluded from pupil sequence"
+          }
+        ],
+        "note": "The current surfaced page did not expose all possible grade-3 subjects; this is a partial list, not a complete grade inventory."
+      },
+      "grade4_2025_2026": {
+        "source": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+        "additionalItems": [
+          {
+            "subject": "الإنكليزي",
+            "pages": 119,
+            "sizeMB": 8.92,
+            "status": "listed in StadIraq item page"
+          },
+          {
+            "subject": "نشاط الإنكليزي",
+            "pages": 120,
+            "sizeMB": 5.64,
+            "status": "listed and corroborated by individual page"
+          },
+          {
+            "subject": "تمرينات الرياضيات",
+            "pages": 56,
+            "sizeMB": 2.25,
+            "status": "listed"
+          },
+          {
+            "subject": "نشاط العلوم",
+            "pages": 100,
+            "sizeMB": 16.54,
+            "status": "listed and corroborated by StadIraq"
+          },
+          {
+            "subject": "الاجتماعيات",
+            "pages": 64,
+            "sizeMB": 4.73,
+            "status": "listed"
+          }
+        ],
+        "note": "Combined with earlier grade-4 entries; verify whether any duplicate or alternate editions exist."
+      },
+      "grade5_2025_2026": {
+        "additionalItems": [
+          {
+            "subject": "الإنكليزي",
+            "pages": 118,
+            "sizeMB": 25.19,
+            "status": "listed by StadIraq individual page"
+          },
+          {
+            "subject": "نشاط الإنكليزي",
+            "pages": 120,
+            "sizeMB": 7.47,
+            "status": "listed"
+          },
+          {
+            "subject": "الاجتماعيات",
+            "pages": 104,
+            "sizeMB": 7.89,
+            "status": "listed"
+          },
+          {
+            "subject": "دليل معلم الرياضيات",
+            "pages": 288,
+            "sizeMB": 31.46,
+            "status": "teacher guide; exclude from pupil flow"
+          }
+        ],
+        "sources": [
+          "https://www.stadiraq.com/كتاب-الانكليزي-للصف-الخامس-الابتدائي/",
+          "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/"
+        ]
+      },
+      "grade6_2025_2026": {
+        "additionalItems": [
+          {
+            "subject": "القراءة",
+            "pages": 142,
+            "sizeMB": 16.18,
+            "status": "listed and corroborated by individual page"
+          },
+          {
+            "subject": "الاجتماعيات",
+            "pages": 116,
+            "sizeMB": 4.83,
+            "status": "listed"
+          },
+          {
+            "subject": "العلوم",
+            "pages": 208,
+            "sizeMB": 14.5,
+            "status": "listed"
+          },
+          {
+            "subject": "القواعد",
+            "pages": 108,
+            "sizeMB": 8.05,
+            "status": "listed"
+          },
+          {
+            "subject": "الرياضيات",
+            "pages": 200,
+            "sizeMB": 17.69,
+            "status": "listed"
+          },
+          {
+            "subject": "تمرينات الرياضيات",
+            "pages": 58,
+            "sizeMB": 1.48,
+            "status": "listed"
+          }
+        ],
+        "source": "https://iraqedu.net/كتاب-قراءة-للصف-السادس-الابتدائي/"
+      },
+      "evidenceLinks": [
+        "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+        "https://iraqedu.net/كتاب-القراءة-للصف-الثالث-الابتدائي/",
+        "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+        "https://iraqedu.net/كتاب-نشاط-الانكليزي-الرابع-الابتدائي/",
+        "https://www.stadiraq.com/كتاب-الانكليزي-للصف-الخامس-الابتدائي/",
+        "https://iraqedu.net/كتاب-قراءة-للصف-السادس-الابتدائي/"
+      ],
+      "inspectionCaveat": "This batch adds catalog metadata only. No complete PDF was downloaded or inspected page-by-page; all items remain candidate records pending file-level verification."
     }
   }
 }
