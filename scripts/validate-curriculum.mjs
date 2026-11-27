@@ -1,10 +1,10 @@
 import { readdir, readFile } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { dirname, join, relative } from "node:path";
 
 const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
-const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0 };
+const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0 };
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -53,6 +53,44 @@ function inspect(node, file, path = "root") {
   }
 }
 
+
+async function verifyIndexes() {
+  const indexes = [
+    join(root, "grade-1/reading-2025-2026/units-index.json"),
+    join(root, "grade-1/math-2025-2026/chapters-index.json")
+  ];
+  for (const indexPath of indexes) {
+    let index;
+    try {
+      index = JSON.parse(await readFile(indexPath, "utf8"));
+      stats.indexFiles++;
+    } catch (error) {
+      errors.push({ file: relative(".", indexPath), message: `تعذر قراءة فهرس المنهج: ${error.message}` });
+      continue;
+    }
+    const groups = index.units || index.chapters || [];
+    for (const group of groups) {
+      const linked = group.lessonFiles || (group.lessonFile ? [group.lessonFile] : []);
+      for (const entry of linked) {
+        const target = join(dirname(indexPath), entry);
+        try {
+          const data = JSON.parse(await readFile(target, "utf8"));
+          stats.linkedLessonFiles++;
+          const rows = data.lessons || data.sequence || [];
+          if (!Array.isArray(rows)) errors.push({
+            file: relative(".", target), message: "حقل الدروس ليس مصفوفة"
+          });
+        } catch (error) {
+          errors.push({
+            file: relative(".", target),
+            message: `رابط ملف الدروس غير صالح أو JSON غير قابل للقراءة: ${error.message}`
+          });
+        }
+      }
+    }
+  }
+}
+
 const files = await walk(root);
 for (const file of files) {
   let data;
@@ -81,5 +119,6 @@ for (const file of files) {
   inspect(data, file);
 }
 
+await verifyIndexes();
 console.log(JSON.stringify({ stats, errors, warnings }, null, 2));
 if (errors.length) process.exitCode = 1;
