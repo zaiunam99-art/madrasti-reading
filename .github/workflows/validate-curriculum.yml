@@ -36,3 +36,5 @@ jobs:
         run: node --test scripts/test-answer-normalization.test.mjs
       - name: Test family profile save rollback
         run: node --test scripts/test-family-save.test.mjs
+      - name: Test isolated child lesson progress
+        run: node --test scripts/test-child-progress.test.mjs
