@@ -1,0 +1,11 @@
+name = "madrasti-reading"
+compatibility_date = "2026-11-27"
+pages_build_output_dir = "."
+
+# After creating a D1 database in Cloudflare, replace YOUR_D1_DATABASE_ID
+# with its database ID, then apply migrations with Wrangler.
+[[d1_databases]]
+binding = "DB"
+database_name = "madrasti-db"
+database_id = "YOUR_D1_DATABASE_ID"
+migrations_dir = "migrations"
