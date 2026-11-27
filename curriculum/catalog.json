@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "project": "مدرستي التفاعلية",
+  "policy": {
+    "targetGrades": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "primaryEdition": "2026-2027",
+    "fallbackEdition": "2025-2026",
+    "rule": "Use a verified 2026-2027 book when the complete relevant book is available; otherwise use the verified 2025-2026 edition and label it clearly. Never infer that a partial release is a complete book.",
+    "publicHosting": "Do not publicly redistribute uploaded textbook PDFs without permission. Keep family uploads private or link to the official source."
+  },
+  "officialSources": [
+    {
+      "label": "بوابة المناهج العراقية 2025-2026",
+      "url": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=159",
+      "status": "source-index"
+    },
+    {
+      "label": "إتاحة منهج قراءتي 2026-2027 للصف الأول",
+      "url": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=164",
+      "status": "partial-release",
+      "note": "The ministry announcement describes the first unit, student book, activity book and teacher guide; do not treat this as proof that all primary books are available."
+    }
+  ],
+  "grades": [
+    {
+      "grade": 1,
+      "status": "partially-collected",
+      "books": [
+        {
+          "subject": "القراءة",
+          "title": "قراءتي الجديدة للصف الأول الابتدائي",
+          "edition": "2025",
+          "schoolYearLabel": "2025-2026 (fallback copy)",
+          "pages": 129,
+          "fileSizeBytes": 11017775,
+          "source": "user-library-upload",
+          "fileFormat": "PDF",
+          "textLayer": false,
+          "processing": "Arabic OCR required; scanned pages",
+          "status": "file-verified-locally-not-uploaded-to-app",
+          "units": [
+            {
+              "sequence": 0,
+              "title": "التهيئة",
+              "pageStart": 7,
+              "pageEnd": 16,
+              "components": [
+                "الاستماع",
+                "الملاحظة",
+                "تمييز المتشابه والمختلف",
+                "المفاهيم المكانية",
+                "الأصوات القصيرة والطويلة وأصوات المد",
+                "نشيد يا بط يا بط"
+              ]
+            },
+            {
+              "sequence": 1,
+              "title": "أسرتي",
+              "pageStart": 17,
+              "pageEnd": 30,
+              "components": [
+                "الاستماع",
+                "المحادثة",
+                "القراءة",
+                "الحروف: ب، م، د، ف",
+                "نشيد ماما بابا"
+              ]
+            },
+            {
+              "sequence": 2,
+              "title": "مدرستي",
+              "pageStart": 31,
+              "pageEnd": 48,
+              "components": [
+                "الاستماع",
+                "المحادثة",
+                "القراءة",
+                "الحروف: ر، س، ن، ت، ق",
+                "تنوين الضم",
+                "نشيد مدرستي"
+              ]
+            },
+            {
+              "sequence": 3,
+              "title": "وطني",
+              "pageStart": 49,
+              "pageEnd": 70,
+              "components": [
+                "الاستماع",
+                "المحادثة",
+                "القراءة",
+                "الحروف: و، ي، ذ، ل، ط، ع",
+                "تنوين الفتح",
+                "نشيد أطفال العراق"
+              ]
+            },
+            {
+              "sequence": 4,
+              "title": "صحتي وسلامتي",
+              "pageStart": 71,
+              "pageEnd": 88,
+              "components": [
+                "الاستماع",
+                "المحادثة",
+                "القراءة",
+                "الحروف: ح، ش، ز، ج، ص",
+                "تنوين الكسر"
+              ]
+            },
+            {
+              "sequence": 5,
+              "title": "هواياتي وألعابي",
+              "pageStart": 89,
+              "pageEnd": 108,
+              "components": [
+                "الاستماع",
+                "المحادثة",
+                "القراءة",
+                "الحروف: ا، ض، خ، ث، ك",
+                "الشدة",
+                "نشيد نغني"
+              ]
+            },
+            {
+              "sequence": 6,
+              "title": "العالم من حولي",
+              "pageStart": 109,
+              "pageEnd": 128,
+              "components": [
+                "الاستماع",
+                "المحادثة",
+                "القراءة",
+                "الحروف: غ، هـ، ذ، ظ",
+                "اللام الشمسية واللام القمرية",
+                "نشيد الحاسوب"
+              ]
+            }
+          ],
+          "reviewNotes": [
+            "The index lists ذ in both the third and sixth units; preserve the book as printed and flag this for manual review rather than silently correcting it."
+          ]
+        },
+        {
+          "subject": "الرياضيات",
+          "title": "الرياضيات للصف الأول الابتدائي",
+          "edition": "الطبعة العاشرة، 1447هـ / 2025م",
+          "schoolYearLabel": "2025-2026 (fallback copy)",
+          "pages": 188,
+          "fileSizeBytes": 16576639,
+          "source": "user-library-upload",
+          "fileFormat": "PDF",
+          "textLayer": true,
+          "processing": "Text extraction available; visual review of diagrams and exercises required",
+          "status": "file-verified-locally-not-uploaded-to-app",
+          "chapters": [
+            {
+              "sequence": 1,
+              "title": "الأنماط والأعداد حتى 20",
+              "topics": [
+                "الأنماط",
+                "العددان 1 و2",
+                "العددان 3 و4",
+                "العددان 5 و6",
+                "الأعداد 7 و8 و9",
+                "العدد صفر",
+                "العدد 10",
+                "الأعداد 11 إلى 15",
+                "الأعداد 16 إلى 20"
+              ]
+            },
+            {
+              "sequence": 2,
+              "title": "مقارنة الأعداد وترتيبها",
+              "topics": [
+                "مقارنة الأعداد حتى 9",
+                "السابق والتالي وبين العددين حتى 9",
+                "ترتيب الأعداد حتى 9",
+                "العدد الترتيبي",
+                "مقارنة الأعداد حتى 20",
+                "السابق والتالي وبين العددين حتى 20",
+                "ترتيب الأعداد حتى 20"
+              ]
+            },
+            {
+              "sequence": 3,
+              "title": "الجمع والطرح حتى 10",
+              "topics": [
+                "خطة حل المسألة",
+                "قصص الجمع",
+                "جمع الصفر وجمع العدد مع نفسه",
+                "تكوين الأعداد والجمع حتى 6",
+                "تكوين الأعداد والجمع حتى 10",
+                "مفهوم الطرح",
+                "حقائق الطرح حتى 6",
+                "حقائق الطرح حتى 10",
+                "الحقائق المترابطة",
+                "طرح الصفر وطرح الكل"
+              ]
+            },
+            {
+              "sequence": 4,
+              "title": "التصنيف والتمثيل بمخططات الصور",
+              "topics": [
+                "تصنيف الأشياء بحسب اللون أو الشكل",
+                "تصنيف الأشياء بحسب النوع",
+                "التمثيل بالصور",
+                "قراءة مخطط الصور",
+                "خطة حل المسألة"
+              ]
+            },
+            {
+              "sequence": 5,
+              "title": "الجمع حتى العدد 20",
+              "topics": [
+                "الجمع بإضافة 1 أو 2 أو 3",
+                "الجمع على خط الأعداد",
+                "جمع العدد مع نفسه ومع نفسه 1+ و1-",
+                "الجمع بتكوين العدد 10",
+                "خطة حل المسألة"
+              ]
+            },
+            {
+              "sequence": 6,
+              "title": "الطرح حتى العدد 20",
+              "topics": [
+                "الطرح بالعد إلى الوراء",
+                "الطرح باستعمال خط الأعداد",
+                "الطرح بالمقارنة",
+                "العلاقة بين الجمع والطرح (الحقائق المترابطة)",
+                "خطة حل المسألة"
+              ]
+            },
+            {
+              "sequence": 7,
+              "title": "الهندسة والقياس",
+              "topics": [
+                "الأطوال",
+                "المجسمات",
+                "الأشكال المستوية",
+                "البعد المكاني",
+                "أيام الأسبوع",
+                "الوقت بالساعات الكاملة",
+                "الكسر",
+                "الوقت بنصف الساعة"
+              ]
+            },
+            {
+              "sequence": 8,
+              "title": "الأعداد حتى 99 والقيمة المكانية",
+              "topics": [
+                "العشرات",
+                "الآحاد والعشرات حتى 99",
+                "الأنماط ولوحة المئة: العد بالخمسات والعشرات",
+                "الأنماط ولوحة المئة: العد بالاثنينات",
+                "مقارنة الأعداد حتى 99",
+                "السابق والتالي وبين العددين",
+                "ترتيب الأعداد حتى 99"
+              ]
+            },
+            {
+              "sequence": 9,
+              "title": "الجمع والطرح حتى 99 دون إعادة تسمية",
+              "topics": [
+                "جمع العشرات وطرحها",
+                "جمع عددين من مرتبتين حتى 99",
+                "طرح عدد من عدد مكوّن من مرتبتين",
+                "خطة حل المسألة"
+              ]
+            }
+          ],
+          "statusNotes": [
+            "The chapter/topic list is transcribed from the book contents pages and requires a visual check against the original before lesson publishing."
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 2,
+      "status": "not-collected",
+      "books": []
+    },
+    {
+      "grade": 3,
+      "status": "not-collected",
+      "books": []
+    },
+    {
+      "grade": 4,
+      "status": "not-collected",
+      "books": []
+    },
+    {
+      "grade": 5,
+      "status": "not-collected",
+      "books": []
+    },
+    {
+      "grade": 6,
+      "status": "not-collected",
+      "books": []
+    }
+  ],
+  "platformIntegration": {
+    "appdeployResourcePaths": [],
+    "githubCurriculumData": "catalog.json",
+    "uploadedToProductionApp": false,
+    "note": "The two PDFs are available in the user's ChatGPT library. They have not been uploaded to the live learning app."
+  }
+}
