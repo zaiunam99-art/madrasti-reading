@@ -74,3 +74,20 @@ test("reports invalid lesson-file link types", t => {
   assert.equal(status, 1);
   assert.ok(report.errors.some(error => error.message.includes("روابط ملفات الدروس")));
 });
+
+test("rejects empty and incomplete sequence-order activities", t => {
+  const root = makeFixture(t, {
+    lessonData: [{
+      id: "sequence-empty",
+      title: "ترتيب فارغ",
+      objective: "تدريب",
+      activities: [
+        { type: "sequence_order", items: [], answer: [] },
+        { type: "sequence_order", items: ["أ", "ب"], answer: ["أ"] }
+      ]
+    }]
+  });
+  const { status, report } = runValidator(root);
+  assert.equal(status, 1);
+  assert.equal(report.errors.filter(error => error.message.includes("مصفوفتين غير فارغتين")).length, 2);
+});
