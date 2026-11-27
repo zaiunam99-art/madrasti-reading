@@ -788,7 +788,8 @@
     "بحث تدقيقي إضافي 2026-11-27: تمت مقارنة نتائج IraqEdu وموقع الأستاذ العراقي، وإضافة نتائج جديدة للصفوف 1-6، مع فصل أدلة المعلم عن كتب التلميذ. جميع الإدخالات الجديدة موسومة كفهارس ثانوية ما لم يذكر خلاف ذلك؛ لم تُعاين ملفات PDF لهذه الدفعة.",
     "بحث موسع إضافي بتاريخ 2026-11-27: إضافة فهارس جديدة للصف السادس 2026-2027 والصف الأول، مع تحذير صريح أن هذه بيانات فهارس ثانوية وليست ملفات PDF معتمدة حتى فحص الغلاف والفهرس.",
     "تدقيق مواقع إضافي بتاريخ 2026-11-27: تمت مراجعة بوابة الوزارة، موقع الأستاذ العراقي (فهرس 453 ملفاً)، IraqEdu، الفهرس التعليمي العراقي، مدرّسي، طلاب العراق، ومكتبة طه أندرويد. تم تمييز الفهارس الثانوية عن المصدر الرسمي، وإضافة أدلة غلاف لكتب علوم الخامس وعلوم/اجتماعيات السادس ورياضيات الأول 2025-2026 دون ادعاء فحص الصفحات كاملة.",
-    "نتيجة فتح صفحات المصادر: IraqEdu يعرض روابط صفوف الابتدائية 1-6 لكنه يخلط في القائمة العامة كتباً وأدلة وملازم وحلولاً؛ موقع الأستاذ العراقي يعرض أيضاً مراحل غير ابتدائية في القائمة العامة. صفحات الفهرس التعليمي العراقي ومدرّسي تعذّر فتحها في هذه الجلسة، لذلك لم تُستخدم كدليل."
+    "نتيجة فتح صفحات المصادر: IraqEdu يعرض روابط صفوف الابتدائية 1-6 لكنه يخلط في القائمة العامة كتباً وأدلة وملازم وحلولاً؛ موقع الأستاذ العراقي يعرض أيضاً مراحل غير ابتدائية في القائمة العامة. صفحات الفهرس التعليمي العراقي ومدرّسي تعذّر فتحها في هذه الجلسة، لذلك لم تُستخدم كدليل.",
+    "تدقيق الصف الأول: فهرس IraqEdu يعرض 13 مادة/موردًا، منها 4 أدلة معلم يجب استبعادها من مسار التلميذ. ظهرت مخالفة مهمة في القراءة: الفهرس الثانوي يذكر 112 صفحة بينما ملف المستخدم 129 صفحة؛ لم تُحسم هوية الطبعة ولا يجوز الاستبدال قبل المقارنة. تم فتح صفحات البيانات الفردية للعلوم والرياضيات والقراءة والإسلامية، لكنها ليست فحصاً كاملاً لملفات PDF."
   ],
   "latestResearch": {
     "checkedAt": "2026-11-27",
@@ -1376,6 +1377,112 @@
         }
       ],
       "nextAction": "تجنب توسيع عدد النتائج غير المفلترة؛ افتح صفحات كل صف ابتدائي على حدة ثم تحقق من الكتب الفردية ونسخ PDF."
+    },
+    "grade1DeepAudit": {
+      "checkedAt": "2026-11-27",
+      "secondary2025_2026Index": {
+        "url": "https://iraqedu.net/الاول-الابتدائي/كتب-الاول-الابتدائي/",
+        "records": [
+          {
+            "subject": "القراءة",
+            "pages": 112,
+            "sizeMB": 11.85,
+            "status": "metadata-only; conflicts with user's 129-page uploaded edition; compare cover/contents before choosing"
+          },
+          {
+            "subject": "الرياضيات",
+            "pages": 188,
+            "sizeMB": 15.81,
+            "status": "metadata corroborated by user's 188-page copy"
+          },
+          {
+            "subject": "تمرينات الرياضيات",
+            "pages": 62,
+            "sizeMB": 1.62,
+            "status": "metadata-only"
+          },
+          {
+            "subject": "العلوم",
+            "pages": 200,
+            "sizeMB": 15.15,
+            "status": "individual page opened; metadata listed by secondary source"
+          },
+          {
+            "subject": "نشاط العلوم",
+            "pages": 76,
+            "sizeMB": 6.72,
+            "status": "metadata-only"
+          },
+          {
+            "subject": "الإنكليزي",
+            "pages": 90,
+            "sizeMB": 12.03,
+            "status": "metadata-only"
+          },
+          {
+            "subject": "نشاط الإنكليزي",
+            "pages": 89,
+            "sizeMB": 5.76,
+            "status": "metadata-only"
+          },
+          {
+            "subject": "الإسلامية",
+            "pages": 56,
+            "sizeMB": 4.2,
+            "status": "metadata-only"
+          },
+          {
+            "subject": "التربية الأخلاقية",
+            "pages": 76,
+            "sizeMB": 10.78,
+            "status": "metadata-only"
+          },
+          {
+            "subject": "دليل معلم العلوم",
+            "pages": 268,
+            "sizeMB": 328.29,
+            "status": "teacher-guide; excluded from student lesson flow"
+          },
+          {
+            "subject": "دليل معلم الرياضيات",
+            "pages": 192,
+            "sizeMB": 67.11,
+            "status": "teacher-guide; excluded from student lesson flow"
+          },
+          {
+            "subject": "دليل معلم القراءة",
+            "pages": 200,
+            "sizeMB": 1.77,
+            "status": "teacher-guide; excluded from student lesson flow"
+          },
+          {
+            "subject": "دليل معلم الإنكليزي",
+            "pages": 220,
+            "sizeMB": 27.04,
+            "status": "teacher-guide; excluded from student lesson flow"
+          }
+        ]
+      },
+      "discrepancy": {
+        "userProvidedReadingBookPages": 129,
+        "secondaryListingReadingBookPages": 112,
+        "resolution": "Unresolved. Do not replace user-provided book or create lesson sequence from the 112-page listing until cover, edition, contents and full page sequence are compared."
+      },
+      "official2026_2027": {
+        "url": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=164",
+        "status": "official announcement explicitly says unit one only, including student book, activity book and teacher guide; not proof that full 127-page/114-page secondary listings are official full releases"
+      },
+      "quality": {
+        "openedIndividualPages": [
+          "science grade 1 2025-2026",
+          "mathematics grade 1 2025-2026",
+          "reading grade 1 2025-2026",
+          "Islamic studies grade 1 2025-2026"
+        ],
+        "pdfFilesFullyInspected": 0,
+        "reason": "Pages opened were metadata landing pages, not full PDF visual/content inspection.",
+        "next": "Obtain direct PDF, inspect first/last page and table of contents, verify scan integrity and edition, then extract curriculum."
+      }
     }
   }
 }
