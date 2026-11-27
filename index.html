@@ -69,21 +69,25 @@ function deleteChild(id){
   let previousProgress=null,nextProgress=null;
   try{
     previousProgress=localStorage.getItem('madrastiCompletedLessonsV1');
-    if(previousProgress){
+    if(previousProgress!==null){
       const all=JSON.parse(previousProgress);
-      if(all&&typeof all==='object'&&!Array.isArray(all)){
-        delete all[id];
-        nextProgress=JSON.stringify(all);
-      }
+      if(!all||typeof all!=='object'||Array.isArray(all))throw new Error('بنية سجل التقدم غير صالحة');
+      delete all[id];
+      nextProgress=JSON.stringify(all);
     }
     localStorage.setItem(KEY,JSON.stringify(nextFamily));
     if(nextProgress!==null)localStorage.setItem('madrastiCompletedLessonsV1',nextProgress);
   }catch(error){
-    try{
-      localStorage.setItem(KEY,JSON.stringify(previousFamily));
-      if(previousProgress!==null)localStorage.setItem('madrastiCompletedLessonsV1',previousProgress);
-    }catch(rollbackError){console.warn('تعذر التراجع الكامل عن حذف ملف الطالب:',rollbackError)}
-    alert('تعذر حذف الملف بأمان بسبب مشكلة في التخزين. لم يتم اعتماد الحذف؛ حاول مجدداً.');
+    const rollbackErrors=[];
+    try{localStorage.setItem(KEY,JSON.stringify(previousFamily))}
+    catch(rollbackError){rollbackErrors.push(rollbackError);console.warn('تعذر استعادة ملفات الطلاب بعد فشل الحذف:',rollbackError)}
+    if(previousProgress!==null){
+      try{localStorage.setItem('madrastiCompletedLessonsV1',previousProgress)}
+      catch(rollbackError){rollbackErrors.push(rollbackError);console.warn('تعذر استعادة سجل التقدم بعد فشل الحذف:',rollbackError)}
+    }
+    alert(rollbackErrors.length
+      ? 'حدث خلل أثناء الحذف وتعذرت استعادة بعض البيانات تلقائياً. أعد تحميل الصفحة وتحقق من ملفات الطلاب وسجل التقدم قبل إجراء تغييرات أخرى.'
+      : 'تعذر حذف الملف بأمان بسبب مشكلة في التخزين. تمت استعادة البيانات السابقة؛ حاول مجدداً.');
     console.warn('تعذر حذف ملف الطالب:',error);
     return;
   }
