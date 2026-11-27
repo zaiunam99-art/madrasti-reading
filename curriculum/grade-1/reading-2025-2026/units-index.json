@@ -104,7 +104,7 @@
     },
     {
       "sequence": 4,
-      "title": "صحتي وسلامتي",
+      "title": "صحتي وبيئتي",
       "bookPages": [
         71,
         88
@@ -123,7 +123,8 @@
         "الحروف ح، ش، ز، ج، ص",
         "تنوين الكسر"
       ],
-      "status": "indexed_needs_page_review"
+      "status": "initial_lessons_created",
+      "lessonFile": "lessons/unit-04-health-and-environment.json"
     },
     {
       "sequence": 5,
