@@ -182,6 +182,8 @@
     const teacherName = document.getElementById("teacherName");
     const teacherMood = document.getElementById("teacherMood");
     if (teacherName) teacherName.textContent = active?.name ? "مرحباً " + active.name + "!" : "المعلّم الصغير";
+    const teacher = makeTeacher();
+    if (teacher) teacher.classList.toggle("gender-girl", active?.gender === "girl"), teacher.classList.toggle("gender-boy", active?.gender === "boy");
     if (teacherMood) teacherMood.textContent = "هيا نتعلم معاً 🌟";
     document.getElementById("childView").classList.add("hidden");
     document.getElementById("lessonView").classList.remove("hidden");
@@ -244,6 +246,7 @@
     note.textContent = "أحسنت! تم حفظ تقدمك على هذا الجهاز.";
     document.getElementById("studentArea").prepend(note);
   };
+  window.stopLessonAudio = function() { if ("speechSynthesis" in window) speechSynthesis.cancel(); setTeacherSpeaking(false); };
   window.playLesson = function() {
     if (!current) return;
     if (!("speechSynthesis" in window)) {
@@ -264,6 +267,6 @@
   window.addEventListener("beforeunload", () => { if ("speechSynthesis" in window) speechSynthesis.cancel(); });
   document.addEventListener("DOMContentLoaded", makeTeacher);
   const style = document.createElement("style");
-  style.textContent = ".teacher{display:flex;align-items:center;gap:14px;padding:12px;background:#fff8e8;border:1px solid #f3dfb4;border-radius:18px;margin-bottom:16px}.teacher-face{width:68px;height:68px;border-radius:50%;background:#ffd58c;border:4px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 2px 0 #d7ad67;flex:none}.teacher-eyes{font-size:13px;color:#563c2c}.teacher-mouth{font-size:13px;color:#9d4b38;line-height:1}.teacher.speaking .teacher-mouth{animation:talk .22s infinite alternate}@keyframes talk{from{transform:scaleY(.4)}to{transform:scaleY(1.5)}}.lessonbox #lessonDesc{white-space:pre-line;line-height:2}";
+  style.textContent = ".teacher{display:flex;align-items:center;gap:14px;padding:12px;background:#fff8e8;border:1px solid #f3dfb4;border-radius:18px;margin-bottom:16px}.teacher-face{width:68px;height:68px;border-radius:50%;background:#ffd58c;border:4px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 2px 0 #d7ad67;flex:none}.teacher-eyes{font-size:13px;color:#563c2c}.teacher-mouth{font-size:13px;color:#9d4b38;line-height:1}.teacher.gender-girl .teacher-face{background:#ffd7e5}.teacher.gender-boy .teacher-face{background:#c9e7ff}.teacher.speaking .teacher-mouth{animation:talk .22s infinite alternate}@keyframes talk{from{transform:scaleY(.4)}to{transform:scaleY(1.5)}}.lessonbox #lessonDesc{white-space:pre-line;line-height:2}";
   document.head.appendChild(style);
 })();
