@@ -134,3 +134,9 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 CREATE INDEX IF NOT EXISTS idx_sessions_parent ON sessions(parent_id);
 CREATE INDEX IF NOT EXISTS idx_sessions_expiry ON sessions(expires_at);
+
+CREATE TABLE IF NOT EXISTS auth_rate_limits (
+  bucket_key TEXT PRIMARY KEY,
+  window_started INTEGER NOT NULL,
+  attempts INTEGER NOT NULL DEFAULT 0
+);
