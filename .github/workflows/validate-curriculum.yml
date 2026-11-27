@@ -42,3 +42,5 @@ jobs:
         run: node --test scripts/test-child-progress.test.mjs
       - name: Test safe child profile deletion
         run: node --test scripts/test-child-deletion.test.mjs
+      - name: Test transactional lesson completion
+        run: node --test scripts/test-lesson-completion.test.mjs
