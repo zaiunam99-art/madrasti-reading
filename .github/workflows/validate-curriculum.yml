@@ -1,0 +1,26 @@
+name: Validate Madrasti curriculum
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check runtime JavaScript syntax
+        run: node --check curriculum-runtime.js
+      - name: Validate curriculum JSON and lesson indexes
+        run: node scripts/validate-curriculum.mjs
