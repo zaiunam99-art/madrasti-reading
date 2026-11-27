@@ -64,10 +64,32 @@ function closeForm(){document.getElementById('modal').classList.add('hidden')}
 function saveChild(e){e.preventDefault();const id=document.getElementById('editId').value||String(Date.now());const old=family.find(x=>x.id===id);const c={id,name:document.getElementById('childName').value.trim(),gender:document.getElementById('gender').value,grade:document.getElementById('grade').value,avatar:document.getElementById('avatar').value,voice:document.getElementById('voice').value,dailyCount:Math.max(1,Math.min(10,Number(document.getElementById('dailyCount').value)||1)),subjects:[...document.querySelectorAll('input[name=subject]:checked')].map(x=>x.value),completed:old?.completed||0};if(!c.subjects.length){alert('اختر مادة واحدة على الأقل.');return}const previousFamily=family;if(old)family=family.map(x=>x.id===id?c:x);else family=[...family,c];if(!save()){family=previousFamily;return}closeForm();renderAll()}
 function deleteChild(id){
   if(!confirm('هل تريد حذف ملف هذا الطالب وسجل تقدمه من بيانات التجربة على هذا الجهاز؟'))return;
-  family=family.filter(x=>x.id!==id);
-  try{const all=JSON.parse(localStorage.getItem('madrastiCompletedLessonsV1')||'{}');if(all&&typeof all==='object'&&!Array.isArray(all)){delete all[id];localStorage.setItem('madrastiCompletedLessonsV1',JSON.stringify(all))}}catch(error){console.warn('تعذر تنظيف سجل تقدم الطالب المحذوف:',error)}
+  const previousFamily=family;
+  const nextFamily=family.filter(x=>x.id!==id);
+  let previousProgress=null,nextProgress=null;
+  try{
+    previousProgress=localStorage.getItem('madrastiCompletedLessonsV1');
+    if(previousProgress){
+      const all=JSON.parse(previousProgress);
+      if(all&&typeof all==='object'&&!Array.isArray(all)){
+        delete all[id];
+        nextProgress=JSON.stringify(all);
+      }
+    }
+    localStorage.setItem(KEY,JSON.stringify(nextFamily));
+    if(nextProgress!==null)localStorage.setItem('madrastiCompletedLessonsV1',nextProgress);
+  }catch(error){
+    try{
+      localStorage.setItem(KEY,JSON.stringify(previousFamily));
+      if(previousProgress!==null)localStorage.setItem('madrastiCompletedLessonsV1',previousProgress);
+    }catch(rollbackError){console.warn('تعذر التراجع الكامل عن حذف ملف الطالب:',rollbackError)}
+    alert('تعذر حذف الملف بأمان بسبب مشكلة في التخزين. لم يتم اعتماد الحذف؛ حاول مجدداً.');
+    console.warn('تعذر حذف ملف الطالب:',error);
+    return;
+  }
+  family=nextFamily;
   if(active?.id===id){active=null;stopLessonAudio?.()}
-  save();renderAll()
+  renderAll()
 }
 function renderAll(){document.getElementById('children').innerHTML=family.length?family.map(c=>'<article class="card"><div class="child"><div class="avatar">'+esc(c.avatar)+'</div><div><strong>'+(esc(c.name)||'الطالب')+'</strong><div class="muted">'+esc(c.grade)+' · '+c.subjects.length+' مواد</div></div></div><div class="progressrow"><span>الدروس المكتملة</span><strong>'+c.completed+'</strong></div><div class="bar"><span style="width:'+Math.min(c.completed/3*100,100)+'%"></span></div><div class="actions"><button class="alt" onclick="enterChild(\''+c.id+'\')">فتح مساحة الطالب</button><button class="ghost" onclick="openChildForm(\''+c.id+'\')">تعديل</button><button class="ghost" onclick="deleteChild(\''+c.id+'\')">حذف</button></div></article>').join(''):'<div class="panel empty">لم تضف ملفات بعد. اضغط «إضافة طالب» لإنشاء أول ملف.</div>';document.getElementById('familyStats').innerHTML=family.length?'<strong>'+family.length+'</strong> ملفات طلاب · <strong>'+family.reduce((a,c)=>a+c.completed,0)+'</strong> دروس مكتملة':'لا توجد بيانات بعد';const picker=document.getElementById('childPicker');const selected=picker.value;picker.innerHTML='<option value="">اختر ملفاً</option>'+family.map(c=>'<option value="'+c.id+'">'+esc(c.name||'الطالب')+' – '+esc(c.grade)+'</option>').join('');if(family.some(c=>c.id===selected))picker.value=selected;document.getElementById('noStudent').classList.toggle('hidden',family.length>0)}
 function enterChild(id){showView('child');document.getElementById('childPicker').value=id;selectChild(id)}
