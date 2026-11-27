@@ -786,7 +786,8 @@
     "Some 2025-2026 secondary index entries list teacher guides or supplementary activity books; keep them distinct from student textbooks and verify before enabling.",
     "تحديث 2026-11-27: تمت إضافة فهارس العراق التعليمية للصفوف 2 و3 و4 مع قائمة المواد الظاهرة فيها؛ تبقى بياناتها فهرسية إلى حين معاينة كل PDF. كما أضيفت إشارة PDF لكتاب نشاط العلوم للصف الثالث، مع اشتراط مراجعة الملف قبل اعتماده.",
     "بحث تدقيقي إضافي 2026-11-27: تمت مقارنة نتائج IraqEdu وموقع الأستاذ العراقي، وإضافة نتائج جديدة للصفوف 1-6، مع فصل أدلة المعلم عن كتب التلميذ. جميع الإدخالات الجديدة موسومة كفهارس ثانوية ما لم يذكر خلاف ذلك؛ لم تُعاين ملفات PDF لهذه الدفعة.",
-    "بحث موسع إضافي بتاريخ 2026-11-27: إضافة فهارس جديدة للصف السادس 2026-2027 والصف الأول، مع تحذير صريح أن هذه بيانات فهارس ثانوية وليست ملفات PDF معتمدة حتى فحص الغلاف والفهرس."
+    "بحث موسع إضافي بتاريخ 2026-11-27: إضافة فهارس جديدة للصف السادس 2026-2027 والصف الأول، مع تحذير صريح أن هذه بيانات فهارس ثانوية وليست ملفات PDF معتمدة حتى فحص الغلاف والفهرس.",
+    "تدقيق مواقع إضافي بتاريخ 2026-11-27: تمت مراجعة بوابة الوزارة، موقع الأستاذ العراقي (فهرس 453 ملفاً)، IraqEdu، الفهرس التعليمي العراقي، مدرّسي، طلاب العراق، ومكتبة طه أندرويد. تم تمييز الفهارس الثانوية عن المصدر الرسمي، وإضافة أدلة غلاف لكتب علوم الخامس وعلوم/اجتماعيات السادس ورياضيات الأول 2025-2026 دون ادعاء فحص الصفحات كاملة."
   ],
   "latestResearch": {
     "checkedAt": "2026-11-27",
@@ -1232,6 +1233,95 @@
         "فصل كتاب الطالب عن النشاط ودليل المعلم.",
         "مقارنة إصدار 2026-2027 مع نسخة 2025-2026 وتسجيل التغييرات.",
         "لا يُنشأ درس للطالب اعتماداً على بيانات فهرس فقط."
+      ]
+    },
+    "siteAudit": {
+      "checkedAt": "2026-11-27",
+      "sitesReviewed": [
+        {
+          "name": "بوابة المناهج – وزارة التربية",
+          "url": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=159",
+          "type": "official",
+          "use": "مرجع اعتماد الطبعات والملفات الرسمية"
+        },
+        {
+          "name": "موقع الأستاذ العراقي",
+          "url": "https://www.stadiraq.com/الكتب-المنهجية/",
+          "type": "secondary-index",
+          "note": "الفهرس يعرض 453 ملفاً إجمالاً؛ يجب فلترة الصفوف الابتدائية وعدم اعتبار جميع النتائج كتب تلاميذ"
+        },
+        {
+          "name": "موقع المساعد التعليمي IraqEdu",
+          "url": "https://iraqedu.net/الكتب-المنهجية/",
+          "type": "secondary-index",
+          "note": "فهرس للصفوف الستة الابتدائية؛ بعض النتائج تشمل ملازم وحلول وأدلة مدرسين، وليست كلها كتباً منهجية"
+        },
+        {
+          "name": "الفهرس التعليمي العراقي",
+          "url": "https://elfahras.com/iq/books/",
+          "type": "secondary-guide",
+          "note": "يعرض أدلة وفهارس ولا يستضيف الكتب؛ استخدم لاكتشاف المواد فقط"
+        },
+        {
+          "name": "مدرّسي",
+          "url": "https://mudarsi.com/curriculum",
+          "type": "secondary-curriculum-guide",
+          "note": "يعرض عدد مواد ودروس لكل صف؛ لا يعتمد بدلاً من صفحات الكتاب الأصلية"
+        },
+        {
+          "name": "مكتبة طلاب العراق",
+          "url": "https://st.haltaelam.com/",
+          "type": "secondary-index",
+          "note": "يعرض صفحات تنزيل كتب وملازم؛ يلزم التحقق من المصدر والطبعة"
+        },
+        {
+          "name": "مكتبة طه أندرويد",
+          "url": "https://taha20054ta10-prog.github.io/Taha-Android-V2/library.html",
+          "type": "community-library",
+          "note": "يجمع مراجع وروابط مباشرة وDrive ومصادر؛ لا تعتمد الروابط دون فحص"
+        }
+      ],
+      "newVerifiedMetadataLeads": [
+        {
+          "grade": 5,
+          "subject": "العلوم",
+          "edition": "2025-2026",
+          "pages": null,
+          "source": "https://bk2.shr4.com/books/b5/2025-2026/كتاب العلوم الخامس الابتدائي.pdf",
+          "status": "search extraction identifies Ministry of Education, General Directorate of Curricula, pupil book, grade 5, edition 9, 1447/2025; pagination not verified"
+        },
+        {
+          "grade": 6,
+          "subject": "الاجتماعيات",
+          "edition": "2025-2026",
+          "pages": null,
+          "source": "https://bk1.shr4.com/books/b6/2025-2026/كتاب الاجتماعيات السادس الابتدائي.pdf",
+          "status": "search extraction identifies Ministry of Education, grade 6, edition 9, 1447/2025; pagination not verified"
+        },
+        {
+          "grade": 6,
+          "subject": "العلوم",
+          "edition": "2025-2026",
+          "pages": null,
+          "source": "https://bk1.shr4.com/books/b6/2025-2026/كتاب العلوم السادس الابتدائي.pdf",
+          "status": "search extraction identifies Ministry of Education, pupil book, grade 6, edition 8, 1447/2025; pagination not verified"
+        },
+        {
+          "grade": 1,
+          "subject": "الرياضيات",
+          "edition": "2025-2026",
+          "pages": 188,
+          "source": "https://minhaji.net/download/5193",
+          "status": "search extraction confirms ministry cover, grade 1, edition 10, 1447/2025; matches previously noted user's 188-page copy"
+        }
+      ],
+      "official2026_2027Status": "The currently surfaced official ministry announcement only explicitly releases grade 1 Reading unit 1 (student book, activity book, teacher guide) and grade 4 preparatory mathematics first chapter. Do not claim the full primary curriculum PDFs are officially published.",
+      "qualityControls": [
+        "Separate textbook, activity book, teacher guide, solutions, worksheets, and revision notes.",
+        "Record edition from PDF cover, not filename or website title.",
+        "Check title page, contents, page count, missing/duplicate pages, and scan legibility.",
+        "Never publish secondary-site PDFs as official or redistribute without checking rights; prioritize official links.",
+        "Current search results provide metadata/cover text, not complete visual inspection of every PDF."
       ]
     }
   }
