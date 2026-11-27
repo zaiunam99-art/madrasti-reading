@@ -1,0 +1,314 @@
+{
+  "schemaVersion": "1.0",
+  "curriculum": {
+    "country": "العراق",
+    "grade": 1,
+    "subject": "الرياضيات",
+    "edition": "الطبعة العاشرة، 1447هـ/2025م",
+    "sourceFile": "كتاب الرياضيات للصف الأول الابتدائي",
+    "sourcePages": {
+      "pdf": [
+        12,
+        17
+      ],
+      "printed": [
+        12,
+        17
+      ]
+    },
+    "verification": "تمت مراجعة صفحات الدروس 3 إلى 5 بصرياً ونصياً؛ لم يُفحص الكتاب كاملاً."
+  },
+  "sequence": [
+    {
+      "id": "g1-math-c1-l3",
+      "chapter": 1,
+      "lessonNumber": 3,
+      "title": "العددان 3 و4",
+      "printedPages": [
+        12,
+        13
+      ],
+      "objective": "أن يتعرف المتعلم العددين ٣ و٤، ويقرأهما ويكتبهما، ويمثل كل عدد بمجموعة من الأشياء.",
+      "vocabulary": [
+        {
+          "term": "ثلاثة",
+          "numeral": "٣",
+          "quantity": 3
+        },
+        {
+          "term": "أربعة",
+          "numeral": "٤",
+          "quantity": 4
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "اليوم سنتعرف إلى ثلاثة وأربعة."
+        },
+        {
+          "role": "explain",
+          "text": "نعد الأشياء واحداً، اثنين، ثلاثة. إذن العدد ثلاثة هو ٣."
+        },
+        {
+          "role": "explain",
+          "text": "ونعد أربعة أشياء: واحد، اثنان، ثلاثة، أربعة. إذن العدد أربعة هو ٤."
+        },
+        {
+          "role": "prompt",
+          "text": "كم قبعة ترى؟ عدّها واحدة واحدة، ثم اختر العدد المناسب."
+        }
+      ],
+      "activities": [
+        {
+          "id": "count-3-4-01",
+          "type": "quantity_match",
+          "prompt": "مجموعة فيها ثلاثة أشياء. ما العدد المناسب؟",
+          "choices": [
+            "٢",
+            "٣",
+            "٤"
+          ],
+          "answer": "٣",
+          "feedbackCorrect": "صحيح، ثلاثة أشياء تمثلها ٣.",
+          "feedbackTryAgain": "أعد العد ببطء، ثم اختر ٣."
+        },
+        {
+          "id": "count-3-4-02",
+          "type": "quantity_match",
+          "prompt": "مجموعة فيها أربعة أشياء. ما العدد المناسب؟",
+          "choices": [
+            "٣",
+            "٤",
+            "٥"
+          ],
+          "answer": "٤",
+          "feedbackCorrect": "أحسنت، أربعة أشياء تمثلها ٤.",
+          "feedbackTryAgain": "عدّ الأشياء مرة أخرى حتى تصل إلى أربعة."
+        },
+        {
+          "id": "write-3-4-01",
+          "type": "trace_numeral",
+          "prompt": "تتبّع العددين ٣ و٤ ثم اكتبهما.",
+          "numerals": [
+            "٣",
+            "٤"
+          ]
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 2,
+        "allowRetry": true
+      },
+      "accessibility": {
+        "narrationLanguage": "ar-IQ",
+        "pace": "slow",
+        "repeatEnabled": true,
+        "captionsEnabled": true
+      }
+    },
+    {
+      "id": "g1-math-c1-l4",
+      "chapter": 1,
+      "lessonNumber": 4,
+      "title": "العددان 5 و6",
+      "printedPages": [
+        14,
+        15
+      ],
+      "objective": "أن يتعرف المتعلم العددين ٥ و٦، ويقرأهما ويكتبهما، ويطابق كل عدد مع مجموعة تمثل كميته.",
+      "vocabulary": [
+        {
+          "term": "خمسة",
+          "numeral": "٥",
+          "quantity": 5
+        },
+        {
+          "term": "ستة",
+          "numeral": "٦",
+          "quantity": 6
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "لنعد معاً حتى خمسة: واحد، اثنان، ثلاثة، أربعة، خمسة."
+        },
+        {
+          "role": "explain",
+          "text": "خمسة تكتب بالعدد ٥."
+        },
+        {
+          "role": "explain",
+          "text": "نضيف شيئاً واحداً إلى خمسة فنحصل على ستة، وتكتب ٦."
+        },
+        {
+          "role": "prompt",
+          "text": "أي مجموعة فيها ستة أشياء؟ عدّ الصور قبل أن تختار."
+        }
+      ],
+      "activities": [
+        {
+          "id": "count-5-6-01",
+          "type": "quantity_match",
+          "prompt": "اختر العدد الذي يمثل خمس فواكه.",
+          "choices": [
+            "٤",
+            "٥",
+            "٦"
+          ],
+          "answer": "٥",
+          "feedbackCorrect": "ممتاز! خمس فواكه تمثلها ٥.",
+          "feedbackTryAgain": "عدّ الصور مرة أخرى، ولا تتعجل."
+        },
+        {
+          "id": "count-5-6-02",
+          "type": "quantity_match",
+          "prompt": "اختر العدد الذي يمثل ستة أشياء.",
+          "choices": [
+            "٥",
+            "٦",
+            "٧"
+          ],
+          "answer": "٦",
+          "feedbackCorrect": "صحيح! ستة أشياء تمثلها ٦.",
+          "feedbackTryAgain": "ابدأ العد من واحد حتى تصل إلى ستة."
+        },
+        {
+          "id": "write-5-6-01",
+          "type": "trace_numeral",
+          "prompt": "تتبّع العددين ٥ و٦ ثم اكتبهما.",
+          "numerals": [
+            "٥",
+            "٦"
+          ]
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 2,
+        "allowRetry": true
+      },
+      "accessibility": {
+        "narrationLanguage": "ar-IQ",
+        "pace": "slow",
+        "repeatEnabled": true,
+        "captionsEnabled": true
+      }
+    },
+    {
+      "id": "g1-math-c1-l5",
+      "chapter": 1,
+      "lessonNumber": 5,
+      "title": "الأعداد 7 و8 و9",
+      "printedPages": [
+        16,
+        17
+      ],
+      "objective": "أن يتعرف المتعلم الأعداد ٧ و٨ و٩، ويقرأها ويكتبها، ويمثل كل عدد بمجموعة من الأشياء.",
+      "vocabulary": [
+        {
+          "term": "سبعة",
+          "numeral": "٧",
+          "quantity": 7
+        },
+        {
+          "term": "ثمانية",
+          "numeral": "٨",
+          "quantity": 8
+        },
+        {
+          "term": "تسعة",
+          "numeral": "٩",
+          "quantity": 9
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "وصلنا اليوم إلى الأعداد سبعة وثمانية وتسعة."
+        },
+        {
+          "role": "explain",
+          "text": "سبعة تكتب ٧، وثمانية تكتب ٨، وتسعة تكتب ٩."
+        },
+        {
+          "role": "explain",
+          "text": "نعد كل صورة مرة واحدة، ونربط العدد بعدد الأشياء."
+        },
+        {
+          "role": "prompt",
+          "text": "انظر إلى مجموعة الطيور. عدّها، ثم اختر العدد الذي يمثلها."
+        }
+      ],
+      "activities": [
+        {
+          "id": "count-7-8-9-01",
+          "type": "quantity_match",
+          "prompt": "ما العدد الذي يمثل سبعة أشياء؟",
+          "choices": [
+            "٦",
+            "٧",
+            "٨"
+          ],
+          "answer": "٧",
+          "feedbackCorrect": "أحسنت! سبعة تكتب ٧.",
+          "feedbackTryAgain": "عدّ الأشياء واحدة واحدة."
+        },
+        {
+          "id": "count-7-8-9-02",
+          "type": "quantity_match",
+          "prompt": "ما العدد الذي يمثل ثمانية أشياء؟",
+          "choices": [
+            "٧",
+            "٨",
+            "٩"
+          ],
+          "answer": "٨",
+          "feedbackCorrect": "صحيح! ثمانية تكتب ٨.",
+          "feedbackTryAgain": "جرّب العد مرة أخرى حتى تصل إلى ثمانية."
+        },
+        {
+          "id": "count-7-8-9-03",
+          "type": "quantity_match",
+          "prompt": "ما العدد الذي يمثل تسعة أشياء؟",
+          "choices": [
+            "٨",
+            "٩",
+            "١٠"
+          ],
+          "answer": "٩",
+          "feedbackCorrect": "ممتاز! تسعة تكتب ٩.",
+          "feedbackTryAgain": "تأكد من أنك عددت كل صورة مرة واحدة."
+        },
+        {
+          "id": "write-7-8-9-01",
+          "type": "trace_numeral",
+          "prompt": "تتبّع الأعداد ٧ و٨ و٩ ثم اكتبها.",
+          "numerals": [
+            "٧",
+            "٨",
+            "٩"
+          ]
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 3,
+        "allowRetry": true
+      },
+      "accessibility": {
+        "narrationLanguage": "ar-IQ",
+        "pace": "slow",
+        "repeatEnabled": true,
+        "captionsEnabled": true
+      }
+    }
+  ],
+  "implementationNotes": {
+    "audio": "استخدم صوتاً عربياً متاحاً على جهاز المستخدم عبر Web Speech API؛ لا تفترض توفر صوت عربي في كل جهاز.",
+    "assessment": "اعرض المحاولة والتغذية الراجعة دون عقوبة، واسمح بإعادة المحاولة.",
+    "copyright": "صياغة تعليمية مختصرة أصلية مبنية على أهداف صفحات المصدر، وليست نسخاً حرفياً لمحتوى الصفحات."
+  }
+}
