@@ -95,11 +95,7 @@
   function questionList(lesson) {
     const quiz = Array.isArray(lesson.quiz) ? lesson.quiz : [];
     const activities = Array.isArray(lesson.activities) ? lesson.activities : [];
-    const isAssessable = item => item && item.answer !== undefined &&
-      (Array.isArray(item.choices) || Array.isArray(item.options) ||
-       (item.type === "number_entry") ||
-       (item.type === "sequence_order" && Array.isArray(item.items)));
-    return [...activities, ...quiz].filter(isAssessable);
+    return [...activities, ...quiz].filter(item => item && typeof item === "object");
   }
   function answerLabel(choice) {
     if (choice && typeof choice === "object") return choice.label ?? choice.value ?? choice.quantity ?? JSON.stringify(choice);
@@ -137,7 +133,7 @@
     const el = makeTeacher();
     if (el) el.classList.toggle("speaking", Boolean(on));
   }
-  let current = null, questionIndex = 0, score = 0, answered = new Set(), utterance = null;
+  let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), utterance = null;
   function renderQuestion() {
     const lesson = current;
     const qs = questionList(lesson);
@@ -154,7 +150,7 @@
       finish.textContent = "إكمال الدرس ⭐";
       return;
     }
-    qTitle.textContent = q.q || q.prompt || "أجب عن السؤال";
+    qTitle.textContent = q.q || q.prompt || q.question || "نشاط تطبيقي";
     feedback.textContent = "";
     finish.disabled = true;
     finish.textContent = "إكمال الدرس ⭐";
@@ -166,10 +162,14 @@
         const expected = Array.isArray(q.answer) ? q.answer : [];
         correctAnswer = Array.isArray(value) && value.length === expected.length &&
           value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(expected[i]));
+      } else if (Array.isArray(q.answer)) {
+        correctAnswer = Array.isArray(value) && value.length === q.answer.length &&
+          value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(q.answer[i]));
       } else {
         correctAnswer = choiceMatches(value, q.answer);
       }
       answered.add(questionIndex);
+      assessedCount++;
       if (correctAnswer) {
         score++;
         feedback.textContent = q.feedbackCorrect || "إجابة صحيحة! أحسنت ⭐";
@@ -188,20 +188,7 @@
       next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
       answers.appendChild(next);
     };
-    if (q.type === "number_entry") {
-      const input = document.createElement("input");
-      input.type = "text";
-      input.inputMode = "numeric";
-      input.autocomplete = "off";
-      input.setAttribute("aria-label", "اكتب إجابتك");
-      input.placeholder = "اكتب الإجابة هنا";
-      input.style.maxWidth = "260px";
-      const check = document.createElement("button");
-      check.type = "button"; check.textContent = "تحقق من الإجابة";
-      check.addEventListener("click", () => submit(input.value));
-      input.addEventListener("keydown", event => { if (event.key === "Enter") check.click(); });
-      answers.append(input, check);
-    } else if (q.type === "sequence_order") {
+    if (q.type === "sequence_order") {
       const items = Array.isArray(q.items) ? q.items : [];
       const selects = [];
       const pool = document.createElement("div");
@@ -223,7 +210,8 @@
         submit(values);
       });
       answers.appendChild(check);
-    } else if (options.length) {
+    } else if (options.length && q.answer !== undefined &&
+      (typeof q.answer === "string" || typeof q.answer === "number")) {
       options.forEach((choice) => {
         const button = document.createElement("button");
         button.type = "button"; button.className = "alt";
@@ -231,14 +219,59 @@
         button.addEventListener("click", () => submit(choice, button));
         answers.appendChild(button);
       });
+    } else if (typeof q.answer === "string" || typeof q.answer === "number") {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.inputMode = typeof q.answer === "number" ? "decimal" : "text";
+      input.autocomplete = "off";
+      input.setAttribute("aria-label", "اكتب إجابتك");
+      input.placeholder = "اكتب الإجابة هنا";
+      input.style.maxWidth = "260px";
+      const check = document.createElement("button");
+      check.type = "button"; check.textContent = "تحقق من الإجابة";
+      check.addEventListener("click", () => {
+        if (!input.value.trim()) { feedback.textContent = "اكتب إجابتك أولاً."; return; }
+        submit(input.value);
+      });
+      input.addEventListener("keydown", event => { if (event.key === "Enter") check.click(); });
+      answers.append(input, check);
+    } else if (Array.isArray(q.answer)) {
+      const inputs = q.answer.map((_, index) => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.autocomplete = "off";
+        input.placeholder = "الإجابة " + (index + 1);
+        input.setAttribute("aria-label", "الإجابة " + (index + 1));
+        input.style.maxWidth = "260px";
+        answers.appendChild(input);
+        return input;
+      });
+      const check = document.createElement("button");
+      check.type = "button"; check.textContent = "تحقق من الإجابات";
+      check.addEventListener("click", () => {
+        const values = inputs.map(input => input.value.trim());
+        if (values.some(value => !value)) { feedback.textContent = "أكمل جميع الإجابات أولاً."; return; }
+        submit(values);
+      });
+      answers.appendChild(check);
     } else {
-      answers.innerHTML = '<p class="muted">هذا النشاط يحتاج تفاعلاً خاصاً، لذلك لن نقيّمه آلياً في هذه النسخة.</p>';
-      finish.disabled = false;
+      const note = document.createElement("p");
+      note.className = "muted";
+      note.textContent = typeof q.expected === "string"
+        ? "المطلوب: " + q.expected + " — نفّذ النشاط مع المعلم أو ولي الأمر."
+        : "نفّذ النشاط مع المعلم أو ولي الأمر، ثم اضغط متابعة.";
+      answers.appendChild(note);
+      const next = document.createElement("button");
+      next.type = "button";
+      next.className = "alt";
+      next.textContent = questionIndex < qs.length - 1 ? "أنهيت النشاط، تابع ←" : "أنهيت النشاط، أكمل الدرس ⭐";
+      next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
+      answers.appendChild(next);
     }
   }
   function openLesson(lesson) {
     current = lesson; activeLesson = lesson;
-    questionIndex = 0; score = 0; answered = new Set();
+    questionIndex = 0; score = 0; assessedCount = 0; answered = new Set();
     const title = lesson.title || "درس جديد";
     document.getElementById("lessonHeading").textContent = lesson._unitTitle || "درس تفاعلي";
     document.getElementById("lessonMeta").textContent =
@@ -338,9 +371,9 @@
     window.selectChild(childId);
     const note = document.createElement("p");
     note.className = "notice";
-    note.textContent = qs.length
-      ? "أحسنت! نتيجتك في هذا الدرس: " + score + " من " + qs.length + ". تم حفظ تقدمك على هذا الجهاز."
-      : "أحسنت! تم حفظ إكمال الدرس على هذا الجهاز.";
+    note.textContent = assessedCount
+      ? "أحسنت! نتيجتك: " + score + " من " + assessedCount + " سؤالاً قابلاً للتقييم. تم حفظ تقدمك على هذا الجهاز."
+      : "أحسنت! أنهيت أنشطة الدرس. تم حفظ تقدمك على هذا الجهاز.";
     document.getElementById("studentArea").prepend(note);
   };
   window.stopLessonAudio = function() { if ("speechSynthesis" in window) speechSynthesis.cancel(); setTeacherSpeaking(false); };
