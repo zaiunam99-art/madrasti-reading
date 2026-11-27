@@ -21,7 +21,7 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 <div class="section-head"><div><h2>ملفات الأبناء</h2><div class="muted">أضف ملفاً لكل طفل وحدد صفه ومواده وخطة تعلمه.</div></div><button onclick="openChildForm()">＋ إضافة طالب</button></div>
 <div id="children" class="cards"></div>
 <div class="grid">
-<section class="panel"><h2>📚 مكتبة المناهج</h2><p class="muted">المناهج المتاحة حالياً: القراءة والرياضيات للصف الأول (إصدار 2025–2026). بقية الصفوف قيد التحقق.</p><div class="card"><strong>العراق · الصف الأول الابتدائي</strong><p class="muted">المواد التي أُعدت لها دروس أولية: القراءة والرياضيات، إصدار 2025–2026. تظهر الدروس بعد إنشاء ملف الطالب واختيار المادة من مساحته.</p><span class="tag">108 دروس أولية في المستودع</span></div><label for="pdfUpload">رفع كتاب PDF</label><input id="pdfUpload" type="file" accept="application/pdf" onchange="previewPdf(this)"><div id="pdfInfo" class="muted">لم يتم اختيار ملف.</div></section>
+<section class="panel"><h2>📚 مكتبة المناهج</h2><p class="muted">المناهج المتاحة حالياً: القراءة والرياضيات للصف الأول (إصدار 2025–2026). بقية الصفوف قيد التحقق.</p><div class="card"><strong>العراق · الصف الأول الابتدائي</strong><p class="muted">المواد التي أُعدت لها دروس أولية: القراءة والرياضيات، إصدار 2025–2026. تظهر الدروس بعد إنشاء ملف الطالب واختيار المادة من مساحته.</p><span class="tag">108 دروس أولية في المستودع</span></div><label for="pdfUpload">اختيار كتاب PDF ومعاينته محلياً</label><input id="pdfUpload" type="file" accept="application/pdf" onchange="previewPdf(this)"><div id="pdfInfo" class="muted">لم يتم اختيار ملف.</div></section>
 <section class="panel"><h2>📈 متابعة الأسرة</h2><p class="muted">ملخص إنجاز الأبناء في هذه النسخة التجريبية.</p><div id="familyStats"></div><div class="notice">هذه نسخة تجريبية تحفظ التقدم على الجهاز فقط. لا تستخدم بيانات حساسة أو حقيقية قبل إكمال حماية الحسابات.</div></section>
 </div>
 </section>
@@ -58,6 +58,40 @@ function loadFamily(){
 let family=loadFamily();let active=null,correct=false,activeLesson=null;
 const lessons=[{title:'حرف الباء',symbol:'ب',desc:'هذا حرف الباء. نستمع إلى صوته ونشاهده في بداية الكلمات.',q:'أي كلمة تبدأ بحرف الباء؟',answers:['باب','موز','دار'],right:'باب',subject:'القراءة'},{title:'حرف الميم',symbol:'م',desc:'هذا حرف الميم. كرر صوته، ثم اختر الكلمة المناسبة.',q:'أي كلمة تبدأ بحرف الميم؟',answers:['بيت','موز','نور'],right:'موز',subject:'القراءة'},{title:'حرف الدال',symbol:'د',desc:'نتعرف اليوم إلى حرف الدال ونميّز صوته.',q:'أي كلمة تبدأ بحرف الدال؟',answers:['دار','باب','موز'],right:'دار',subject:'القراءة'}];
 function save(){try{localStorage.setItem(KEY,JSON.stringify(family));return true}catch(error){alert('تعذر حفظ التغييرات على هذا الجهاز. تحقق من مساحة التخزين وإعدادات المتصفح.');return false}}
+let previewPdfUrl = null;
+async function previewPdf(input){
+  const info=document.getElementById('pdfInfo');
+  if(!info)return;
+  if(previewPdfUrl){URL.revokeObjectURL(previewPdfUrl);previewPdfUrl=null}
+  info.textContent='';
+  const file=input?.files?.[0];
+  if(!file){info.textContent='لم يتم اختيار ملف.';return}
+  if(file.type&&file.type!=='application/pdf'){
+    info.textContent='الملف المحدد ليس من نوع PDF.';
+    return;
+  }
+  let signature='';
+  try{signature=await file.slice(0,5).text()}
+  catch(error){info.textContent='تعذر قراءة الملف المحدد.';return}
+  if(signature!=='%PDF-'){
+    info.textContent='تعذر التحقق من الملف: لا يبدو أنه ملف PDF صالح.';
+    return;
+  }
+  try{
+    previewPdfUrl=URL.createObjectURL(file);
+    info.textContent='تم التحقق من ملف PDF. ستُفتح المعاينة من جهازك فقط؛ لم يُرفع الملف ولم يُستخرج نصه تلقائياً. ';
+    const link=document.createElement('a');
+    link.href=previewPdfUrl;
+    link.target='_blank';
+    link.rel='noopener';
+    link.textContent='فتح الكتاب';
+    info.appendChild(link);
+  }catch(error){
+    previewPdfUrl=null;
+    info.textContent='تعذر إنشاء معاينة لهذا الملف على هذا الجهاز.';
+  }
+}
+
 function showView(v){const wasInLesson=!document.getElementById('lessonView').classList.contains('hidden');if(wasInLesson&&window.selectChild)window.selectChild(active?.id);else if(v!=='child'&&window.stopLessonAudio)window.stopLessonAudio();document.getElementById('guardianView').classList.toggle('hidden',v!=='guardian');document.getElementById('childView').classList.toggle('hidden',v!=='child');document.getElementById('lessonView').classList.add('hidden');document.getElementById('guardianTab').classList.toggle('active',v==='guardian');document.getElementById('childTab').classList.toggle('active',v==='child');document.getElementById('hello').textContent=v==='guardian'?'لوحة ولي الأمر':'أهلاً بك في مساحة التعلّم';renderAll()}
 function openChildForm(id){const c=family.find(x=>x.id===id);document.getElementById('childForm').reset();document.getElementById('editId').value=c?.id||'';document.getElementById('formTitle').textContent=c?'تعديل ملف الطالب':'إضافة طالب';document.getElementById('childName').value=c?.name||'';document.getElementById('gender').value=c?.gender||'neutral';document.getElementById('grade').value=c?.grade||'الأول الابتدائي';document.getElementById('avatar').value=c?.avatar||'🧒';document.getElementById('voice').value=c?.voice||'default';document.getElementById('dailyCount').value=c?.dailyCount||1;document.querySelectorAll('input[name=subject]').forEach(x=>x.checked=c?c.subjects.includes(x.value):x.value==='القراءة');document.getElementById('modal').classList.remove('hidden')}
 function closeForm(){document.getElementById('modal').classList.add('hidden')}
