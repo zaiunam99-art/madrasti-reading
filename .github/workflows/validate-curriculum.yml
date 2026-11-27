@@ -24,3 +24,5 @@ jobs:
         run: node --check curriculum-runtime.js
       - name: Validate curriculum JSON and lesson indexes
         run: node scripts/validate-curriculum.mjs
+      - name: Test validator edge cases
+        run: node --test scripts/test-validator.test.mjs
