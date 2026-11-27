@@ -29,7 +29,7 @@ function makeStorage(initial = {}) {
     map,
     getItem(key) { return map.has(key) ? map.get(key) : null; },
     setItem(key, value) {
-      if (this.failOn === key) throw new Error("quota");
+      if (this.failOn === key) { this.failOn = null; throw new Error("quota"); }
       map.set(key, String(value));
     },
     removeItem(key) { map.delete(key); },
