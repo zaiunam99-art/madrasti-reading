@@ -26,6 +26,20 @@
       "url": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=164",
       "status": "partial-release",
       "note": "The ministry announcement describes the first unit, student book, activity book and teacher guide; do not treat this as proof that all primary books are available."
+    },
+    {
+      "label": "إعلان وزارة التربية عن إتاحة الوحدة الأولى من قراءتي 2026-2027",
+      "url": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=164",
+      "status": "official-partial-online-content",
+      "date": "2026-10-09",
+      "note": "Only the first unit, student book, activity book and teacher guide are confirmed online by this announcement."
+    },
+    {
+      "label": "تأكيد اكتمال طباعة كتب الصفوف الأولية 2026-2027",
+      "url": "https://iq.parliament.iq/en/2026/10/07/education-committee-hosts-education-ministry-officials-to-discuss-printing-and-provision-of-school-textbooks/",
+      "status": "official-printing-status-not-pdf-availability",
+      "date": "2026-10-07",
+      "note": "The parliamentary report says primary textbook printing reached 100%; this does not prove every PDF is publicly available online."
     }
   ],
   "grades": [
@@ -767,6 +781,8 @@
     "Grade 6 social studies and science and grade 5 science books already have separately opened PDF copies as recorded above.",
     "Updated grades 2, 3 and 4 candidate inventories from IraqEdu 2025-2026 index pages. Metadata is recorded, but these remain discovery listings and not individually inspected PDFs.",
     "Grade 2 listing includes moral education; confirm whether it is a core or supplementary curriculum item before enabling it by default.",
-    "Some index pages also list teacher guides; they are intentionally not mixed with student books in the core student catalog."
+    "Some index pages also list teacher guides; they are intentionally not mixed with student books in the core student catalog.",
+    "Important 2026-2027 distinction: the parliamentary committee report dated 7 October 2026 states primary textbook printing reached 100%, but the public online release announcement dated 9 October 2026 confirms only grade 1 Reading Unit 1 materials and grade 4 preparatory mathematics chapter 1. Do not infer full online PDF availability from print completion.",
+    "Some 2025-2026 secondary index entries list teacher guides or supplementary activity books; keep them distinct from student textbooks and verify before enabling."
   ]
 }
