@@ -74,10 +74,11 @@
   function questionList(lesson) {
     const quiz = Array.isArray(lesson.quiz) ? lesson.quiz : [];
     const activities = Array.isArray(lesson.activities) ? lesson.activities : [];
-    return [
-      ...activities.filter(x => Array.isArray(x.choices) && x.answer !== undefined && !Array.isArray(x.answer)),
-      ...quiz.filter(x => Array.isArray(x.choices) && x.answer !== undefined && !Array.isArray(x.answer))
-    ];
+    const isAssessable = item => item && item.answer !== undefined &&
+      (Array.isArray(item.choices) || Array.isArray(item.options) ||
+       (item.type === "number_entry") ||
+       (item.type === "sequence_order" && Array.isArray(item.items)));
+    return [...activities, ...quiz].filter(isAssessable);
   }
   function answerLabel(choice) {
     if (choice && typeof choice === "object") return choice.label ?? choice.value ?? choice.quantity ?? JSON.stringify(choice);
@@ -124,6 +125,7 @@
     const answers = document.getElementById("answers");
     const feedback = document.getElementById("feedback");
     const finish = document.getElementById("finishLesson");
+    answers.innerHTML = "";
     if (!q) {
       qTitle.textContent = "انتهت أسئلة هذا الدرس";
       answers.innerHTML = '<p class="muted">أحسنت! راجع الشرح والأمثلة، ثم أكمل الدرس.</p>';
@@ -131,39 +133,87 @@
       finish.textContent = "إكمال الدرس ⭐";
       return;
     }
-    qTitle.textContent = q.q || q.prompt || "اختر الإجابة المناسبة";
-    answers.innerHTML = q.choices.map((choice, i) =>
-      '<button type="button" class="alt" data-choice="' + i + '">' + escHtml(displayChoice(choice)) + '</button>'
-    ).join("");
-    answers.querySelectorAll("button").forEach(button => {
-      button.addEventListener("click", () => {
-        if (answered.has(questionIndex)) return;
-        const selected = q.choices[Number(button.dataset.choice)];
-        const expected = q.answer;
-        const correctAnswer = choiceMatches(selected, expected);
-        answered.add(questionIndex);
-        if (correctAnswer) {
-          score++;
-          feedback.textContent = q.feedbackCorrect || "إجابة صحيحة! أحسنت ⭐";
-          feedback.style.color = "var(--g)";
-          button.style.outline = "3px solid #43a77e";
-        } else {
-          feedback.textContent = q.feedbackTryAgain || "محاولة جيدة. استمع إلى الشرح وحاول مرة أخرى في المراجعة.";
-          feedback.style.color = "#a45a22";
-          button.style.outline = "3px solid #e8b46d";
-        }
-        answers.querySelectorAll("button").forEach(b => b.disabled = true);
-        const next = document.createElement("button");
-        next.className = "alt";
-        next.textContent = questionIndex < qs.length - 1 ? "السؤال التالي ←" : "عرض إكمال الدرس";
-        next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
-        answers.appendChild(next);
-        finish.disabled = questionIndex < qs.length - 1;
-      });
-    });
+    qTitle.textContent = q.q || q.prompt || "أجب عن السؤال";
     feedback.textContent = "";
     finish.disabled = true;
     finish.textContent = "إكمال الدرس ⭐";
+    const options = Array.isArray(q.choices) ? q.choices : (Array.isArray(q.options) ? q.options : []);
+    const submit = (value, selectedButton) => {
+      if (answered.has(questionIndex)) return;
+      let correctAnswer = false;
+      if (q.type === "sequence_order") {
+        const expected = Array.isArray(q.answer) ? q.answer : [];
+        correctAnswer = Array.isArray(value) && value.length === expected.length &&
+          value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(expected[i]));
+      } else {
+        correctAnswer = choiceMatches(value, q.answer);
+      }
+      answered.add(questionIndex);
+      if (correctAnswer) {
+        score++;
+        feedback.textContent = q.feedbackCorrect || "إجابة صحيحة! أحسنت ⭐";
+        feedback.style.color = "var(--g)";
+        if (selectedButton) selectedButton.style.outline = "3px solid #43a77e";
+      } else {
+        feedback.textContent = q.feedbackTryAgain || "محاولة جيدة. راجع الشرح ثم حاول مرة أخرى في المراجعة.";
+        feedback.style.color = "#a45a22";
+        if (selectedButton) selectedButton.style.outline = "3px solid #e8b46d";
+      }
+      answers.querySelectorAll("button,input,select").forEach(el => el.disabled = true);
+      const next = document.createElement("button");
+      next.type = "button";
+      next.className = "alt";
+      next.textContent = questionIndex < qs.length - 1 ? "السؤال التالي ←" : "عرض إكمال الدرس";
+      next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
+      answers.appendChild(next);
+    };
+    if (q.type === "number_entry") {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.inputMode = "numeric";
+      input.autocomplete = "off";
+      input.setAttribute("aria-label", "اكتب إجابتك");
+      input.placeholder = "اكتب الإجابة هنا";
+      input.style.maxWidth = "260px";
+      const check = document.createElement("button");
+      check.type = "button"; check.textContent = "تحقق من الإجابة";
+      check.addEventListener("click", () => submit(input.value));
+      input.addEventListener("keydown", event => { if (event.key === "Enter") check.click(); });
+      answers.append(input, check);
+    } else if (q.type === "sequence_order") {
+      const items = Array.isArray(q.items) ? q.items : [];
+      const selects = [];
+      const pool = document.createElement("div");
+      pool.className = "muted";
+      pool.textContent = "اختر العناصر بالترتيب الصحيح:";
+      answers.appendChild(pool);
+      items.forEach((_, index) => {
+        const select = document.createElement("select");
+        select.setAttribute("aria-label", "الموقع " + (index + 1));
+        select.innerHTML = '<option value="">الاختيار ' + (index + 1) + '</option>' +
+          items.map(item => '<option value="' + escHtml(item) + '">' + escHtml(item) + '</option>').join("");
+        selects.push(select); answers.appendChild(select);
+      });
+      const check = document.createElement("button");
+      check.type = "button"; check.textContent = "تحقق من الترتيب";
+      check.addEventListener("click", () => {
+        const values = selects.map(select => select.value);
+        if (values.some(value => !value)) { feedback.textContent = "أكمل جميع المواقع أولاً."; return; }
+        submit(values);
+      });
+      answers.appendChild(check);
+    } else if (options.length) {
+      options.forEach((choice) => {
+        const button = document.createElement("button");
+        button.type = "button"; button.className = "alt";
+        button.textContent = displayChoice(choice);
+        button.addEventListener("click", () => submit(choice, button));
+        answers.appendChild(button);
+      });
+    } else {
+      answers.innerHTML = '<p class="muted">هذا النشاط يحتاج تفاعلاً خاصاً، لذلك لن نقيّمه آلياً في هذه النسخة.</p>';
+      finish.disabled = false;
+    }
   }
   function openLesson(lesson) {
     current = lesson; activeLesson = lesson;
