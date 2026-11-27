@@ -3,6 +3,15 @@
   "use strict";
   const ROOT = "/curriculum/grade-1";
   const cache = new Map();
+  function readCompletedMap() {
+    try {
+      const value = readCompletedMap();
+      return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    } catch (error) {
+      console.warn("تعذر قراءة سجل التقدم المحلي:", error);
+      return {};
+    }
+  }
   const escHtml = value => String(value ?? "").replace(/[&<>"']/g, ch => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[ch]));
@@ -403,7 +412,7 @@
       }
       const listId = "subjectLessons";
       document.getElementById(listId)?.remove();
-      const done = new Set(JSON.parse(localStorage.getItem("madrastiCompletedLessonsV1") || "{}")[active.id] || []);
+      const done = new Set(readCompletedMap()[active.id] || []);
       const dailyCount = Math.max(1, Math.min(10, Number(active.dailyCount) || 1));
       const dailyPlan = data.lessons.map((lesson, index) => ({ lesson, index }))
         .filter(item => !done.has(item.lesson.id)).slice(0, dailyCount);
@@ -443,7 +452,7 @@
     if (!current || !active) return;
     const qs = questionList(current);
     if (qs.length && questionIndex < qs.length) return;
-    const all = JSON.parse(localStorage.getItem("madrastiCompletedLessonsV1") || "{}");
+    const all = readCompletedMap();
     const childId = active.id;
     const childDone = all[childId] || [];
     const wasAlreadyCompleted = childDone.includes(current.id);
