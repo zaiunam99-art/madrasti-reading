@@ -790,7 +790,8 @@
     "تدقيق مواقع إضافي بتاريخ 2026-11-27: تمت مراجعة بوابة الوزارة، موقع الأستاذ العراقي (فهرس 453 ملفاً)، IraqEdu، الفهرس التعليمي العراقي، مدرّسي، طلاب العراق، ومكتبة طه أندرويد. تم تمييز الفهارس الثانوية عن المصدر الرسمي، وإضافة أدلة غلاف لكتب علوم الخامس وعلوم/اجتماعيات السادس ورياضيات الأول 2025-2026 دون ادعاء فحص الصفحات كاملة.",
     "نتيجة فتح صفحات المصادر: IraqEdu يعرض روابط صفوف الابتدائية 1-6 لكنه يخلط في القائمة العامة كتباً وأدلة وملازم وحلولاً؛ موقع الأستاذ العراقي يعرض أيضاً مراحل غير ابتدائية في القائمة العامة. صفحات الفهرس التعليمي العراقي ومدرّسي تعذّر فتحها في هذه الجلسة، لذلك لم تُستخدم كدليل.",
     "تدقيق الصف الأول: فهرس IraqEdu يعرض 13 مادة/موردًا، منها 4 أدلة معلم يجب استبعادها من مسار التلميذ. ظهرت مخالفة مهمة في القراءة: الفهرس الثانوي يذكر 112 صفحة بينما ملف المستخدم 129 صفحة؛ لم تُحسم هوية الطبعة ولا يجوز الاستبدال قبل المقارنة. تم فتح صفحات البيانات الفردية للعلوم والرياضيات والقراءة والإسلامية، لكنها ليست فحصاً كاملاً لملفات PDF.",
-    "تحديث تدقيق الصف الأول: فصل سجلات طبعة 2025-2026 عن نتائج 2026-2027. نتائج القراءة الجديدة 127 صفحة ونشاطها 114 صفحة تبقى إدراجات فهرس ثانوي؛ الإعلان الرسمي المتاح يثبت الوحدة الأولى فقط. لا فحص كامل لملفات PDF حتى الآن."
+    "تحديث تدقيق الصف الأول: فصل سجلات طبعة 2025-2026 عن نتائج 2026-2027. نتائج القراءة الجديدة 127 صفحة ونشاطها 114 صفحة تبقى إدراجات فهرس ثانوي؛ الإعلان الرسمي المتاح يثبت الوحدة الأولى فقط. لا فحص كامل لملفات PDF حتى الآن.",
+    "تدقيق جديد 2026-11-27: فتح صفحة IraqEdu العامة وصفحة الأستاذ العراقي العامة ومراجعة قناة الوزارة الرسمية. الفهارس العامة مختلطة ومصدر الوزارة لم يكن قابلاً للفتح آلياً في هذه الجلسة؛ لم ندّعِ تنزيل أو فحص PDF. أضيفت بيانات إدراج الإنكليزي السادس 2026-2027 ودليل المعلم مع الفصل بينهما."
   ],
   "latestResearch": {
     "checkedAt": "2026-11-27",
@@ -1524,6 +1525,76 @@
           "url": "https://iraqedu.net/الكتب-المنهجية/",
           "finding": "main index separates primary grades 1-6 from intermediate and preparatory grades, but its global listing mixes books, guides and other resources"
         }
+      ]
+    },
+    "officialSourceAuditNov27": {
+      "officialMinistry": {
+        "page2025_2026": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=159",
+        "access": "The Ministry URL was not readable by the browsing session in this pass; retain as official primary source, but do not claim its individual book files were inspected.",
+        "announcement2026_2027": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=164",
+        "confirmedScope": "Unit one of grade 1 Reading (student book, activity book, teacher guide) only, as quoted by the Ministry verified Telegram channel on 2026-10-09."
+      },
+      "sourcesOpened": [
+        {
+          "name": "IraqEdu general index",
+          "url": "https://iraqedu.net/الكتب-المنهجية/",
+          "status": "opened",
+          "notes": "Separates grade headings 1-6 primary; global page is mixed and visible entries include secondary/preparatory materials. Use grade-specific item pages, not global counts."
+        },
+        {
+          "name": "StadIraq general index",
+          "url": "https://www.stadiraq.com/الكتب-المنهجية/",
+          "status": "opened",
+          "notes": "Global list mixes grades and educational stages; not a reliable total of primary books."
+        },
+        {
+          "name": "Iraqi Educational Index",
+          "url": "https://elfahras.com/iq/books/",
+          "status": "search result only; page open failed",
+          "notes": "Its description says it provides guides, not the PDF files."
+        },
+        {
+          "name": "Official Ministry Telegram",
+          "url": "https://t.me/s/Educationiq?before=34536",
+          "status": "search result opened",
+          "notes": "Ministry reported printing of early-grade books complete and confirmed only first-unit online release for grade 1 Reading plus a fourth preparatory mathematics chapter."
+        }
+      ],
+      "grade6AndGrade1_2026_2027": [
+        {
+          "title": "كتاب الانكليزي للصف السادس الابتدائي 2026-2027",
+          "pages": 122,
+          "sizeMB": 61.5,
+          "updated": "2026-11-16",
+          "status": "secondary listing"
+        },
+        {
+          "title": "كتاب دليل معلم الانكليزي للصف السادس الابتدائي 2026-2027",
+          "pages": 163,
+          "sizeMB": 1.8,
+          "updated": "2026-11-16",
+          "status": "teacher guide; separate"
+        },
+        {
+          "title": "كتاب نشاط القراءة للصف الاول الابتدائي 2026-2027",
+          "pages": 114,
+          "sizeMB": 78.1,
+          "updated": "2026-11-01",
+          "status": "secondary listing"
+        },
+        {
+          "title": "كتاب القراءة للصف الاول الابتدائي 2026-2027",
+          "pages": 127,
+          "sizeMB": 72.4,
+          "updated": "2026-10-08",
+          "status": "secondary listing"
+        }
+      ],
+      "corrections": [
+        "The global IraqEdu page has a generic study-material classification while individual entries may be textbooks; classify by each item metadata, not global page label.",
+        "A site listing a Ministry-prepared PDF does not make its hosting link an official Ministry download.",
+        "Official statement that printing is complete does not prove all digital PDF textbooks are publicly released.",
+        "The grade 6 English book and teacher guide are distinct resources."
       ]
     }
   }
