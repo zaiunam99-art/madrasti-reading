@@ -1,0 +1,64 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { runInNewContext } from "node:vm";
+import { fileURLToPath } from "node:url";
+import { resolve } from "node:path";
+
+const here = fileURLToPath(new URL(".", import.meta.url));
+const html = readFileSync(resolve(here, "../index.html"), "utf8");
+const match = html.match(/function deleteChild\\(id\\)\\{[\\s\\S]*?\\n\\}/);
+assert.ok(match, "deleteChild handler must exist");
+
+function invokeDelete({ failProgressWrite = false, confirmed = true } = {}) {
+  const values = new Map([
+    ["madrastiFamilyDemoV2", JSON.stringify([{ id: "child_a" }, { id: "child_b" }])],
+    ["madrastiCompletedLessonsV1", JSON.stringify({ child_a: ["read-1"], child_b: ["math-1"] })]
+  ]);
+  let failed = false, rendered = 0, stopped = 0, alerts = [];
+  const sandbox = {
+    KEY: "madrastiFamilyDemoV2",
+    family: [{ id: "child_a" }, { id: "child_b" }],
+    active: { id: "child_a" },
+    confirm() { return confirmed; },
+    alert(message) { alerts.push(message); },
+    console: { warn() {} },
+    stopLessonAudio() { stopped++; },
+    renderAll() { rendered++; },
+    localStorage: {
+      getItem(key) { return values.has(key) ? values.get(key) : null; },
+      setItem(key, value) {
+        if (failProgressWrite && key === "madrastiCompletedLessonsV1" && !failed) { failed = true; throw new Error("quota"); }
+        values.set(key, String(value));
+      }
+    }
+  };
+  runInNewContext(match[0] + "; deleteChild(\"child_a\");", sandbox);
+  return { values, family: sandbox.family, active: sandbox.active, rendered, stopped, alerts };
+}
+
+test("deletes the selected child and only that child progress after both writes succeed", () => {
+  const result = invokeDelete();
+  assert.deepEqual(JSON.parse(result.values.get("madrastiFamilyDemoV2")), [{ id: "child_b" }]);
+  assert.deepEqual(JSON.parse(result.values.get("madrastiCompletedLessonsV1")), { child_b: ["math-1"] });
+  assert.deepEqual(JSON.parse(JSON.stringify(result.family)), [{ id: "child_b" }]);
+  assert.equal(result.active, null);
+  assert.equal(result.rendered, 1);
+  assert.equal(result.stopped, 1);
+});
+
+test("rolls back the family record if progress deletion fails", () => {
+  const result = invokeDelete({ failProgressWrite: true });
+  assert.deepEqual(JSON.parse(result.values.get("madrastiFamilyDemoV2")), [{ id: "child_a" }, { id: "child_b" }]);
+  assert.deepEqual(JSON.parse(result.values.get("madrastiCompletedLessonsV1")), { child_a: ["read-1"], child_b: ["math-1"] });
+  assert.deepEqual(JSON.parse(JSON.stringify(result.family)), [{ id: "child_a" }, { id: "child_b" }]);
+  assert.equal(result.rendered, 0);
+  assert.equal(result.alerts.length, 1);
+});
+
+test("does not change storage when deletion is cancelled", () => {
+  const result = invokeDelete({ confirmed: false });
+  assert.equal(JSON.parse(result.values.get("madrastiFamilyDemoV2")).length, 2);
+  assert.equal(JSON.parse(result.values.get("madrastiCompletedLessonsV1")).child_a.length, 1);
+  assert.equal(result.rendered, 0);
+});
