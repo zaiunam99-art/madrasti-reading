@@ -90,7 +90,7 @@ test("does not overwrite a malformed saved progress record", () => {
     console: { warn() {} }
   };
   const start = runtime.indexOf("  window.finishLesson = function() {");
-  const end = runtime.indexOf("\\n  };", start);
+  const end = runtime.indexOf("\n  };", start);
   const handler = runtime.slice(start, end + 4);
   runInNewContext(handler + "; window.finishLesson();", sandbox);
   assert.equal(values.get("madrastiCompletedLessonsV1"), malformed);
