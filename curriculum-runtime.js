@@ -6,7 +6,15 @@
   const escHtml = value => String(value ?? "").replace(/[&<>"']/g, ch => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[ch]));
-  const normalizeGrade = value => /الأول|اول|1/.test(String(value || "")) ? "grade-1" : null;
+  const normalizeGrade = value => {
+    const grade = String(value ?? "").trim()
+      .replace(/[٠-٩]/g, digit => "٠١٢٣٤٥٦٧٨٩".indexOf(digit))
+      .replace(/[۰-۹]/g, digit => "۰۱۲۳۴۵۶۷۸۹".indexOf(digit))
+      .replace(/[\u064B-\u065F\u0670]/g, "")
+      .replace(/\s+/g, " ");
+    return /^(?:(?:الصف)\s*)?(?:الأول|الاول|اول|1)(?:\s*(?:الابتدائي|ابتدائي))?$/.test(grade)
+      ? "grade-1" : null;
+  };
   async function getJson(path) {
     if (cache.has(path)) return cache.get(path);
     const promise = fetch(path, { headers: { "Accept":"application/json" } })
@@ -263,6 +271,7 @@
     const requestId = ++subjectRequestId;
     const area = document.getElementById("studentArea");
     document.getElementById("curriculumLoading")?.remove();
+    document.getElementById("subjectLessons")?.remove();
     area.insertAdjacentHTML("beforeend", '<p id="curriculumLoading" class="muted">جارٍ تحميل دروس المنهج…</p>');
     try {
       const data = await loadSubject(subject, active.grade);
@@ -299,6 +308,7 @@
     }
   };
   window.selectChild = function(id) {
+    subjectRequestId++;
     active = family.find(child => child.id === id) || null;
     const area = document.getElementById("studentArea");
     area.classList.toggle("hidden", !active);
