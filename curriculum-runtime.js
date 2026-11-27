@@ -101,7 +101,17 @@
     if (choice && typeof choice === "object") return choice.label ?? choice.value ?? choice.quantity ?? JSON.stringify(choice);
     return String(choice);
   }
-  function normalizedAnswer(value) { return String(value ?? "").replace(/[٠-٩]/g, digit => "٠١٢٣٤٥٦٧٨٩".indexOf(digit)).replace(/[۰-۹]/g, digit => "۰۱۲۳۴۵۶۷۸۹".indexOf(digit)).trim(); }
+  function normalizedAnswer(value) {
+    return String(value ?? "")
+      .replace(/[٠-٩]/g, digit => "٠١٢٣٤٥٦٧٨٩".indexOf(digit))
+      .replace(/[۰-۹]/g, digit => "۰۱۲۳۴۵۶۷۸۹".indexOf(digit))
+      .replace(/[\u064B-\u065F\u0670ـ]/g, "")
+      .replace(/[أإآٱ]/g, "ا")
+      .replace(/ى/g, "ي")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
   function choiceMatches(choice, answer) {
     const values = choice && typeof choice === "object"
       ? [choice.label, choice.value, choice.quantity, choice.id].filter(value => value !== undefined)
