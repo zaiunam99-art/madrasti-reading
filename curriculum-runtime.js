@@ -143,6 +143,29 @@
     const el = makeTeacher();
     if (el) el.classList.toggle("speaking", Boolean(on));
   }
+  function speakQuestion(text) {
+    const feedback = document.getElementById("feedback");
+    if (active?.voice === "none") {
+      if (feedback) feedback.textContent = "الصوت مكتوم حسب إعدادات ولي الأمر. يمكنك قراءة السؤال.";
+      return;
+    }
+    if (!("speechSynthesis" in window)) {
+      if (feedback) feedback.textContent = "الصوت غير متاح في هذا المتصفح. اقرأ السؤال المعروض ثم تابع.";
+      return;
+    }
+    speechSynthesis.cancel();
+    setTeacherSpeaking(false);
+    utterance = new SpeechSynthesisUtterance(String(text || ""));
+    const voices = speechSynthesis.getVoices();
+    utterance.voice = voices.find(voice => /^ar-IQ/i.test(voice.lang)) ||
+      voices.find(voice => /^ar-SA/i.test(voice.lang)) ||
+      voices.find(voice => /^ar/i.test(voice.lang)) || null;
+    utterance.lang = utterance.voice?.lang || "ar-IQ";
+    utterance.rate = active?.voice === "slow" ? 0.72 : 0.88;
+    utterance.onstart = () => setTeacherSpeaking(true);
+    utterance.onend = utterance.onerror = () => setTeacherSpeaking(false);
+    speechSynthesis.speak(utterance);
+  }
   let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), utterance = null;
   function renderQuestion() {
     const lesson = current;
@@ -163,6 +186,16 @@
     qTitle.textContent = q.q || q.prompt || q.question || "نشاط تطبيقي";
     feedback.textContent = "";
     finish.disabled = true;
+    const questionText = q.q || q.prompt || q.question || "نفّذ النشاط المطلوب.";
+    const spokenQuestion = [questionText, options.length ? "الخيارات: " + options.map(displayChoice).join("، ") : ""]
+      .filter(Boolean).join(". ");
+    const listen = document.createElement("button");
+    listen.type = "button";
+    listen.className = "alt";
+    listen.textContent = "🔊 استمع إلى السؤال";
+    listen.setAttribute("aria-label", "استمع إلى السؤال والخيارات");
+    listen.addEventListener("click", () => speakQuestion(spokenQuestion));
+    answers.appendChild(listen);
     finish.textContent = "إكمال الدرس ⭐";
     const options = Array.isArray(q.choices) ? q.choices : (Array.isArray(q.options) ? q.options : []);
     const submit = (value, selectedButton) => {
