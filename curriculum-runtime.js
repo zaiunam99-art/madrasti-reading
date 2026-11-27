@@ -247,6 +247,13 @@
         select.setAttribute("aria-label", "الموقع " + (index + 1));
         select.innerHTML = '<option value="">الاختيار ' + (index + 1) + '</option>' +
           items.map(item => '<option value="' + escHtml(item) + '">' + escHtml(item) + '</option>').join("");
+        select.addEventListener("change", () => {
+          const chosen = selects.map(control => control.value).filter(Boolean);
+          selects.forEach(control => Array.from(control.options).forEach(option => {
+            if (!option.value) { option.disabled = false; return; }
+            option.disabled = option.value !== control.value && chosen.includes(option.value);
+          }));
+        });
         selects.push(select); answers.appendChild(select);
       });
       const check = document.createElement("button");
