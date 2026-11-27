@@ -41,6 +41,25 @@
             _source: file
           });
         }
+        const review = data.chapterReview || data.unitReview || data.review;
+        const reviewQuestions = review?.assessment || review?.questions || (Array.isArray(review) ? review : []);
+        if (Array.isArray(reviewQuestions) && reviewQuestions.length) {
+          allLessons.push({
+            id: "review-" + (isReading ? "read" : "math") + "-" + (unit.sequence ?? unit.number ?? 0),
+            order: 999,
+            title: review.title || ("مراجعة " + (unit.title || data.chapter || data.unit || "")),
+            objective: "راجع المهارات التي تعلمتها في هذه الوحدة.",
+            explanation: ["أجب عن أسئلة المراجعة بهدوء.", "إذا أخطأت، ارجع إلى الدرس المرتبط بالمهارة ثم حاول مرة أخرى."],
+            quiz: reviewQuestions,
+            _subject: subject,
+            _unitTitle: "مراجعة " + (unit.title || data.chapter || data.unit || ""),
+            _unitSequence: unit.sequence ?? unit.number ?? 0,
+            _edition: data.edition || index.edition || "2025-2026",
+            _pages: review.bookPages || review.pages || unit.bookPages || unit.pdfPages || null,
+            _source: file,
+            _isReview: true
+          });
+        }
       }
     }
     allLessons.sort((a,b) => (a._unitSequence-b._unitSequence) || ((a.order||0)-(b.order||0)));
