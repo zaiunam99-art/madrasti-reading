@@ -5,7 +5,7 @@ const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
 const globalLessonIds = new Map();
-const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0 };
+const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0 };
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -36,9 +36,11 @@ function inspect(node, file, path = "root") {
     return;
   }
 
-  if (Array.isArray(node.choices) && Object.hasOwn(node, "answer")) {
+  const choices = Array.isArray(node.choices) ? node.choices :
+    (Array.isArray(node.options) ? node.options : null);
+  if (choices && Object.hasOwn(node, "answer")) {
     stats.answerChecks++;
-    const options = optionsOf(node.choices);
+    const options = optionsOf(choices);
     const answers = Array.isArray(node.answer) ? node.answer.map(String) : [String(node.answer)];
     const valid = Array.isArray(node.answer)
       ? answers.every(answer => options.includes(answer))
@@ -47,6 +49,19 @@ function inspect(node, file, path = "root") {
       file: relative(".", file), path, answer: node.answer, options,
       message: "الإجابة المحددة غير موجودة ضمن الخيارات"
     });
+  }
+  if (node.type === "sequence_order") {
+    stats.sequenceChecks++;
+    if (!Array.isArray(node.items) || !Array.isArray(node.answer)) {
+      errors.push({ file: relative(".", file), path, message: "نشاط الترتيب يحتاج items و answer كمصفوفتين" });
+    } else if (node.answer.length !== node.items.length ||
+      node.answer.some((value, index) => String(value) !== String(node.items[index])) ||
+      new Set(node.items.map(String)).size !== node.items.length) {
+      errors.push({ file: relative(".", file), path, message: "إجابة الترتيب لا تطابق العناصر أو تحتوي تكراراً" });
+    }
+  }
+  if (node.type === "number_entry" && !Object.hasOwn(node, "answer")) {
+    errors.push({ file: relative(".", file), path, message: "نشاط الإجابة العددية بلا إجابة مرجعية" });
   }
 
   for (const [key, value] of Object.entries(node)) {
