@@ -322,7 +322,7 @@
     },
     {
       "grade": 2,
-      "status": "secondary-index-reviewed; candidate list only",
+      "status": "secondary-index-reviewed; grade-2-math-outline-verified-online; other books candidate list only",
       "books": [
         {
           "subject": "القراءة",
@@ -335,12 +335,15 @@
         },
         {
           "subject": "الرياضيات",
-          "edition": "2025-2026",
+          "edition": "الطبعة التاسعة، 1446هـ/2025م",
           "pages": 180,
           "fileSize": "6.63MB",
           "recordType": "student-book",
-          "source": "IraqEdu secondary index",
-          "status": "listed-not-downloaded-or-visually-verified"
+          "source": "Stadiraq direct PDF (independent secondary host; cover identifies Iraqi Ministry of Education)",
+          "status": "pdf-readable-online-outline-verified-not-locally-downloaded",
+          "title": "كتاب الرياضيات للصف الثاني الابتدائي",
+          "sourceUrl": "https://www.stadiraq.com/PDF/1760565450.pdf",
+          "verification": "تمت قراءة الغلاف وفهرس المحتويات ومراجعة بنية الفصول والعناوين عبر عارض PDF على الويب. لم يُنزّل الملف إلى بيئة المستودع ولم تُراجع كل صفحات التمارين والصور بصرياً."
         },
         {
           "subject": "تمرينات الرياضيات",
