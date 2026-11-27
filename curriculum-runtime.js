@@ -75,8 +75,8 @@
     const quiz = Array.isArray(lesson.quiz) ? lesson.quiz : [];
     const activities = Array.isArray(lesson.activities) ? lesson.activities : [];
     return [
-      ...activities.filter(x => Array.isArray(x.choices) && x.answer !== undefined),
-      ...quiz.filter(x => Array.isArray(x.choices) && x.answer !== undefined)
+      ...activities.filter(x => Array.isArray(x.choices) && x.answer !== undefined && !Array.isArray(x.answer)),
+      ...quiz.filter(x => Array.isArray(x.choices) && x.answer !== undefined && !Array.isArray(x.answer))
     ];
   }
   function answerLabel(choice) {
