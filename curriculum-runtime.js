@@ -66,10 +66,20 @@
     return { title:subject, edition:index.schoolYearLabel || index.edition || "2025-2026", units, lessons:allLessons, supported:true };
   }
   function lessonBody(lesson) {
-    const scripts = Array.isArray(lesson.teacherScript) ? lesson.teacherScript.map(x => x.text || "").filter(Boolean) : [];
-    const explanations = Array.isArray(lesson.explanation) ? lesson.explanation : [];
-    const blocks = scripts.length ? scripts : explanations;
-    return blocks.map(x => String(x)).filter(Boolean);
+    const scripts = typeof lesson.teacherScript === "string" ? [lesson.teacherScript] :
+      (Array.isArray(lesson.teacherScript) ? lesson.teacherScript.map(x => typeof x === "string" ? x : (x?.text || "")) : []);
+    const explanations = typeof lesson.explanation === "string" ? [lesson.explanation] :
+      (Array.isArray(lesson.explanation) ? lesson.explanation.map(x => typeof x === "string" ? x : (x?.text || "")) : []);
+    return (scripts.filter(Boolean).length ? scripts : explanations).map(String).filter(Boolean);
+  }
+  function lessonExamples(lesson) {
+    const rows = Array.isArray(lesson.examples) ? lesson.examples : (lesson.example ? [lesson.example] : []);
+    return rows.map(item => {
+      if (typeof item === "string") return item;
+      if (!item || typeof item !== "object") return "";
+      return [item.story, item.word, item.equation, item.question, item.focus ? "نركز على: " + item.focus : "",
+        item.answer !== undefined ? "الإجابة: " + item.answer : ""].filter(Boolean).join(" — ");
+    }).filter(Boolean);
   }
   function questionList(lesson) {
     const quiz = Array.isArray(lesson.quiz) ? lesson.quiz : [];
@@ -227,13 +237,10 @@
     document.getElementById("lessonName").textContent = title;
     const desc = lesson.objective || lesson.desc || "";
     const explanation = lessonBody(lesson);
-    const example = lesson.example;
+    const examples = lessonExamples(lesson);
     let content = desc;
     if (explanation.length) content += (content ? "\n\n" : "") + explanation.join("\n");
-    if (example) {
-      const ex = typeof example === "string" ? example : [example.story, example.equation, example.answer !== undefined ? "الإجابة: " + example.answer : ""].filter(Boolean).join("\n");
-      content += (content ? "\n\n" : "") + "مثال:\n" + ex;
-    }
+    if (examples.length) content += (content ? "\n\n" : "") + "أمثلة:\n" + examples.join("\n");
     document.getElementById("lessonDesc").textContent = content || "استمع إلى الشرح، ثم أجب عن السؤال.";
     const teacherName = document.getElementById("teacherName");
     const teacherMood = document.getElementById("teacherMood");
@@ -313,7 +320,7 @@
     speechSynthesis.cancel();
     const parts = [current.title, ...lessonBody(current)];
     if (current.objective) parts.push(current.objective);
-    if (current.example) parts.push(typeof current.example === "string" ? current.example : [current.example.story,current.example.equation].filter(Boolean).join(". "));
+    parts.push(...lessonExamples(current));
     utterance = new SpeechSynthesisUtterance(parts.filter(Boolean).join(". "));
     const voices = speechSynthesis.getVoices();
     utterance.voice = voices.find(voice => /^ar-IQ/i.test(voice.lang)) || voices.find(voice => /^ar-SA/i.test(voice.lang)) || voices.find(voice => /^ar/i.test(voice.lang)) || null;
