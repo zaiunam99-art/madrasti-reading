@@ -14,8 +14,11 @@ function makeFixture(t, { units, chapters = [], lessonData } = {}) {
   t.after(() => rmSync(root, { recursive: true, force: true }));
   const reading = join(root, "grade-1", "reading-2025-2026");
   const math = join(root, "grade-1", "math-2025-2026");
+  const grade2Math = join(root, "grade-2", "math-2025-2026");
   mkdirSync(reading, { recursive: true });
   mkdirSync(math, { recursive: true });
+  mkdirSync(grade2Math, { recursive: true });
+  writeFileSync(join(grade2Math, "chapters-index.json"), JSON.stringify({ chapters: [] }));
 
   const readingUnits = units ?? (lessonData === undefined ? [] : [
     { sequence: 1, title: "اختبار", lessonFile: "lessons.json" }
