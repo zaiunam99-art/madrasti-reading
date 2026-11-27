@@ -478,21 +478,34 @@
     if (!current || !active) return;
     const qs = questionList(current);
     if (qs.length && questionIndex < qs.length) return;
-    const all = readCompletedMap();
+    const progressKey = "madrastiCompletedLessonsV1";
     const childId = active.id;
-    const update = appendCompletedLesson(all, childId, current.id);
-    const wasAlreadyCompleted = update.alreadyCompleted;
+    let previousProgress;
     try {
-      localStorage.setItem("madrastiCompletedLessonsV1", JSON.stringify(update.map));
+      previousProgress = localStorage.getItem(progressKey);
+      const update = appendCompletedLesson(readCompletedMap(), childId, current.id);
+      localStorage.setItem(progressKey, JSON.stringify(update.map));
+      if (!update.alreadyCompleted) {
+        const previousCompleted = Number(active.completed) || 0;
+        active.completed = previousCompleted + 1;
+        if (typeof save === "function" && !save()) {
+          active.completed = previousCompleted;
+          try {
+            if (previousProgress === null) localStorage.removeItem(progressKey);
+            else localStorage.setItem(progressKey, previousProgress);
+          } catch (rollbackError) {
+            console.warn("تعذر التراجع عن سجل تقدم الدرس بعد فشل حفظ ملف الأسرة:", rollbackError);
+          }
+          const feedback = document.getElementById("feedback");
+          if (feedback) feedback.textContent = "تعذر حفظ ملف الطالب؛ لم يتم اعتماد إكمال الدرس. أعد المحاولة بعد التأكد من مساحة التخزين.";
+          return;
+        }
+      }
     } catch (error) {
       const feedback = document.getElementById("feedback");
-      if (feedback) feedback.textContent = "تعذر حفظ تقدمك على هذا الجهاز. تحقق من مساحة التخزين ثم حاول مجدداً.";
+      if (feedback) feedback.textContent = "تعذر حفظ تقدمك على هذا الجهاز. لم يتم اعتماد إكمال الدرس؛ حاول مجدداً.";
       console.warn("تعذر حفظ تقدم الدرس:", error);
       return;
-    }
-    if (!wasAlreadyCompleted) {
-      active.completed = (active.completed || 0) + 1;
-      if (typeof save === "function") save();
     }
     document.getElementById("lessonView").classList.add("hidden");
     document.getElementById("childView").classList.remove("hidden");
