@@ -1,0 +1,448 @@
+{
+  "schemaVersion": "1.0",
+  "curriculum": {
+    "country": "العراق",
+    "grade": 1,
+    "subject": "الرياضيات",
+    "edition": "الطبعة العاشرة، 1447هـ/2025م",
+    "sourceFile": "كتاب الرياضيات للصف الأول الابتدائي",
+    "sourcePages": {
+      "pdf": [
+        18,
+        25
+      ],
+      "printed": [
+        18,
+        25
+      ]
+    },
+    "verification": "تمت مراجعة صور ونص صفحات PDF 18–25. الدروس والتمارين أدناه صياغة تفاعلية أصلية مستندة إلى أهداف الصفحات وأنشطتها."
+  },
+  "sequence": [
+    {
+      "id": "g1-math-c1-l6",
+      "chapter": 1,
+      "lessonNumber": 6,
+      "title": "العدد صفر (0)",
+      "printedPages": [
+        18,
+        19
+      ],
+      "objective": "أن يتعرف المتعلم العدد صفر، ويقرأه ويكتبه، ويفهم أنه يدل على عدم وجود أشياء في المجموعة.",
+      "vocabulary": [
+        {
+          "term": "صفر",
+          "numeral": "٠",
+          "quantity": 0
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "welcome",
+          "text": "أهلاً بك! اليوم سنتعرف إلى العدد صفر."
+        },
+        {
+          "role": "explain",
+          "text": "إذا لم يوجد في السلة أي تفاح، نقول إن عدد التفاح صفر."
+        },
+        {
+          "role": "explain",
+          "text": "الصفر يكتب هكذا: ٠. وهو يدل على عدم وجود شيء في المجموعة."
+        },
+        {
+          "role": "prompt",
+          "text": "انظر إلى القفص الفارغ. كم طائراً فيه؟"
+        },
+        {
+          "role": "encourage",
+          "text": "أحسنت! عندما لا نجد أي شيء نستخدم العدد صفر."
+        }
+      ],
+      "activities": [
+        {
+          "id": "zero-empty-01",
+          "type": "multiple_choice",
+          "prompt": "سلة لا يوجد فيها أي تفاح. ما العدد الذي يمثل التفاح؟",
+          "options": [
+            "٠",
+            "١",
+            "٢"
+          ],
+          "answer": "٠",
+          "feedbackCorrect": "صحيح، لا يوجد تفاح؛ إذن العدد صفر.",
+          "feedbackTryAgain": "انظر: هل يوجد أي تفاح في السلة؟"
+        },
+        {
+          "id": "zero-match-01",
+          "type": "quantity_match",
+          "prompt": "اختر المجموعة التي تمثل العدد صفر.",
+          "choices": [
+            {
+              "label": "مجموعة فارغة",
+              "quantity": 0
+            },
+            {
+              "label": "شيء واحد",
+              "quantity": 1
+            },
+            {
+              "label": "شيئان",
+              "quantity": 2
+            }
+          ],
+          "answer": "مجموعة فارغة"
+        },
+        {
+          "id": "zero-trace-01",
+          "type": "trace_numeral",
+          "prompt": "تتبّع كتابة العدد صفر ثم اكتبه بنفسك.",
+          "numerals": [
+            "٠"
+          ]
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 2,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c1-l7",
+      "chapter": 1,
+      "lessonNumber": 7,
+      "title": "العدد 10",
+      "printedPages": [
+        20,
+        21
+      ],
+      "objective": "أن يتعرف المتعلم العدد ١٠، ويقرأه ويكتبه، ويعد مجموعة من عشرة أشياء.",
+      "vocabulary": [
+        {
+          "term": "عشرة",
+          "numeral": "١٠",
+          "quantity": 10
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "في اليدين عشر أصابع. هيا نعدها معاً."
+        },
+        {
+          "role": "explain",
+          "text": "واحد، اثنان، ثلاثة، أربعة، خمسة، ستة، سبعة، ثمانية، تسعة، عشرة."
+        },
+        {
+          "role": "explain",
+          "text": "عشرة تكتب بالرقمين ١ و٠ معاً: ١٠."
+        },
+        {
+          "role": "prompt",
+          "text": "أي مجموعة فيها عشرة أشياء؟ عدّها قبل الاختيار."
+        }
+      ],
+      "activities": [
+        {
+          "id": "ten-match-01",
+          "type": "quantity_match",
+          "prompt": "اختر المجموعة التي تحتوي على عشرة أشياء.",
+          "choices": [
+            {
+              "label": "٧ أشياء",
+              "quantity": 7
+            },
+            {
+              "label": "١٠ أشياء",
+              "quantity": 10
+            },
+            {
+              "label": "٩ أشياء",
+              "quantity": 9
+            }
+          ],
+          "answer": "١٠ أشياء"
+        },
+        {
+          "id": "ten-count-01",
+          "type": "multiple_choice",
+          "prompt": "ما العدد الذي يأتي بعد ٩؟",
+          "options": [
+            "٨",
+            "١٠",
+            "١١"
+          ],
+          "answer": "١٠",
+          "feedbackCorrect": "أحسنت! بعد تسعة يأتي عشرة.",
+          "feedbackTryAgain": "عدّ تصاعدياً: ٨، ٩، ثم العدد التالي."
+        },
+        {
+          "id": "ten-trace-01",
+          "type": "trace_numeral",
+          "prompt": "تتبّع كتابة العدد ١٠ ثم اكتبه.",
+          "numerals": [
+            "١٠"
+          ]
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 2,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c1-l8",
+      "chapter": 1,
+      "lessonNumber": 8,
+      "title": "الأعداد 11 إلى 15",
+      "printedPages": [
+        22,
+        23
+      ],
+      "objective": "أن يتعرف المتعلم الأعداد من ١١ إلى ١٥، ويقرأها ويكتبها، ويمثلها باستخدام مجموعة من عشرة وعناصر إضافية.",
+      "vocabulary": [
+        {
+          "term": "أحد عشر",
+          "numeral": "١١",
+          "quantity": 11
+        },
+        {
+          "term": "اثنا عشر",
+          "numeral": "١٢",
+          "quantity": 12
+        },
+        {
+          "term": "ثلاثة عشر",
+          "numeral": "١٣",
+          "quantity": 13
+        },
+        {
+          "term": "أربعة عشر",
+          "numeral": "١٤",
+          "quantity": 14
+        },
+        {
+          "term": "خمسة عشر",
+          "numeral": "١٥",
+          "quantity": 15
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "عندما يكون لدينا عشرة مكعبات ونضيف مكعباً واحداً يصبح العدد أحد عشر."
+        },
+        {
+          "role": "explain",
+          "text": "إذا أضفنا مكعبين إلى عشرة يصبح العدد اثني عشر."
+        },
+        {
+          "role": "explain",
+          "text": "نتابع العد: ثلاثة عشر، أربعة عشر، خمسة عشر."
+        },
+        {
+          "role": "prompt",
+          "text": "ما العدد الذي يأتي بعد اثني عشر؟"
+        },
+        {
+          "role": "encourage",
+          "text": "تذكر: نبدأ من عشرة، ثم نضيف واحداً في كل مرة."
+        }
+      ],
+      "activities": [
+        {
+          "id": "teen-11-15-01",
+          "type": "multiple_choice",
+          "prompt": "ما العدد الذي يأتي بعد ١٢؟",
+          "options": [
+            "١١",
+            "١٣",
+            "١٤"
+          ],
+          "answer": "١٣",
+          "feedbackCorrect": "صحيح، بعد ١٢ يأتي ١٣.",
+          "feedbackTryAgain": "تابع العد: ١١، ١٢، ثم العدد التالي."
+        },
+        {
+          "id": "teen-11-15-02",
+          "type": "multiple_choice",
+          "prompt": "اختر كتابة العدد خمسة عشر.",
+          "options": [
+            "١٤",
+            "١٥",
+            "١٣"
+          ],
+          "answer": "١٥",
+          "feedbackCorrect": "أحسنت! خمسة عشر تكتب ١٥.",
+          "feedbackTryAgain": "راجع ترتيب الأعداد من ١١ إلى ١٥."
+        },
+        {
+          "id": "teen-11-15-03",
+          "type": "sequence_order",
+          "prompt": "رتّب الأعداد من الأصغر إلى الأكبر.",
+          "items": [
+            "١٤",
+            "١١",
+            "١٥",
+            "١٢",
+            "١٣"
+          ],
+          "answer": [
+            "١١",
+            "١٢",
+            "١٣",
+            "١٤",
+            "١٥"
+          ]
+        },
+        {
+          "id": "teen-11-15-04",
+          "type": "trace_numeral",
+          "prompt": "تتبّع الأعداد من ١١ إلى ١٥.",
+          "numerals": [
+            "١١",
+            "١٢",
+            "١٣",
+            "١٤",
+            "١٥"
+          ]
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 3,
+        "totalChecks": 3,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c1-l9",
+      "chapter": 1,
+      "lessonNumber": 9,
+      "title": "الأعداد 16 إلى 20",
+      "printedPages": [
+        24,
+        25
+      ],
+      "objective": "أن يتعرف المتعلم الأعداد من ١٦ إلى ٢٠، ويقرأها ويكتبها، ويكمل تسلسل الأعداد حتى ٢٠.",
+      "vocabulary": [
+        {
+          "term": "ستة عشر",
+          "numeral": "١٦",
+          "quantity": 16
+        },
+        {
+          "term": "سبعة عشر",
+          "numeral": "١٧",
+          "quantity": 17
+        },
+        {
+          "term": "ثمانية عشر",
+          "numeral": "١٨",
+          "quantity": 18
+        },
+        {
+          "term": "تسعة عشر",
+          "numeral": "١٩",
+          "quantity": 19
+        },
+        {
+          "term": "عشرون",
+          "numeral": "٢٠",
+          "quantity": 20
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "اليوم نكمل العد بعد خمسة عشر."
+        },
+        {
+          "role": "explain",
+          "text": "ستة عشر، سبعة عشر، ثمانية عشر، تسعة عشر، عشرون."
+        },
+        {
+          "role": "explain",
+          "text": "عشرون هو العدد الذي يأتي بعد تسعة عشر."
+        },
+        {
+          "role": "prompt",
+          "text": "ما العدد الناقص بين ١٧ و١٩؟"
+        },
+        {
+          "role": "encourage",
+          "text": "ممتاز! لقد أكملت العد حتى عشرين."
+        }
+      ],
+      "activities": [
+        {
+          "id": "teen-16-20-01",
+          "type": "multiple_choice",
+          "prompt": "ما العدد الذي يأتي بين ١٧ و١٩؟",
+          "options": [
+            "١٦",
+            "١٨",
+            "٢٠"
+          ],
+          "answer": "١٨",
+          "feedbackCorrect": "صحيح، العدد الناقص هو ١٨.",
+          "feedbackTryAgain": "عدّ: ١٧، ثم العدد التالي، ثم ١٩."
+        },
+        {
+          "id": "teen-16-20-02",
+          "type": "multiple_choice",
+          "prompt": "ما العدد الذي يأتي بعد ١٩؟",
+          "options": [
+            "١٨",
+            "١٩",
+            "٢٠"
+          ],
+          "answer": "٢٠",
+          "feedbackCorrect": "أحسنت! بعد ١٩ يأتي ٢٠.",
+          "feedbackTryAgain": "تابع العد بعد تسعة عشر."
+        },
+        {
+          "id": "teen-16-20-03",
+          "type": "sequence_order",
+          "prompt": "رتّب الأعداد من ١٦ إلى ٢٠.",
+          "items": [
+            "١٩",
+            "١٦",
+            "٢٠",
+            "١٨",
+            "١٧"
+          ],
+          "answer": [
+            "١٦",
+            "١٧",
+            "١٨",
+            "١٩",
+            "٢٠"
+          ]
+        },
+        {
+          "id": "teen-16-20-04",
+          "type": "trace_numeral",
+          "prompt": "تتبّع الأعداد من ١٦ إلى ٢٠.",
+          "numerals": [
+            "١٦",
+            "١٧",
+            "١٨",
+            "١٩",
+            "٢٠"
+          ]
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 3,
+        "totalChecks": 3,
+        "allowRetry": true
+      }
+    }
+  ],
+  "implementationNotes": {
+    "audio": "نصوص قصيرة قابلة للنطق عبر صوت عربي متاح في الجهاز؛ يجب إظهار النص دائماً وتوفير تشغيل وإيقاف وإعادة.",
+    "assessment": "التقييم تكويني مع إعادة المحاولة، ولا تُسجل بيانات صوتية.",
+    "copyright": "الشرح والأسئلة صياغة تعليمية أصلية مبنية على موضوعات صفحات المصدر."
+  }
+}
