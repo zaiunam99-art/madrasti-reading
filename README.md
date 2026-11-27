@@ -14,6 +14,7 @@
 
 ## روابط مهمة
 - [مواصفات النظام](docs/system-design.md)
+- [تدقيق الواجهة التجريبية الحالية](docs/current-prototype-audit.md)
 - [إعداد Cloudflare Pages وD1](docs/cloudflare-setup.md)
 - [مخطط قاعدة البيانات](migrations/0001_initial.sql)
 - [واجهة الموقع](index.html)
