@@ -83,6 +83,14 @@
     if (choice && typeof choice === "object") return choice.label ?? choice.value ?? choice.quantity ?? JSON.stringify(choice);
     return String(choice);
   }
+  function normalizedAnswer(value) { return String(value ?? "").replace(/[٠-٩]/g, digit => "٠١٢٣٤٥٦٧٨٩".indexOf(digit)).replace(/[۰-۹]/g, digit => "۰۱۲۳۴۵۶۷۸۹".indexOf(digit)).trim(); }
+  function choiceMatches(choice, answer) {
+    const values = choice && typeof choice === "object"
+      ? [choice.label, choice.value, choice.quantity, choice.id].filter(value => value !== undefined)
+      : [choice];
+    if (Array.isArray(answer)) return answer.some(item => values.some(value => normalizedAnswer(value) === normalizedAnswer(item)));
+    return values.some(value => normalizedAnswer(value) === normalizedAnswer(answer));
+  }
   function displayChoice(choice) {
     if (choice && typeof choice === "object") return choice.label ?? choice.value ?? choice.quantity ?? "خيار";
     return String(choice);
@@ -132,9 +140,7 @@
         if (answered.has(questionIndex)) return;
         const selected = q.choices[Number(button.dataset.choice)];
         const expected = q.answer;
-        const correctAnswer = Array.isArray(expected)
-          ? expected.map(String).join("|") === [answerLabel(selected)].join("|")
-          : String(answerLabel(selected)) === String(expected);
+        const correctAnswer = choiceMatches(selected, expected);
         answered.add(questionIndex);
         if (correctAnswer) {
           score++;
@@ -249,6 +255,7 @@
   window.stopLessonAudio = function() { if ("speechSynthesis" in window) speechSynthesis.cancel(); setTeacherSpeaking(false); };
   window.playLesson = function() {
     if (!current) return;
+    if (active?.voice === "none") { document.getElementById("feedback").textContent = "الصوت مكتوم حسب إعدادات ولي الأمر. يمكنك قراءة الشرح."; return; }
     if (!("speechSynthesis" in window)) {
       document.getElementById("feedback").textContent = "الصوت غير متاح في هذا المتصفح. يمكنك قراءة الشرح المعروض.";
       return;
@@ -258,7 +265,9 @@
     if (current.objective) parts.push(current.objective);
     if (current.example) parts.push(typeof current.example === "string" ? current.example : [current.example.story,current.example.equation].filter(Boolean).join(". "));
     utterance = new SpeechSynthesisUtterance(parts.filter(Boolean).join(". "));
-    utterance.lang = "ar-IQ";
+    const voices = speechSynthesis.getVoices();
+    utterance.voice = voices.find(voice => /^ar-IQ/i.test(voice.lang)) || voices.find(voice => /^ar-SA/i.test(voice.lang)) || voices.find(voice => /^ar/i.test(voice.lang)) || null;
+    utterance.lang = utterance.voice?.lang || "ar-IQ";
     utterance.rate = active?.voice === "slow" ? 0.72 : 0.88;
     utterance.onstart = () => setTeacherSpeaking(true);
     utterance.onend = utterance.onerror = () => setTeacherSpeaking(false);
