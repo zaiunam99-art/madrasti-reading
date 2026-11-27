@@ -441,11 +441,22 @@
   };
   window.selectChild = function(id) {
     subjectRequestId++;
+    // Switching profiles (or returning from a lesson) must invalidate the old lesson
+    // so its completion can never be written to a different child's progress.
+    window.stopLessonAudio();
+    current = null;
+    activeLesson = null;
+    document.getElementById("lessonView").classList.add("hidden");
     active = family.find(child => child.id === id) || null;
     const area = document.getElementById("studentArea");
     area.classList.toggle("hidden", !active);
     document.getElementById("noStudent").classList.toggle("hidden", !!active || (family || []).length > 0);
-    if (!active) return;
+    if (!active) {
+      area.innerHTML = "";
+      document.getElementById("curriculumLoading")?.remove();
+      document.getElementById("subjectLessons")?.remove();
+      return;
+    }
     area.innerHTML = '<div class="child" style="margin:16px 0"><div class="avatar">' + escHtml(active.avatar || "🧒") + '</div><div><h2>مرحباً ' + escHtml(active.name || "بطل التعلّم") + ' 🌟</h2><div class="muted">' + escHtml(active.grade) + '</div></div></div><h3>موادي</h3><div class="cards">' +
       (active.subjects || []).map(subject => '<div class="card subject"><span>' + escHtml(subject) + '</span><button class="alt" data-subject="' + escHtml(subject) + '">افتح الدروس</button></div>').join("") + '</div><p class="muted">خطة التعلّم: ' + Number(active.dailyCount || 1) + ' درس يومياً لكل مادة.</p>';
     area.querySelectorAll("[data-subject]").forEach(button => button.addEventListener("click", () => window.openSubject(button.dataset.subject)));
