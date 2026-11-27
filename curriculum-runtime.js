@@ -141,12 +141,12 @@
     finish.textContent = "إكمال الدرس ⭐";
   }
   function openLesson(lesson) {
-    current = lesson; window.activeLesson = lesson;
+    current = lesson; activeLesson = lesson;
     questionIndex = 0; score = 0; answered = new Set();
     const title = lesson.title || "درس جديد";
     document.getElementById("lessonHeading").textContent = lesson._unitTitle || "درس تفاعلي";
     document.getElementById("lessonMeta").textContent =
-      (window.active?.name || "الطالب") + " · " + (lesson._edition || "2025-2026") +
+      (active?.name || "الطالب") + " · " + (lesson._edition || "2025-2026") +
       (lesson._pages ? " · " + pagesLabel(lesson._pages) : "");
     document.getElementById("lessonSymbol").textContent = lesson.letter || lesson.symbol || "📚";
     document.getElementById("lessonName").textContent = title;
@@ -162,7 +162,7 @@
     document.getElementById("lessonDesc").textContent = content || "استمع إلى الشرح، ثم أجب عن السؤال.";
     const teacherName = document.getElementById("teacherName");
     const teacherMood = document.getElementById("teacherMood");
-    if (teacherName) teacherName.textContent = window.active?.name ? "مرحباً " + window.active.name + "!" : "المعلّم الصغير";
+    if (teacherName) teacherName.textContent = active?.name ? "مرحباً " + active.name + "!" : "المعلّم الصغير";
     if (teacherMood) teacherMood.textContent = "هيا نتعلم معاً 🌟";
     document.getElementById("childView").classList.add("hidden");
     document.getElementById("lessonView").classList.remove("hidden");
@@ -170,11 +170,11 @@
   }
   window.MadrastiCurriculum = { loadSubject, lessonBody, questionList };
   window.openSubject = async function(subject) {
-    if (!window.active) return;
+    if (!active) return;
     const area = document.getElementById("studentArea");
     area.insertAdjacentHTML("beforeend", '<p id="curriculumLoading" class="muted">جارٍ تحميل دروس المنهج…</p>');
     try {
-      const data = await loadSubject(subject, window.active.grade);
+      const data = await loadSubject(subject, active.grade);
       document.getElementById("curriculumLoading")?.remove();
       if (!data.supported || !data.lessons.length) {
         area.insertAdjacentHTML("beforeend", '<div class="notice">لم يتم إعداد ملف دروس موثّق لهذه المادة والصف بعد. لن نعرض أسئلة مؤلفة على أنها من الكتاب.</div>');
@@ -182,7 +182,7 @@
       }
       const listId = "subjectLessons";
       document.getElementById(listId)?.remove();
-      const done = new Set(JSON.parse(localStorage.getItem("madrastiCompletedLessonsV1") || "{}")[window.active.id] || []);
+      const done = new Set(JSON.parse(localStorage.getItem("madrastiCompletedLessonsV1") || "{}")[active.id] || []);
       const wrap = document.createElement("section");
       wrap.id = listId;
       wrap.className = "panel";
@@ -197,26 +197,26 @@
     }
   };
   window.selectChild = function(id) {
-    window.active = (window.family || []).find(child => child.id === id) || null;
+    active = family.find(child => child.id === id) || null;
     const area = document.getElementById("studentArea");
-    area.classList.toggle("hidden", !window.active);
-    document.getElementById("noStudent").classList.toggle("hidden", !!window.active || (window.family || []).length > 0);
-    if (!window.active) return;
-    area.innerHTML = '<div class="child" style="margin:16px 0"><div class="avatar">' + escHtml(window.active.avatar || "🧒") + '</div><div><h2>مرحباً ' + escHtml(window.active.name || "بطل التعلّم") + ' 🌟</h2><div class="muted">' + escHtml(window.active.grade) + '</div></div></div><h3>موادي</h3><div class="cards">' +
-      (window.active.subjects || []).map(subject => '<div class="card subject"><span>' + escHtml(subject) + '</span><button class="alt" data-subject="' + escHtml(subject) + '">افتح الدروس</button></div>').join("") + '</div><p class="muted">خطة التعلّم: ' + Number(window.active.dailyCount || 1) + ' درس يومياً لكل مادة.</p>';
+    area.classList.toggle("hidden", !active);
+    document.getElementById("noStudent").classList.toggle("hidden", !!active || (family || []).length > 0);
+    if (!active) return;
+    area.innerHTML = '<div class="child" style="margin:16px 0"><div class="avatar">' + escHtml(active.avatar || "🧒") + '</div><div><h2>مرحباً ' + escHtml(active.name || "بطل التعلّم") + ' 🌟</h2><div class="muted">' + escHtml(active.grade) + '</div></div></div><h3>موادي</h3><div class="cards">' +
+      (active.subjects || []).map(subject => '<div class="card subject"><span>' + escHtml(subject) + '</span><button class="alt" data-subject="' + escHtml(subject) + '">افتح الدروس</button></div>').join("") + '</div><p class="muted">خطة التعلّم: ' + Number(active.dailyCount || 1) + ' درس يومياً لكل مادة.</p>';
     area.querySelectorAll("[data-subject]").forEach(button => button.addEventListener("click", () => window.openSubject(button.dataset.subject)));
   };
   window.answer = function() {};
   window.finishLesson = function() {
-    if (!current || !window.active) return;
+    if (!current || !active) return;
     const qs = questionList(current);
     if (qs.length && questionIndex < qs.length) return;
     const all = JSON.parse(localStorage.getItem("madrastiCompletedLessonsV1") || "{}");
-    const childId = window.active.id;
+    const childId = active.id;
     all[childId] = Array.from(new Set([...(all[childId] || []), current.id]));
     localStorage.setItem("madrastiCompletedLessonsV1", JSON.stringify(all));
-    window.active.completed = (window.active.completed || 0) + 1;
-    if (typeof window.save === "function") window.save();
+    active.completed = (active.completed || 0) + 1;
+    if (typeof save === "function") save();
     document.getElementById("lessonView").classList.add("hidden");
     document.getElementById("childView").classList.remove("hidden");
     window.selectChild(childId);
@@ -237,7 +237,7 @@
     if (current.example) parts.push(typeof current.example === "string" ? current.example : [current.example.story,current.example.equation].filter(Boolean).join(". "));
     utterance = new SpeechSynthesisUtterance(parts.filter(Boolean).join(". "));
     utterance.lang = "ar-IQ";
-    utterance.rate = window.active?.voice === "slow" ? 0.72 : 0.88;
+    utterance.rate = active?.voice === "slow" ? 0.72 : 0.88;
     utterance.onstart = () => setTeacherSpeaking(true);
     utterance.onend = utterance.onerror = () => setTeacherSpeaking(false);
     speechSynthesis.speak(utterance);
