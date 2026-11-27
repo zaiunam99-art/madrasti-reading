@@ -93,7 +93,8 @@ function inspect(node, file, path = "root") {
 async function verifyIndexes() {
   const indexes = [
     join(root, "grade-1/reading-2025-2026/units-index.json"),
-    join(root, "grade-1/math-2025-2026/chapters-index.json")
+    join(root, "grade-1/math-2025-2026/chapters-index.json"),
+    join(root, "grade-2/math-2025-2026/chapters-index.json")
   ];
   for (const indexPath of indexes) {
     let index;
