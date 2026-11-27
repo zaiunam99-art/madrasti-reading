@@ -19,6 +19,12 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 
 <section id="guardianView">
 <div class="section-head"><div><h2>ملفات الأبناء</h2><div class="muted">أضف ملفاً لكل طفل وحدد صفه ومواده وخطة تعلمه.</div></div><button onclick="openChildForm()">＋ إضافة طالب</button></div>
+<div class="row" style="margin:0 0 12px">
+<button type="button" class="alt" onclick="exportFamilyBackup()">تنزيل نسخة احتياطية</button>
+<button type="button" class="ghost" onclick="document.getElementById('familyBackupFile').click()">استعادة نسخة احتياطية</button>
+<input id="familyBackupFile" type="file" accept="application/json,.json" hidden onchange="importFamilyBackup(this)">
+</div>
+<p class="muted">النسخة الاحتياطية تحفظ ملفات الأبناء وسجل التقدم في ملف على جهازك. احتفظ به في مكان خاص؛ فهو قد يحتوي أسماء الأطفال.</p>
 <div id="children" class="cards"></div>
 <div class="grid">
 <section class="panel"><h2>📚 مكتبة المناهج</h2><p class="muted">المناهج المتاحة حالياً: القراءة والرياضيات للصف الأول (إصدار 2025–2026). بقية الصفوف قيد التحقق.</p><div class="card"><strong>العراق · الصف الأول الابتدائي</strong><p class="muted">المواد التي أُعدت لها دروس أولية: القراءة والرياضيات، إصدار 2025–2026. تظهر الدروس بعد إنشاء ملف الطالب واختيار المادة من مساحته.</p><span class="tag">108 دروس أولية في المستودع</span></div><label for="pdfUpload">اختيار كتاب PDF ومعاينته محلياً</label><input id="pdfUpload" type="file" accept="application/pdf" onchange="previewPdf(this)"><div id="pdfInfo" class="muted">لم يتم اختيار ملف.</div></section>
@@ -58,6 +64,72 @@ function loadFamily(){
 let family=loadFamily();let active=null,correct=false,activeLesson=null;
 const lessons=[{title:'حرف الباء',symbol:'ب',desc:'هذا حرف الباء. نستمع إلى صوته ونشاهده في بداية الكلمات.',q:'أي كلمة تبدأ بحرف الباء؟',answers:['باب','موز','دار'],right:'باب',subject:'القراءة'},{title:'حرف الميم',symbol:'م',desc:'هذا حرف الميم. كرر صوته، ثم اختر الكلمة المناسبة.',q:'أي كلمة تبدأ بحرف الميم؟',answers:['بيت','موز','نور'],right:'موز',subject:'القراءة'},{title:'حرف الدال',symbol:'د',desc:'نتعرف اليوم إلى حرف الدال ونميّز صوته.',q:'أي كلمة تبدأ بحرف الدال؟',answers:['دار','باب','موز'],right:'دار',subject:'القراءة'}];
 function save(){try{localStorage.setItem(KEY,JSON.stringify(family));return true}catch(error){alert('تعذر حفظ التغييرات على هذا الجهاز. تحقق من مساحة التخزين وإعدادات المتصفح.');return false}}
+function validateFamilyBackup(data){
+  if(!data||typeof data!=='object'||Array.isArray(data)||data.format!=='madrasti-family-backup'||data.version!==1||!Array.isArray(data.family)||data.family.length>100)throw new Error('ملف النسخة الاحتياطية غير صالح أو غير مدعوم.');
+  const ids=new Set();
+  const allowedSubjects=['القراءة','الرياضيات','العلوم','اللغة الإنجليزية'];
+  const family=data.family.map(child=>{
+    if(!child||typeof child!=='object'||Array.isArray(child)||typeof child.id!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(child.id)||ids.has(child.id))throw new Error('تحتوي النسخة على ملف طالب غير صالح أو معرّف مكرر.');
+    ids.add(child.id);
+    if(typeof child.name!=='string'||!['boy','girl','neutral'].includes(child.gender)||typeof child.grade!=='string'||!child.grade.trim()||!['🧒','👦','👧','🦊','🐼'].includes(child.avatar)||!['default','slow','none'].includes(child.voice)||!Number.isInteger(child.dailyCount)||child.dailyCount<1||child.dailyCount>10||!Array.isArray(child.subjects)||!child.subjects.length||child.subjects.some(subject=>!allowedSubjects.includes(subject))||!Number.isFinite(child.completed)||child.completed<0)throw new Error('بيانات أحد ملفات الطلاب لا تجتاز التحقق.');
+    return {...child,subjects:[...new Set(child.subjects)]};
+  });
+  if(data.progressRaw!==null&&typeof data.progressRaw!=='string')throw new Error('سجل التقدم داخل النسخة الاحتياطية غير صالح.');
+  if(typeof data.progressRaw==='string'&&data.progressRaw.length>500000)throw new Error('سجل التقدم أكبر من الحد المسموح للاستعادة.');
+  return {family,progressRaw:data.progressRaw};
+}
+function applyFamilyBackup(data,storage){
+  const backup=validateFamilyBackup(data);
+  const previousFamily=storage.getItem(KEY);
+  const previousProgress=storage.getItem('madrastiCompletedLessonsV1');
+  try{
+    storage.setItem(KEY,JSON.stringify(backup.family));
+    if(backup.progressRaw===null)storage.removeItem('madrastiCompletedLessonsV1');
+    else storage.setItem('madrastiCompletedLessonsV1',backup.progressRaw);
+  }catch(error){
+    const rollbackErrors=[];
+    try{if(previousFamily===null)storage.removeItem(KEY);else storage.setItem(KEY,previousFamily)}catch(rollback){rollbackErrors.push(rollback)}
+    try{if(previousProgress===null)storage.removeItem('madrastiCompletedLessonsV1');else storage.setItem('madrastiCompletedLessonsV1',previousProgress)}catch(rollback){rollbackErrors.push(rollback)}
+    if(rollbackErrors.length)throw new Error('فشلت الاستعادة وتعذرت استعادة بعض البيانات السابقة. أعد تحميل الصفحة وتحقق من التخزين قبل المتابعة.');
+    throw new Error('تعذرت الاستعادة؛ تمت إعادة البيانات السابقة دون تغيير.');
+  }
+  return backup;
+}
+function exportFamilyBackup(){
+  try{
+    const progressRaw=localStorage.getItem('madrastiCompletedLessonsV1');
+    const backup={format:'madrasti-family-backup',version:1,createdAt:new Date().toISOString(),family,progressRaw};
+    const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement('a');
+    link.href=url;
+    link.download='madrasti-family-backup.json';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }catch(error){alert('تعذر إنشاء النسخة الاحتياطية على هذا الجهاز.')}
+}
+async function importFamilyBackup(input){
+  const file=input?.files?.[0];
+  if(!file)return;
+  try{
+    if(file.size>1000000)throw new Error('حجم ملف النسخة الاحتياطية أكبر من 1 ميغابايت.');
+    const data=JSON.parse(await file.text());
+    validateFamilyBackup(data);
+    if(!confirm('ستُستبدل ملفات الأبناء وسجل التقدم الحاليان بمحتويات النسخة الاحتياطية. هل تريد المتابعة؟'))return;
+    const restored=applyFamilyBackup(data,localStorage);
+    family=restored.family;
+    active=null;
+    window.stopLessonAudio?.();
+    showView('guardian');
+    alert(typeof restored.progressRaw==='string'&&(()=>{try{const parsed=JSON.parse(restored.progressRaw);return !parsed||typeof parsed!=='object'||Array.isArray(parsed)}catch(error){return true}})()
+      ?'تمت استعادة ملفات الأبناء، لكن سجل التقدم داخل النسخة غير صالح؛ أوقفنا تسجيل الإنجاز لحماية البيانات.'
+      :'تمت استعادة ملفات الأبناء وسجل التقدم على هذا الجهاز بنجاح.');
+  }catch(error){alert(error.message||'تعذرت قراءة النسخة الاحتياطية.')}
+  finally{input.value=''}
+}
+
 let previewPdfUrl = null;
 let previewPdfRequest = 0;
 async function previewPdf(input){
