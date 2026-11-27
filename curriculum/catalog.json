@@ -2541,6 +2541,33 @@
         }
       ],
       "mathCurriculumJson": "curriculum/grade-1/math-2025-2026.json"
+    },
+    "latestSearchNov27": {
+      "checkedAt": "2026-11-27",
+      "queries": [
+        "فهرس كتب 2026-2027 للصف الثاني الابتدائي",
+        "فهرس كتب 2026-2027 للصف الثالث الابتدائي",
+        "فهرس كتب 2026-2027 للصف الرابع الابتدائي",
+        "فهرس كتب 2026-2027 للصف الخامس الابتدائي",
+        "فهرس كتب 2026-2027 للصف السادس الابتدائي"
+      ],
+      "findings": [
+        {
+          "grade": 6,
+          "edition": "2026-2027",
+          "status": "secondary index lists reading, science, social studies, mathematics, Islamic studies, English, plus activity books; PDFs not downloaded or inspected"
+        },
+        {
+          "grades": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "status": "No clear student-textbook 2026-2027 entries surfaced in this search pass; retain 2025-2026 candidate records pending official verification"
+        }
+      ],
+      "caution": "Search results are not proof of non-publication. Only a limited official ministry scope was confirmed in the sources reviewed; do not mark any secondary listing as officially verified."
     }
   }
 }
