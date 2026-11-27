@@ -283,139 +283,256 @@
     },
     {
       "grade": 2,
-      "status": "partially-identified-from-secondary-catalog; PDFs-not-opened",
+      "status": "catalogued-from-secondary-index; PDFs-not-yet-individually-verified",
       "books": [],
       "candidateSources": [
         {
-          "subject": "العلوم",
-          "title": "العلوم للصف الثاني الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
-          "pages": 196,
-          "fileSizeMB": 11.52,
-          "sourceUrl": "https://www.stadiraq.com/الثاني-الابتدائي/الكتب-المنهجية/",
-          "status": "listed-by-secondary-index; direct PDF not inspected"
+          "subject": "التربية الأخلاقية",
+          "title": "كتاب التربية الأخلاقية للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 88,
+          "fileSizeMB": 15.1,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         },
         {
-          "subject": "نشاط العلوم",
+          "subject": "العلوم – نشاط",
           "title": "كتاب نشاط العلوم للصف الثاني الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
           "pages": 68,
           "fileSizeMB": 8.83,
-          "sourceUrl": "https://www.stadiraq.com/الثاني-الابتدائي/الكتب-المنهجية/",
-          "status": "listed-by-secondary-index; direct PDF not inspected"
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "العلوم",
+          "title": "كتاب العلوم للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 196,
+          "fileSizeMB": 11.52,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "الرياضيات – تمرينات",
+          "title": "كتاب تمرينات الرياضيات للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 64,
+          "fileSizeMB": 2.44,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "الرياضيات",
+          "title": "كتاب الرياضيات للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 180,
+          "fileSizeMB": 6.63,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "الإنكليزية – نشاط",
+          "title": "كتاب نشاط الإنكليزي للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 104,
+          "fileSizeMB": 2.49,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "الإنكليزية",
+          "title": "كتاب الإنكليزي للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 80,
+          "fileSizeMB": 7.61,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "القراءة",
+          "title": "كتاب القراءة للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 120,
+          "fileSizeMB": 11.58,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "التربية الإسلامية",
+          "title": "كتاب الإسلامية للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 64,
+          "fileSizeMB": 10.2,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         }
       ]
     },
     {
       "grade": 3,
-      "status": "partially-identified-from-secondary-catalog; PDFs-not-opened",
+      "status": "catalogued-from-secondary-index; PDFs-not-yet-individually-verified",
       "books": [],
       "candidateSources": [
         {
-          "subject": "القراءة",
-          "title": "كتاب القراءة للصف الثالث الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
-          "pages": 144,
-          "fileSizeMB": 20.97,
+          "subject": "العلوم – نشاط",
+          "title": "كتاب نشاط العلوم للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 68,
+          "fileSizeMB": 2.88,
           "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
-          "status": "listed; direct PDF not inspected"
-        },
-        {
-          "subject": "اللغة الإنكليزية",
-          "title": "كتاب الإنكليزي للصف الثالث الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
-          "pages": 122,
-          "fileSizeMB": 11.69,
-          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
-          "status": "listed; direct PDF not inspected"
-        },
-        {
-          "subject": "التربية الإسلامية",
-          "title": "كتاب الإسلامية للصف الثالث الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
-          "pages": 72,
-          "fileSizeMB": 7.15,
-          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
-          "status": "listed; direct PDF not inspected"
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         },
         {
           "subject": "العلوم",
           "title": "كتاب العلوم للصف الثالث الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
           "pages": 196,
           "fileSizeMB": 11.71,
-          "sourceUrl": "https://www.stadiraq.com/الثالث-الابتدائي/الكتب-المنهجية/",
-          "status": "listed; direct PDF not inspected"
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "الرياضيات – تمرينات",
+          "title": "كتاب تمرينات الرياضيات للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 64,
+          "fileSizeMB": 13.69,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         },
         {
           "subject": "الرياضيات",
           "title": "كتاب الرياضيات للصف الثالث الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
           "pages": 176,
           "fileSizeMB": 13.24,
-          "sourceUrl": "https://www.stadiraq.com/الثالث-الابتدائي/الكتب-المنهجية/",
-          "status": "listed; direct PDF not inspected"
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         },
         {
-          "subject": "الرياضيات – التمارين",
-          "title": "كتاب تمرينات الرياضيات للصف الثالث الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
-          "pages": 64,
-          "fileSizeMB": 13.69,
-          "sourceUrl": "https://www.stadiraq.com/الثالث-الابتدائي/الكتب-المنهجية/",
-          "status": "listed; direct PDF not inspected"
+          "subject": "الإنكليزية – نشاط",
+          "title": "كتاب نشاط الإنكليزي للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 108,
+          "fileSizeMB": 8.08,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "الإنكليزية",
+          "title": "كتاب الإنكليزي للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 122,
+          "fileSizeMB": 11.69,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "القراءة",
+          "title": "كتاب القراءة للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 144,
+          "fileSizeMB": 20.97,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "التربية الإسلامية",
+          "title": "كتاب الإسلامية للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 72,
+          "fileSizeMB": 7.15,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         }
       ]
     },
     {
       "grade": 4,
-      "status": "partially-identified-from-secondary-catalog; PDFs-not-opened",
+      "status": "catalogued-from-secondary-index; PDFs-not-yet-individually-verified",
       "books": [],
       "candidateSources": [
         {
+          "subject": "الإنكليزية",
+          "title": "كتاب الإنكليزي للصف الرابع الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 119,
+          "fileSizeMB": 8.92,
+          "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "الرياضيات – تمرينات",
+          "title": "كتاب تمرينات الرياضيات للصف الرابع الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 56,
+          "fileSizeMB": 2.25,
+          "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "العلوم – نشاط",
+          "title": "كتاب نشاط العلوم للصف الرابع الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 100,
+          "fileSizeMB": 16.54,
+          "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
+          "subject": "الاجتماعيات",
+          "title": "كتاب الاجتماعيات للصف الرابع الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
+          "pages": 64,
+          "fileSizeMB": 4.73,
+          "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+        },
+        {
           "subject": "العلوم",
           "title": "كتاب العلوم للصف الرابع الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
           "pages": 216,
           "fileSizeMB": 13.57,
           "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
-          "status": "listed; direct PDF not inspected"
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         },
         {
           "subject": "القواعد",
           "title": "كتاب القواعد للصف الرابع الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
           "pages": 80,
           "fileSizeMB": 12.8,
           "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
-          "status": "listed; direct PDF not inspected"
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         },
         {
           "subject": "الرياضيات",
           "title": "كتاب الرياضيات للصف الرابع الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
           "pages": 196,
           "fileSizeMB": 3.83,
           "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
-          "status": "listed; direct PDF not inspected"
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         },
         {
           "subject": "القراءة",
           "title": "كتاب القراءة للصف الرابع الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
           "pages": 148,
           "fileSizeMB": 7.05,
           "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
-          "status": "listed; direct PDF not inspected"
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         },
         {
           "subject": "التربية الإسلامية",
           "title": "كتاب الإسلامية للصف الرابع الابتدائي",
-          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "schoolYearLabel": "2025-2026 (secondary index listing)",
           "pages": 72,
           "fileSizeMB": 6.48,
           "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
-          "status": "listed; direct PDF not inspected"
+          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         }
       ]
     },
@@ -647,6 +764,9 @@
     "The grade 5 science student book and activity book, and grade 6 science and social studies books have been opened as PDFs online. Their cover editions and contents were inspected. These are still external source links, not files stored in the app.",
     "The 2025 books are fallback references for 2025-2026 until a complete 2026-2027 book is verified. Do not treat a partial 2026-2027 release as a full textbook.",
     "Grades 2-5 now have candidate book listings with page counts and file sizes from secondary catalog sites. These are discovery leads only; no candidate PDF is treated as verified until the actual file cover and contents are inspected.",
-    "Grade 6 social studies and science and grade 5 science books already have separately opened PDF copies as recorded above."
+    "Grade 6 social studies and science and grade 5 science books already have separately opened PDF copies as recorded above.",
+    "Updated grades 2, 3 and 4 candidate inventories from IraqEdu 2025-2026 index pages. Metadata is recorded, but these remain discovery listings and not individually inspected PDFs.",
+    "Grade 2 listing includes moral education; confirm whether it is a core or supplementary curriculum item before enabling it by default.",
+    "Some index pages also list teacher guides; they are intentionally not mixed with student books in the core student catalog."
   ]
 }
