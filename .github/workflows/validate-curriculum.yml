@@ -46,3 +46,5 @@ jobs:
         run: node --test scripts/test-lesson-completion.test.mjs
       - name: Test speech lifecycle cancellation
         run: node --test scripts/test-speech-lifecycle.test.mjs
+      - name: Test view navigation resets lesson context
+        run: node --test scripts/test-view-navigation.test.mjs
