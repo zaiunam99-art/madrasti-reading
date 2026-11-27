@@ -54,10 +54,17 @@ function inspect(node, file, path = "root") {
     stats.sequenceChecks++;
     if (!Array.isArray(node.items) || !Array.isArray(node.answer)) {
       errors.push({ file: relative(".", file), path, message: "نشاط الترتيب يحتاج items و answer كمصفوفتين" });
-    } else if (node.answer.length !== node.items.length ||
-      node.answer.some((value, index) => String(value) !== String(node.items[index])) ||
-      new Set(node.items.map(String)).size !== node.items.length) {
-      errors.push({ file: relative(".", file), path, message: "إجابة الترتيب لا تطابق العناصر أو تحتوي تكراراً" });
+    } else {
+      const itemCounts = new Map();
+      for (const item of node.items) itemCounts.set(String(item), (itemCounts.get(String(item)) || 0) + 1);
+      const answerCounts = new Map();
+      for (const item of node.answer) answerCounts.set(String(item), (answerCounts.get(String(item)) || 0) + 1);
+      const sameItems = itemCounts.size === answerCounts.size &&
+        [...itemCounts].every(([item, count]) => answerCounts.get(item) === count);
+      if (!sameItems) errors.push({
+        file: relative(".", file), path,
+        message: "إجابة الترتيب يجب أن تحتوي العناصر نفسها دون حذف أو إضافة أو تكرار زائد"
+      });
     }
   }
   if (node.type === "number_entry" && !Object.hasOwn(node, "answer")) {
