@@ -395,7 +395,7 @@
           "pages": 68,
           "fileSizeMB": 2.88,
           "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
-          "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
+          "status": "listed-by-secondary-index; direct PDF result separately found; cover/content not fully inspected"
         },
         {
           "subject": "العلوم",
@@ -867,6 +867,18 @@
       "المواقع الثانوية تساعد في اكتشاف أسماء الكتب والملفات ولا تثبت وحدها أن الملف نسخة رسمية كاملة أو مطابقة.",
       "لا ترفع ملفات الكتب إلى استضافة عامة دون التأكد من شروط إعادة النشر؛ الأفضل حفظها محلياً/خاصاً أو استخدام روابط الوزارة الرسمية.",
       "لا تنشئ دروساً من بيانات الفهرس وحدها؛ يلزم فحص صفحات الكتاب الأصلية."
-    ]
+    ],
+    "nextWork": {
+      "priority": "Verify direct PDF files for grades 2-4 before converting any listing into an approved student book.",
+      "workflow": [
+        "open PDF",
+        "inspect cover and edition",
+        "inspect contents",
+        "check page count and completeness",
+        "record official/secondary source",
+        "only then mark verified"
+      ],
+      "currentLimit": "Latest ministry portal search did not return additional indexed official PDF records in this pass."
+    }
   }
 }
