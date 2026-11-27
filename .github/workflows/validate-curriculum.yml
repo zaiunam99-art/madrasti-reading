@@ -52,3 +52,5 @@ jobs:
         run: node --test scripts/test-service-worker.test.mjs
       - name: Test local PDF preview validation
         run: node --test scripts/test-pdf-preview.test.mjs
+      - name: Test family backup and restore
+        run: node --test scripts/test-family-backup.test.mjs
