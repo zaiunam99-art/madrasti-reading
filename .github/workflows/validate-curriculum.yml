@@ -44,3 +44,5 @@ jobs:
         run: node --test scripts/test-child-deletion.test.mjs
       - name: Test transactional lesson completion
         run: node --test scripts/test-lesson-completion.test.mjs
+      - name: Test speech lifecycle cancellation
+        run: node --test scripts/test-speech-lifecycle.test.mjs
