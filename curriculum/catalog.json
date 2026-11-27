@@ -50,14 +50,14 @@
         {
           "subject": "القراءة",
           "title": "قراءتي الجديدة للصف الأول الابتدائي",
-          "edition": "2025",
-          "schoolYearLabel": "2025-2026 (fallback copy)",
+          "edition": "الطبعة الثانية التجريبية 1447هـ/2025م",
+          "schoolYearLabel": "2025-2026 (نسخة احتياطية؛ الطبعة المطبوعة 1447هـ/2025م)",
           "pages": 129,
           "fileSizeBytes": 11017775,
           "source": "user-library-upload",
           "fileFormat": "PDF",
           "textLayer": false,
-          "processing": "Arabic OCR required; scanned pages",
+          "processing": "ملف PDF مصور بلا طبقة نصية؛ تمت معاينة الغلاف والفهرس والتهيئة وبداية الوحدة الأولى بصرياً، وبقية الصفحات تنتظر المراجعة",
           "status": "file-verified-locally-not-uploaded-to-app",
           "units": [
             {
@@ -158,7 +158,9 @@
             }
           ],
           "reviewNotes": [
-            "The index lists ذ in both the third and sixth units; preserve the book as printed and flag this for manual review rather than silently correcting it."
+            "الملف موجود في مكتبة المستخدم: 129 صفحة، 11,017,775 بايت.",
+            "تمت معاينة الصفحات 1–30 بصرياً، ومنها الغلاف وفهرس الوحدات والتهيئة والوحدة الأولى.",
+            "لا يُرفع ملف PDF الأصلي إلى موقع عام؛ تُنشأ دروس بصياغة أصلية ولا تُنسخ نصوص الأناشيد أو المقاطع الطويلة."
           ]
         },
         {
