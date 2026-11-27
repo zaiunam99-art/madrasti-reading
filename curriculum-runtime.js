@@ -106,7 +106,7 @@
   function questionList(lesson) {
     const quiz = Array.isArray(lesson.quiz) ? lesson.quiz : [];
     const activities = Array.isArray(lesson.activities) ? lesson.activities : [];
-    return [...activities, ...quiz].filter(item => item && typeof item === "object");
+    return [...activities, ...quiz].filter(item => item && typeof item === "object" && !Array.isArray(item));
   }
   function questionPrompt(item) {
     const explicit = item.q || item.prompt || item.question || item.instruction || item.task;
