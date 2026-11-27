@@ -454,10 +454,17 @@
     if (qs.length && questionIndex < qs.length) return;
     const all = readCompletedMap();
     const childId = active.id;
-    const childDone = all[childId] || [];
+    const childDone = Array.isArray(all[childId]) ? all[childId] : [];
     const wasAlreadyCompleted = childDone.includes(current.id);
     all[childId] = Array.from(new Set([...childDone, current.id]));
-    localStorage.setItem("madrastiCompletedLessonsV1", JSON.stringify(all));
+    try {
+      localStorage.setItem("madrastiCompletedLessonsV1", JSON.stringify(all));
+    } catch (error) {
+      const feedback = document.getElementById("feedback");
+      if (feedback) feedback.textContent = "تعذر حفظ تقدمك على هذا الجهاز. تحقق من مساحة التخزين ثم حاول مجدداً.";
+      console.warn("تعذر حفظ تقدم الدرس:", error);
+      return;
+    }
     if (!wasAlreadyCompleted) {
       active.completed = (active.completed || 0) + 1;
       if (typeof save === "function") save();
