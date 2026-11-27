@@ -1,0 +1,15 @@
+{
+  "name": "مدرستي - منصة التعلم",
+  "short_name": "مدرستي",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6faf7",
+  "theme_color": "#176b55",
+  "description": "منصة تعليمية تفاعلية للأطفال وأولياء الأمور",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
