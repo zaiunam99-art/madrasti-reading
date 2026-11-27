@@ -8,10 +8,14 @@
       const raw = localStorage.getItem("madrastiCompletedLessonsV1");
       if (!raw) return {};
       const value = JSON.parse(raw);
-      return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+      if (!value || typeof value !== "object" || Array.isArray(value)) {
+        console.warn("بنية سجل التقدم المحلي غير صالحة؛ تم تعطيل الكتابة لحماية البيانات.");
+        return null;
+      }
+      return value;
     } catch (error) {
-      console.warn("تعذر قراءة سجل التقدم المحلي:", error);
-      return {};
+      console.warn("تعذر قراءة سجل التقدم المحلي؛ تم تعطيل الكتابة لحماية البيانات:", error);
+      return null;
     }
   }
   function completedLessonIds(progress, childId) {
@@ -495,7 +499,9 @@
     let previousProgress;
     try {
       previousProgress = localStorage.getItem(progressKey);
-      const update = appendCompletedLesson(readCompletedMap(), childId, current.id);
+      const progressMap = readCompletedMap();
+      if (!progressMap) throw new Error("سجل التقدم المحلي تالف أو غير قابل للقراءة؛ أوقفنا الحفظ حتى لا نفقد بيانات الأبناء.");
+      const update = appendCompletedLesson(progressMap, childId, current.id);
       localStorage.setItem(progressKey, JSON.stringify(update.map));
       if (!update.alreadyCompleted) {
         const previousCompleted = Number(active.completed) || 0;
