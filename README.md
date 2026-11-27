@@ -36,8 +36,9 @@
 - [فهرس المناهج](curriculum/catalog.json)
 - [عقد توافق ملفات الدروس مع محرك العرض](curriculum/lesson-runtime-contract.md)
 - [تقرير تدقيق محتوى الصف الأول](curriculum/grade-1/QA-report-2026-11-27.md)
+- [فهرس الرياضيات للصف الثاني — عناوين الفصول والدروس فقط، دون محتوى دروس معتمد بعد](curriculum/grade-2/math-2025-2026/chapters-index.json)
 - مدقق ملفات JSON: شغّل `node scripts/validate-curriculum.mjs` من جذر المستودع. لا يحتاج إلى مكتبات خارجية.
-- اختبارات الانحدار: شغّل `node --test scripts/test-*.test.mjs` لتشغيل اختبارات الحفظ والتقدم والحذف والصوت والتنقل وService Worker ومعاينة PDF.
+- اختبارات الانحدار: شغّل `node --test scripts/test-*.test.mjs` لتشغيل اختبارات الحفظ والتقدم والحذف والصوت والتنقل وService Worker ومعاينة PDF وفهرس رياضيات الصف الثاني.
 
 محتوى الصف الأول الحالي أولي، ولا يعد اعتماداً تربوياً نهائياً أو ربطاً بالتطبيق المنشور.
 
