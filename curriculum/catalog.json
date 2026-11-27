@@ -783,6 +783,90 @@
     "Grade 2 listing includes moral education; confirm whether it is a core or supplementary curriculum item before enabling it by default.",
     "Some index pages also list teacher guides; they are intentionally not mixed with student books in the core student catalog.",
     "Important 2026-2027 distinction: the parliamentary committee report dated 7 October 2026 states primary textbook printing reached 100%, but the public online release announcement dated 9 October 2026 confirms only grade 1 Reading Unit 1 materials and grade 4 preparatory mathematics chapter 1. Do not infer full online PDF availability from print completion.",
-    "Some 2025-2026 secondary index entries list teacher guides or supplementary activity books; keep them distinct from student textbooks and verify before enabling."
-  ]
+    "Some 2025-2026 secondary index entries list teacher guides or supplementary activity books; keep them distinct from student textbooks and verify before enabling.",
+    "تحديث 2026-11-27: تمت إضافة فهارس العراق التعليمية للصفوف 2 و3 و4 مع قائمة المواد الظاهرة فيها؛ تبقى بياناتها فهرسية إلى حين معاينة كل PDF. كما أضيفت إشارة PDF لكتاب نشاط العلوم للصف الثالث، مع اشتراط مراجعة الملف قبل اعتماده."
+  ],
+  "latestResearch": {
+    "checkedAt": "2026-11-27",
+    "official2026_2027": {
+      "ministryReadingGrade1": {
+        "url": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=164",
+        "status": "partial-online-release",
+        "scope": "الوحدة الأولى فقط مع كتاب الطالب والنشاط ودليل المعلم",
+        "confirmedBy": "وزارة التربية عبر وكالة نينا والقناة الرسمية للوزارة بتاريخ 2026-10-09"
+      },
+      "note": "اكتمال طباعة كتب الصفوف الأولية لا يعني توفر ملفات PDF كاملة للتنزيل."
+    },
+    "secondaryIndexes": [
+      {
+        "grades": [
+          2
+        ],
+        "url": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+        "status": "metadata-index-only",
+        "discoveredBooks": [
+          "القراءة",
+          "الرياضيات",
+          "تمرينات الرياضيات",
+          "العلوم",
+          "نشاط العلوم",
+          "الإنكليزية",
+          "نشاط الإنكليزي",
+          "التربية الإسلامية",
+          "التربية الأخلاقية"
+        ],
+        "verification": "لم تتم معاينة أغلفة وداخل كل ملف PDF بعد"
+      },
+      {
+        "grades": [
+          3
+        ],
+        "url": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+        "status": "metadata-index-only",
+        "discoveredBooks": [
+          "القراءة",
+          "الرياضيات",
+          "تمرينات الرياضيات",
+          "العلوم",
+          "نشاط العلوم",
+          "الإنكليزية",
+          "نشاط الإنكليزي",
+          "التربية الإسلامية"
+        ],
+        "verification": "لم تتم معاينة أغلفة وداخل كل ملف PDF بعد"
+      },
+      {
+        "grades": [
+          4
+        ],
+        "url": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+        "status": "metadata-index-only",
+        "discoveredBooks": [
+          "القراءة",
+          "الرياضيات",
+          "تمرينات الرياضيات",
+          "العلوم",
+          "نشاط العلوم",
+          "الإنكليزية",
+          "القواعد",
+          "التربية الإسلامية",
+          "الاجتماعيات"
+        ],
+        "verification": "لم تتم معاينة أغلفة وداخل كل ملف PDF بعد"
+      }
+    ],
+    "additionalPdfEvidence": [
+      {
+        "title": "كتاب نشاط العلوم للصف الثالث الابتدائي",
+        "url": "https://bk1.shr4.com/books/b3/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D9%86%D8%B4%D8%A7%D8%B7%20%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85%20%D8%A7%D9%84%D8%AB%D8%A7%D9%84%D8%AB%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
+        "edition": "الطبعة الحادية عشرة، 1447هـ / 2025م",
+        "status": "PDF index result exposes Ministry of Education cover text; requires full visual/content review before use"
+      }
+    ],
+    "cautions": [
+      "المواقع الثانوية تساعد في اكتشاف أسماء الكتب والملفات ولا تثبت وحدها أن الملف نسخة رسمية كاملة أو مطابقة.",
+      "لا ترفع ملفات الكتب إلى استضافة عامة دون التأكد من شروط إعادة النشر؛ الأفضل حفظها محلياً/خاصاً أو استخدام روابط الوزارة الرسمية.",
+      "لا تنشئ دروساً من بيانات الفهرس وحدها؛ يلزم فحص صفحات الكتاب الأصلية."
+    ]
+  }
 }
