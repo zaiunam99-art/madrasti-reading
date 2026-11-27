@@ -46,7 +46,7 @@ function loadFamily(){
   try{
     const stored=JSON.parse(localStorage.getItem(KEY)||'[]');
     if(!Array.isArray(stored)) return [];
-    return stored.filter(c=>c&&typeof c==='object'&&!Array.isArray(c)&&typeof c.id==='string')
+    return stored.filter(c=>c&&typeof c==='object'&&!Array.isArray(c)&&typeof c.id==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(c.id))
       .map(c=>({...c,name:typeof c.name==='string'?c.name:'',gender:['boy','girl','neutral'].includes(c.gender)?c.gender:'neutral',
         grade:typeof c.grade==='string'?c.grade:'الأول الابتدائي',avatar:['🧒','👦','👧','🦊','🐼'].includes(c.avatar)?c.avatar:'🧒',
         voice:['default','slow','none'].includes(c.voice)?c.voice:'default',
