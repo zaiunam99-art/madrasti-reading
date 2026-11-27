@@ -92,9 +92,25 @@ async function verifyIndexes() {
       continue;
     }
     const groups = index.units || index.chapters || [];
+    if (!Array.isArray(groups)) {
+      errors.push({ file: relative(".", indexPath), message: "حقل الوحدات أو الفصول ليس مصفوفة" });
+      continue;
+    }
     for (const group of groups) {
+      if (!group || typeof group !== "object" || Array.isArray(group)) {
+        errors.push({ file: relative(".", indexPath), message: "عنصر الوحدة أو الفصل ليس كائناً صالحاً" });
+        continue;
+      }
       const linked = group.lessonFiles || (group.lessonFile ? [group.lessonFile] : []);
+      if (!Array.isArray(linked)) {
+        errors.push({ file: relative(".", indexPath), message: "روابط ملفات الدروس يجب أن تكون مصفوفة" });
+        continue;
+      }
       for (const entry of linked) {
+        if (typeof entry !== "string" || !entry.trim()) {
+          errors.push({ file: relative(".", indexPath), message: "مسار ملف الدرس فارغ أو ليس نصاً" });
+          continue;
+        }
         const target = join(dirname(indexPath), entry);
         try {
           const data = JSON.parse(await readFile(target, "utf8"));
@@ -125,12 +141,24 @@ for (const file of files) {
     continue;
   }
 
-  const lessons = data.lessons || data.sequence || [];
-  stats.lessons += lessons.length;
-  if (data.units || data.chapters) stats.unitsOrChapters += (data.units || data.chapters).length;
+  const lessons = data.lessons ?? data.sequence ?? [];
+  if (!Array.isArray(lessons)) {
+    errors.push({ file: relative(".", file), message: "حقل lessons أو sequence ليس مصفوفة" });
+  }
+  const lessonRows = Array.isArray(lessons) ? lessons : [];
+  stats.lessons += lessonRows.length;
+  const groups = data.units ?? data.chapters;
+  if (groups !== undefined) {
+    if (Array.isArray(groups)) stats.unitsOrChapters += groups.length;
+    else errors.push({ file: relative(".", file), message: "حقل units أو chapters ليس مصفوفة" });
+  }
 
   const ids = new Set();
-  for (const [index, lesson] of lessons.entries()) {
+  for (const [index, lesson] of lessonRows.entries()) {
+    if (!lesson || typeof lesson !== "object" || Array.isArray(lesson)) {
+      errors.push({ file: relative(".", file), lesson: index, message: "سجل الدرس ليس كائناً صالحاً" });
+      continue;
+    }
     if (!lesson.id) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا id" });
     else if (ids.has(lesson.id)) errors.push({ file: relative(".", file), lesson: lesson.id, message: "معرف درس مكرر داخل الملف" });
     else ids.add(lesson.id);
