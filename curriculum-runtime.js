@@ -186,6 +186,7 @@
     qTitle.textContent = q.q || q.prompt || q.question || "نشاط تطبيقي";
     feedback.textContent = "";
     finish.disabled = true;
+    const options = Array.isArray(q.choices) ? q.choices : (Array.isArray(q.options) ? q.options : []);
     const questionText = q.q || q.prompt || q.question || "نفّذ النشاط المطلوب.";
     const spokenQuestion = [questionText, options.length ? "الخيارات: " + options.map(displayChoice).join("، ") : ""]
       .filter(Boolean).join(". ");
@@ -197,7 +198,6 @@
     listen.addEventListener("click", () => speakQuestion(spokenQuestion));
     answers.appendChild(listen);
     finish.textContent = "إكمال الدرس ⭐";
-    const options = Array.isArray(q.choices) ? q.choices : (Array.isArray(q.options) ? q.options : []);
     const submit = (value, selectedButton) => {
       if (answered.has(questionIndex)) return;
       let correctAnswer = false;
