@@ -65,3 +65,35 @@ test("reopening an already completed lesson does not increment the family counte
   assert.deepEqual(JSON.parse(result.values.get("madrastiCompletedLessonsV1")), { child_a: ["lesson-1"] });
   assert.equal(result.sandbox.active.completed, 2);
 });
+
+test("does not overwrite a malformed saved progress record", () => {
+  const malformed = "{broken-progress-json";
+  const values = new Map([["madrastiCompletedLessonsV1", malformed]]);
+  const feedback = { textContent: "" };
+  const sandbox = {
+    window: { selectChild() {} },
+    current: { id: "lesson-1", quiz: [] },
+    active: { id: "child_a", completed: 2 },
+    questionIndex: 0,
+    assessedCount: 1,
+    score: 1,
+    questionList() { return []; },
+    readCompletedMap() { return null; },
+    appendCompletedLesson() { throw new Error("must not append corrupt progress"); },
+    localStorage: {
+      getItem(key) { return values.has(key) ? values.get(key) : null; },
+      setItem(key, value) { values.set(key, String(value)); },
+      removeItem(key) { values.delete(key); }
+    },
+    save() { throw new Error("family save must not run"); },
+    document: { getElementById(id) { return id === "feedback" ? feedback : { classList: { add() {}, remove() {} } }; }, createElement() { return {}; } },
+    console: { warn() {} }
+  };
+  const start = runtime.indexOf("  window.finishLesson = function() {");
+  const end = runtime.indexOf("\\n  };", start);
+  const handler = runtime.slice(start, end + 4);
+  runInNewContext(handler + "; window.finishLesson();", sandbox);
+  assert.equal(values.get("madrastiCompletedLessonsV1"), malformed);
+  assert.equal(sandbox.active.completed, 2);
+  assert.match(feedback.textContent, /تعذر حفظ تقدمك/);
+});
