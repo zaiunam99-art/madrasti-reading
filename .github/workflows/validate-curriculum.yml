@@ -30,3 +30,5 @@ jobs:
         run: node --test scripts/test-validator.test.mjs
       - name: Test local progress storage handling
         run: node --test scripts/test-progress-storage.test.mjs
+      - name: Test runtime question list filtering
+        run: node --test scripts/test-runtime-question-list.test.mjs
