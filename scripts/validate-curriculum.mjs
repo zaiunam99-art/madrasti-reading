@@ -52,8 +52,9 @@ function inspect(node, file, path = "root") {
   }
   if (node.type === "sequence_order") {
     stats.sequenceChecks++;
-    if (!Array.isArray(node.items) || !Array.isArray(node.answer)) {
-      errors.push({ file: relative(".", file), path, message: "نشاط الترتيب يحتاج items و answer كمصفوفتين" });
+    if (!Array.isArray(node.items) || !Array.isArray(node.answer) ||
+        node.items.length === 0 || node.items.length !== node.answer.length) {
+      errors.push({ file: relative(".", file), path, message: "نشاط الترتيب يحتاج items و answer كمصفوفتين غير فارغتين ومتساويتين في الطول" });
     } else {
       const itemCounts = new Map();
       for (const item of node.items) itemCounts.set(String(item), (itemCounts.get(String(item)) || 0) + 1);
