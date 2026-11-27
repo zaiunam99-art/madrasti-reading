@@ -793,7 +793,8 @@
     "تحديث تدقيق الصف الأول: فصل سجلات طبعة 2025-2026 عن نتائج 2026-2027. نتائج القراءة الجديدة 127 صفحة ونشاطها 114 صفحة تبقى إدراجات فهرس ثانوي؛ الإعلان الرسمي المتاح يثبت الوحدة الأولى فقط. لا فحص كامل لملفات PDF حتى الآن.",
     "تدقيق جديد 2026-11-27: فتح صفحة IraqEdu العامة وصفحة الأستاذ العراقي العامة ومراجعة قناة الوزارة الرسمية. الفهارس العامة مختلطة ومصدر الوزارة لم يكن قابلاً للفتح آلياً في هذه الجلسة؛ لم ندّعِ تنزيل أو فحص PDF. أضيفت بيانات إدراج الإنكليزي السادس 2026-2027 ودليل المعلم مع الفصل بينهما.",
     "دفعة 2026-11-27: أضيفت بيانات فهارس الصفوف الثاني والرابع والخامس مع صفحات وأحجام كما تعرضها IraqEdu، وتقاطعات مستقلة لبعض العناوين مع StadIraq وMlazemna. لم يتم تنزيل أو فحص ملفات PDF في هذه الدفعة؛ تبقى جميعها مرشحة.",
-    "دفعة جديدة: استكمال جزئي لبيانات الصفوف الثالث والرابع والخامس والسادس 2025-2026، مع تسجيل أعداد الصفحات والأحجام ومصادر فردية. أدلة المعلمين مفصولة عن كتب التلاميذ. كل السجلات مرشحة فهرسياً ولم يتم فحص PDF كاملاً."
+    "دفعة جديدة: استكمال جزئي لبيانات الصفوف الثالث والرابع والخامس والسادس 2025-2026، مع تسجيل أعداد الصفحات والأحجام ومصادر فردية. أدلة المعلمين مفصولة عن كتب التلاميذ. كل السجلات مرشحة فهرسياً ولم يتم فحص PDF كاملاً.",
+    "دفعة تدقيق جديدة 2026-11-27: تمت مراجعة صفحات العراق التعليمية الفردية للصفوف 3 و4 و5 و6. أضيفت قوائم أكثر تفصيلاً مع تمييز كتاب الطالب والنشاط ودليل المعلم. صفحة الصف السادس تعرض طبعة 2026-2027. كل البيانات فهرسية ثانوية ولم يتم تنزيل ملفات PDF أو فحص صفحاتها."
   ],
   "latestResearch": {
     "checkedAt": "2026-11-27",
@@ -1893,6 +1894,338 @@
         "https://iraqedu.net/كتاب-قراءة-للصف-السادس-الابتدائي/"
       ],
       "inspectionCaveat": "This batch adds catalog metadata only. No complete PDF was downloaded or inspected page-by-page; all items remain candidate records pending file-level verification."
+    },
+    "verifiedIndexBatchNov27": {
+      "checkedAt": "2026-11-27",
+      "sourcePages": [
+        {
+          "grade": 3,
+          "url": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "source": "IraqEdu",
+          "status": "opened page; individual listing metadata visible"
+        },
+        {
+          "grade": 4,
+          "url": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "source": "IraqEdu",
+          "status": "opened page; individual listing metadata visible"
+        },
+        {
+          "grade": 5,
+          "url": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/",
+          "source": "IraqEdu",
+          "status": "opened page; individual listing metadata visible"
+        },
+        {
+          "grade": 6,
+          "url": "https://iraqedu.net/السادس-الابتدائي/كتب-السادس-الابتدائي/",
+          "source": "IraqEdu",
+          "status": "opened page; 2026-2027 entries displayed"
+        }
+      ],
+      "grade3_2025_2026": [
+        {
+          "subject": "العلوم",
+          "kind": "student_book",
+          "pages": 196,
+          "sizeMB": 11.71
+        },
+        {
+          "subject": "نشاط العلوم",
+          "kind": "activity_book",
+          "pages": 68,
+          "sizeMB": 2.88
+        },
+        {
+          "subject": "الرياضيات",
+          "kind": "student_book",
+          "pages": 176,
+          "sizeMB": 13.24
+        },
+        {
+          "subject": "تمرينات الرياضيات",
+          "kind": "activity_book",
+          "pages": 64,
+          "sizeMB": 13.69
+        },
+        {
+          "subject": "الإنكليزي",
+          "kind": "student_book",
+          "pages": 122,
+          "sizeMB": 11.69
+        },
+        {
+          "subject": "نشاط الإنكليزي",
+          "kind": "activity_book",
+          "pages": 108,
+          "sizeMB": 8.08
+        },
+        {
+          "subject": "القراءة",
+          "kind": "student_book",
+          "pages": 144,
+          "sizeMB": 20.97
+        },
+        {
+          "subject": "الإسلامية",
+          "kind": "student_book",
+          "pages": 72,
+          "sizeMB": 7.15
+        },
+        {
+          "subject": "دليل معلم العلوم",
+          "kind": "teacher_guide",
+          "pages": 256,
+          "sizeMB": 56.59
+        },
+        {
+          "subject": "دليل معلم الرياضيات",
+          "kind": "teacher_guide",
+          "pages": 178,
+          "sizeMB": 58.86
+        },
+        {
+          "subject": "دليل معلم الإنكليزي",
+          "kind": "teacher_guide",
+          "pages": 201,
+          "sizeMB": 17.64
+        }
+      ],
+      "grade4_2025_2026": [
+        {
+          "subject": "الإنكليزي",
+          "kind": "student_book",
+          "pages": 119,
+          "sizeMB": 8.92
+        },
+        {
+          "subject": "تمرينات الرياضيات",
+          "kind": "activity_book",
+          "pages": 56,
+          "sizeMB": 2.25
+        },
+        {
+          "subject": "نشاط العلوم",
+          "kind": "activity_book",
+          "pages": 100,
+          "sizeMB": 16.54
+        },
+        {
+          "subject": "الاجتماعيات",
+          "kind": "student_book",
+          "pages": 64,
+          "sizeMB": 4.73
+        },
+        {
+          "subject": "العلوم",
+          "kind": "student_book",
+          "pages": 216,
+          "sizeMB": 13.57
+        },
+        {
+          "subject": "القواعد",
+          "kind": "student_book",
+          "pages": 80,
+          "sizeMB": 12.8
+        },
+        {
+          "subject": "الرياضيات",
+          "kind": "student_book",
+          "pages": 196,
+          "sizeMB": 3.83
+        },
+        {
+          "subject": "القراءة",
+          "kind": "student_book",
+          "pages": 148,
+          "sizeMB": 7.05
+        },
+        {
+          "subject": "الإسلامية",
+          "kind": "student_book",
+          "pages": 72,
+          "sizeMB": 6.48
+        },
+        {
+          "subject": "دليل معلم الرياضيات",
+          "kind": "teacher_guide",
+          "pages": 238,
+          "sizeMB": 47.21
+        },
+        {
+          "subject": "دليل معلم العلوم",
+          "kind": "teacher_guide",
+          "pages": null,
+          "sizeMB": 5.64
+        }
+      ],
+      "grade5_2025_2026": [
+        {
+          "subject": "الإنكليزي",
+          "kind": "student_book",
+          "pages": 118,
+          "sizeMB": 25.19
+        },
+        {
+          "subject": "نشاط الإنكليزي",
+          "kind": "activity_book",
+          "pages": 120,
+          "sizeMB": 7.47
+        },
+        {
+          "subject": "تمرينات الرياضيات",
+          "kind": "activity_book",
+          "pages": 54,
+          "sizeMB": 1.48
+        },
+        {
+          "subject": "نشاط العلوم",
+          "kind": "activity_book",
+          "pages": 92,
+          "sizeMB": 3.71
+        },
+        {
+          "subject": "الاجتماعيات",
+          "kind": "student_book",
+          "pages": 104,
+          "sizeMB": 7.89
+        },
+        {
+          "subject": "العلوم",
+          "kind": "student_book",
+          "pages": 200,
+          "sizeMB": 14.25
+        },
+        {
+          "subject": "القواعد",
+          "kind": "student_book",
+          "pages": 84,
+          "sizeMB": 10.21
+        },
+        {
+          "subject": "الرياضيات",
+          "kind": "student_book",
+          "pages": 198,
+          "sizeMB": 22.34
+        },
+        {
+          "subject": "القراءة",
+          "kind": "student_book",
+          "pages": 162,
+          "sizeMB": 20.39
+        },
+        {
+          "subject": "الإسلامية",
+          "kind": "student_book",
+          "pages": 96,
+          "sizeMB": 2.68
+        },
+        {
+          "subject": "دليل معلم الرياضيات",
+          "kind": "teacher_guide",
+          "pages": 288,
+          "sizeMB": 31.46
+        },
+        {
+          "subject": "دليل معلم العلوم",
+          "kind": "teacher_guide",
+          "pages": 307,
+          "sizeMB": 40.8
+        },
+        {
+          "subject": "دليل معلم الإنكليزي",
+          "kind": "teacher_guide",
+          "pages": 190,
+          "sizeMB": 23.63
+        }
+      ],
+      "grade6_2026_2027": [
+        {
+          "subject": "الإنكليزي",
+          "kind": "student_book",
+          "pages": 122,
+          "sizeMB": 61.5
+        },
+        {
+          "subject": "نشاط الإنكليزي",
+          "kind": "activity_book",
+          "pages": 105,
+          "sizeMB": 19.1
+        },
+        {
+          "subject": "القراءة",
+          "kind": "student_book",
+          "pages": 142,
+          "sizeMB": 16.18
+        },
+        {
+          "subject": "القواعد",
+          "kind": "student_book",
+          "pages": 108,
+          "sizeMB": 8.05
+        },
+        {
+          "subject": "الرياضيات",
+          "kind": "student_book",
+          "pages": 200,
+          "sizeMB": 17.69
+        },
+        {
+          "subject": "تمرينات الرياضيات",
+          "kind": "activity_book",
+          "pages": 58,
+          "sizeMB": 1.48
+        },
+        {
+          "subject": "الاجتماعيات",
+          "kind": "student_book",
+          "pages": 116,
+          "sizeMB": 4.83
+        },
+        {
+          "subject": "العلوم",
+          "kind": "student_book",
+          "pages": 208,
+          "sizeMB": 14.5
+        },
+        {
+          "subject": "نشاط العلوم",
+          "kind": "activity_book",
+          "pages": 92,
+          "sizeMB": 1.35
+        },
+        {
+          "subject": "الإسلامية",
+          "kind": "student_book",
+          "pages": 92,
+          "sizeMB": 2.18
+        },
+        {
+          "subject": "دليل معلم الإنكليزي",
+          "kind": "teacher_guide",
+          "pages": 163,
+          "sizeMB": 1.8
+        },
+        {
+          "subject": "دليل معلم العلوم",
+          "kind": "teacher_guide",
+          "pages": 328,
+          "sizeMB": 37.03
+        },
+        {
+          "subject": "دليل معلم الرياضيات",
+          "kind": "teacher_guide",
+          "pages": 280,
+          "sizeMB": 50.84
+        }
+      ],
+      "qualityStatus": {
+        "sourceType": "secondary index, not ministry-hosted direct download",
+        "pdfDownloaded": false,
+        "pagesVisuallyInspected": false,
+        "officialReleaseConfirmed": false,
+        "caution": "Do not treat index metadata as final textbook approval. Some items may be missing from the page or represent different editions; compare covers, contents and actual PDFs."
+      }
     }
   }
 }
