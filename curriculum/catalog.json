@@ -298,13 +298,173 @@
     },
     {
       "grade": 5,
-      "status": "not-collected",
-      "books": []
+      "status": "partially-identified",
+      "books": [
+        {
+          "subject": "العلوم",
+          "title": "العلم – كتاب التلميذ للصف الخامس الابتدائي",
+          "edition": "الطبعة التاسعة، 1447هـ / 2025م",
+          "schoolYearLabel": "2025-2026 (verified 2025 copy)",
+          "source": "external-pdf-mirror; cover identifies Ministry of Education / General Directorate of Curricula",
+          "sourceUrl": "https://bk2.shr4.com/books/b5/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85%20%D8%A7%D9%84%D8%AE%D8%A7%D9%85%D8%B3%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
+          "fileFormat": "PDF",
+          "status": "online-pdf-opened-and-cover-toc-verified; not copied into app",
+          "units": [
+            {
+              "sequence": 1,
+              "title": "التصنيف والتنوع",
+              "pageStart": 16,
+              "topics": [
+                "النباتات الزهرية واللازهرية",
+                "الحيوانات الفقرية واللافقارية"
+              ]
+            },
+            {
+              "sequence": 2,
+              "title": "جسم الإنسان وصحته",
+              "pageStart": 52,
+              "topics": [
+                "جهازا الدوران والتنفس",
+                "الجهازان الهضمي والبولي"
+              ]
+            },
+            {
+              "sequence": 3,
+              "title": "المادة",
+              "pageStart": 84,
+              "topics": [
+                "العناصر",
+                "المركبات والمخاليط"
+              ]
+            },
+            {
+              "sequence": 4,
+              "title": "القوة والطاقة",
+              "pageStart": 118,
+              "topics": [
+                "الاحتكاك",
+                "الكهربائية والمغناطيسية"
+              ]
+            },
+            {
+              "sequence": 5,
+              "title": "الأرض والكون",
+              "pageStart": 158,
+              "topics": [
+                "الأرض ومواردها",
+                "الكون"
+              ]
+            }
+          ],
+          "companionBooks": [
+            {
+              "subject": "العلوم – كتاب النشاط",
+              "edition": "الطبعة الثامنة، 1447هـ / 2025م",
+              "sourceUrl": "https://bk1.shr4.com/books/b5/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D9%86%D8%B4%D8%A7%D8%B7%20%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85%20%D8%A7%D9%84%D8%AE%D8%A7%D9%85%D8%B3%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
+              "status": "online-pdf-opened-and-cover-toc-verified; not copied into app"
+            }
+          ]
+        }
+      ]
     },
     {
       "grade": 6,
-      "status": "not-collected",
-      "books": []
+      "status": "partially-identified",
+      "books": [
+        {
+          "subject": "العلوم",
+          "title": "العلوم – كتاب التلميذ للصف السادس الابتدائي",
+          "edition": "الطبعة الثامنة، 1447هـ / 2025م",
+          "schoolYearLabel": "2025-2026 (verified 2025 copy)",
+          "source": "external-pdf-mirror; cover identifies Ministry of Education / General Directorate of Curricula",
+          "sourceUrl": "https://bk1.shr4.com/books/b6/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85%20%D8%A7%D9%84%D8%B3%D8%A7%D8%AF%D8%B3%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
+          "fileFormat": "PDF",
+          "status": "online-pdf-opened-and-cover-toc-verified; not copied into app",
+          "units": [
+            {
+              "sequence": 1,
+              "title": "خصائص الكائنات الحية",
+              "pageStart": 16,
+              "topics": [
+                "التكاثر الطبيعي في النباتات",
+                "التكاثر الاصطناعي في النباتات"
+              ]
+            },
+            {
+              "sequence": 2,
+              "title": "جسم الإنسان وصحته",
+              "pageStart": 50,
+              "topics": [
+                "أجهزة في جسم الإنسان",
+                "الحس عند الإنسان"
+              ]
+            },
+            {
+              "sequence": 3,
+              "title": "المادة وتفاعلاتها",
+              "pageStart": 94,
+              "topics": [
+                "بناء المادة",
+                "التفاعلات الكيميائية"
+              ]
+            },
+            {
+              "sequence": 4,
+              "title": "القوة والطاقة",
+              "pageStart": 128,
+              "topics": [
+                "الكتلة والوزن والآلات البسيطة",
+                "الطاقة الكهربائية",
+                "الطاقة الضوئية"
+              ]
+            },
+            {
+              "sequence": 5,
+              "title": "الأرض والكون",
+              "pageStart": 176,
+              "topics": [
+                "الأرض المتغيرة",
+                "الكون الواسع"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "الاجتماعيات",
+          "title": "الاجتماعيات للصف السادس الابتدائي",
+          "edition": "الطبعة التاسعة، 1447هـ / 2025م",
+          "schoolYearLabel": "2025-2026 (verified 2025 copy)",
+          "source": "external-pdf-mirror; cover identifies Ministry of Education / General Directorate of Curricula",
+          "sourceUrl": "https://bk1.shr4.com/books/b6/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D8%A7%D9%84%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%D9%8A%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B3%D8%A7%D8%AF%D8%B3%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
+          "fileFormat": "PDF",
+          "status": "online-pdf-opened-and-cover-toc-verified; not copied into app",
+          "units": [
+            {
+              "sequence": 1,
+              "title": "محافظات وطننا العراق جغرافياً وتاريخياً",
+              "pageStart": 4,
+              "pageEnd": 95,
+              "topics": [
+                "محافظات العراق الثماني عشرة",
+                "الظواهر الجغرافية والتاريخية والموارد والأنشطة الاقتصادية والمعالم الحضارية"
+              ]
+            },
+            {
+              "sequence": 2,
+              "title": "مجتمعنا العراقي",
+              "pageStart": 99,
+              "pageEnd": 114,
+              "topics": [
+                "مفهوم المجتمع العراقي ومكوناته",
+                "الروابط التاريخية والاجتماعية",
+                "حقوق المواطن العراقي",
+                "القيم الحضارية العراقية السامية",
+                "قضايا اجتماعية عامة"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "platformIntegration": {
@@ -312,5 +472,9 @@
     "githubCurriculumData": "catalog.json",
     "uploadedToProductionApp": false,
     "note": "The two PDFs are available in the user's ChatGPT library. They have not been uploaded to the live learning app."
-  }
+  },
+  "collectionNotes": [
+    "The grade 5 science student book and activity book, and grade 6 science and social studies books have been opened as PDFs online. Their cover editions and contents were inspected. These are still external source links, not files stored in the app.",
+    "The 2025 books are fallback references for 2025-2026 until a complete 2026-2027 book is verified. Do not treat a partial 2026-2027 release as a full textbook."
+  ]
 }
