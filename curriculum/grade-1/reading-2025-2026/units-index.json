@@ -64,16 +64,18 @@
         "س",
         "ن",
         "ت",
-        "ق"
+        "ة"
       ],
       "topics": [
         "الاستماع",
         "المحادثة",
         "القراءة",
-        "الحروف ر، س، ن، ت، ق",
+        "الحروف ر، س، ن، ت",
+        "التاء المربوطة ة",
         "تنوين الضم"
       ],
-      "status": "indexed_needs_page_review"
+      "status": "initial_lessons_created",
+      "lessonFile": "lessons/unit-02-my-school.json"
     },
     {
       "sequence": 3,
