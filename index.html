@@ -13,7 +13,7 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 @media(max-width:650px){.grid,.formgrid{grid-template-columns:1fr}.top{align-items:flex-start}.brand{font-size:21px}.welcome{padding:16px}.panel,.card{padding:14px}}
 </style></head>
 <body>
-<header><div class="wrap top"><div class="brand">📚 مدرستي <small>نتعلّم كل يوم… خطوة أجمل نحو المعرفة</small></div><span class="pill">نسخة تجريبية تفاعلية</span></div></header>
+<header><div class="wrap top"><div class="brand">📚 مدرستي <small>نتعلّم كل يوم… خطوة أجمل نحو المعرفة</small></div><span class="pill">دروس المنهج التفاعلية · نسخة تجريبية</span></div></header>
 <main class="wrap">
 <section class="welcome"><div class="row" style="justify-content:space-between"><div><h2 id="hello">أهلاً بك في مدرستي</h2><div class="muted" id="subtitle">مساحة الأسرة للتعلّم والمتابعة</div></div><span class="tag">تعمل على الهاتف والكمبيوتر</span></div><div class="tabs"><button id="guardianTab" class="active" onclick="showView('guardian')">👨‍👩‍👧 لوحة ولي الأمر</button><button id="childTab" onclick="showView('child')">🎒 مساحة الطالب</button></div></section>
 
@@ -21,8 +21,8 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 <div class="section-head"><div><h2>ملفات الأبناء</h2><div class="muted">أضف ملفاً لكل طفل وحدد صفه ومواده وخطة تعلمه.</div></div><button onclick="openChildForm()">＋ إضافة طالب</button></div>
 <div id="children" class="cards"></div>
 <div class="grid">
-<section class="panel"><h2>📚 مكتبة المناهج</h2><p class="muted">اختر كتاباً من المكتبة التجريبية أو ارفع ملف PDF من جهازك.</p><div class="card"><strong>العراق · الصف الأول · قراءتي الجديدة</strong><p class="muted">كتاب القراءة – إصدار تجريبي</p><button class="alt" onclick="alert('سيتم ربط المكتبة العامة وقائمة الكتب بقاعدة البيانات في مرحلة الربط الخلفي.')">اختيار المنهج</button></div><label for="pdfUpload">رفع كتاب PDF</label><input id="pdfUpload" type="file" accept="application/pdf" onchange="previewPdf(this)"><div id="pdfInfo" class="muted">لم يتم اختيار ملف.</div></section>
-<section class="panel"><h2>📈 متابعة الأسرة</h2><p class="muted">ملخص إنجاز الأبناء في هذه النسخة التجريبية.</p><div id="familyStats"></div><div class="notice">النتائج هنا تجريبية ومحفوظة على هذا الجهاز فقط، وليست سجلاً سحابياً آمناً بعد.</div></section>
+<section class="panel"><h2>📚 مكتبة المناهج</h2><p class="muted">المناهج المتاحة حالياً: القراءة والرياضيات للصف الأول (إصدار 2025–2026). بقية الصفوف قيد التحقق.</p><div class="card"><strong>العراق · الصف الأول · قراءتي الجديدة</strong><p class="muted">كتاب القراءة – إصدار تجريبي</p><button class="alt" onclick="alert('سيتم ربط المكتبة العامة وقائمة الكتب بقاعدة البيانات في مرحلة الربط الخلفي.')">اختيار المنهج</button></div><label for="pdfUpload">رفع كتاب PDF</label><input id="pdfUpload" type="file" accept="application/pdf" onchange="previewPdf(this)"><div id="pdfInfo" class="muted">لم يتم اختيار ملف.</div></section>
+<section class="panel"><h2>📈 متابعة الأسرة</h2><p class="muted">ملخص إنجاز الأبناء في هذه النسخة التجريبية.</p><div id="familyStats"></div><div class="notice">هذه نسخة تجريبية تحفظ التقدم على الجهاز فقط. لا تستخدم بيانات حساسة أو حقيقية قبل إكمال حماية الحسابات.</div></section>
 </div>
 </section>
 
@@ -60,5 +60,5 @@ function playLesson(){if(!activeLesson||active?.voice==='none')return;if(!('spee
 function previewPdf(el){const f=el.files[0];document.getElementById('pdfInfo').textContent=f?'تم اختيار: '+f.name+' ('+Math.round(f.size/1024)+' KB). الرفع السحابي ومعالجة الصفحات غير مفعّلين بعد.':'لم يتم اختيار ملف.'}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 renderAll();
-</script><script>if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {})); }</script>
+</script><script src="/curriculum-runtime.js"></script><script>if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {})); }</script>
 </body></html>
