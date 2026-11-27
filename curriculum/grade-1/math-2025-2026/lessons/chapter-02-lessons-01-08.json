@@ -1,0 +1,679 @@
+{
+  "schemaVersion": "1.0",
+  "curriculum": {
+    "country": "العراق",
+    "grade": 1,
+    "subject": "الرياضيات",
+    "edition": "الطبعة العاشرة، 1447هـ/2025م",
+    "sourceFile": "كتاب الرياضيات للصف الأول الابتدائي",
+    "sourcePages": {
+      "pdf": [
+        34,
+        49
+      ],
+      "printed": [
+        34,
+        49
+      ]
+    },
+    "verification": "تمت مراجعة نصوص وصور الصفحات 34–49 من ملف الكتاب. أرقام الدروس وتسلسلها مأخوذان من صفحات الدروس الأصلية. الأنشطة أدناه صياغة تفاعلية أصلية وليست نقلاً حرفياً."
+  },
+  "chapter": {
+    "number": 2,
+    "title": "مقارنة الأعداد وترتيبها"
+  },
+  "sequence": [
+    {
+      "id": "g1-math-c2-l1",
+      "lessonNumber": 1,
+      "title": "مقارنة الأعداد حتى 9",
+      "printedPages": [
+        34,
+        35
+      ],
+      "objective": "أن يقارن المتعلم بين عددين حتى ٩ باستعمال أكبر من وأصغر من ويساوي، ويختار الرمز المناسب.",
+      "vocabulary": [
+        {
+          "term": "أكبر من",
+          "symbol": ">"
+        },
+        {
+          "term": "أصغر من",
+          "symbol": "<"
+        },
+        {
+          "term": "يساوي",
+          "symbol": "="
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "نقارن بين مجموعتين أو عددين لنعرف أيهما أكبر."
+        },
+        {
+          "role": "explain",
+          "text": "العدد ٦ أكبر من العدد ٣، ونكتب ٣ أصغر من ٦."
+        },
+        {
+          "role": "explain",
+          "text": "نستعمل الرمز أكبر من، والرمز أصغر من، وعندما يكون العددان متساويين نستعمل علامة يساوي."
+        },
+        {
+          "role": "prompt",
+          "text": "قارن بين العددين ٤ و٧. أيهما أكبر؟"
+        }
+      ],
+      "activities": [
+        {
+          "id": "c2l1-q1",
+          "type": "multiple_choice",
+          "prompt": "أي العددين أكبر؟",
+          "options": [
+            "٣",
+            "٦"
+          ],
+          "answer": "٦"
+        },
+        {
+          "id": "c2l1-q2",
+          "type": "symbol_choice",
+          "prompt": "اختر الرمز الصحيح: ٢ __ ٥",
+          "options": [
+            "<",
+            ">",
+            "="
+          ],
+          "answer": "<"
+        },
+        {
+          "id": "c2l1-q3",
+          "type": "symbol_choice",
+          "prompt": "اختر الرمز الصحيح: ٧ __ ٤",
+          "options": [
+            "<",
+            ">",
+            "="
+          ],
+          "answer": ">"
+        },
+        {
+          "id": "c2l1-q4",
+          "type": "symbol_choice",
+          "prompt": "اختر الرمز الصحيح: ٥ __ ٥",
+          "options": [
+            "<",
+            ">",
+            "="
+          ],
+          "answer": "="
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 3,
+        "totalChecks": 4,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c2-l2",
+      "lessonNumber": 2,
+      "title": "السابق والتالي وبين العددين للأعداد حتى 9",
+      "printedPages": [
+        36,
+        37
+      ],
+      "objective": "أن يحدد المتعلم العدد السابق والعدد التالي والعدد الواقع بين عددين متتاليين ضمن الأعداد حتى ٩.",
+      "vocabulary": [
+        {
+          "term": "السابق",
+          "explanation": "العدد الذي يأتي قبل العدد."
+        },
+        {
+          "term": "التالي",
+          "explanation": "العدد الذي يأتي بعد العدد."
+        },
+        {
+          "term": "بين",
+          "explanation": "العدد الواقع في الوسط."
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "العدد السابق يأتي قبل العدد، والعدد التالي يأتي بعده."
+        },
+        {
+          "role": "explain",
+          "text": "للعدد ٤، العدد السابق هو ٣ والعدد التالي هو ٥."
+        },
+        {
+          "role": "explain",
+          "text": "العدد الذي بين ٣ و٥ هو ٤."
+        },
+        {
+          "role": "prompt",
+          "text": "ما العدد السابق للعدد ٧؟ وما العدد التالي له؟"
+        }
+      ],
+      "activities": [
+        {
+          "id": "c2l2-q1",
+          "type": "number_entry",
+          "prompt": "اكتب العدد السابق للعدد ٦.",
+          "answer": "٥"
+        },
+        {
+          "id": "c2l2-q2",
+          "type": "number_entry",
+          "prompt": "اكتب العدد التالي للعدد ٨.",
+          "answer": "٩"
+        },
+        {
+          "id": "c2l2-q3",
+          "type": "number_entry",
+          "prompt": "ما العدد الذي يقع بين ٤ و٦؟",
+          "answer": "٥"
+        },
+        {
+          "id": "c2l2-q4",
+          "type": "number_entry",
+          "prompt": "أكمل: ٢، __، ٤.",
+          "answer": "٣"
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 3,
+        "totalChecks": 4,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c2-l3",
+      "lessonNumber": 3,
+      "title": "ترتيب الأعداد حتى 9",
+      "printedPages": [
+        38,
+        39
+      ],
+      "objective": "أن يرتب المتعلم مجموعة أعداد حتى ٩ تصاعدياً من الأصغر إلى الأكبر وتنازلياً من الأكبر إلى الأصغر، مستعيناً بخط الأعداد.",
+      "vocabulary": [
+        {
+          "term": "ترتيب تصاعدي",
+          "explanation": "من الأصغر إلى الأكبر."
+        },
+        {
+          "term": "ترتيب تنازلي",
+          "explanation": "من الأكبر إلى الأصغر."
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "عندما نرتب من الأصغر إلى الأكبر نبدأ بالعدد الصغير ثم ننتقل إلى الأكبر."
+        },
+        {
+          "role": "explain",
+          "text": "وعندما نرتب من الأكبر إلى الأصغر نبدأ بالعدد الكبير."
+        },
+        {
+          "role": "explain",
+          "text": "يساعدنا خط الأعداد على معرفة ترتيب الأعداد."
+        },
+        {
+          "role": "prompt",
+          "text": "رتب ٢ و٥ و٣ من الأصغر إلى الأكبر."
+        }
+      ],
+      "activities": [
+        {
+          "id": "c2l3-q1",
+          "type": "sequence_order",
+          "prompt": "رتب من الأصغر إلى الأكبر.",
+          "items": [
+            "٥",
+            "٢",
+            "٣"
+          ],
+          "answer": [
+            "٢",
+            "٣",
+            "٥"
+          ]
+        },
+        {
+          "id": "c2l3-q2",
+          "type": "sequence_order",
+          "prompt": "رتب من الأكبر إلى الأصغر.",
+          "items": [
+            "٤",
+            "٩",
+            "٦"
+          ],
+          "answer": [
+            "٩",
+            "٦",
+            "٤"
+          ]
+        },
+        {
+          "id": "c2l3-q3",
+          "type": "sequence_order",
+          "prompt": "رتب تصاعدياً.",
+          "items": [
+            "٨",
+            "١",
+            "٧"
+          ],
+          "answer": [
+            "١",
+            "٧",
+            "٨"
+          ]
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 3,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c2-l4",
+      "lessonNumber": 4,
+      "title": "العدد الترتيبي",
+      "printedPages": [
+        40,
+        41
+      ],
+      "objective": "أن يحدد المتعلم ترتيب موقع الشيء من الأول حتى العاشر، ويستعمل الأعداد الترتيبية في وصف المواقع.",
+      "vocabulary": [
+        {
+          "term": "الأول",
+          "position": 1
+        },
+        {
+          "term": "الثاني",
+          "position": 2
+        },
+        {
+          "term": "الثالث",
+          "position": 3
+        },
+        {
+          "term": "الرابع",
+          "position": 4
+        },
+        {
+          "term": "الخامس",
+          "position": 5
+        },
+        {
+          "term": "السادس",
+          "position": 6
+        },
+        {
+          "term": "السابع",
+          "position": 7
+        },
+        {
+          "term": "الثامن",
+          "position": 8
+        },
+        {
+          "term": "التاسع",
+          "position": 9
+        },
+        {
+          "term": "العاشر",
+          "position": 10
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "نستعمل العدد الترتيبي لمعرفة موقع الشخص أو الشيء في الصف."
+        },
+        {
+          "role": "explain",
+          "text": "نقول الأول، الثاني، الثالث، ثم الرابع، ونكمل حتى العاشر."
+        },
+        {
+          "role": "prompt",
+          "text": "إذا كنت في بداية صف من الأطفال، فما اسم موقعك؟"
+        },
+        {
+          "role": "encourage",
+          "text": "جيد! الأول يعني الموقع الذي يبدأ به الترتيب."
+        }
+      ],
+      "activities": [
+        {
+          "id": "c2l4-q1",
+          "type": "multiple_choice",
+          "prompt": "ما الموقع الذي يأتي بعد الثاني؟",
+          "options": [
+            "الأول",
+            "الثالث",
+            "الرابع"
+          ],
+          "answer": "الثالث"
+        },
+        {
+          "id": "c2l4-q2",
+          "type": "multiple_choice",
+          "prompt": "ما الموقع الذي يسبق الخامس مباشرة؟",
+          "options": [
+            "الثالث",
+            "الرابع",
+            "السادس"
+          ],
+          "answer": "الرابع"
+        },
+        {
+          "id": "c2l4-q3",
+          "type": "multiple_choice",
+          "prompt": "ما الموقع الذي يأتي بعد التاسع؟",
+          "options": [
+            "الثامن",
+            "التاسع",
+            "العاشر"
+          ],
+          "answer": "العاشر"
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 3,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c2-l5",
+      "lessonNumber": 5,
+      "title": "خطة حل المسألة: أستعمل التمثيل",
+      "printedPages": [
+        42,
+        43
+      ],
+      "objective": "أن يفهم المتعلم معطيات مسألة بسيطة ويمثل الأعداد برسوم أو أشياء ثم يعدّ التمثيل للوصول إلى الحل والتحقق منه.",
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "لحل المسألة نقرأها أولاً ونعرف ما المعلومات التي نملكها وما المطلوب."
+        },
+        {
+          "role": "explain",
+          "text": "بعد ذلك نمثل الأشياء برسوم أو مكعبات، ثم نعدّها."
+        },
+        {
+          "role": "explain",
+          "text": "وفي النهاية نتحقق من أن الإجابة تناسب السؤال."
+        },
+        {
+          "role": "prompt",
+          "text": "مع زهراء ٦ أقلام، ومع أحمد قلم واحد أكثر. كم قلماً مع أحمد؟"
+        }
+      ],
+      "activities": [
+        {
+          "id": "c2l5-q1",
+          "type": "multiple_choice",
+          "prompt": "مع طفل ٤ مكعبات، وأخذ مكعبين آخرين. كم أصبح لديه؟",
+          "options": [
+            "٥",
+            "٦",
+            "٧"
+          ],
+          "answer": "٦"
+        },
+        {
+          "id": "c2l5-q2",
+          "type": "multiple_choice",
+          "prompt": "لدى سارة ٣ كتب ولدى أخيها ٥ كتب. من لديه كتب أكثر؟",
+          "options": [
+            "سارة",
+            "أخوها",
+            "العدد متساوٍ"
+          ],
+          "answer": "أخوها"
+        },
+        {
+          "id": "c2l5-q3",
+          "type": "visual_representation",
+          "prompt": "مثّل العدد ٧ بسبعة أشياء، ثم عدّها للتحقق.",
+          "quantity": 7,
+          "evaluation": "يتحقق من وجود سبعة عناصر منفصلة في مساحة العمل."
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 3,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c2-l6",
+      "lessonNumber": 6,
+      "title": "مقارنة الأعداد حتى 20",
+      "printedPages": [
+        44,
+        45
+      ],
+      "objective": "أن يقارن المتعلم بين عددين حتى ٢٠ باستعمال تمثيل الأشياء والرموز أكبر من وأصغر من ويساوي.",
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "نستطيع مقارنة الأعداد حتى عشرين، كما قارنا الأعداد الصغيرة."
+        },
+        {
+          "role": "explain",
+          "text": "العدد ١٤ أكبر من ١٢، لذلك نكتب ١٤ أكبر من ١٢."
+        },
+        {
+          "role": "explain",
+          "text": "نستطيع استعمال خط الأعداد أو تمثيل الأشياء لمساعدتنا."
+        },
+        {
+          "role": "prompt",
+          "text": "أيهما أكبر: ١٦ أم ١٣؟"
+        }
+      ],
+      "activities": [
+        {
+          "id": "c2l6-q1",
+          "type": "multiple_choice",
+          "prompt": "اختر العدد الأكبر.",
+          "options": [
+            "١١",
+            "١٥"
+          ],
+          "answer": "١٥"
+        },
+        {
+          "id": "c2l6-q2",
+          "type": "symbol_choice",
+          "prompt": "١٢ __ ١٤",
+          "options": [
+            "<",
+            ">",
+            "="
+          ],
+          "answer": "<"
+        },
+        {
+          "id": "c2l6-q3",
+          "type": "symbol_choice",
+          "prompt": "١٨ __ ١٨",
+          "options": [
+            "<",
+            ">",
+            "="
+          ],
+          "answer": "="
+        },
+        {
+          "id": "c2l6-q4",
+          "type": "symbol_choice",
+          "prompt": "١٩ __ ١٦",
+          "options": [
+            "<",
+            ">",
+            "="
+          ],
+          "answer": ">"
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 3,
+        "totalChecks": 4,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c2-l7",
+      "lessonNumber": 7,
+      "title": "السابق والتالي وبين العددين للأعداد حتى 20",
+      "printedPages": [
+        46,
+        47
+      ],
+      "objective": "أن يحدد المتعلم العدد السابق والتالي والعدد الواقع بين عددين ضمن الأعداد حتى ٢٠.",
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "نستعمل خط الأعداد حتى عشرين لمعرفة العدد السابق والتالي."
+        },
+        {
+          "role": "explain",
+          "text": "العدد السابق للعدد ١٥ هو ١٤، والعدد التالي هو ١٦."
+        },
+        {
+          "role": "explain",
+          "text": "العدد الذي يقع بين ١٢ و١٤ هو ١٣."
+        },
+        {
+          "role": "prompt",
+          "text": "ما العدد التالي للعدد ١٨؟"
+        }
+      ],
+      "activities": [
+        {
+          "id": "c2l7-q1",
+          "type": "number_entry",
+          "prompt": "اكتب العدد السابق للعدد ١٧.",
+          "answer": "١٦"
+        },
+        {
+          "id": "c2l7-q2",
+          "type": "number_entry",
+          "prompt": "اكتب العدد التالي للعدد ١٩.",
+          "answer": "٢٠"
+        },
+        {
+          "id": "c2l7-q3",
+          "type": "number_entry",
+          "prompt": "ما العدد الذي بين ١٤ و١٦؟",
+          "answer": "١٥"
+        },
+        {
+          "id": "c2l7-q4",
+          "type": "sequence_completion",
+          "prompt": "أكمل: ١٠، ١١، __، ١٣.",
+          "answer": "١٢"
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 3,
+        "totalChecks": 4,
+        "allowRetry": true
+      }
+    },
+    {
+      "id": "g1-math-c2-l8",
+      "lessonNumber": 8,
+      "title": "ترتيب الأعداد حتى 20",
+      "printedPages": [
+        48,
+        49
+      ],
+      "objective": "أن يرتب المتعلم الأعداد حتى ٢٠ تصاعدياً وتنازلياً، ويستعمل المقارنة وخط الأعداد للتحقق.",
+      "teacherScript": [
+        {
+          "role": "explain",
+          "text": "نرتب الأعداد تصاعدياً من الأصغر إلى الأكبر."
+        },
+        {
+          "role": "explain",
+          "text": "ونرتبها تنازلياً من الأكبر إلى الأصغر."
+        },
+        {
+          "role": "explain",
+          "text": "مثلاً: ١٣، ١٥، ١٨ ترتيب تصاعدي، وعكسه ترتيب تنازلي."
+        },
+        {
+          "role": "prompt",
+          "text": "رتب الأعداد ١١ و١٧ و١٤ من الأصغر إلى الأكبر."
+        }
+      ],
+      "activities": [
+        {
+          "id": "c2l8-q1",
+          "type": "sequence_order",
+          "prompt": "رتب تصاعدياً.",
+          "items": [
+            "١٦",
+            "١٢",
+            "١٥"
+          ],
+          "answer": [
+            "١٢",
+            "١٥",
+            "١٦"
+          ]
+        },
+        {
+          "id": "c2l8-q2",
+          "type": "sequence_order",
+          "prompt": "رتب تنازلياً.",
+          "items": [
+            "١٣",
+            "١٩",
+            "١٥"
+          ],
+          "answer": [
+            "١٩",
+            "١٥",
+            "١٣"
+          ]
+        },
+        {
+          "id": "c2l8-q3",
+          "type": "sequence_order",
+          "prompt": "رتب تصاعدياً.",
+          "items": [
+            "١٨",
+            "١١",
+            "٢٠"
+          ],
+          "answer": [
+            "١١",
+            "١٨",
+            "٢٠"
+          ]
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 3,
+        "allowRetry": true
+      }
+    }
+  ],
+  "implementationNotes": {
+    "audio": "النصوص قصيرة ومهيأة للنطق بصوت عربي متاح في الجهاز؛ يجب توفير عرض مكتوب وأزرار تشغيل وإيقاف وإعادة.",
+    "interaction": "يجب تنفيذ أنواع الأنشطة multiple_choice وsymbol_choice وnumber_entry وsequence_order وvisual_representation في واجهة الطفل قبل اعتبارها قابلة للتشغيل.",
+    "assessment": "تقييم تكويني مع تغذية راجعة وإعادة المحاولة، دون عقوبة على الخطأ.",
+    "copyright": "الشروحات والأسئلة صياغة تعليمية أصلية مستندة إلى موضوعات الصفحات المحددة، ولا تنسخ صفحات الكتاب."
+  }
+}
