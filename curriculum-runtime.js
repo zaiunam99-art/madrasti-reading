@@ -14,6 +14,19 @@
       return {};
     }
   }
+  function completedLessonIds(progress, childId) {
+    const ids = progress && typeof progress === "object" && !Array.isArray(progress)
+      ? progress[childId] : null;
+    return Array.isArray(ids) ? ids.filter(id => typeof id === "string") : [];
+  }
+  function appendCompletedLesson(progress, childId, lessonId) {
+    const previous = completedLessonIds(progress, childId);
+    return {
+      map: { ...(progress && typeof progress === "object" && !Array.isArray(progress) ? progress : {}),
+        [childId]: Array.from(new Set([...previous, lessonId])) },
+      alreadyCompleted: previous.includes(lessonId)
+    };
+  }
   const escHtml = value => String(value ?? "").replace(/[&<>"']/g, ch => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[ch]));
@@ -414,8 +427,7 @@
       }
       const listId = "subjectLessons";
       document.getElementById(listId)?.remove();
-      const savedDone = readCompletedMap()[active.id];
-      const done = new Set(Array.isArray(savedDone) ? savedDone : []);
+      const done = new Set(completedLessonIds(readCompletedMap(), active.id));
       const dailyCount = Math.max(1, Math.min(10, Number(active.dailyCount) || 1));
       const dailyPlan = data.lessons.map((lesson, index) => ({ lesson, index }))
         .filter(item => !done.has(item.lesson.id)).slice(0, dailyCount);
@@ -468,11 +480,10 @@
     if (qs.length && questionIndex < qs.length) return;
     const all = readCompletedMap();
     const childId = active.id;
-    const childDone = Array.isArray(all[childId]) ? all[childId] : [];
-    const wasAlreadyCompleted = childDone.includes(current.id);
-    all[childId] = Array.from(new Set([...childDone, current.id]));
+    const update = appendCompletedLesson(all, childId, current.id);
+    const wasAlreadyCompleted = update.alreadyCompleted;
     try {
-      localStorage.setItem("madrastiCompletedLessonsV1", JSON.stringify(all));
+      localStorage.setItem("madrastiCompletedLessonsV1", JSON.stringify(update.map));
     } catch (error) {
       const feedback = document.getElementById("feedback");
       if (feedback) feedback.textContent = "تعذر حفظ تقدمك على هذا الجهاز. تحقق من مساحة التخزين ثم حاول مجدداً.";
