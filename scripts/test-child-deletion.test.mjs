@@ -8,7 +8,7 @@ import { resolve } from "node:path";
 const here = fileURLToPath(new URL(".", import.meta.url));
 const html = readFileSync(resolve(here, "../index.html"), "utf8");
 const start = html.indexOf("function deleteChild(id){");
-const end = html.indexOf("\\n}", start);
+const end = html.indexOf("\n}", start);
 assert.ok(start >= 0 && end > start, "deleteChild handler must exist");
 const deleteChildSource = html.slice(start, end + 2);
 
