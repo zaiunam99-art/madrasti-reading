@@ -28,7 +28,8 @@
         "المفاهيم المكانية",
         "الأصوات القصيرة والطويلة وأصوات المد"
       ],
-      "status": "index_verified"
+      "status": "initial_lessons_created",
+      "lessonFile": "lessons/preparatory-unit.json"
     },
     {
       "sequence": 1,
