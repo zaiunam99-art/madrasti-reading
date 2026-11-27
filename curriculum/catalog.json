@@ -791,7 +791,8 @@
     "نتيجة فتح صفحات المصادر: IraqEdu يعرض روابط صفوف الابتدائية 1-6 لكنه يخلط في القائمة العامة كتباً وأدلة وملازم وحلولاً؛ موقع الأستاذ العراقي يعرض أيضاً مراحل غير ابتدائية في القائمة العامة. صفحات الفهرس التعليمي العراقي ومدرّسي تعذّر فتحها في هذه الجلسة، لذلك لم تُستخدم كدليل.",
     "تدقيق الصف الأول: فهرس IraqEdu يعرض 13 مادة/موردًا، منها 4 أدلة معلم يجب استبعادها من مسار التلميذ. ظهرت مخالفة مهمة في القراءة: الفهرس الثانوي يذكر 112 صفحة بينما ملف المستخدم 129 صفحة؛ لم تُحسم هوية الطبعة ولا يجوز الاستبدال قبل المقارنة. تم فتح صفحات البيانات الفردية للعلوم والرياضيات والقراءة والإسلامية، لكنها ليست فحصاً كاملاً لملفات PDF.",
     "تحديث تدقيق الصف الأول: فصل سجلات طبعة 2025-2026 عن نتائج 2026-2027. نتائج القراءة الجديدة 127 صفحة ونشاطها 114 صفحة تبقى إدراجات فهرس ثانوي؛ الإعلان الرسمي المتاح يثبت الوحدة الأولى فقط. لا فحص كامل لملفات PDF حتى الآن.",
-    "تدقيق جديد 2026-11-27: فتح صفحة IraqEdu العامة وصفحة الأستاذ العراقي العامة ومراجعة قناة الوزارة الرسمية. الفهارس العامة مختلطة ومصدر الوزارة لم يكن قابلاً للفتح آلياً في هذه الجلسة؛ لم ندّعِ تنزيل أو فحص PDF. أضيفت بيانات إدراج الإنكليزي السادس 2026-2027 ودليل المعلم مع الفصل بينهما."
+    "تدقيق جديد 2026-11-27: فتح صفحة IraqEdu العامة وصفحة الأستاذ العراقي العامة ومراجعة قناة الوزارة الرسمية. الفهارس العامة مختلطة ومصدر الوزارة لم يكن قابلاً للفتح آلياً في هذه الجلسة؛ لم ندّعِ تنزيل أو فحص PDF. أضيفت بيانات إدراج الإنكليزي السادس 2026-2027 ودليل المعلم مع الفصل بينهما.",
+    "دفعة 2026-11-27: أضيفت بيانات فهارس الصفوف الثاني والرابع والخامس مع صفحات وأحجام كما تعرضها IraqEdu، وتقاطعات مستقلة لبعض العناوين مع StadIraq وMlazemna. لم يتم تنزيل أو فحص ملفات PDF في هذه الدفعة؛ تبقى جميعها مرشحة."
   ],
   "latestResearch": {
     "checkedAt": "2026-11-27",
@@ -1596,6 +1597,132 @@
         "Official statement that printing is complete does not prove all digital PDF textbooks are publicly released.",
         "The grade 6 English book and teacher guide are distinct resources."
       ]
+    },
+    "batchNov27_grade2_4_5": {
+      "checkedAt": "2026-11-27",
+      "grade2": {
+        "source": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+        "items": [
+          {
+            "title": "كتاب القراءة للصف الثاني الابتدائي",
+            "year": "2025-2026",
+            "pages": 120,
+            "sizeMB": 11.58,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب الإنكليزي للصف الثاني الابتدائي",
+            "year": "2025-2026",
+            "pages": 80,
+            "sizeMB": 7.61,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب نشاط الإنكليزي للصف الثاني الابتدائي",
+            "year": "2025-2026",
+            "pages": 104,
+            "sizeMB": 2.49,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب الإسلامية للصف الثاني الابتدائي",
+            "year": "2025-2026",
+            "pages": 64,
+            "sizeMB": 10.2,
+            "status": "secondary listing; independently corroborated by item page"
+          }
+        ],
+        "crosscheck": "StadIraq individual Islamic studies page independently lists 64 pages for 2025-2026."
+      },
+      "grade4": {
+        "source": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+        "items": [
+          {
+            "title": "كتاب العلوم للصف الرابع الابتدائي",
+            "year": "2025-2026",
+            "pages": 216,
+            "sizeMB": 13.57,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب القواعد للصف الرابع الابتدائي",
+            "year": "2025-2026",
+            "pages": 80,
+            "sizeMB": 12.8,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب الرياضيات للصف الرابع الابتدائي",
+            "year": "2025-2026",
+            "pages": 196,
+            "sizeMB": 3.83,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب القراءة للصف الرابع الابتدائي",
+            "year": "2025-2026",
+            "pages": 148,
+            "sizeMB": 7.05,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب الإسلامية للصف الرابع الابتدائي",
+            "year": "2025-2026",
+            "pages": 72,
+            "sizeMB": 6.48,
+            "status": "secondary listing"
+          }
+        ],
+        "crosscheck": "StadIraq individual grammar listing independently gives 80 pages for grade 4 2025-2026."
+      },
+      "grade5": {
+        "source": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/",
+        "items": [
+          {
+            "title": "كتاب العلوم للصف الخامس الابتدائي",
+            "year": "2025-2026",
+            "pages": 200,
+            "sizeMB": 14.25,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب القواعد للصف الخامس الابتدائي",
+            "year": "2025-2026",
+            "pages": 84,
+            "sizeMB": 10.21,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب الرياضيات للصف الخامس الابتدائي",
+            "year": "2025-2026",
+            "pages": 198,
+            "sizeMB": 22.34,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب القراءة للصف الخامس الابتدائي",
+            "year": "2025-2026",
+            "pages": 162,
+            "sizeMB": 20.39,
+            "status": "secondary listing"
+          },
+          {
+            "title": "كتاب الإسلامية للصف الخامس الابتدائي",
+            "year": "2025-2026",
+            "pages": 96,
+            "sizeMB": 2.68,
+            "status": "secondary listing"
+          }
+        ],
+        "crosscheck": "Mlazemna grade 5 index independently lists the seven core subjects, including reading, grammar, English, math, science, social studies and Islamic studies."
+      },
+      "official2026_2027": {
+        "source": "https://t.me/s/Educationiq?before=34552",
+        "statementDate": "2026-10-09",
+        "exactScope": "Grade 1 Reading unit one: student book, activity book and teacher guide; plus grade 4 preparatory (not primary) mathematics chapter one.",
+        "caution": "This official announcement does not establish full 2026-2027 primary textbook availability."
+      },
+      "inspectionStatus": "All entries above are catalog metadata only; PDFs have not been downloaded and visually inspected in this batch."
     }
   }
 }
