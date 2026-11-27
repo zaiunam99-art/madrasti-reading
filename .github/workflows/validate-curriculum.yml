@@ -28,6 +28,8 @@ jobs:
         run: node scripts/check-inline-scripts.mjs
       - name: Validate curriculum JSON and lesson indexes
         run: node scripts/validate-curriculum.mjs
+      - name: Test grade 2 mathematics outline index
+        run: node --test scripts/test-grade2-math-index.test.mjs
       - name: Test validator edge cases
         run: node --test scripts/test-validator.test.mjs
       - name: Test local progress storage handling
