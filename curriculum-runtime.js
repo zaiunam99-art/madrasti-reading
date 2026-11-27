@@ -315,16 +315,22 @@
     if (qs.length && questionIndex < qs.length) return;
     const all = JSON.parse(localStorage.getItem("madrastiCompletedLessonsV1") || "{}");
     const childId = active.id;
-    all[childId] = Array.from(new Set([...(all[childId] || []), current.id]));
+    const childDone = all[childId] || [];
+    const wasAlreadyCompleted = childDone.includes(current.id);
+    all[childId] = Array.from(new Set([...childDone, current.id]));
     localStorage.setItem("madrastiCompletedLessonsV1", JSON.stringify(all));
-    active.completed = (active.completed || 0) + 1;
-    if (typeof save === "function") save();
+    if (!wasAlreadyCompleted) {
+      active.completed = (active.completed || 0) + 1;
+      if (typeof save === "function") save();
+    }
     document.getElementById("lessonView").classList.add("hidden");
     document.getElementById("childView").classList.remove("hidden");
     window.selectChild(childId);
     const note = document.createElement("p");
     note.className = "notice";
-    note.textContent = "أحسنت! تم حفظ تقدمك على هذا الجهاز.";
+    note.textContent = qs.length
+      ? "أحسنت! نتيجتك في هذا الدرس: " + score + " من " + qs.length + ". تم حفظ تقدمك على هذا الجهاز."
+      : "أحسنت! تم حفظ إكمال الدرس على هذا الجهاز.";
     document.getElementById("studentArea").prepend(note);
   };
   window.stopLessonAudio = function() { if ("speechSynthesis" in window) speechSynthesis.cancel(); setTeacherSpeaking(false); };
