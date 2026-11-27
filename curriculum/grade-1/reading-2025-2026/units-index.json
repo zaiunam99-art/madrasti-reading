@@ -170,7 +170,8 @@
         "الحروف غ، هـ، ذ، ظ",
         "اللام الشمسية واللام القمرية"
       ],
-      "status": "indexed_needs_page_review"
+      "status": "initial_lessons_created",
+      "lessonFile": "lessons/unit-06-world-around-me.json"
     }
   ],
   "notes": [
