@@ -87,3 +87,28 @@ test("cross-origin requests are left to the browser", () => {
   worker.listeners.get("fetch")(event);
   assert.equal(event.response, undefined);
 });
+
+test("curriculum JSON uses the fresh network response and refreshes its cache", async () => {
+  const oldVersion = { version: "old" };
+  const newVersion = { version: "new", ok: true, clone() { return { version: "new cached" }; } };
+  const worker = createWorker({
+    fetchImpl: async () => newVersion,
+    cached: new Map([["https://madrasti.test/curriculum/unit.json", oldVersion]])
+  });
+  const event = makeEvent({ method: "GET", url: "https://madrasti.test/curriculum/unit.json", mode: "cors", destination: "" });
+  worker.listeners.get("fetch")(event);
+  assert.equal(await event.response, newVersion);
+  await event.settleWrites();
+  assert.equal(worker.cached.get("https://madrasti.test/curriculum/unit.json").version, "new cached");
+});
+
+test("curriculum JSON uses its last cached copy when the device is offline", async () => {
+  const cachedLesson = { version: "offline cached lesson" };
+  const worker = createWorker({
+    fetchImpl: async () => { throw new Error("offline"); },
+    cached: new Map([["https://madrasti.test/curriculum/unit.json", cachedLesson]])
+  });
+  const event = makeEvent({ method: "GET", url: "https://madrasti.test/curriculum/unit.json", mode: "cors", destination: "" });
+  worker.listeners.get("fetch")(event);
+  assert.equal(await event.response, cachedLesson);
+});
