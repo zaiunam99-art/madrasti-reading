@@ -1,0 +1,220 @@
+{
+  "schemaVersion": "1.0",
+  "curriculum": {
+    "country": "العراق",
+    "grade": 1,
+    "subject": "الرياضيات",
+    "edition": "الطبعة العاشرة، 1447هـ/2025م",
+    "sourceFile": "كتاب الرياضيات للصف الأول الابتدائي",
+    "sourcePages": {
+      "pdf": [
+        8,
+        11
+      ],
+      "printed": [
+        8,
+        11
+      ]
+    },
+    "verification": "مستخرج من صفحات الكتاب المرفوع؛ تمت مراجعة صور الصفحات والنص المستخرج لهذه الدروس، وليس الكتاب كاملاً."
+  },
+  "sequence": [
+    {
+      "id": "g1-math-c1-l1",
+      "chapter": 1,
+      "chapterTitle": "الأنماط والأعداد حتى 20",
+      "lessonNumber": 1,
+      "title": "الأنماط",
+      "printedPages": [
+        8,
+        9
+      ],
+      "objective": "أن يلاحظ المتعلم الترتيب المتكرر، ويحدد الجزء الذي يتكرر، ثم يكمل نمطاً بسيطاً ويكوّن نمطاً من لونين أو شكلين.",
+      "vocabulary": [
+        {
+          "term": "النمط",
+          "explanation": "ترتيب يتكرر بالطريقة نفسها."
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "welcome",
+          "text": "أهلاً بك! اليوم سنتعلم كيف نكتشف الأنماط."
+        },
+        {
+          "role": "explain",
+          "text": "انظر إلى الألوان: أحمر، أصفر، أحمر، أصفر. ما اللون الذي يتكرر؟"
+        },
+        {
+          "role": "explain",
+          "text": "عندما يتكرر الترتيب نفسه نسميه نمطاً. نبحث عن الجزء الذي يتكرر ثم نكمل الترتيب."
+        },
+        {
+          "role": "prompt",
+          "text": "هيا نجرّب معاً. إذا كان الترتيب: أحمر، أصفر، أحمر، أصفر، فما اللون التالي؟"
+        },
+        {
+          "role": "encourage",
+          "text": "أحسنت المحاولة! تذكّر أن تنظر إلى الترتيب الذي يتكرر."
+        }
+      ],
+      "activities": [
+        {
+          "id": "pattern-color-01",
+          "type": "multiple_choice",
+          "prompt": "أكمل النمط: أحمر، أصفر، أحمر، أصفر، ...",
+          "options": [
+            "أحمر",
+            "أخضر",
+            "أزرق"
+          ],
+          "answer": "أحمر",
+          "feedbackCorrect": "صحيح! عاد اللون الأحمر في النمط.",
+          "feedbackTryAgain": "انظر إلى اللونين بالتناوب: أحمر ثم أصفر."
+        },
+        {
+          "id": "pattern-shape-01",
+          "type": "sequence_completion",
+          "prompt": "أكمل النمط: دائرة، مربع، دائرة، مربع، ...",
+          "options": [
+            "دائرة",
+            "مثلث",
+            "مربع"
+          ],
+          "answer": "دائرة",
+          "feedbackCorrect": "ممتاز! النمط يتكرر: دائرة ثم مربع.",
+          "feedbackTryAgain": "لاحظ الشكلين الأولين، ثم كرر الترتيب نفسه."
+        },
+        {
+          "id": "pattern-create-01",
+          "type": "create_pattern",
+          "prompt": "اختر لونين واصنع نمطاً يتكرر ثلاث مرات.",
+          "minimumItems": 6,
+          "evaluation": "يتحقق النظام من تكرار وحدة النمط نفسها؛ لا يشترط لوناً بعينه."
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 2,
+        "allowRetry": true
+      },
+      "accessibility": {
+        "narrationLanguage": "ar-IQ",
+        "pace": "slow",
+        "repeatEnabled": true,
+        "captionsEnabled": true
+      }
+    },
+    {
+      "id": "g1-math-c1-l2",
+      "chapter": 1,
+      "chapterTitle": "الأنماط والأعداد حتى 20",
+      "lessonNumber": 2,
+      "title": "العددان 1 و2",
+      "printedPages": [
+        10,
+        11
+      ],
+      "objective": "أن يتعرف المتعلم العددين 1 و2، ويقرأهما ويكتبهما، ويربط كل عدد بكمية الأشياء التي يمثلها.",
+      "vocabulary": [
+        {
+          "term": "واحد",
+          "numeral": "١",
+          "quantity": 1
+        },
+        {
+          "term": "اثنان",
+          "numeral": "٢",
+          "quantity": 2
+        }
+      ],
+      "teacherScript": [
+        {
+          "role": "welcome",
+          "text": "مرحباً! سنتعرف اليوم إلى العددين واحد واثنين."
+        },
+        {
+          "role": "explain",
+          "text": "عندما نرى شيئاً واحداً نقول: واحد، ونكتب العدد ١."
+        },
+        {
+          "role": "explain",
+          "text": "وعندما نرى شيئين نقول: اثنان، ونكتب العدد ٢."
+        },
+        {
+          "role": "prompt",
+          "text": "انظر إلى الصورة. كم طائراً ترى؟ عدّ بهدوء."
+        },
+        {
+          "role": "encourage",
+          "text": "رائع! نعد الأشياء واحداً واحداً، ثم نختار العدد الذي يمثلها."
+        }
+      ],
+      "activities": [
+        {
+          "id": "count-1-2-01",
+          "type": "quantity_match",
+          "prompt": "اختر العدد الذي يمثل شيئاً واحداً.",
+          "choices": [
+            {
+              "label": "١",
+              "quantity": 1
+            },
+            {
+              "label": "٢",
+              "quantity": 2
+            }
+          ],
+          "answer": "١",
+          "feedbackCorrect": "صحيح، واحد يقابله العدد ١.",
+          "feedbackTryAgain": "شيء واحد فقط؛ اختر العدد ١."
+        },
+        {
+          "id": "count-1-2-02",
+          "type": "quantity_match",
+          "prompt": "اختر العدد الذي يمثل شيئين.",
+          "choices": [
+            {
+              "label": "١",
+              "quantity": 1
+            },
+            {
+              "label": "٢",
+              "quantity": 2
+            }
+          ],
+          "answer": "٢",
+          "feedbackCorrect": "أحسنت، اثنان يقابله العدد ٢.",
+          "feedbackTryAgain": "عدّ الشيئين: واحد، اثنان."
+        },
+        {
+          "id": "write-1-2-01",
+          "type": "trace_numeral",
+          "prompt": "تتبّع كتابة العددين ١ و٢، ثم اكتبهما بنفسك.",
+          "numerals": [
+            "١",
+            "٢"
+          ],
+          "evaluation": "يعرض مسار تتبع بصرياً ويقبل إعادة المحاولة؛ لا يعتمد على التعرف الصوتي وحده."
+        }
+      ],
+      "mastery": {
+        "requiredCorrect": 2,
+        "totalChecks": 2,
+        "allowRetry": true
+      },
+      "accessibility": {
+        "narrationLanguage": "ar-IQ",
+        "pace": "slow",
+        "repeatEnabled": true,
+        "captionsEnabled": true
+      }
+    }
+  ],
+  "implementationNotes": {
+    "audio": "استخدم SpeechSynthesis/Web Speech API وصوتاً عربياً متاحاً على جهاز المستخدم؛ افحص توفر الصوت قبل بدء الدرس، ووفّر زر تشغيل وإيقاف وإعادة ونصاً مكتوباً بديلاً.",
+    "personalization": "اسم الطفل اختياري. يختار ولي الأمر شخصية المعلم/المعلمة للعرض فقط؛ لا يتغير المحتوى أو مستوى التقييم بحسب الجنس.",
+    "privacy": "لا تجمع بيانات صوتية أو شخصية غير لازمة. احفظ تقدم الطفل محلياً إلى أن يختار ولي الأمر مزامنة آمنة.",
+    "copyright": "المحتوى التعليمي هنا صياغة تعليمية أصلية مختصرة مستندة إلى أهداف وأنشطة الصفحات المحددة، وليس نسخاً مصوراً للكتاب."
+  }
+}
