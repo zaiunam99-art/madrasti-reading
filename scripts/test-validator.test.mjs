@@ -91,3 +91,19 @@ test("rejects empty and incomplete sequence-order activities", t => {
   assert.equal(status, 1);
   assert.equal(report.errors.filter(error => error.message.includes("مصفوفتين غير فارغتين")).length, 2);
 });
+
+test("rejects malformed activity and quiz collections", t => {
+  const root = makeFixture(t, {
+    lessonData: [{
+      id: "bad-questions",
+      title: "أسئلة غير صالحة",
+      objective: "تدريب",
+      activities: [null, ["not", "a", "question"]],
+      quiz: "not-an-array"
+    }]
+  });
+  const { status, report } = runValidator(root);
+  assert.equal(status, 1);
+  assert.ok(report.errors.some(error => error.message.includes("عنصر activities")));
+  assert.ok(report.errors.some(error => error.message.includes("حقل quiz")));
+});
