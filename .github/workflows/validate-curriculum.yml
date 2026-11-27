@@ -40,3 +40,5 @@ jobs:
         run: node --test scripts/test-family-save.test.mjs
       - name: Test isolated child lesson progress
         run: node --test scripts/test-child-progress.test.mjs
+      - name: Test safe child profile deletion
+        run: node --test scripts/test-child-deletion.test.mjs
