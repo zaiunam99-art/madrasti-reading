@@ -202,8 +202,23 @@
     const el = makeTeacher();
     if (el) el.classList.toggle("speaking", Boolean(on));
   }
+  function createSpeechLifecycle() {
+    let generation = 0;
+    return {
+      begin() { return ++generation; },
+      cancel() { return ++generation; },
+      isCurrent(token) { return token === generation; }
+    };
+  }
+  const speechLifecycle = createSpeechLifecycle();
+  function cancelSpeech() {
+    speechLifecycle.cancel();
+    if ("speechSynthesis" in window) speechSynthesis.cancel();
+    setTeacherSpeaking(false);
+  }
   function speakQuestion(text) {
     const feedback = document.getElementById("feedback");
+    cancelSpeech();
     if (active?.voice === "none") {
       if (feedback) feedback.textContent = "الصوت مكتوم حسب إعدادات ولي الأمر. يمكنك قراءة السؤال.";
       return;
@@ -212,8 +227,7 @@
       if (feedback) feedback.textContent = "الصوت غير متاح في هذا المتصفح. اقرأ السؤال المعروض ثم تابع.";
       return;
     }
-    speechSynthesis.cancel();
-    setTeacherSpeaking(false);
+    const generation = speechLifecycle.begin();
     utterance = new SpeechSynthesisUtterance(String(text || ""));
     const voices = speechSynthesis.getVoices();
     utterance.voice = voices.find(voice => /^ar-IQ/i.test(voice.lang)) ||
@@ -221,14 +235,13 @@
       voices.find(voice => /^ar/i.test(voice.lang)) || null;
     utterance.lang = utterance.voice?.lang || "ar-IQ";
     utterance.rate = active?.voice === "slow" ? 0.72 : 0.88;
-    utterance.onstart = () => setTeacherSpeaking(true);
-    utterance.onend = utterance.onerror = () => setTeacherSpeaking(false);
+    utterance.onstart = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(true); };
+    utterance.onend = utterance.onerror = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(false); };
     speechSynthesis.speak(utterance);
   }
   let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), utterance = null;
   function renderQuestion() {
-    if ("speechSynthesis" in window) speechSynthesis.cancel();
-    setTeacherSpeaking(false);
+    cancelSpeech();
     const lesson = current;
     const qs = questionList(lesson);
     const q = qs[questionIndex];
@@ -261,8 +274,7 @@
     finish.textContent = "إكمال الدرس ⭐";
     const submit = (value, selectedButton) => {
       if (answered.has(questionIndex)) return;
-      if ("speechSynthesis" in window) speechSynthesis.cancel();
-      setTeacherSpeaking(false);
+      cancelSpeech();
       let correctAnswer = false;
       if (q.type === "sequence_order") {
         const expected = Array.isArray(q.answer) ? q.answer : [];
@@ -517,15 +529,16 @@
       : "أحسنت! أنهيت أنشطة الدرس. تم حفظ تقدمك على هذا الجهاز.";
     document.getElementById("studentArea").prepend(note);
   };
-  window.stopLessonAudio = function() { if ("speechSynthesis" in window) speechSynthesis.cancel(); setTeacherSpeaking(false); };
+  window.stopLessonAudio = cancelSpeech;
   window.playLesson = function() {
     if (!current) return;
+    cancelSpeech();
     if (active?.voice === "none") { document.getElementById("feedback").textContent = "الصوت مكتوم حسب إعدادات ولي الأمر. يمكنك قراءة الشرح."; return; }
     if (!("speechSynthesis" in window)) {
       document.getElementById("feedback").textContent = "الصوت غير متاح في هذا المتصفح. يمكنك قراءة الشرح المعروض.";
       return;
     }
-    speechSynthesis.cancel();
+    const generation = speechLifecycle.begin();
     const parts = [current.title, ...lessonBody(current)];
     if (current.objective) parts.push(current.objective);
     parts.push(...lessonExamples(current));
@@ -534,11 +547,11 @@
     utterance.voice = voices.find(voice => /^ar-IQ/i.test(voice.lang)) || voices.find(voice => /^ar-SA/i.test(voice.lang)) || voices.find(voice => /^ar/i.test(voice.lang)) || null;
     utterance.lang = utterance.voice?.lang || "ar-IQ";
     utterance.rate = active?.voice === "slow" ? 0.72 : 0.88;
-    utterance.onstart = () => setTeacherSpeaking(true);
-    utterance.onend = utterance.onerror = () => setTeacherSpeaking(false);
+    utterance.onstart = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(true); };
+    utterance.onend = utterance.onerror = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(false); };
     speechSynthesis.speak(utterance);
   };
-  window.addEventListener("beforeunload", () => { if ("speechSynthesis" in window) speechSynthesis.cancel(); });
+  window.addEventListener("beforeunload", cancelSpeech);
   document.addEventListener("DOMContentLoaded", makeTeacher);
   const style = document.createElement("style");
   style.textContent = ".teacher{display:flex;align-items:center;gap:14px;padding:12px;background:#fff8e8;border:1px solid #f3dfb4;border-radius:18px;margin-bottom:16px}.teacher-face{width:68px;height:68px;border-radius:50%;background:#ffd58c;border:4px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 2px 0 #d7ad67;flex:none}.teacher-eyes{font-size:13px;color:#563c2c}.teacher-mouth{font-size:13px;color:#9d4b38;line-height:1}.teacher.gender-girl .teacher-face{background:#ffd7e5}.teacher.gender-boy .teacher-face{background:#c9e7ff}.teacher.speaking .teacher-mouth{animation:talk .22s infinite alternate}@keyframes talk{from{transform:scaleY(.4)}to{transform:scaleY(1.5)}}.lessonbox #lessonDesc{white-space:pre-line;line-height:2}";
