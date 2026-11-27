@@ -283,22 +283,145 @@
     },
     {
       "grade": 2,
-      "status": "not-collected",
-      "books": []
+      "status": "partially-identified-from-secondary-catalog; PDFs-not-opened",
+      "books": [],
+      "candidateSources": [
+        {
+          "subject": "العلوم",
+          "title": "العلوم للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 196,
+          "fileSizeMB": 11.52,
+          "sourceUrl": "https://www.stadiraq.com/الثاني-الابتدائي/الكتب-المنهجية/",
+          "status": "listed-by-secondary-index; direct PDF not inspected"
+        },
+        {
+          "subject": "نشاط العلوم",
+          "title": "كتاب نشاط العلوم للصف الثاني الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 68,
+          "fileSizeMB": 8.83,
+          "sourceUrl": "https://www.stadiraq.com/الثاني-الابتدائي/الكتب-المنهجية/",
+          "status": "listed-by-secondary-index; direct PDF not inspected"
+        }
+      ]
     },
     {
       "grade": 3,
-      "status": "not-collected",
-      "books": []
+      "status": "partially-identified-from-secondary-catalog; PDFs-not-opened",
+      "books": [],
+      "candidateSources": [
+        {
+          "subject": "القراءة",
+          "title": "كتاب القراءة للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 144,
+          "fileSizeMB": 20.97,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "اللغة الإنكليزية",
+          "title": "كتاب الإنكليزي للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 122,
+          "fileSizeMB": 11.69,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "التربية الإسلامية",
+          "title": "كتاب الإسلامية للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 72,
+          "fileSizeMB": 7.15,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "العلوم",
+          "title": "كتاب العلوم للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 196,
+          "fileSizeMB": 11.71,
+          "sourceUrl": "https://www.stadiraq.com/الثالث-الابتدائي/الكتب-المنهجية/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "الرياضيات",
+          "title": "كتاب الرياضيات للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 176,
+          "fileSizeMB": 13.24,
+          "sourceUrl": "https://www.stadiraq.com/الثالث-الابتدائي/الكتب-المنهجية/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "الرياضيات – التمارين",
+          "title": "كتاب تمرينات الرياضيات للصف الثالث الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 64,
+          "fileSizeMB": 13.69,
+          "sourceUrl": "https://www.stadiraq.com/الثالث-الابتدائي/الكتب-المنهجية/",
+          "status": "listed; direct PDF not inspected"
+        }
+      ]
     },
     {
       "grade": 4,
-      "status": "not-collected",
-      "books": []
+      "status": "partially-identified-from-secondary-catalog; PDFs-not-opened",
+      "books": [],
+      "candidateSources": [
+        {
+          "subject": "العلوم",
+          "title": "كتاب العلوم للصف الرابع الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 216,
+          "fileSizeMB": 13.57,
+          "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "القواعد",
+          "title": "كتاب القواعد للصف الرابع الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 80,
+          "fileSizeMB": 12.8,
+          "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "الرياضيات",
+          "title": "كتاب الرياضيات للصف الرابع الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 196,
+          "fileSizeMB": 3.83,
+          "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "القراءة",
+          "title": "كتاب القراءة للصف الرابع الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 148,
+          "fileSizeMB": 7.05,
+          "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "التربية الإسلامية",
+          "title": "كتاب الإسلامية للصف الرابع الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 72,
+          "fileSizeMB": 6.48,
+          "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        }
+      ]
     },
     {
       "grade": 5,
-      "status": "partially-identified",
+      "status": "partially-identified-from-secondary-catalog; PDFs-not-opened",
       "books": [
         {
           "subject": "العلوم",
@@ -364,6 +487,53 @@
               "status": "online-pdf-opened-and-cover-toc-verified; not copied into app"
             }
           ]
+        }
+      ],
+      "candidateSources": [
+        {
+          "subject": "العلوم",
+          "title": "كتاب العلوم للصف الخامس الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 200,
+          "fileSizeMB": 14.25,
+          "sourceUrl": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/",
+          "status": "listing confirms metadata; another 2025 edition already opened in books array"
+        },
+        {
+          "subject": "القواعد",
+          "title": "كتاب القواعد للصف الخامس الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 84,
+          "fileSizeMB": 10.21,
+          "sourceUrl": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "الرياضيات",
+          "title": "كتاب الرياضيات للصف الخامس الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 198,
+          "fileSizeMB": 22.34,
+          "sourceUrl": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "القراءة",
+          "title": "كتاب القراءة للصف الخامس الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 162,
+          "fileSizeMB": 20.39,
+          "sourceUrl": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
+        },
+        {
+          "subject": "التربية الإسلامية",
+          "title": "كتاب الإسلامية للصف الخامس الابتدائي",
+          "schoolYearLabel": "2025-2026 (secondary catalog listing)",
+          "pages": 96,
+          "fileSizeMB": 2.68,
+          "sourceUrl": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/",
+          "status": "listed; direct PDF not inspected"
         }
       ]
     },
@@ -475,6 +645,8 @@
   },
   "collectionNotes": [
     "The grade 5 science student book and activity book, and grade 6 science and social studies books have been opened as PDFs online. Their cover editions and contents were inspected. These are still external source links, not files stored in the app.",
-    "The 2025 books are fallback references for 2025-2026 until a complete 2026-2027 book is verified. Do not treat a partial 2026-2027 release as a full textbook."
+    "The 2025 books are fallback references for 2025-2026 until a complete 2026-2027 book is verified. Do not treat a partial 2026-2027 release as a full textbook.",
+    "Grades 2-5 now have candidate book listings with page counts and file sizes from secondary catalog sites. These are discovery leads only; no candidate PDF is treated as verified until the actual file cover and contents are inspected.",
+    "Grade 6 social studies and science and grade 5 science books already have separately opened PDF copies as recorded above."
   ]
 }
