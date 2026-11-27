@@ -315,8 +315,90 @@
     },
     {
       "grade": 2,
-      "status": "catalogued-from-secondary-index; PDFs-not-yet-individually-verified",
-      "books": [],
+      "status": "secondary-index-reviewed; candidate list only",
+      "books": [
+        {
+          "subject": "القراءة",
+          "edition": "2025-2026",
+          "pages": 120,
+          "fileSize": "11.58MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الرياضيات",
+          "edition": "2025-2026",
+          "pages": 180,
+          "fileSize": "6.63MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "تمرينات الرياضيات",
+          "edition": "2025-2026",
+          "pages": 64,
+          "fileSize": "2.44MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "العلوم",
+          "edition": "2025-2026",
+          "pages": 196,
+          "fileSize": "11.52MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط العلوم",
+          "edition": "2025-2026",
+          "pages": 68,
+          "fileSize": "8.83MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإنكليزي",
+          "edition": "2025-2026",
+          "pages": 80,
+          "fileSize": "7.61MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط الإنكليزي",
+          "edition": "2025-2026",
+          "pages": 104,
+          "fileSize": "2.49MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإسلامية",
+          "edition": "2025-2026",
+          "pages": 64,
+          "fileSize": "10.2MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "التربية الأخلاقية",
+          "edition": "2025-2026",
+          "pages": 88,
+          "fileSize": "15.1MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        }
+      ],
       "candidateSources": [
         {
           "subject": "التربية الأخلاقية",
@@ -399,12 +481,86 @@
           "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
           "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         }
-      ]
+      ],
+      "sourceIndex": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/"
     },
     {
       "grade": 3,
-      "status": "catalogued-from-secondary-index; PDFs-not-yet-individually-verified",
-      "books": [],
+      "status": "secondary-index-reviewed; partial candidate list",
+      "books": [
+        {
+          "subject": "القراءة",
+          "edition": "2025-2026",
+          "pages": 144,
+          "fileSize": "20.97MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الرياضيات",
+          "edition": "2025-2026",
+          "pages": 176,
+          "fileSize": "13.24MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "تمرينات الرياضيات",
+          "edition": "2025-2026",
+          "pages": 64,
+          "fileSize": "13.69MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "العلوم",
+          "edition": "2025-2026",
+          "pages": 196,
+          "fileSize": "11.71MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط العلوم",
+          "edition": "2025-2026",
+          "pages": 68,
+          "fileSize": "2.88MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإنكليزي",
+          "edition": "2025-2026",
+          "pages": 122,
+          "fileSize": "11.69MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط الإنكليزي",
+          "edition": "2025-2026",
+          "pages": 108,
+          "fileSize": "8.08MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإسلامية",
+          "edition": "2025-2026",
+          "pages": 72,
+          "fileSize": "7.15MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        }
+      ],
       "candidateSources": [
         {
           "subject": "العلوم – نشاط",
@@ -478,12 +634,104 @@
           "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
           "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         }
-      ]
+      ],
+      "sourceIndex": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/"
     },
     {
       "grade": 4,
-      "status": "catalogued-from-secondary-index; PDFs-not-yet-individually-verified",
-      "books": [],
+      "status": "secondary-index-reviewed; candidate list only",
+      "books": [
+        {
+          "subject": "القراءة",
+          "edition": "2025-2026",
+          "pages": 148,
+          "fileSize": "7.05MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الرياضيات",
+          "edition": "2025-2026",
+          "pages": 196,
+          "fileSize": "3.83MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "تمرينات الرياضيات",
+          "edition": "2025-2026",
+          "pages": 56,
+          "fileSize": "2.25MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "العلوم",
+          "edition": "2025-2026",
+          "pages": 216,
+          "fileSize": "13.57MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط العلوم",
+          "edition": "2025-2026",
+          "pages": 100,
+          "fileSize": "16.54MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإنكليزي",
+          "edition": "2025-2026",
+          "pages": 119,
+          "fileSize": "8.92MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط الإنكليزي",
+          "edition": "2025-2026",
+          "pages": 120,
+          "fileSize": "5.64MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "القواعد",
+          "edition": "2025-2026",
+          "pages": 80,
+          "fileSize": "12.8MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإسلامية",
+          "edition": "2025-2026",
+          "pages": 72,
+          "fileSize": "6.48MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الاجتماعيات",
+          "edition": "2025-2026",
+          "pages": 64,
+          "fileSize": "4.73MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        }
+      ],
       "candidateSources": [
         {
           "subject": "الإنكليزية",
@@ -566,76 +814,102 @@
           "sourceUrl": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/",
           "status": "listed-by-secondary-index; PDF cover and contents not yet inspected"
         }
-      ]
+      ],
+      "sourceIndex": "https://iraqedu.net/الرابع-الابتدائي/كتب-الرابع-الابتدائي/"
     },
     {
       "grade": 5,
-      "status": "partially-identified-from-secondary-catalog; PDFs-not-opened",
+      "status": "secondary-index-reviewed; candidate list only",
       "books": [
         {
+          "subject": "القراءة",
+          "edition": "2025-2026",
+          "pages": 162,
+          "fileSize": "20.39MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الرياضيات",
+          "edition": "2025-2026",
+          "pages": 198,
+          "fileSize": "22.34MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "تمرينات الرياضيات",
+          "edition": "2025-2026",
+          "pages": 54,
+          "fileSize": "1.48MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
           "subject": "العلوم",
-          "title": "العلم – كتاب التلميذ للصف الخامس الابتدائي",
-          "edition": "الطبعة التاسعة، 1447هـ / 2025م",
-          "schoolYearLabel": "2025-2026 (verified 2025 copy)",
-          "source": "external-pdf-mirror; cover identifies Ministry of Education / General Directorate of Curricula",
-          "sourceUrl": "https://bk2.shr4.com/books/b5/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85%20%D8%A7%D9%84%D8%AE%D8%A7%D9%85%D8%B3%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
-          "fileFormat": "PDF",
-          "status": "online-pdf-opened-and-cover-toc-verified; not copied into app",
-          "units": [
-            {
-              "sequence": 1,
-              "title": "التصنيف والتنوع",
-              "pageStart": 16,
-              "topics": [
-                "النباتات الزهرية واللازهرية",
-                "الحيوانات الفقرية واللافقارية"
-              ]
-            },
-            {
-              "sequence": 2,
-              "title": "جسم الإنسان وصحته",
-              "pageStart": 52,
-              "topics": [
-                "جهازا الدوران والتنفس",
-                "الجهازان الهضمي والبولي"
-              ]
-            },
-            {
-              "sequence": 3,
-              "title": "المادة",
-              "pageStart": 84,
-              "topics": [
-                "العناصر",
-                "المركبات والمخاليط"
-              ]
-            },
-            {
-              "sequence": 4,
-              "title": "القوة والطاقة",
-              "pageStart": 118,
-              "topics": [
-                "الاحتكاك",
-                "الكهربائية والمغناطيسية"
-              ]
-            },
-            {
-              "sequence": 5,
-              "title": "الأرض والكون",
-              "pageStart": 158,
-              "topics": [
-                "الأرض ومواردها",
-                "الكون"
-              ]
-            }
-          ],
-          "companionBooks": [
-            {
-              "subject": "العلوم – كتاب النشاط",
-              "edition": "الطبعة الثامنة، 1447هـ / 2025م",
-              "sourceUrl": "https://bk1.shr4.com/books/b5/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D9%86%D8%B4%D8%A7%D8%B7%20%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85%20%D8%A7%D9%84%D8%AE%D8%A7%D9%85%D8%B3%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
-              "status": "online-pdf-opened-and-cover-toc-verified; not copied into app"
-            }
-          ]
+          "edition": "2025-2026",
+          "pages": 200,
+          "fileSize": "14.25MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط العلوم",
+          "edition": "2025-2026",
+          "pages": 92,
+          "fileSize": "3.71MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإنكليزي",
+          "edition": "2025-2026",
+          "pages": 118,
+          "fileSize": "25.19MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط الإنكليزي",
+          "edition": "2025-2026",
+          "pages": 120,
+          "fileSize": "7.47MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "القواعد",
+          "edition": "2025-2026",
+          "pages": 84,
+          "fileSize": "10.21MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإسلامية",
+          "edition": "2025-2026",
+          "pages": 96,
+          "fileSize": "2.68MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الاجتماعيات",
+          "edition": "2025-2026",
+          "pages": 104,
+          "fileSize": "7.89MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
         }
       ],
       "candidateSources": [
@@ -684,106 +958,105 @@
           "sourceUrl": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/",
           "status": "listed; direct PDF not inspected"
         }
-      ]
+      ],
+      "sourceIndex": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/"
     },
     {
       "grade": 6,
-      "status": "partially-identified",
+      "status": "secondary-index-reviewed; 2026-2027 candidates only",
       "books": [
         {
+          "subject": "القراءة",
+          "edition": "2026-2027",
+          "pages": 142,
+          "fileSize": "16.18MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الرياضيات",
+          "edition": "2026-2027",
+          "pages": 200,
+          "fileSize": "17.69MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "تمرينات الرياضيات",
+          "edition": "2026-2027",
+          "pages": 58,
+          "fileSize": "1.48MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
           "subject": "العلوم",
-          "title": "العلوم – كتاب التلميذ للصف السادس الابتدائي",
-          "edition": "الطبعة الثامنة، 1447هـ / 2025م",
-          "schoolYearLabel": "2025-2026 (verified 2025 copy)",
-          "source": "external-pdf-mirror; cover identifies Ministry of Education / General Directorate of Curricula",
-          "sourceUrl": "https://bk1.shr4.com/books/b6/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85%20%D8%A7%D9%84%D8%B3%D8%A7%D8%AF%D8%B3%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
-          "fileFormat": "PDF",
-          "status": "online-pdf-opened-and-cover-toc-verified; not copied into app",
-          "units": [
-            {
-              "sequence": 1,
-              "title": "خصائص الكائنات الحية",
-              "pageStart": 16,
-              "topics": [
-                "التكاثر الطبيعي في النباتات",
-                "التكاثر الاصطناعي في النباتات"
-              ]
-            },
-            {
-              "sequence": 2,
-              "title": "جسم الإنسان وصحته",
-              "pageStart": 50,
-              "topics": [
-                "أجهزة في جسم الإنسان",
-                "الحس عند الإنسان"
-              ]
-            },
-            {
-              "sequence": 3,
-              "title": "المادة وتفاعلاتها",
-              "pageStart": 94,
-              "topics": [
-                "بناء المادة",
-                "التفاعلات الكيميائية"
-              ]
-            },
-            {
-              "sequence": 4,
-              "title": "القوة والطاقة",
-              "pageStart": 128,
-              "topics": [
-                "الكتلة والوزن والآلات البسيطة",
-                "الطاقة الكهربائية",
-                "الطاقة الضوئية"
-              ]
-            },
-            {
-              "sequence": 5,
-              "title": "الأرض والكون",
-              "pageStart": 176,
-              "topics": [
-                "الأرض المتغيرة",
-                "الكون الواسع"
-              ]
-            }
-          ]
+          "edition": "2026-2027",
+          "pages": 208,
+          "fileSize": "14.5MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط العلوم",
+          "edition": "2026-2027",
+          "pages": 92,
+          "fileSize": "1.35MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإنكليزي",
+          "edition": "2026-2027",
+          "pages": 122,
+          "fileSize": "61.5MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "نشاط الإنكليزي",
+          "edition": "2026-2027",
+          "pages": 105,
+          "fileSize": "19.1MB",
+          "recordType": "activity-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "القواعد",
+          "edition": "2026-2027",
+          "pages": 108,
+          "fileSize": "8.05MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
+        },
+        {
+          "subject": "الإسلامية",
+          "edition": "2026-2027",
+          "pages": 92,
+          "fileSize": "2.18MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
         },
         {
           "subject": "الاجتماعيات",
-          "title": "الاجتماعيات للصف السادس الابتدائي",
-          "edition": "الطبعة التاسعة، 1447هـ / 2025م",
-          "schoolYearLabel": "2025-2026 (verified 2025 copy)",
-          "source": "external-pdf-mirror; cover identifies Ministry of Education / General Directorate of Curricula",
-          "sourceUrl": "https://bk1.shr4.com/books/b6/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D8%A7%D9%84%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%D9%8A%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B3%D8%A7%D8%AF%D8%B3%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
-          "fileFormat": "PDF",
-          "status": "online-pdf-opened-and-cover-toc-verified; not copied into app",
-          "units": [
-            {
-              "sequence": 1,
-              "title": "محافظات وطننا العراق جغرافياً وتاريخياً",
-              "pageStart": 4,
-              "pageEnd": 95,
-              "topics": [
-                "محافظات العراق الثماني عشرة",
-                "الظواهر الجغرافية والتاريخية والموارد والأنشطة الاقتصادية والمعالم الحضارية"
-              ]
-            },
-            {
-              "sequence": 2,
-              "title": "مجتمعنا العراقي",
-              "pageStart": 99,
-              "pageEnd": 114,
-              "topics": [
-                "مفهوم المجتمع العراقي ومكوناته",
-                "الروابط التاريخية والاجتماعية",
-                "حقوق المواطن العراقي",
-                "القيم الحضارية العراقية السامية",
-                "قضايا اجتماعية عامة"
-              ]
-            }
-          ]
+          "edition": "2026-2027",
+          "pages": 116,
+          "fileSize": "4.83MB",
+          "recordType": "student-book",
+          "source": "IraqEdu secondary index",
+          "status": "listed-not-downloaded-or-visually-verified"
         }
-      ]
+      ],
+      "sourceIndex": "https://iraqedu.net/السادس-الابتدائي/كتب-السادس-الابتدائي/"
     }
   ],
   "platformIntegration": {
@@ -813,7 +1086,8 @@
     "دفعة 2026-11-27: أضيفت بيانات فهارس الصفوف الثاني والرابع والخامس مع صفحات وأحجام كما تعرضها IraqEdu، وتقاطعات مستقلة لبعض العناوين مع StadIraq وMlazemna. لم يتم تنزيل أو فحص ملفات PDF في هذه الدفعة؛ تبقى جميعها مرشحة.",
     "دفعة جديدة: استكمال جزئي لبيانات الصفوف الثالث والرابع والخامس والسادس 2025-2026، مع تسجيل أعداد الصفحات والأحجام ومصادر فردية. أدلة المعلمين مفصولة عن كتب التلاميذ. كل السجلات مرشحة فهرسياً ولم يتم فحص PDF كاملاً.",
     "دفعة تدقيق جديدة 2026-11-27: تمت مراجعة صفحات العراق التعليمية الفردية للصفوف 3 و4 و5 و6. أضيفت قوائم أكثر تفصيلاً مع تمييز كتاب الطالب والنشاط ودليل المعلم. صفحة الصف السادس تعرض طبعة 2026-2027. كل البيانات فهرسية ثانوية ولم يتم تنزيل ملفات PDF أو فحص صفحاتها.",
-    "فحص ملف الرياضيات الفعلي الموجود في مكتبة المستخدم: PDF من 188 صفحة، الطبعة العاشرة 1447هـ/2025م. تمت معاينة الغلاف والفهرس (صفحتا PDF 4 و5) وعينات موزعة من الصفحات، وسُجلت بنية الفصول التسعة في ملف JSON مستقل. لم يظهر ملف كتاب قراءتي في بحث المكتبة الحالي، لذلك لم يُنشأ محتوى قراءة تخميني."
+    "فحص ملف الرياضيات الفعلي الموجود في مكتبة المستخدم: PDF من 188 صفحة، الطبعة العاشرة 1447هـ/2025م. تمت معاينة الغلاف والفهرس (صفحتا PDF 4 و5) وعينات موزعة من الصفحات، وسُجلت بنية الفصول التسعة في ملف JSON مستقل. لم يظهر ملف كتاب قراءتي في بحث المكتبة الحالي، لذلك لم يُنشأ محتوى قراءة تخميني.",
+    "تم تحويل نتائج فهارس الصفوف 2–6 إلى سجلات مرشحة في grades[].books بتاريخ 2026-11-27. جميع هذه السجلات موسومة بأنها فهرسة ثانوية فقط؛ لا يعني إدراجها تنزيل ملفات PDF أو فحص أغلفتها أو اعتمادها."
   ],
   "latestResearch": {
     "checkedAt": "2026-11-27",
