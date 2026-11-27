@@ -17,10 +17,10 @@ function extract(name, signature) {
 const helpers = [
   extract("completedLessonIds", "progress, childId"),
   extract("appendCompletedLesson", "progress, childId, lessonId")
-].join("\\n");
+].join("\n");
 
 function evaluate(expression, values = {}) {
-  return runInNewContext(helpers + "\\n" + expression, values);
+  return runInNewContext(helpers + "\n" + expression, values);
 }
 
 test("keeps progress isolated by child profile", () => {
