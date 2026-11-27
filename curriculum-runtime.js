@@ -412,7 +412,8 @@
       }
       const listId = "subjectLessons";
       document.getElementById(listId)?.remove();
-      const done = new Set(readCompletedMap()[active.id] || []);
+      const savedDone = readCompletedMap()[active.id];
+      const done = new Set(Array.isArray(savedDone) ? savedDone : []);
       const dailyCount = Math.max(1, Math.min(10, Number(active.dailyCount) || 1));
       const dailyPlan = data.lessons.map((lesson, index) => ({ lesson, index }))
         .filter(item => !done.has(item.lesson.id)).slice(0, dailyCount);
