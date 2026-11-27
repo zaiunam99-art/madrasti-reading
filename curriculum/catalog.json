@@ -785,7 +785,8 @@
     "Important 2026-2027 distinction: the parliamentary committee report dated 7 October 2026 states primary textbook printing reached 100%, but the public online release announcement dated 9 October 2026 confirms only grade 1 Reading Unit 1 materials and grade 4 preparatory mathematics chapter 1. Do not infer full online PDF availability from print completion.",
     "Some 2025-2026 secondary index entries list teacher guides or supplementary activity books; keep them distinct from student textbooks and verify before enabling.",
     "تحديث 2026-11-27: تمت إضافة فهارس العراق التعليمية للصفوف 2 و3 و4 مع قائمة المواد الظاهرة فيها؛ تبقى بياناتها فهرسية إلى حين معاينة كل PDF. كما أضيفت إشارة PDF لكتاب نشاط العلوم للصف الثالث، مع اشتراط مراجعة الملف قبل اعتماده.",
-    "بحث تدقيقي إضافي 2026-11-27: تمت مقارنة نتائج IraqEdu وموقع الأستاذ العراقي، وإضافة نتائج جديدة للصفوف 1-6، مع فصل أدلة المعلم عن كتب التلميذ. جميع الإدخالات الجديدة موسومة كفهارس ثانوية ما لم يذكر خلاف ذلك؛ لم تُعاين ملفات PDF لهذه الدفعة."
+    "بحث تدقيقي إضافي 2026-11-27: تمت مقارنة نتائج IraqEdu وموقع الأستاذ العراقي، وإضافة نتائج جديدة للصفوف 1-6، مع فصل أدلة المعلم عن كتب التلميذ. جميع الإدخالات الجديدة موسومة كفهارس ثانوية ما لم يذكر خلاف ذلك؛ لم تُعاين ملفات PDF لهذه الدفعة.",
+    "بحث موسع إضافي بتاريخ 2026-11-27: إضافة فهارس جديدة للصف السادس 2026-2027 والصف الأول، مع تحذير صريح أن هذه بيانات فهارس ثانوية وليست ملفات PDF معتمدة حتى فحص الغلاف والفهرس."
   ],
   "latestResearch": {
     "checkedAt": "2026-11-27",
@@ -1096,6 +1097,142 @@
         "A secondary index listing for a 2026-2027 book is not equivalent to an official Ministry PDF verification."
       ],
       "nextVerification": "Open actual PDF files and compare cover, edition, contents, pagination and completeness. Do not promote metadata-only records to verified."
+    },
+    "deepAuditBatch3": {
+      "checkedAt": "2026-11-27",
+      "websites": [
+        {
+          "name": "بوابة المناهج العراقية",
+          "url": "https://manahj.edu.iq/index.php?name=Pages&op=page&pid=159",
+          "role": "مصدر رسمي مرجعي"
+        },
+        {
+          "name": "IraqEdu - الكتب المنهجية",
+          "url": "https://iraqedu.net/الكتب-المنهجية/",
+          "role": "فهرس اكتشاف للكتب والطبعات"
+        },
+        {
+          "name": "مناهجنا",
+          "url": "https://manahijuna.net/",
+          "role": "فهرس اكتشاف إضافي، لم تُعتمد ملفاته"
+        },
+        {
+          "name": "مكتبة المساعد",
+          "url": "https://tg.me/iraqedulibrary/3530",
+          "role": "إشارة لفهرس مجمّع، لا يثبت سلامة الملفات أو رسمية روابطها"
+        }
+      ],
+      "grade6_2026_2027": {
+        "source": "https://iraqedu.net/السادس-الابتدائي/كتب-السادس-الابتدائي/",
+        "status": "secondary-catalog-only",
+        "candidates": [
+          {
+            "subject": "الإنكليزية",
+            "title": "كتاب الإنكليزي للصف السادس الابتدائي",
+            "pages": 122,
+            "sizeMB": 61.5
+          },
+          {
+            "subject": "الإنكليزية – نشاط",
+            "title": "كتاب نشاط الإنكليزي للصف السادس الابتدائي",
+            "pages": 105,
+            "sizeMB": 19.1
+          },
+          {
+            "subject": "القراءة",
+            "title": "كتاب القراءة للصف السادس الابتدائي",
+            "pages": 142,
+            "sizeMB": 16.18
+          },
+          {
+            "subject": "القواعد",
+            "title": "كتاب القواعد للصف السادس الابتدائي",
+            "pages": 108,
+            "sizeMB": 8.05
+          },
+          {
+            "subject": "الرياضيات",
+            "title": "كتاب الرياضيات للصف السادس الابتدائي",
+            "pages": 200,
+            "sizeMB": 17.69
+          },
+          {
+            "subject": "تمرينات الرياضيات",
+            "title": "كتاب تمرينات الرياضيات للصف السادس الابتدائي",
+            "pages": 58,
+            "sizeMB": 1.48
+          },
+          {
+            "subject": "الاجتماعيات",
+            "title": "كتاب الاجتماعيات للصف السادس الابتدائي",
+            "pages": 116,
+            "sizeMB": 4.83
+          },
+          {
+            "subject": "العلوم",
+            "title": "كتاب العلوم للصف السادس الابتدائي",
+            "pages": 208,
+            "sizeMB": 14.5
+          },
+          {
+            "subject": "نشاط العلوم",
+            "title": "كتاب نشاط العلوم للصف السادس الابتدائي",
+            "pages": 92,
+            "sizeMB": 1.35
+          },
+          {
+            "subject": "الإسلامية",
+            "title": "كتاب الإسلامية للصف السادس الابتدائي",
+            "pages": 92,
+            "sizeMB": 2.18
+          }
+        ],
+        "warning": "بيانات الصفحات والأحجام والتواريخ منشورة في فهرس ثانوي، ويجب فتح كل PDF ومقارنة الغلاف والفهرس قبل اعتماد طبعة 2026-2027."
+      },
+      "grade1_2026_2027": {
+        "source": "https://iraqedu.net/الاول-الابتدائي/كتب-الاول-الابتدائي/",
+        "status": "secondary-catalog-only",
+        "candidates": [
+          {
+            "subject": "القراءة",
+            "title": "كتاب القراءة للصف الأول الابتدائي",
+            "pages": 127,
+            "sizeMB": 72.4
+          },
+          {
+            "subject": "نشاط القراءة",
+            "title": "كتاب نشاط القراءة للصف الأول الابتدائي",
+            "pages": 114,
+            "sizeMB": 78.1
+          },
+          {
+            "subject": "دليل المعلم",
+            "title": "دليل معلم القراءة للصف الأول الابتدائي",
+            "pages": 119,
+            "sizeMB": 4.5
+          }
+        ],
+        "warning": "الإعلان الرسمي للوزارة يؤكد إتاحة الوحدة الأولى فقط من قراءتي، لا الكتاب الكامل؛ لا نخلط إدراج الفهرس الثانوي مع الإعلان الرسمي."
+      },
+      "additionalChecks": [
+        {
+          "title": "كتاب نشاط العلوم للصف الثالث الابتدائي",
+          "url": "https://bk1.shr4.com/books/b3/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D9%86%D8%B4%D8%A7%D8%B7%20%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85%20%D8%A7%D9%84%D8%AB%D8%A7%D9%84%D8%AB%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
+          "status": "direct PDF lead; not visually inspected"
+        },
+        {
+          "title": "كتاب رياضيات السادس 2025-2026",
+          "url": "https://bk1.shr4.com/books/b6/2025-2026/%D9%83%D8%AA%D8%A7%D8%A8%20%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6%D9%8A%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B3%D8%A7%D8%AF%D8%B3%20%D8%A7%D9%84%D8%A7%D8%A8%D8%AA%D8%AF%D8%A7%D8%A6%D9%8A.pdf",
+          "status": "2025-2026 edition reference; not assumed current"
+        }
+      ],
+      "verificationRules": [
+        "مطابقة عنوان الكتاب والصف والمادة والطبعة والسنة على الغلاف.",
+        "مطابقة عدد الصفحات والفهرس الداخلي مع وصف المصدر.",
+        "فصل كتاب الطالب عن النشاط ودليل المعلم.",
+        "مقارنة إصدار 2026-2027 مع نسخة 2025-2026 وتسجيل التغييرات.",
+        "لا يُنشأ درس للطالب اعتماداً على بيانات فهرس فقط."
+      ]
     }
   }
 }
