@@ -4,6 +4,7 @@ import { dirname, join, relative } from "node:path";
 const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
+const globalLessonIds = new Map();
 const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0 };
 
 async function walk(dir) {
@@ -111,6 +112,11 @@ for (const file of files) {
     if (!lesson.id) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا id" });
     else if (ids.has(lesson.id)) errors.push({ file: relative(".", file), lesson: lesson.id, message: "معرف درس مكرر داخل الملف" });
     else ids.add(lesson.id);
+    if (lesson.id) {
+      const prior = globalLessonIds.get(lesson.id);
+      if (prior && prior !== relative(".", file)) errors.push({ file: relative(".", file), lesson: lesson.id, previousFile: prior, message: "معرف درس مكرر عبر ملفات المناهج" });
+      else globalLessonIds.set(lesson.id, relative(".", file));
+    }
 
     if (!lesson.title) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا عنوان" });
     if (!lesson.objective) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا هدف معلن" });
@@ -120,5 +126,6 @@ for (const file of files) {
 }
 
 await verifyIndexes();
+stats.uniqueLessonIds = globalLessonIds.size;
 console.log(JSON.stringify({ stats, errors, warnings }, null, 2));
 if (errors.length) process.exitCode = 1;
