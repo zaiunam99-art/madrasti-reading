@@ -97,6 +97,41 @@
     const activities = Array.isArray(lesson.activities) ? lesson.activities : [];
     return [...activities, ...quiz].filter(item => item && typeof item === "object");
   }
+  function questionPrompt(item) {
+    const explicit = item.q || item.prompt || item.question || item.instruction || item.task;
+    if (explicit) return String(explicit);
+    const value = key => item[key] === undefined || item[key] === null ? "" : String(item[key]);
+    switch (item.type) {
+      case "make_number": return "كوّن العدد " + value("target") + " بطرق مختلفة، ثم اذكر عمليات الجمع المناسبة.";
+      case "remove_objects": return "ابدأ بالعدد " + value("start") + "، ثم أزل " + value("remove") + " أشياء. كم يتبقى؟";
+      case "count_back": return "ابدأ من " + value("start") + " وعدّ إلى الخلف " + value("steps") + " خطوات. إلى أي عدد تصل؟";
+      case "count_forward": return "ابدأ من " + value("start") + " وعدّ إلى الأمام " + value("steps") + " خطوات.";
+      case "number_line_add": return "ابدأ من " + value("start") + " على خط الأعداد، وتقدّم " + value("steps") + " خطوات. ما العدد الذي تصل إليه؟";
+      case "number_line_subtract": return "ابدأ من " + value("start") + " على خط الأعداد، وارجع " + value("steps") + " خطوات. ما العدد الذي تصل إليه؟";
+      case "fact_family": return "استخدم الأعداد " + (Array.isArray(item.numbers) ? item.numbers.join("، ") : "") + " لتكوين حقائق الجمع والطرح المترابطة.";
+      case "double_plus_minus_one": return "للعدد " + value("n") + "، أوجد العدد الأقل بواحد، والضعف، والعدد الأكبر بواحد.";
+      case "make_ten_add": return "أوجد ناتج " + value("a") + " + " + value("b") + " باستعمال استراتيجية تكوين العشرة.";
+      case "before_after": return "اليوم هو " + value("day") + ". ما اليوم الذي يسبقه وما اليوم الذي يليه؟";
+      case "sequence_days": return "رتّب أيام الأسبوع ترتيباً صحيحاً، وابدأ بيوم السبت.";
+      case "read_clock": case "clock_reading": return "تدرّب على قراءة الساعة التعليمية، ثم اكتب الوقت الذي تشير إليه.";
+      case "set_clock": return "استخدم ساعة تعليمية لتمثيل الوقت المطلوب، مع وضع عقربي الساعات والدقائق في موضعيهما.";
+      case "shade_fraction": return "قسّم الشكل إلى " + value("parts") + " أجزاء متساوية، ولوّن " + value("shade") + " جزءاً لتمثيل الكسر " + value("fraction") + ".";
+      case "identify_fraction": return "انظر إلى الأجزاء الممثلة، ثم حدّد الكسر الذي يعبّر عن الجزء المطلوب.";
+      case "make_ten": return "استخدم تكوين العشرة لتسهيل عملية الجمع.";
+      case "draw_model": return "مثّل المسألة بالرسم أو باستعمال أشياء محسوسة، ثم اشرح كيف وصلت إلى الإجابة.";
+      case "build_picture_graph": case "collect_and_graph": return "نظّم البيانات في مخطط صور، ثم اقرأ النتائج وقارن بينها.";
+      case "read_graph": return "اقرأ مخطط الصور، ثم أجب عن الأسئلة المتعلقة بالبيانات.";
+      case "visual_representation": return "مثّل الكمية بالرسم أو بأشياء محسوسة، ثم وضّح ما تلاحظه.";
+      case "trace_numeral": return "تتبّع كتابة الرقم بهدوء، ثم اكتبه بنفسك.";
+      case "picture_talk": return "تأمّل الصورة، واذكر ما تراه، ثم كوّن جملة تصفها.";
+      case "listening": return "استمع جيداً إلى المعلم أو ولي الأمر، ثم أجب عمّا فهمته.";
+      case "picture_observation": return "لاحظ تفاصيل الصورة، واذكر الأشياء أو الاختلافات التي تلاحظها.";
+      default:
+        if (item.expected !== undefined) return "المطلوب: " + value("expected") + ". نفّذ النشاط واشرح طريقتك.";
+        if (item.goal !== undefined) return "حاول الوصول إلى الهدف: " + value("goal") + "، ثم اشرح إجابتك.";
+        return "نفّذ النشاط مع المعلم أو ولي الأمر، ثم اشرح ما تعلمته.";
+    }
+  }
   function answerLabel(choice) {
     if (choice && typeof choice === "object") return choice.label ?? choice.value ?? choice.quantity ?? JSON.stringify(choice);
     return String(choice);
@@ -185,11 +220,11 @@
       finish.textContent = "إكمال الدرس ⭐";
       return;
     }
-    qTitle.textContent = q.q || q.prompt || q.question || "نشاط تطبيقي";
+    const questionText = questionPrompt(q);
+    qTitle.textContent = questionText;
     feedback.textContent = "";
     finish.disabled = true;
     const options = Array.isArray(q.choices) ? q.choices : (Array.isArray(q.options) ? q.options : []);
-    const questionText = q.q || q.prompt || q.question || "نفّذ النشاط المطلوب.";
     const spokenQuestion = [questionText, options.length ? "الخيارات: " + options.map(displayChoice).join("، ") : ""]
       .filter(Boolean).join(". ");
     const listen = document.createElement("button");
@@ -311,9 +346,7 @@
     } else {
       const note = document.createElement("p");
       note.className = "muted";
-      note.textContent = typeof q.expected === "string"
-        ? "المطلوب: " + q.expected + " — نفّذ النشاط مع المعلم أو ولي الأمر."
-        : "نفّذ النشاط مع المعلم أو ولي الأمر، ثم اضغط متابعة.";
+      note.textContent = questionText + " هذا تدريب عملي؛ نفّذه مع المعلم أو ولي الأمر ثم اضغط متابعة.";
       answers.appendChild(note);
       const next = document.createElement("button");
       next.type = "button";
