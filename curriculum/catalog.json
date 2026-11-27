@@ -784,7 +784,8 @@
     "Some index pages also list teacher guides; they are intentionally not mixed with student books in the core student catalog.",
     "Important 2026-2027 distinction: the parliamentary committee report dated 7 October 2026 states primary textbook printing reached 100%, but the public online release announcement dated 9 October 2026 confirms only grade 1 Reading Unit 1 materials and grade 4 preparatory mathematics chapter 1. Do not infer full online PDF availability from print completion.",
     "Some 2025-2026 secondary index entries list teacher guides or supplementary activity books; keep them distinct from student textbooks and verify before enabling.",
-    "تحديث 2026-11-27: تمت إضافة فهارس العراق التعليمية للصفوف 2 و3 و4 مع قائمة المواد الظاهرة فيها؛ تبقى بياناتها فهرسية إلى حين معاينة كل PDF. كما أضيفت إشارة PDF لكتاب نشاط العلوم للصف الثالث، مع اشتراط مراجعة الملف قبل اعتماده."
+    "تحديث 2026-11-27: تمت إضافة فهارس العراق التعليمية للصفوف 2 و3 و4 مع قائمة المواد الظاهرة فيها؛ تبقى بياناتها فهرسية إلى حين معاينة كل PDF. كما أضيفت إشارة PDF لكتاب نشاط العلوم للصف الثالث، مع اشتراط مراجعة الملف قبل اعتماده.",
+    "بحث تدقيقي إضافي 2026-11-27: تمت مقارنة نتائج IraqEdu وموقع الأستاذ العراقي، وإضافة نتائج جديدة للصفوف 1-6، مع فصل أدلة المعلم عن كتب التلميذ. جميع الإدخالات الجديدة موسومة كفهارس ثانوية ما لم يذكر خلاف ذلك؛ لم تُعاين ملفات PDF لهذه الدفعة."
   ],
   "latestResearch": {
     "checkedAt": "2026-11-27",
@@ -879,6 +880,222 @@
         "only then mark verified"
       ],
       "currentLimit": "Latest ministry portal search did not return additional indexed official PDF records in this pass."
+    },
+    "deepAuditBatch2": {
+      "searchScope": [
+        "بوابة وزارة التربية العراقية",
+        "IraqEdu",
+        "موقع الأستاذ العراقي",
+        "فهارس الكتب المنهجية والصفحات الفردية للكتب"
+      ],
+      "findings": [
+        {
+          "grade": 1,
+          "edition": "2026-2027",
+          "title": "كتاب القراءة للصف الأول الابتدائي",
+          "pages": 127,
+          "fileSizeMB": 72.4,
+          "sourceUrl": "https://iraqedu.net/الاول-الابتدائي/كتب-الاول-الابتدائي/",
+          "status": "secondary-index-listing-only; do not treat as complete official release until PDF and ministry scope are checked"
+        },
+        {
+          "grade": 1,
+          "edition": "2026-2027",
+          "title": "كتاب نشاط القراءة للصف الأول الابتدائي",
+          "pages": 114,
+          "fileSizeMB": 78.1,
+          "sourceUrl": "https://iraqedu.net/الاول-الابتدائي/كتب-الاول-الابتدائي/",
+          "status": "secondary-index-listing-only; PDF not inspected"
+        },
+        {
+          "grade": 1,
+          "edition": "2026-2027",
+          "title": "دليل معلم القراءة للصف الأول الابتدائي",
+          "pages": 119,
+          "fileSizeMB": 4.5,
+          "sourceUrl": "https://iraqedu.net/الاول-الابتدائي/كتب-الاول-الابتدائي/",
+          "status": "secondary-index-listing-only; teacher guide, not student book"
+        },
+        {
+          "grade": 1,
+          "edition": "2025-2026",
+          "title": "كتاب القراءة للصف الأول الابتدائي",
+          "pages": 112,
+          "fileSizeMB": 11.85,
+          "sourceUrl": "https://iraqedu.net/تمرينات-رياضيات-للصف-الاول-الابتدائي/",
+          "status": "secondary-index-listing; compare against user's uploaded 129-page book before considering replacement"
+        },
+        {
+          "grade": 1,
+          "edition": "2025-2026",
+          "title": "كتاب تمرينات الرياضيات للصف الأول الابتدائي",
+          "pages": 62,
+          "fileSizeMB": 1.62,
+          "sourceUrl": "https://iraqedu.net/الاول-الابتدائي/كتب-الاول-الابتدائي/",
+          "status": "secondary-index-listing; PDF not inspected"
+        },
+        {
+          "grade": 1,
+          "edition": "2025-2026",
+          "title": "كتاب العلوم للصف الأول الابتدائي",
+          "pages": 200,
+          "fileSizeMB": 15.15,
+          "sourceUrl": "https://iraqedu.net/الاول-الابتدائي/كتب-الاول-الابتدائي/",
+          "status": "secondary-index-listing; PDF not inspected"
+        },
+        {
+          "grade": 1,
+          "edition": "2025-2026",
+          "title": "كتاب نشاط الإنكليزي للصف الأول الابتدائي",
+          "pages": 89,
+          "fileSizeMB": 5.76,
+          "sourceUrl": "https://iraqedu.net/الاول-الابتدائي/كتب-الاول-الابتدائي/",
+          "status": "secondary-index-listing; PDF not inspected"
+        },
+        {
+          "grade": 2,
+          "edition": "2025-2026",
+          "title": "كتاب القراءة للصف الثاني الابتدائي",
+          "pages": 120,
+          "fileSizeMB": 11.58,
+          "sourceUrl": "https://www.stadiraq.com/كتاب-القراءة-للصف-الثاني-الابتدائي/",
+          "status": "two secondary indexes agree on title/pages/size; PDF not inspected"
+        },
+        {
+          "grade": 2,
+          "edition": "2025-2026",
+          "title": "كتاب الإنكليزي للصف الثاني الابتدائي",
+          "pages": 80,
+          "fileSizeMB": 7.61,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "secondary-index-listing; PDF not inspected"
+        },
+        {
+          "grade": 2,
+          "edition": "2025-2026",
+          "title": "كتاب نشاط الإنكليزي للصف الثاني الابتدائي",
+          "pages": 104,
+          "fileSizeMB": 2.49,
+          "sourceUrl": "https://iraqedu.net/الثاني-الابتدائي/كتب-الثاني-الابتدائي/",
+          "status": "secondary-index-listing; PDF not inspected"
+        },
+        {
+          "grade": 3,
+          "edition": "2025-2026",
+          "title": "كتاب القراءة للصف الثالث الابتدائي",
+          "pages": 144,
+          "fileSizeMB": 20.97,
+          "sourceUrl": "https://iraqedu.net/كتاب-القراءة-للصف-الثالث-الابتدائي/",
+          "status": "two independent secondary indexes show matching page count; PDF not inspected"
+        },
+        {
+          "grade": 3,
+          "edition": "2025-2026",
+          "title": "كتاب نشاط الإنكليزي للصف الثالث الابتدائي",
+          "pages": 108,
+          "fileSizeMB": 8.08,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "secondary-index-listing; teacher guide also listed separately and must not be confused with student book"
+        },
+        {
+          "grade": 3,
+          "edition": "2025-2026",
+          "title": "كتاب دليل معلم الإنكليزي للصف الثالث الابتدائي",
+          "pages": 201,
+          "fileSizeMB": 17.64,
+          "sourceUrl": "https://iraqedu.net/الثالث-الابتدائي/كتب-الثالث-الابتدائي/",
+          "status": "teacher guide; keep outside student curriculum sequence"
+        },
+        {
+          "grade": 4,
+          "edition": "2025-2026",
+          "title": "كتاب القراءة للصف الرابع الابتدائي",
+          "pages": 148,
+          "fileSizeMB": 7.05,
+          "sourceUrl": "https://iraqedu.net/كتاب-القراءة-للصف-الرابع-الابتدائي/",
+          "status": "two secondary indexes agree on page count; PDF not inspected"
+        },
+        {
+          "grade": 5,
+          "edition": "2025-2026",
+          "title": "كتاب الاجتماعيات للصف الخامس الابتدائي",
+          "pages": 104,
+          "fileSizeMB": 7.89,
+          "sourceUrl": "https://www.stadiraq.com/كتاب-العلوم-للصف-الخامس-الابتدائي/",
+          "status": "secondary-index-listing; PDF not inspected"
+        },
+        {
+          "grade": 5,
+          "edition": "2025-2026",
+          "title": "كتاب دليل معلم الرياضيات للصف الخامس الابتدائي",
+          "pages": 288,
+          "fileSizeMB": 31.46,
+          "sourceUrl": "https://iraqedu.net/الخامس-الابتدائي/كتب-الخامس-الابتدائي/",
+          "status": "teacher guide; do not place in student lesson flow"
+        },
+        {
+          "grade": 6,
+          "edition": "2025-2026",
+          "title": "كتاب الرياضيات للصف السادس الابتدائي",
+          "pages": 200,
+          "fileSizeMB": 17.69,
+          "sourceUrl": "https://iraqedu.net/كتاب-قواعد-للصف-السادس-الابتدائي/",
+          "status": "secondary-index-listing; PDF not inspected"
+        },
+        {
+          "grade": 6,
+          "edition": "2025-2026",
+          "title": "كتاب تمرينات الرياضيات للصف السادس الابتدائي",
+          "pages": 58,
+          "fileSizeMB": 1.48,
+          "sourceUrl": "https://iraqedu.net/كتاب-تمرينات-الرياضيات-سادس-ابتدائي/",
+          "status": "secondary-index-listing; PDF not inspected"
+        },
+        {
+          "grade": 6,
+          "edition": "2025-2026",
+          "title": "كتاب القواعد للصف السادس الابتدائي",
+          "pages": 108,
+          "fileSizeMB": 8.05,
+          "sourceUrl": "https://iraqedu.net/كتاب-قواعد-للصف-السادس-الابتدائي/",
+          "status": "secondary-index-listing; PDF not inspected"
+        },
+        {
+          "grade": 6,
+          "edition": "2026-2027",
+          "title": "كتاب الرياضيات للصف السادس الابتدائي",
+          "pages": 200,
+          "fileSizeMB": 17.69,
+          "sourceUrl": "https://iraqedu.net/السادس-الابتدائي/كتب-السادس-الابتدائي/",
+          "status": "secondary-index claims new edition; compare actual PDF cover and contents with 2025-2026 before acceptance"
+        },
+        {
+          "grade": 6,
+          "edition": "2026-2027",
+          "title": "كتاب الإسلامية للصف السادس الابتدائي",
+          "pages": 92,
+          "fileSizeMB": 2.18,
+          "sourceUrl": "https://iraqedu.net/السادس-الابتدائي/كتب-السادس-الابتدائي/",
+          "status": "secondary-index claims new edition; PDF not inspected"
+        },
+        {
+          "grade": 6,
+          "edition": "2026-2027",
+          "title": "كتاب العلوم للصف السادس الابتدائي",
+          "pages": 208,
+          "fileSizeMB": 14.5,
+          "sourceUrl": "https://iraqedu.net/السادس-الابتدائي/كتب-السادس-الابتدائي/",
+          "status": "secondary-index claims new edition; compare actual PDF with previously recorded 2025-2026 copy"
+        }
+      ],
+      "crossChecks": [
+        "IraqEdu and StadIraq independently list the grade 2 reading book as 120 pages and 11.58 MB.",
+        "IraqEdu and StadIraq independently list the grade 3 reading book as 144 pages and 20.97 MB.",
+        "IraqEdu and StadIraq independently list the grade 4 reading book as 148 pages and 7.05 MB.",
+        "Some listings mix teacher guides and student books; teacher guides are recorded separately and excluded from student lesson sequences.",
+        "A secondary index listing for a 2026-2027 book is not equivalent to an official Ministry PDF verification."
+      ],
+      "nextVerification": "Open actual PDF files and compare cover, edition, contents, pagination and completeness. Do not promote metadata-only records to verified."
     }
   }
 }
