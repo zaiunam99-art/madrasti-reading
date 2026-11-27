@@ -7,8 +7,10 @@ import { resolve } from "node:path";
 
 const here = fileURLToPath(new URL(".", import.meta.url));
 const html = readFileSync(resolve(here, "../index.html"), "utf8");
-const match = html.match(/function deleteChild\\(id\\)\\{[\\s\\S]*?\\n\\}/);
-assert.ok(match, "deleteChild handler must exist");
+const start = html.indexOf("function deleteChild(id){");
+const end = html.indexOf("\\n}", start);
+assert.ok(start >= 0 && end > start, "deleteChild handler must exist");
+const deleteChildSource = html.slice(start, end + 2);
 
 function invokeDelete({ failProgressWrite = false, confirmed = true } = {}) {
   const values = new Map([
@@ -33,7 +35,7 @@ function invokeDelete({ failProgressWrite = false, confirmed = true } = {}) {
       }
     }
   };
-  runInNewContext(match[0] + "; deleteChild(\"child_a\");", sandbox);
+  runInNewContext(deleteChildSource + "; deleteChild(\"child_a\");", sandbox);
   return { values, family: sandbox.family, active: sandbox.active, rendered, stopped, alerts };
 }
 
