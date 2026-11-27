@@ -69,7 +69,10 @@
         "طرح الصفر وطرح الكل",
         "حل المسألة بعمل نموذج"
       ],
-      "status": "chapter_collected"
+      "status": "lesson_content_created",
+      "lessonFiles": [
+        "lessons/chapter-03-lessons-01-10.json"
+      ]
     },
     {
       "number": 4,
@@ -84,7 +87,10 @@
         "التمثيل بمخطط الصور",
         "قراءة مخطط الصور"
       ],
-      "status": "chapter_collected"
+      "status": "lesson_content_created",
+      "lessonFiles": [
+        "lessons/chapter-04-lessons-01-04.json"
+      ]
     },
     {
       "number": 5,
@@ -100,7 +106,10 @@
         "الجمع بتكوين العدد 10",
         "حل المسألة بكتابة جملة عددية"
       ],
-      "status": "chapter_collected"
+      "status": "lesson_content_created",
+      "lessonFiles": [
+        "lessons/chapter-05-lessons-01-04.json"
+      ]
     },
     {
       "number": 6,
@@ -116,7 +125,10 @@
         "العلاقة بين الجمع والطرح",
         "الحقائق المترابطة"
       ],
-      "status": "chapter_collected"
+      "status": "lesson_content_created",
+      "lessonFiles": [
+        "lessons/chapter-06-lessons-01-04.json"
+      ]
     },
     {
       "number": 7,
@@ -135,7 +147,10 @@
         "الأشكال المستوية",
         "البعد المكاني"
       ],
-      "status": "chapter_collected"
+      "status": "lesson_content_created",
+      "lessonFiles": [
+        "lessons/chapter-07-lessons-01-09.json"
+      ]
     },
     {
       "number": 8,
@@ -154,7 +169,10 @@
         "ترتيب الأعداد حتى 99",
         "حل المسألة باستعمال التبرير المنطقي"
       ],
-      "status": "chapter_collected"
+      "status": "lesson_content_created",
+      "lessonFiles": [
+        "lessons/chapter-08-lessons-01-07.json"
+      ]
     },
     {
       "number": 9,
@@ -169,13 +187,17 @@
         "طرح عدد من عدد مكون من مرتبتين",
         "حل المسألة"
       ],
-      "status": "chapter_collected"
+      "status": "lesson_content_created",
+      "lessonFiles": [
+        "lessons/chapter-09-lessons-01-04.json"
+      ]
     }
   ],
   "notes": [
-    "الفصلان الأول والثاني لهما ملفات دروس تفاعلية أولية محفوظة في المستودع.",
-    "الفصول 3 إلى 9 جُمعت عناوينها وأهدافها وتسلسل موضوعاتها؛ لم تُحوّل بعد إلى ملفات دروس كاملة.",
-    "لا تعتبر هذه الملفات مرتبطة بالتطبيق المنشور حتى يتم تنفيذ الربط والاختبار.",
-    "الكتاب المستخدم هو نسخة 2025/1447 المرفوعة من المستخدم، وليس إثباتاً على اعتماد نسخة 2026-2027."
+    "تم إعداد ملفات دروس تفاعلية أولية للفصول التسعة جميعها.",
+    "ملفات الدروس تحتوي أهدافاً وشرحاً وأمثلة وأنشطة وأسئلة تقييمية ومراجعة للفصل.",
+    "المحتوى بصياغة تعليمية أصلية مستندة إلى كتاب الرياضيات المرفوع، ويحتاج مراجعة تربوية واختباراً داخل المنصة قبل اعتماده النهائي.",
+    "الفهرس والمحتوى محفوظان في GitHub فقط؛ لم يتم ربطهما بالتطبيق المنشور أو اختبار التشغيل الصوتي والتفاعلي.",
+    "النسخة المستخدمة هي طبعة 1447هـ/2025م المرفوعة، وليست إثباتاً على صدور نسخة 2026-2027."
   ]
 }
