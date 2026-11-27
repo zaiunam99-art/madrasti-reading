@@ -277,7 +277,7 @@
       const wrap = document.createElement("section");
       wrap.id = listId;
       wrap.className = "panel";
-      wrap.innerHTML = '<h3>' + escHtml(subject) + ' · ' + escHtml(data.edition) + '</h3><p class="muted">الدروس مرتبة حسب فهرس الكتاب. عدد الدروس المتاحة: ' + data.lessons.length + ' · المكتمل: ' + done.size + '</p>' +
+      wrap.innerHTML = '<h3>' + escHtml(subject) + ' · ' + escHtml(data.edition) + '</h3><p class="muted">الدروس مرتبة حسب فهرس الكتاب. عدد الدروس المتاحة: ' + data.lessons.length + ' · المكتمل: ' + data.lessons.filter(lesson => done.has(lesson.id)).length + '</p>' +
         dailyMarkup + '<hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>📚 جميع دروس المادة</h3><div class="cards">' +
         data.lessons.map((lesson, i) => '<article class="card"><div class="tag">' + escHtml(lesson._unitTitle) + '</div><h3>' + escHtml(lesson.title) + '</h3><p class="muted">' + escHtml(lesson.objective || "") + '</p><div class="progressrow"><span>' + escHtml(pagesLabel(lesson._pages)) + '</span><strong>' + (done.has(lesson.id) ? "مكتمل ✓" : "درس " + (i+1)) + '</strong></div><button type="button" class="alt" data-lesson="' + i + '">' + (done.has(lesson.id) ? "إعادة الدرس" : "ابدأ الدرس") + '</button></article>').join("") + '</div>';
       area.appendChild(wrap);
