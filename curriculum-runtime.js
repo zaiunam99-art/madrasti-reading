@@ -104,8 +104,8 @@
     }).filter(Boolean);
   }
   function questionList(lesson) {
-    const quiz = Array.isArray(lesson.quiz) ? lesson.quiz : [];
-    const activities = Array.isArray(lesson.activities) ? lesson.activities : [];
+    const quiz = Array.isArray(lesson?.quiz) ? lesson.quiz : [];
+    const activities = Array.isArray(lesson?.activities) ? lesson.activities : [];
     return [...activities, ...quiz].filter(item => item && typeof item === "object" && !Array.isArray(item));
   }
   function questionPrompt(item) {
