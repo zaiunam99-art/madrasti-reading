@@ -18,8 +18,11 @@
     try { return await promise; } catch (error) { cache.delete(path); throw error; }
   }
   async function loadSubject(subject, grade) {
-    if (!normalizeGrade(grade)) return { title:subject, edition:null, units:[], lessons:[], supported:false };
-    const isReading = subject === "القراءة" || subject === "قراءتي";
+    const isReading = ["القراءة", "قراءتي"].includes(String(subject || "").trim());
+    const isMath = ["الرياضيات", "رياضيات"].includes(String(subject || "").trim());
+    if (!normalizeGrade(grade) || (!isReading && !isMath)) {
+      return { title:subject, edition:null, units:[], lessons:[], supported:false };
+    }
     const base = isReading ? ROOT + "/reading-2025-2026/" : ROOT + "/math-2025-2026/";
     const indexPath = base + (isReading ? "units-index.json" : "chapters-index.json");
     const index = await getJson(indexPath);
@@ -253,12 +256,17 @@
     renderQuestion();
   }
   window.MadrastiCurriculum = { loadSubject, lessonBody, questionList };
+  let subjectRequestId = 0;
   window.openSubject = async function(subject) {
     if (!active) return;
+    const requestedChildId = active.id;
+    const requestId = ++subjectRequestId;
     const area = document.getElementById("studentArea");
+    document.getElementById("curriculumLoading")?.remove();
     area.insertAdjacentHTML("beforeend", '<p id="curriculumLoading" class="muted">جارٍ تحميل دروس المنهج…</p>');
     try {
       const data = await loadSubject(subject, active.grade);
+      if (requestId !== subjectRequestId || !active || active.id !== requestedChildId) return;
       document.getElementById("curriculumLoading")?.remove();
       if (!data.supported || !data.lessons.length) {
         area.insertAdjacentHTML("beforeend", '<div class="notice">لم يتم إعداد ملف دروس موثّق لهذه المادة والصف بعد. لن نعرض أسئلة مؤلفة على أنها من الكتاب.</div>');
@@ -285,6 +293,7 @@
       wrap.querySelectorAll("[data-daily-lesson]").forEach(button => button.addEventListener("click", () => openLesson(data.lessons[Number(button.dataset.dailyLesson)])));
       wrap.scrollIntoView({behavior:"smooth",block:"start"});
     } catch (error) {
+      if (requestId !== subjectRequestId || !active || active.id !== requestedChildId) return;
       document.getElementById("curriculumLoading")?.remove();
       area.insertAdjacentHTML("beforeend", '<div class="notice">تعذر تحميل المنهج الآن. تحقق من اتصال الإنترنت ثم أعد المحاولة. (' + escHtml(error.message) + ')</div>');
     }
