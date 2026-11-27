@@ -59,7 +59,9 @@ let family=loadFamily();let active=null,correct=false,activeLesson=null;
 const lessons=[{title:'حرف الباء',symbol:'ب',desc:'هذا حرف الباء. نستمع إلى صوته ونشاهده في بداية الكلمات.',q:'أي كلمة تبدأ بحرف الباء؟',answers:['باب','موز','دار'],right:'باب',subject:'القراءة'},{title:'حرف الميم',symbol:'م',desc:'هذا حرف الميم. كرر صوته، ثم اختر الكلمة المناسبة.',q:'أي كلمة تبدأ بحرف الميم؟',answers:['بيت','موز','نور'],right:'موز',subject:'القراءة'},{title:'حرف الدال',symbol:'د',desc:'نتعرف اليوم إلى حرف الدال ونميّز صوته.',q:'أي كلمة تبدأ بحرف الدال؟',answers:['دار','باب','موز'],right:'دار',subject:'القراءة'}];
 function save(){try{localStorage.setItem(KEY,JSON.stringify(family));return true}catch(error){alert('تعذر حفظ التغييرات على هذا الجهاز. تحقق من مساحة التخزين وإعدادات المتصفح.');return false}}
 let previewPdfUrl = null;
+let previewPdfRequest = 0;
 async function previewPdf(input){
+  const requestId=++previewPdfRequest;
   const info=document.getElementById('pdfInfo');
   if(!info)return;
   if(previewPdfUrl){URL.revokeObjectURL(previewPdfUrl);previewPdfUrl=null}
@@ -72,13 +74,19 @@ async function previewPdf(input){
   }
   let signature='';
   try{signature=await file.slice(0,5).text()}
-  catch(error){info.textContent='تعذر قراءة الملف المحدد.';return}
+  catch(error){
+    if(requestId===previewPdfRequest)info.textContent='تعذر قراءة الملف المحدد.';
+    return;
+  }
+  if(requestId!==previewPdfRequest)return;
   if(signature!=='%PDF-'){
     info.textContent='تعذر التحقق من الملف: لا يبدو أنه ملف PDF صالح.';
     return;
   }
   try{
-    previewPdfUrl=URL.createObjectURL(file);
+    const url=URL.createObjectURL(file);
+    if(requestId!==previewPdfRequest){URL.revokeObjectURL(url);return}
+    previewPdfUrl=url;
     info.textContent='تم التحقق من ملف PDF. ستُفتح المعاينة من جهازك فقط؛ لم يُرفع الملف ولم يُستخرج نصه تلقائياً. ';
     const link=document.createElement('a');
     link.href=previewPdfUrl;
@@ -87,8 +95,10 @@ async function previewPdf(input){
     link.textContent='فتح الكتاب';
     info.appendChild(link);
   }catch(error){
-    previewPdfUrl=null;
-    info.textContent='تعذر إنشاء معاينة لهذا الملف على هذا الجهاز.';
+    if(requestId===previewPdfRequest){
+      previewPdfUrl=null;
+      info.textContent='تعذر إنشاء معاينة لهذا الملف على هذا الجهاز.';
+    }
   }
 }
 
