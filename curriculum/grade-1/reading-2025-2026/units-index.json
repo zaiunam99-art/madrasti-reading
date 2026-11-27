@@ -134,7 +134,7 @@
         108
       ],
       "letters": [
-        "ا",
+        "أ",
         "ض",
         "خ",
         "ث",
@@ -144,10 +144,11 @@
         "الاستماع",
         "المحادثة",
         "القراءة",
-        "الحروف ا، ض، خ، ث، ك",
+        "الحروف أ، ض، خ، ث، ك",
         "الشدة"
       ],
-      "status": "indexed_needs_page_review"
+      "status": "initial_lessons_created",
+      "lessonFile": "lessons/unit-05-hobbies-and-games.json"
     },
     {
       "sequence": 6,
