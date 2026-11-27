@@ -58,3 +58,44 @@ test("releases the previous local preview URL when a new file is selected", asyn
   assert.equal(result.sandbox.getPreviewUrl(), null);
   assert.equal(result.info.textContent, "لم يتم اختيار ملف.");
 });
+
+test("a slower earlier file selection cannot replace the most recent selection", async () => {
+  let resolveFirst;
+  const firstFile = {
+    type: "application/pdf",
+    slice() { return { text() { return new Promise(resolve => { resolveFirst = resolve; }); } }; }
+  };
+  const secondFile = {
+    type: "application/pdf",
+    slice() { return { async text() { return "%PDF-"; } }; }
+  };
+  const result = setup(firstFile);
+  const firstRequest = result.sandbox.previewPdf({ files: [firstFile] });
+  await result.sandbox.previewPdf({ files: [secondFile] });
+  assert.equal(result.links.length, 1);
+  assert.equal(result.sandbox.getPreviewUrl(), "blob:local-preview");
+  resolveFirst("%PDF-");
+  await firstRequest;
+  assert.equal(result.links.length, 1);
+  assert.equal(result.sandbox.getPreviewUrl(), "blob:local-preview");
+});
+
+test("an invalid newer selection prevents a pending earlier PDF from being previewed", async () => {
+  let resolveFirst;
+  const firstFile = {
+    type: "application/pdf",
+    slice() { return { text() { return new Promise(resolve => { resolveFirst = resolve; }); } }; }
+  };
+  const invalidFile = {
+    type: "application/pdf",
+    slice() { return { async text() { return "not a PDF"; } }; }
+  };
+  const result = setup(firstFile);
+  const firstRequest = result.sandbox.previewPdf({ files: [firstFile] });
+  await result.sandbox.previewPdf({ files: [invalidFile] });
+  resolveFirst("%PDF-");
+  await firstRequest;
+  assert.equal(result.links.length, 0);
+  assert.equal(result.sandbox.getPreviewUrl(), null);
+  assert.match(result.info.textContent, /لا يبدو أنه ملف PDF صالح/);
+});
