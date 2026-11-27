@@ -43,16 +43,16 @@ test("returns an empty object when no progress has been saved", () => {
   assert.equal(calls, 1);
 });
 
-test("rejects malformed JSON and malformed top-level values safely", () => {
+test("returns a protective null sentinel for malformed JSON and malformed top-level values", () => {
   for (const raw of ["{broken", "[]", '"text"', "42", "null"]) {
     const { result, calls } = readWith(raw);
-    assert.deepEqual(JSON.parse(JSON.stringify(result)), {});
+    assert.equal(result, null);
     assert.equal(calls, 1);
   }
 });
 
-test("handles localStorage read failures without breaking the lesson list", () => {
+test("returns a protective null sentinel when localStorage cannot be read", () => {
   const { result, calls } = readWith(null, { throwOnRead: true });
-  assert.deepEqual(JSON.parse(JSON.stringify(result)), {});
+  assert.equal(result, null);
   assert.equal(calls, 1);
 });
