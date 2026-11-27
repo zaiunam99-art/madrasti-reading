@@ -36,6 +36,18 @@ function inspect(node, file, path = "root") {
     return;
   }
 
+  for (const key of ["activities", "quiz"]) {
+    if (Object.hasOwn(node, key) && !Array.isArray(node[key])) {
+      errors.push({ file: relative(".", file), path: `${path}.${key}`, message: `حقل ${key} يجب أن يكون مصفوفة` });
+    } else if (Array.isArray(node[key])) {
+      node[key].forEach((item, index) => {
+        if (!item || typeof item !== "object" || Array.isArray(item)) {
+          errors.push({ file: relative(".", file), path: `${path}.${key}[${index}]`, message: `عنصر ${key} يجب أن يكون كائناً صالحاً` });
+        }
+      });
+    }
+  }
+
   const choices = Array.isArray(node.choices) ? node.choices :
     (Array.isArray(node.options) ? node.options : null);
   if (choices && Object.hasOwn(node, "answer")) {
