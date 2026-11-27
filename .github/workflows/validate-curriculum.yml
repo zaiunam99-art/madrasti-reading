@@ -32,3 +32,5 @@ jobs:
         run: node --test scripts/test-progress-storage.test.mjs
       - name: Test runtime question list filtering
         run: node --test scripts/test-runtime-question-list.test.mjs
+      - name: Test Arabic answer normalization
+        run: node --test scripts/test-answer-normalization.test.mjs
