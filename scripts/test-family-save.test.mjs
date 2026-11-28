@@ -7,7 +7,7 @@ const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const start = html.indexOf('document.getElementById("guardianForm").addEventListener("submit", event => {');
 const end = html.indexOf("\n});", start);
 assert.ok(start >= 0 && end > start, "embedded guardian form save handler must exist");
-const handlerSource = html.slice(start + 'document.getElementById("guardianForm").addEventListener("submit", '.length, end) + "\\n}";
+const handlerSource = html.slice(start + 'document.getElementById("guardianForm").addEventListener("submit", '.length, end) + "\n}";
 
 function invoke({ saveResult = true, subjects = ["القراءة"], existing = [] } = {}) {
   const values = {
