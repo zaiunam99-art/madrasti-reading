@@ -10,7 +10,7 @@ const generatedPromptTypes = new Set([
   "number_line_add", "number_line_subtract", "fact_family",
   "double_plus_minus_one", "make_ten_add", "before_after", "sequence_days",
   "read_clock", "clock_reading", "set_clock", "shade_fraction",
-  "identify_fraction", "make_ten", "draw_model", "build_picture_graph",
+  "identify_fraction", "make_ten", "draw_model", "build_picture_graph", "sequence_order", "create_pattern",
   "collect_and_graph", "read_graph", "visual_representation", "trace_numeral",
   "picture_talk", "listening", "picture_observation"
 ]);
@@ -295,7 +295,7 @@ for (const file of files) {
         message: "ترتيب الدرس ليس تصاعدياً مقارنة بالدرس السابق؛ راجع تسلسل العرض" });
     }
 
-    for (const activity of Array.isArray(lesson.activities) ? lesson.activities : []) {
+    for (const [activityIndex, activity] of (Array.isArray(lesson.activities) ? lesson.activities : []).entries()) {
       if (!activity || typeof activity !== "object" || Array.isArray(activity)) continue;
       if (typeof activity.type === "string" && activity.type.trim()) {
         stats.activityTypes[activity.type] = (stats.activityTypes[activity.type] || 0) + 1;
@@ -317,6 +317,11 @@ for (const file of files) {
           stats.activitiesUsingGeneratedPrompt++;
         } else {
           stats.activitiesWithoutDisplayText++;
+          warnings.push({
+            file: relative(".", file), lesson: lesson.id || index,
+            activity: activityIndex, type: activity.type,
+            message: "النشاط لا يحتوي سؤالاً أو تعليمات أو نصاً مولداً معروفاً؛ راجع وضوح المهمة المعروضة للطالب"
+          });
         }
       }
     }
