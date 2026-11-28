@@ -23,8 +23,10 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 <button type="button" class="alt" onclick="exportFamilyBackup()">تنزيل نسخة احتياطية</button>
 <button type="button" class="ghost" onclick="document.getElementById('familyBackupFile').click()">استعادة نسخة احتياطية</button>
 <input id="familyBackupFile" type="file" accept="application/json,.json" hidden onchange="importFamilyBackup(this)">
+<button type="button" class="alt" onclick="document.getElementById('studentProgressFile').click()">استيراد تقدم الطالب</button>
+<input id="studentProgressFile" type="file" accept="application/json,.json" hidden onchange="importStudentProgress(this)">
 </div>
-<p class="muted">النسخة الاحتياطية تحفظ ملفات الأبناء وسجل التقدم في ملف على جهازك. احتفظ به في مكان خاص؛ فهو قد يحتوي أسماء الأطفال.</p>
+<p class="muted">النسخة الاحتياطية تحفظ بيانات الأسرة كاملة. صدّر ملف الطالب لنقله إلى جهازه، ثم استورد ملف التقدم هنا. ملفات النقل قد تحتوي أسماء الأطفال؛ احفظها في مكان خاص.</p>
 <div id="children" class="cards"></div>
 <div class="grid">
 <section class="panel"><h2>📚 مكتبة المناهج</h2><p class="muted">المناهج المتاحة حالياً: القراءة والرياضيات للصف الأول (إصدار 2025–2026). بقية الصفوف قيد التحقق.</p><div class="card"><strong>العراق · الصف الأول الابتدائي</strong><p class="muted">المواد التي أُعدت لها دروس أولية: القراءة والرياضيات، إصدار 2025–2026. تظهر الدروس بعد إنشاء ملف الطالب واختيار المادة من مساحته.</p><span class="tag">108 دروس أولية في المستودع</span></div><label for="pdfUpload">اختيار كتاب PDF ومعاينته محلياً</label><input id="pdfUpload" type="file" accept="application/pdf" onchange="previewPdf(this)"><div id="pdfInfo" class="muted">لم يتم اختيار ملف.</div></section>
@@ -101,6 +103,62 @@ function exportFamilyBackup(){
     setTimeout(()=>URL.revokeObjectURL(url),1000);
   }catch(error){alert('تعذر إنشاء النسخة الاحتياطية على هذا الجهاز.')}
 }
+
+function validateStudentTransfer(data){
+  if(!data||typeof data!=='object'||Array.isArray(data)||data.format!=='madrasti-student-transfer'||data.version!==1)throw new Error('ملف نقل الطالب غير صالح أو غير مدعوم.');
+  const child=data.child,allowed=['القراءة','الرياضيات','العلوم','اللغة الإنجليزية'];
+  if(!child||typeof child!=='object'||Array.isArray(child)||typeof child.id!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(child.id)||
+    typeof child.name!=='string'||!['boy','girl','neutral'].includes(child.gender)||typeof child.grade!=='string'||!child.grade.trim()||
+    !['🧒','👦','👧','🦊','🐼'].includes(child.avatar)||!['default','slow','none'].includes(child.voice)||
+    !Number.isInteger(child.dailyCount)||child.dailyCount<1||child.dailyCount>10||!Array.isArray(child.subjects)||!child.subjects.length||
+    child.subjects.some(subject=>!allowed.includes(subject))||!Number.isFinite(child.completed)||child.completed<0)throw new Error('بيانات ملف الطالب لا تجتاز التحقق.');
+  if(data.progressRaw!==null&&typeof data.progressRaw!=='string')throw new Error('سجل التقدم غير صالح.');
+  let progress={};
+  if(typeof data.progressRaw==='string'){
+    if(data.progressRaw.length>500000)throw new Error('سجل التقدم أكبر من الحد المسموح.');
+    progress=JSON.parse(data.progressRaw);
+    if(!progress||typeof progress!=='object'||Array.isArray(progress)||Object.keys(progress).some(key=>key!==child.id)||
+      (progress[child.id]!==undefined&&(!Array.isArray(progress[child.id])||progress[child.id].length>10000||progress[child.id].some(id=>typeof id!=='string'))))throw new Error('بنية سجل التقدم غير صالحة.');
+  }
+  return {child:{...child,subjects:[...new Set(child.subjects)]},progress};
+}
+function exportStudentProfile(id){
+  const child=family.find(item=>item.id===id);if(!child)return;
+  try{
+    const raw=localStorage.getItem('madrastiCompletedLessonsV1');let progressRaw=null;
+    if(raw!==null){const all=JSON.parse(raw);if(!all||typeof all!=='object'||Array.isArray(all))throw new Error('سجل التقدم غير صالح.');
+      progressRaw=JSON.stringify({[id]:Array.isArray(all[id])?[...new Set(all[id].filter(value=>typeof value==='string'))]:[]});}
+    const payload={format:'madrasti-student-transfer',version:1,exportedAt:new Date().toISOString(),child,progressRaw};
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');
+    link.href=url;link.download='madrasti-student-'+id+'.json';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }catch(error){alert(error.message||'تعذر تصدير ملف الطالب.')}
+}
+async function importStudentProgress(input){
+  const file=input?.files?.[0];if(!file)return;
+  try{
+    if(file.size>600000)throw new Error('حجم ملف النقل أكبر من الحد المسموح.');
+    const parsed=validateStudentTransfer(JSON.parse(await file.text()));
+    const existing=family.find(child=>child.id===parsed.child.id);
+    if(!existing)throw new Error('لم نعثر على ملف الطالب المطابق. أنشئ ملفه أو استعده أولاً.');
+    const incoming=parsed.progress[parsed.child.id];
+    if(!Array.isArray(incoming)||!incoming.length)throw new Error('لا يحتوي الملف على تقدم محفوظ لنقله بعد.');
+    const previousFamily=family,previousProfiles=localStorage.getItem(KEY),previousProgress=localStorage.getItem('madrastiCompletedLessonsV1');
+    let current={};
+    if(previousProgress!==null){current=JSON.parse(previousProgress);if(!current||typeof current!=='object'||Array.isArray(current))throw new Error('سجل تقدم الأسرة غير صالح؛ لم نغيّر البيانات.');}
+    const id=parsed.child.id,merged=[...new Set([...(Array.isArray(current[id])?current[id]:[]),...incoming])];
+    current[id]=merged;
+    const nextFamily=family.map(child=>child.id===id?{...child,completed:merged.length}:child);
+    try{localStorage.setItem(KEY,JSON.stringify(nextFamily));localStorage.setItem('madrastiCompletedLessonsV1',JSON.stringify(current));}
+    catch(error){
+      try{if(previousProfiles===null)localStorage.removeItem(KEY);else localStorage.setItem(KEY,previousProfiles);
+        if(previousProgress===null)localStorage.removeItem('madrastiCompletedLessonsV1');else localStorage.setItem('madrastiCompletedLessonsV1',previousProgress);}
+      catch(rollbackError){console.warn('تعذر استعادة بيانات الأسرة بعد فشل النقل:',rollbackError);}
+      throw new Error('تعذر حفظ التقدم؛ تمت محاولة استعادة البيانات السابقة.');
+    }
+    family=nextFamily;renderAll();alert('تم استيراد تقدم '+(existing.name||'الطالب')+' بنجاح. عدد الدروس المسجلة: '+merged.length+'.');
+  }catch(error){alert(error.message||'تعذر استيراد تقدم الطالب.')}finally{input.value=''}
+}
+
 async function importFamilyBackup(input){
   const file=input?.files?.[0];
   if(!file)return;
@@ -201,7 +259,7 @@ function deleteChild(id){
   family=nextFamily;
   renderAll()
 }
-function renderAll(){document.getElementById('children').innerHTML=family.length?family.map(c=>'<article class="card"><div class="child"><div class="avatar">'+esc(c.avatar)+'</div><div><strong>'+(esc(c.name)||'الطالب')+'</strong><div class="muted">'+esc(c.grade)+' · '+c.subjects.length+' مواد</div></div></div><div class="progressrow"><span>الدروس المكتملة</span><strong>'+c.completed+'</strong></div><div class="bar"><span style="width:'+Math.min(c.completed/3*100,100)+'%"></span></div><div class="actions"><a class="alt app-link" href="/student.html">فتح تطبيق الطالب</a><button class="ghost" onclick="openChildForm(\''+c.id+'\')">تعديل</button><button class="ghost" onclick="deleteChild(\''+c.id+'\')">حذف</button></div></article>').join(''):'<div class="panel empty">لم تضف ملفات بعد. اضغط «إضافة طالب» لإنشاء أول ملف.</div>';document.getElementById('familyStats').innerHTML=family.length?'<strong>'+family.length+'</strong> ملفات طلاب · <strong>'+family.reduce((a,c)=>a+c.completed,0)+'</strong> دروس مكتملة':'لا توجد بيانات بعد';}
+function renderAll(){document.getElementById('children').innerHTML=family.length?family.map(c=>'<article class="card"><div class="child"><div class="avatar">'+esc(c.avatar)+'</div><div><strong>'+(esc(c.name)||'الطالب')+'</strong><div class="muted">'+esc(c.grade)+' · '+c.subjects.length+' مواد</div></div></div><div class="progressrow"><span>الدروس المكتملة</span><strong>'+c.completed+'</strong></div><div class="bar"><span style="width:'+Math.min(c.completed/3*100,100)+'%"></span></div><div class="actions"><a class="alt app-link" href="/student.html">فتح تطبيق الطالب</a><button class="ghost" onclick="openChildForm(\''+c.id+'\')">تعديل</button><button class="ghost" onclick="deleteChild(\''+c.id+'\')">حذف</button><button class="ghost" data-id="'+c.id+'" onclick="exportStudentProfile(this.dataset.id)">تصدير ملف الطالب</button></div></article>').join(''):'<div class="panel empty">لم تضف ملفات بعد. اضغط «إضافة طالب» لإنشاء أول ملف.</div>';document.getElementById('familyStats').innerHTML=family.length?'<strong>'+family.length+'</strong> ملفات طلاب · <strong>'+family.reduce((a,c)=>a+c.completed,0)+'</strong> دروس مكتملة':'لا توجد بيانات بعد';}
 function previewPdf(el){const f=el.files[0];document.getElementById('pdfInfo').textContent=f?'تم اختيار: '+f.name+' ('+Math.round(f.size/1024)+' KB). الرفع السحابي ومعالجة الصفحات غير مفعّلين بعد.':'لم يتم اختيار ملف.'}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 renderAll();
