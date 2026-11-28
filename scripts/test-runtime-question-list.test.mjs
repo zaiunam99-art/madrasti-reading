@@ -115,3 +115,15 @@ test("keeps fraction shading as one practical activity without inventing an answ
   assert.deepEqual(plain, [activity]);
   assert.equal(Object.hasOwn(plain[0], "answer"), false);
 });
+
+
+test("derives clock face times from structured fields and Arabic-digit prompts", () => {
+  const helper = runtimeSource.match(/  function clockTimeParts\(item\) \{[\s\S]*?\n  \}/);
+  assert.ok(helper, "clockTimeParts helper must exist");
+  const wholeHour = runInNewContext(helper[0] + "\nclockTimeParts(item);", { item: { type: "read_clock", hour: 5, minute: 0 } });
+  assert.deepEqual(JSON.parse(JSON.stringify(wholeHour)), { hour: 5, minute: 0 });
+  const halfHour = runInNewContext(helper[0] + "\nclockTimeParts(item);", { item: { type: "clock_reading", prompt: "يشير عقرب الساعات إلى ٤ وعقرب الدقائق إلى ٦. ما الوقت؟", answer: "4:30" } });
+  assert.deepEqual(JSON.parse(JSON.stringify(halfHour)), { hour: 4, minute: 30 });
+  const invalid = runInNewContext(helper[0] + "\nclockTimeParts(item);", { item: { hour: 14, minute: 75 } });
+  assert.equal(invalid, null);
+});
