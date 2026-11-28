@@ -272,7 +272,7 @@ function exportStudentProgress() {
     link.download = "madrasti-student-progress.json";
     document.body.appendChild(link); link.click(); link.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
-    document.getElementById("feedback").textContent = "تم تجهيز ملف تقدمك. أرسله إلى ولي الأمر لاستيراده في تطبيق الأسرة.";
+    document.getElementById("feedback").textContent = "تم تجهيز ملف تقدمك. أرسله إلى ولي الأمر فقط؛ يحتوي معلومات ملفك، ويمكن تعديل ملف النقل خارج التطبيق.";
   } catch (error) {
     document.getElementById("feedback").textContent = error.message || "تعذر تصدير التقدم.";
   }
