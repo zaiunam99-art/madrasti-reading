@@ -7,8 +7,8 @@ let failed = false;
 
 for (const page of pages) {
   const html = readFileSync(new URL("../" + page, import.meta.url), "utf8");
-  const scripts = [...html.matchAll(/<script\\b([^>]*)>([\\s\\S]*?)<\\/script>/gi)]
-    .filter(([, attributes, source]) => !/\\bsrc\\s*=/.test(attributes) && source.trim());
+  const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
+    .filter(([, attributes, source]) => !/\bsrc\s*=/.test(attributes) && source.trim());
 
   if (!scripts.length) {
     failed = true;
