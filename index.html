@@ -26,7 +26,11 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 <button type="button" class="alt" onclick="document.getElementById('studentProgressFile').click()">استيراد تقدم الطالب</button>
 <input id="studentProgressFile" type="file" accept="application/json,.json" hidden onchange="importStudentProgress(this)">
 </div>
-<p class="muted">النسخة الاحتياطية تحفظ بيانات الأسرة كاملة. صدّر ملف الطالب لنقله إلى جهازه، ثم استورد ملف التقدم هنا. ملفات النقل قد تحتوي أسماء الأطفال؛ احفظها في مكان خاص.</p>
+<p class="muted">النسخة الاحتياطية تحفظ بيانات الأسرة كاملة. لنقل ملف طفل إلى جهاز آخر:
+١. اضغط «تصدير ملف الطالب» بجوار اسمه.
+٢. انقل الملف إلى جهاز الطالب وافتح تطبيق الطالب ثم اختر «استيراد ملف الطالب».
+٣. بعد التعلّم، صدّر التقدم من تطبيق الطالب وأعد الملف إلى هنا عبر «استيراد تقدم الطالب».
+ملفات النقل غير مشفرة وقد تحتوي أسماء الأطفال وإعداداتهم؛ شاركها مع ولي الأمر فقط واحفظها في مكان خاص.</p>
 <div id="children" class="cards"></div>
 <div class="grid">
 <section class="panel"><h2>📚 مكتبة المناهج</h2><p class="muted">المناهج المتاحة حالياً: القراءة والرياضيات للصف الأول (إصدار 2025–2026). بقية الصفوف قيد التحقق.</p><div class="card"><strong>العراق · الصف الأول الابتدائي</strong><p class="muted">المواد التي أُعدت لها دروس أولية: القراءة والرياضيات، إصدار 2025–2026. تظهر الدروس بعد إنشاء ملف الطالب واختيار المادة من مساحته.</p><span class="tag">108 دروس أولية في المستودع</span></div><label for="pdfUpload">اختيار كتاب PDF ومعاينته محلياً</label><input id="pdfUpload" type="file" accept="application/pdf" onchange="previewPdf(this)"><div id="pdfInfo" class="muted">لم يتم اختيار ملف.</div></section>
