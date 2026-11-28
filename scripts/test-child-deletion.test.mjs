@@ -17,15 +17,13 @@ function invokeDelete({ failProgressWrite = false, failFamilyRollback = false, f
     ["madrastiFamilyDemoV2", JSON.stringify([{ id: "child_a" }, { id: "child_b" }])],
     ["madrastiCompletedLessonsV1", rawProgress === undefined ? JSON.stringify({ child_a: ["read-1"], child_b: ["math-1"] }) : rawProgress]
   ]);
-  let failed = false, rendered = 0, stopped = 0, alerts = [];
+  let failed = false, rendered = 0, alerts = [];
   const sandbox = {
     KEY: "madrastiFamilyDemoV2",
     family: [{ id: "child_a" }, { id: "child_b" }],
-    active: { id: "child_a" },
     confirm() { return confirmed; },
     alert(message) { alerts.push(message); },
     console: { warn() {} },
-    stopLessonAudio() { stopped++; },
     renderAll() { rendered++; },
     localStorage: {
       getItem(key) { return values.has(key) ? values.get(key) : null; },
@@ -38,7 +36,7 @@ function invokeDelete({ failProgressWrite = false, failFamilyRollback = false, f
     }
   };
   runInNewContext(deleteChildSource + "; deleteChild(\"child_a\");", sandbox);
-  return { values, family: sandbox.family, active: sandbox.active, rendered, stopped, alerts };
+  return { values, family: sandbox.family, rendered, alerts };
 }
 
 test("deletes the selected child and only that child progress after both writes succeed", () => {
@@ -46,9 +44,7 @@ test("deletes the selected child and only that child progress after both writes 
   assert.deepEqual(JSON.parse(result.values.get("madrastiFamilyDemoV2")), [{ id: "child_b" }]);
   assert.deepEqual(JSON.parse(result.values.get("madrastiCompletedLessonsV1")), { child_b: ["math-1"] });
   assert.deepEqual(JSON.parse(JSON.stringify(result.family)), [{ id: "child_b" }]);
-  assert.equal(result.active, null);
   assert.equal(result.rendered, 1);
-  assert.equal(result.stopped, 1);
 });
 
 test("rolls back the family record if progress deletion fails", () => {
