@@ -107,7 +107,41 @@ select{min-width:220px;max-width:100%;padding:11px 13px;border:2px solid var(--l
 <script>
 const STUDENT_PROFILES_KEY = "madrastiStudentProfilesV1";
 const STUDENT_PROGRESS_KEY = "madrastiStudentProgressV1";
-function migrateLegacyParentData() {\n  try {\n    if (!localStorage.getItem(STUDENT_PROFILES_KEY)) {\n      const legacy = JSON.parse(localStorage.getItem("madrastiFamilyDemoV2") || "null");\n      if (Array.isArray(legacy)) localStorage.setItem(STUDENT_PROFILES_KEY, JSON.stringify(legacy));\n    }\n    if (!localStorage.getItem(STUDENT_PROGRESS_KEY)) {\n      const legacyProgress = localStorage.getItem("madrastiCompletedLessonsV1");\n      if (legacyProgress !== null) localStorage.setItem(STUDENT_PROGRESS_KEY, legacyProgress);\n    }\n  } catch (error) { console.warn("تعذرت محاولة نقل البيانات القديمة؛ لم تُحذف البيانات الأصلية:", error); }\n}\nmigrateLegacyParentData();\nfunction loadFamily() {
+function migrateLegacyParentData() {
+  if (localStorage.getItem("madrastiLegacyMigrationV1") === "done") return;
+  try {
+    const legacyProfiles = JSON.parse(localStorage.getItem("madrastiFamilyDemoV2") || "[]");
+    const currentProfiles = JSON.parse(localStorage.getItem(STUDENT_PROFILES_KEY) || "[]");
+    if (!Array.isArray(legacyProfiles) || !Array.isArray(currentProfiles)) throw new Error("بنية ملفات الطلاب القديمة أو الحالية غير صالحة.");
+    const mergedProfiles = [...currentProfiles];
+    const knownIds = new Set(mergedProfiles.map(child => child?.id).filter(Boolean));
+    for (const child of legacyProfiles) {
+      if (child && typeof child.id === "string" && !knownIds.has(child.id)) {
+        mergedProfiles.push(child);
+        knownIds.add(child.id);
+      }
+    }
+    const legacyRaw = localStorage.getItem("madrastiCompletedLessonsV1");
+    const currentRaw = localStorage.getItem(STUDENT_PROGRESS_KEY);
+    const legacyProgress = legacyRaw ? JSON.parse(legacyRaw) : {};
+    const currentProgress = currentRaw ? JSON.parse(currentRaw) : {};
+    if (!legacyProgress || typeof legacyProgress !== "object" || Array.isArray(legacyProgress) ||
+        !currentProgress || typeof currentProgress !== "object" || Array.isArray(currentProgress)) {
+      throw new Error("بنية سجل التقدم القديم أو الحالي غير صالحة.");
+    }
+    const mergedProgress = {...currentProgress};
+    for (const [id, values] of Object.entries(legacyProgress)) {
+      if (!Array.isArray(values)) continue;
+      mergedProgress[id] = [...new Set([...(Array.isArray(mergedProgress[id]) ? mergedProgress[id] : []), ...values.filter(value => typeof value === "string")])];
+    }
+    localStorage.setItem(STUDENT_PROFILES_KEY, JSON.stringify(mergedProfiles));
+    localStorage.setItem(STUDENT_PROGRESS_KEY, JSON.stringify(mergedProgress));
+    localStorage.setItem("madrastiLegacyMigrationV1", "done");
+  } catch (error) {
+    console.warn("تعذرت محاولة دمج البيانات القديمة؛ بقيت النسخ الأصلية محفوظة:", error);
+  }
+}
+migrateLegacyParentData();\nfunction loadFamily() {
   try {
     const parsed = JSON.parse(localStorage.getItem(STUDENT_PROFILES_KEY) || "[]");
     if (!Array.isArray(parsed)) return [];
@@ -406,7 +440,7 @@ async function importGuardianBackup(event) {
   try {
     if(file.size>1000000)throw new Error("حجم النسخة الاحتياطية أكبر من الحد المسموح.");
     const data=JSON.parse(await file.text());
-    if(!data||data.format!=="madrasti-unified-backup"||data.version!==1||!Array.isArray(data.family)||data.family.length>100||
+    if(!data||!["madrasti-unified-backup","madrasti-family-backup"].includes(data.format)||data.version!==1||!Array.isArray(data.family)||data.family.length>100||
       (data.progressRaw!==null&&typeof data.progressRaw!=="string")||(typeof data.progressRaw==="string"&&data.progressRaw.length>500000)) throw new Error("ملف النسخة الاحتياطية غير صالح.");
     const ids=new Set();
     const allowed=["القراءة","الرياضيات","العلوم","اللغة الإنجليزية"];
