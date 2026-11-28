@@ -182,8 +182,8 @@ function renderStudentPicker() {
     escapeText(child.name || "الطالب") + " — " + escapeText(child.grade) + "</option>").join("");
   const message = document.getElementById("gateMessage");
   message.textContent = family.length
-    ? "توجد " + family.length + " ملفات طالب مستوردة على هذا الجهاز. اختر ملفك للمتابعة."
-    : "لا يوجد ملف طالب بعد. استورد ملفاً يصدره ولي الأمر، ثم ابدأ التعلّم.";
+    ? "توجد " + family.length + " ملفات طلاب محفوظة على هذا الجهاز. اختر ملفك للمتابعة."
+    : "لا توجد ملفات طلاب على هذا الجهاز بعد. يستطيع ولي الأمر إنشاء ملف من زر «ولي الأمر» أعلى الصفحة.";
   document.getElementById("startStudent").disabled = family.length === 0;
 }
 function startStudent() {
