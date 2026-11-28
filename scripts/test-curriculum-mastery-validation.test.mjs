@@ -61,3 +61,23 @@ test("curriculum validator accepts consistent mastery thresholds", async () => {
     await rm(root, { recursive: true, force: true });
   }
 });
+
+test("curriculum validator rejects string and null mastery values without coercion", async () => {
+  for (const mastery of [
+    { requiredCorrect: "1", totalChecks: 1 },
+    { requiredCorrect: 1, totalChecks: null }
+  ]) {
+    const root = await fixture({
+      id: "invalid-mastery-type", title: "درس تجريبي", objective: "هدف",
+      mastery, activities: [{ type: "multiple_choice", choices: ["أ", "ب"], answer: "أ" }]
+    });
+    try {
+      const result = run(root);
+      assert.equal(result.status, 1, result.stderr);
+      const report = JSON.parse(result.stdout);
+      assert.ok(report.errors.some(error => /متطلبات mastery غير متوافقة/.test(error.message)));
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  }
+});
