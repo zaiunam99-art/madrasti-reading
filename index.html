@@ -114,9 +114,10 @@ function migrateLegacyParentData() {
     const currentProfiles = JSON.parse(localStorage.getItem(STUDENT_PROFILES_KEY) || "[]");
     if (!Array.isArray(legacyProfiles) || !Array.isArray(currentProfiles)) throw new Error("بنية ملفات الطلاب القديمة أو الحالية غير صالحة.");
     const mergedProfiles = [...currentProfiles];
-    const knownIds = new Set(mergedProfiles.map(child => child?.id).filter(Boolean));
+    const validId = id => typeof id === "string" && /^[A-Za-z0-9_-]{1,80}$/.test(id);
+    const knownIds = new Set(mergedProfiles.map(child => child?.id).filter(validId));
     for (const child of legacyProfiles) {
-      if (child && typeof child.id === "string" && !knownIds.has(child.id)) {
+      if (child && typeof child === "object" && !Array.isArray(child) && validId(child.id) && !knownIds.has(child.id)) {
         mergedProfiles.push(child);
         knownIds.add(child.id);
       }
@@ -129,10 +130,12 @@ function migrateLegacyParentData() {
         !currentProgress || typeof currentProgress !== "object" || Array.isArray(currentProgress)) {
       throw new Error("بنية سجل التقدم القديم أو الحالي غير صالحة.");
     }
-    const mergedProgress = {...currentProgress};
-    for (const [id, values] of Object.entries(legacyProgress)) {
-      if (!Array.isArray(values)) continue;
-      mergedProgress[id] = [...new Set([...(Array.isArray(mergedProgress[id]) ? mergedProgress[id] : []), ...values.filter(value => typeof value === "string")])];
+    const mergedProgress = {};
+    for (const id of knownIds) {
+      const currentValues = Array.isArray(currentProgress[id]) ? currentProgress[id] : [];
+      const legacyValues = Array.isArray(legacyProgress[id]) ? legacyProgress[id] : [];
+      mergedProgress[id] = [...new Set([...currentValues, ...legacyValues]
+        .filter(value => typeof value === "string" && value.length > 0 && value.length <= 120))];
     }
     localStorage.setItem(STUDENT_PROFILES_KEY, JSON.stringify(mergedProfiles));
     localStorage.setItem(STUDENT_PROGRESS_KEY, JSON.stringify(mergedProgress));
