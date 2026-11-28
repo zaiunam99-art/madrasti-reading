@@ -5,7 +5,7 @@ const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
 const globalLessonIds = new Map();
-const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0, indexesWithoutSourceTitle: 0, indexesWithoutSourcePageCount: 0, duplicateIndexGroupNumbers: 0 };
+const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, lessonsUsingPrintedPages: 0, lessonsUsingTeacherScript: 0, lessonsWithoutObjective: 0, lessonsWithoutExamples: 0, activityTypes: {}, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0, indexesWithoutSourceTitle: 0, indexesWithoutSourcePageCount: 0, duplicateIndexGroupNumbers: 0 };
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -244,9 +244,16 @@ for (const file of files) {
     }
 
     if (!lesson.title) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا عنوان" });
-    if (!lesson.objective) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا هدف معلن" });
+    if (!lesson.objective) {
+      stats.lessonsWithoutObjective++;
+      warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا هدف معلن" });
+    }
+    if (!Array.isArray(lesson.examples) && !lesson.example) stats.lessonsWithoutExamples++;
 
-    if (!Array.isArray(lesson.explanation) || lesson.explanation.length === 0) {
+    const hasExplanation = (Array.isArray(lesson.explanation) && lesson.explanation.length > 0) ||
+      (Array.isArray(lesson.teacherScript) && lesson.teacherScript.some(line => line && typeof line.text === "string" && line.text.trim()));
+    if (Array.isArray(lesson.teacherScript) && lesson.teacherScript.length > 0) stats.lessonsUsingTeacherScript++;
+    if (!hasExplanation) {
       stats.lessonsWithoutExplanation++;
       warnings.push({ file: relative(".", file), lesson: lesson.id || index,
         message: "الدرس بلا شرح تعليمي منظم؛ يلزم التحقق من وجود شرح مناسب قبل اعتماده" });
@@ -256,14 +263,18 @@ for (const file of files) {
       warnings.push({ file: relative(".", file), lesson: lesson.id || index,
         message: "الدرس بلا أنشطة؛ قد لا يقدم ممارسة تفاعلية كافية" });
     }
-    if (!Array.isArray(lesson.quiz) || lesson.quiz.length === 0) {
+    const hasAssessableActivity = Array.isArray(lesson.activities) && lesson.activities.some(item =>
+      item && typeof item === "object" && Object.hasOwn(item, "answer") && item.answer !== undefined && item.answer !== null);
+    if ((!Array.isArray(lesson.quiz) || lesson.quiz.length === 0) && !hasAssessableActivity) {
       stats.lessonsWithoutQuiz++;
       warnings.push({ file: relative(".", file), lesson: lesson.id || index,
         message: "الدرس بلا أسئلة تقييمية؛ لا يمكن التحقق من فهم الطالب بهذا الاختبار" });
     }
-    if (!Array.isArray(lesson.bookPages) || lesson.bookPages.length !== 2 ||
-        !lesson.bookPages.every(page => Number.isInteger(page) && page > 0) ||
-        lesson.bookPages[0] > lesson.bookPages[1]) {
+    const lessonPages = lesson.bookPages ?? lesson.printedPages;
+    if (lesson.bookPages === undefined && Array.isArray(lesson.printedPages)) stats.lessonsUsingPrintedPages++;
+    if (!Array.isArray(lessonPages) || lessonPages.length !== 2 ||
+        !lessonPages.every(page => Number.isInteger(page) && page > 0) ||
+        lessonPages[0] > lessonPages[1]) {
       stats.lessonsWithoutBookPages++;
       warnings.push({ file: relative(".", file), lesson: lesson.id || index,
         message: "نطاق صفحات المصدر مفقود أو غير صالح؛ يلزم ربط الدرس بموضعه في الكتاب" });
@@ -275,8 +286,13 @@ for (const file of files) {
         message: "ترتيب الدرس ليس تصاعدياً مقارنة بالدرس السابق؛ راجع تسلسل العرض" });
     }
 
+    for (const activity of Array.isArray(lesson.activities) ? lesson.activities : []) {
+      if (activity && typeof activity.type === "string" && activity.type.trim()) {
+        stats.activityTypes[activity.type] = (stats.activityTypes[activity.type] || 0) + 1;
+      }
+    }
     const assessable = [...(Array.isArray(lesson.activities) ? lesson.activities : []),
-      ...(Array.isArray(lesson.quiz) ? lesson.quiz : [])]
+      ...(Array.isArray(lesson.quiz) ? lesson.quiz : [])
       .filter(item => item && typeof item === "object" &&
         Object.hasOwn(item, "answer") && item.answer !== undefined && item.answer !== null).length;
     if (!assessable) {
