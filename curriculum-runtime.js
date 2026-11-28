@@ -774,10 +774,6 @@ if (q.type === "shade_fraction") {
       });
       answers.append(palette, preview, status, undo, reset, check);
     }
-    if (q.type === "trace_numeral" || q.type === "create_pattern" || q.type === "shade_fraction") {
-      if (autoSpeak) speakQuestion(spokenQuestion);
-      return;
-    }
     const submit = (value, selectedButton) => {
       if (answered.has(questionIndex)) return;
       cancelSpeech();
@@ -838,6 +834,10 @@ if (q.type === "shade_fraction") {
       next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
       answers.appendChild(next);
     };
+    if (q.type === "trace_numeral" || q.type === "create_pattern" || q.type === "shade_fraction") {
+      if (autoSpeak) speakQuestion(spokenQuestion);
+      return;
+    }
     if (q.type === "set_clock" && Number.isInteger(q.hour) && Number.isInteger(q.minute)) {
       let shown = { hour: 12, minute: 0 };
       const faceHost = document.createElement("div");
