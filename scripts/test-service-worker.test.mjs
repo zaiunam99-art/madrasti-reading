@@ -65,15 +65,15 @@ test("offline navigation falls back to the cached application shell", async () =
   assert.equal(await event.response, shell);
 });
 
-test("offline navigation to the student app falls back to the cached student page", async () => {
-  const studentShell = { body: "cached student app" };
+test("legacy student URL falls back to the unified cached app shell", async () => {
+  const unifiedShell = { body: "unified app" };
   const worker = createWorker({
     fetchImpl: async () => { throw new Error("offline"); },
-    cached: new Map([["/student.html", studentShell]])
+    cached: new Map([["/index.html", unifiedShell]])
   });
   const event = makeEvent({ method: "GET", url: "https://madrasti.test/student.html", mode: "navigate", destination: "document" });
   worker.listeners.get("fetch")(event);
-  assert.equal(await event.response, studentShell);
+  assert.equal(await event.response, unifiedShell);
 });
 
 test("an uncached curriculum JSON request does not receive HTML as a fake fallback", async () => {
