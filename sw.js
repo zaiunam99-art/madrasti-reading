@@ -1,4 +1,4 @@
-const CACHE = "madrasti-shell-v4";
+const CACHE = "madrasti-shell-v5";
 const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/student.html", "/student.webmanifest", "/icon.svg", "/curriculum-runtime.js"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)));
