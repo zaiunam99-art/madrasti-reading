@@ -57,7 +57,7 @@ test("opening a lesson speaks a welcome, explanation, and the first question in 
   assert.match(opener, /speakQuestion\(openingParts\.filter\(Boolean\)\.join\("\. "\)\)/);
 });
 
-test("legacy page and affected curriculum metadata contain no Iraqi-only locale preference", () => {
+test("unified student page and affected curriculum metadata contain no Iraqi-only locale preference", () => {
   const index = readFileSync(new URL("../index.html", import.meta.url), "utf8");
   const mathA = readFileSync(new URL("../curriculum/grade-1/math-2025-2026/lessons/chapter-01-lessons-01-02.json", import.meta.url), "utf8");
   const mathB = readFileSync(new URL("../curriculum/grade-1/math-2025-2026/lessons/chapter-01-lessons-03-05.json", import.meta.url), "utf8");
@@ -69,7 +69,7 @@ test("legacy page and affected curriculum metadata contain no Iraqi-only locale 
 
 
 test("student teacher uses a full-body accessible mascot with speech animation", () => {
-  const student = readFileSync(new URL("../student.html", import.meta.url), "utf8");
+  const student = readFileSync(new URL("../index.html", import.meta.url), "utf8");
   const start = runtime.indexOf("  function makeTeacher()");
   const end = runtime.indexOf("\n  function setTeacherSpeaking", start);
   const maker = runtime.slice(start, end);
