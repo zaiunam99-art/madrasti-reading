@@ -96,3 +96,16 @@ test("counts each attempted assessment once while allowing a retry or a move for
   assert.match(runtime, /score\+\+;/);
   assert.match(runtime, /answered\.add\(questionIndex\);\s*questionIndex\+\+;\s*renderQuestion\(\);/);
 });
+
+test("rejects string and null mastery values instead of coercing them to zero", () => {
+  for (const mastery of [
+    { requiredCorrect: "1", totalChecks: 1 },
+    { requiredCorrect: 1, totalChecks: null }
+  ]) {
+    const result = requirementFor({
+      mastery,
+      activities: [{ answer: 1 }, { answer: 2 }]
+    });
+    assert.equal(result.valid, false);
+  }
+});
