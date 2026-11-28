@@ -38,7 +38,7 @@ test("legacy student URL forwards to the unified root application", () => {
 test("offline shell caches the unified application and curriculum resources", () => {
   assert.match(worker, /"\/index\.html"/);
   assert.match(worker, /"\/student-icon\.svg"/);
-  assert.match(worker, /madrasti-shell-v13/);
+  assert.match(worker, /madrasti-shell-v14/);
   assert.match(worker, /caches\.match\("\/index\.html"\)/);
   assert.match(worker, /"\/curriculum\/grade-1\/reading-2025-2026\/lessons\/unit-01-my-family\.json"/);
   assert.match(worker, /"\/curriculum\/grade-1\/math-2025-2026\/lessons\/chapter-09-lessons-01-04\.json"/);
