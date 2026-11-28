@@ -34,4 +34,6 @@ test("pattern activity has distinct colour selection, undo, reset, and check con
   assert.match(renderer, /إعادة النشاط/);
   assert.match(renderer, /تحقق من النمط/);
   assert.match(renderer, /isAlternatingPattern\(pattern, minimumItems\)/);
+  assert.match(renderer, /الانتقال إلى النشاط التالي/);
+  assert.match(renderer, /answered\.add\(questionIndex\);\s*questionIndex\+\+;\s*renderQuestion\(\);/);
 });
