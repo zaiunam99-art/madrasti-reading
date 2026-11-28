@@ -68,3 +68,5 @@ jobs:
         run: node --test scripts/test-family-backup.test.mjs
       - name: Test separate student application entry
         run: node --test scripts/test-student-app-separation.test.mjs
+      - name: Test student profile and progress transfer
+        run: node --test scripts/test-student-transfer.test.mjs
