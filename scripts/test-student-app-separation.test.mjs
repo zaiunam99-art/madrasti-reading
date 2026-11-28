@@ -25,6 +25,7 @@ test("student app does not expose parent account-management controls", () => {
 test("parent app links to the separate student experience", () => {
   assert.match(parent, /href="\/student\.html"/);
   assert.match(parent, /تطبيق الطالب المستقل/);
+  assert.doesNotMatch(parent, /onclick="enterChild\\(/);
 });
 
 test("offline shell caches the student app and preserves its navigation fallback", () => {
