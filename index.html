@@ -55,7 +55,6 @@ function loadFamily(){
   }catch(error){console.warn('تعذر قراءة ملفات الطلاب المحفوظة:',error);return []}
 }
 let family=loadFamily();
-const lessons=[{title:'حرف الباء',symbol:'ب',desc:'هذا حرف الباء. نستمع إلى صوته ونشاهده في بداية الكلمات.',q:'أي كلمة تبدأ بحرف الباء؟',answers:['باب','موز','دار'],right:'باب',subject:'القراءة'},{title:'حرف الميم',symbol:'م',desc:'هذا حرف الميم. كرر صوته، ثم اختر الكلمة المناسبة.',q:'أي كلمة تبدأ بحرف الميم؟',answers:['بيت','موز','نور'],right:'موز',subject:'القراءة'},{title:'حرف الدال',symbol:'د',desc:'نتعرف اليوم إلى حرف الدال ونميّز صوته.',q:'أي كلمة تبدأ بحرف الدال؟',answers:['دار','باب','موز'],right:'دار',subject:'القراءة'}];
 function save(){try{localStorage.setItem(KEY,JSON.stringify(family));return true}catch(error){alert('تعذر حفظ التغييرات على هذا الجهاز. تحقق من مساحة التخزين وإعدادات المتصفح.');return false}}
 function validateFamilyBackup(data){
   if(!data||typeof data!=='object'||Array.isArray(data)||data.format!=='madrasti-family-backup'||data.version!==1||!Array.isArray(data.family)||data.family.length>100)throw new Error('ملف النسخة الاحتياطية غير صالح أو غير مدعوم.');
