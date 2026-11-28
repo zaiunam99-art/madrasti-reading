@@ -191,6 +191,18 @@
               q: question.q || question.prompt || question.question || question.instruction || "أجب عن السؤال المتعلق بمخطط الصور."
             }));
         }
+        if (item.type === "shade_fraction" && Number.isInteger(item.parts) && item.parts >= 2 &&
+            Number.isInteger(item.shade) && item.shade >= 0 && item.shade <= item.parts) {
+          return [{ ...item, answer: item.shade }];
+        }
+        if (item.type === "set_clock" && Number.isInteger(item.hour) && item.hour >= 1 && item.hour <= 12 &&
+            Number.isInteger(item.minute) && item.minute >= 0 && item.minute < 60) {
+          return [{ ...item, answer: String(item.hour) + ":" + String(item.minute).padStart(2, "0") }];
+        }
+        if (item.type === "match_solid_object" && Array.isArray(item.pairs) && item.pairs.length &&
+            item.pairs.every(pair => Array.isArray(pair) && pair.length === 2)) {
+          return [{ ...item, answer: item.pairs.map(pair => pair[1]) }];
+        }
         if (item.type === "make_number" && Array.isArray(item.answers) && item.answers.length) {
           return [{ ...item, answer: item.answers }];
         }
@@ -558,23 +570,7 @@ if (q.type === "shade_fraction") {
         check.type = "button";
         check.textContent = "تحقق من التمثيل";
         check.addEventListener("click", () => {
-          if (selected.size !== shade) {
-            feedback.textContent = "حاول مرة أخرى: ظلّل " + shade + " أجزاء بالضبط.";
-            feedback.style.color = "#a45a22";
-            setTeacherMood("encourage", "أنت قريب من الحل! راجع عدد الأجزاء المظللة 🌱");
-            return;
-          }
-          feedback.textContent = "أحسنت! مثّلت الكسر " + String(q.fraction || "") + " بصورة صحيحة. ⭐";
-          feedback.style.color = "var(--g)";
-          setTeacherMood("happy", "رائع! لقد مثّلت الكسر بصورة صحيحة ⭐");
-          controls.forEach(control => { control.disabled = true; });
-          check.disabled = true;
-          const next = document.createElement("button");
-          next.type = "button";
-          next.className = "alt";
-          next.textContent = questionIndex < qs.length - 1 ? "الانتقال إلى النشاط التالي ←" : "الانتقال إلى نهاية الدرس";
-          next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
-          answers.appendChild(next);
+          submit(selected.size, check);
         });
         answers.append(pieces, count, check);
       } else {
@@ -587,7 +583,7 @@ if (q.type === "shade_fraction") {
       }
       const note = document.createElement("p");
       note.className = "muted";
-      note.textContent = "هذا تدريب تفاعلي على تمثيل الكسر، ولا يُحتسب ضمن نتيجة الإتقان الآلية.";
+      note.textContent = "مثّل الكسر بتظليل العدد الصحيح من الأجزاء المتساوية.";
       answers.appendChild(note);
     } else if (q.type === "trace_numeral") {
       const numerals = Array.isArray(q.numerals) ? q.numerals.map(String).slice(0, 6) : [];
@@ -842,6 +838,125 @@ if (q.type === "shade_fraction") {
       next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
       answers.appendChild(next);
     };
+    if (q.type === "set_clock" && Number.isInteger(q.hour) && Number.isInteger(q.minute)) {
+      let shown = { hour: 12, minute: 0 };
+      const faceHost = document.createElement("div");
+      const status = document.createElement("p");
+      status.className = "muted";
+      status.setAttribute("aria-live", "polite");
+      const draw = () => {
+        const ns = "http://www.w3.org/2000/svg";
+        const svg = document.createElementNS(ns, "svg");
+        svg.setAttribute("viewBox", "0 0 200 200");
+        svg.setAttribute("width", "min(100%, 240px)");
+        svg.setAttribute("role", "img");
+        svg.setAttribute("aria-label", "ساعة الضبط: " + shown.hour + ":" + String(shown.minute).padStart(2, "0"));
+        svg.style.display = "block"; svg.style.margin = "12px auto";
+        const circle = document.createElementNS(ns, "circle");
+        circle.setAttribute("cx", "100"); circle.setAttribute("cy", "100");
+        circle.setAttribute("r", "82"); circle.setAttribute("fill", "#fff8e8");
+        circle.setAttribute("stroke", "#58718a"); circle.setAttribute("stroke-width", "4");
+        svg.appendChild(circle);
+        for (let n = 1; n <= 12; n++) {
+          const angle = (n * 30 - 90) * Math.PI / 180;
+          const label = document.createElementNS(ns, "text");
+          label.setAttribute("x", String(100 + Math.cos(angle) * 65));
+          label.setAttribute("y", String(105 + Math.sin(angle) * 65));
+          label.setAttribute("text-anchor", "middle"); label.setAttribute("font-size", "15");
+          label.textContent = String(n); svg.appendChild(label);
+        }
+        const addHand = (length, angle, width, color) => {
+          const line = document.createElementNS(ns, "line");
+          line.setAttribute("x1", "100"); line.setAttribute("y1", "100");
+          line.setAttribute("x2", String(100 + Math.cos(angle) * length));
+          line.setAttribute("y2", String(100 + Math.sin(angle) * length));
+          line.setAttribute("stroke", color); line.setAttribute("stroke-width", String(width));
+          line.setAttribute("stroke-linecap", "round"); svg.appendChild(line);
+        };
+        addHand(39, (((shown.hour % 12) + shown.minute / 60) * 30 - 90) * Math.PI / 180, 7, "#315b85");
+        addHand(58, (shown.minute * 6 - 90) * Math.PI / 180, 4, "#d17b36");
+        const pin = document.createElementNS(ns, "circle");
+        pin.setAttribute("cx", "100"); pin.setAttribute("cy", "100"); pin.setAttribute("r", "5");
+        pin.setAttribute("fill", "#29445d"); svg.appendChild(pin);
+        faceHost.replaceChildren(svg);
+        status.textContent = "الوقت الذي ضبطته: " + shown.hour + ":" + String(shown.minute).padStart(2, "0");
+      };
+      const controls = document.createElement("div");
+      controls.setAttribute("role", "group");
+      controls.setAttribute("aria-label", "أزرار ضبط الساعة");
+      const makeControl = (label, action) => {
+        const button = document.createElement("button");
+        button.type = "button"; button.className = "alt"; button.textContent = label;
+        button.addEventListener("click", () => { action(); draw(); });
+        controls.appendChild(button);
+      };
+      makeControl("زيادة الساعة", () => { shown.hour = shown.hour % 12 + 1; });
+      makeControl("إنقاص الساعة", () => { shown.hour = (shown.hour + 10) % 12 + 1; });
+      makeControl("زيادة الدقائق 5", () => {
+        shown.minute = (shown.minute + 5) % 60;
+        if (shown.minute === 0) shown.hour = shown.hour % 12 + 1;
+      });
+      makeControl("إنقاص الدقائق 5", () => {
+        shown.minute = (shown.minute + 55) % 60;
+        if (shown.minute === 55) shown.hour = (shown.hour + 10) % 12 + 1;
+      });
+      const check = document.createElement("button");
+      check.type = "button"; check.textContent = "تحقق من الساعة";
+      check.addEventListener("click", () => submit(String(shown.hour) + ":" + String(shown.minute).padStart(2, "0"), check));
+      draw();
+      answers.append(faceHost, status, controls, check);
+      if (autoSpeak) speakQuestion(spokenQuestion);
+      return;
+    }
+    if (q.type === "identify_shapes" && typeof q.answer === "string") {
+      const shapes = [
+        { name: "دائرة", symbol: "●" }, { name: "مربع", symbol: "■" },
+        { name: "مثلث", symbol: "▲" }, { name: "مستطيل", symbol: "▰" }
+      ];
+      shapes.forEach(shape => {
+        const button = document.createElement("button");
+        button.type = "button"; button.className = "alt";
+        button.textContent = shape.symbol + "  " + shape.name;
+        button.setAttribute("aria-label", shape.name);
+        button.addEventListener("click", () => submit(shape.name, button));
+        answers.appendChild(button);
+      });
+      if (autoSpeak) speakQuestion(spokenQuestion);
+      return;
+    }
+    if (q.type === "match_solid_object" && Array.isArray(q.pairs) && q.pairs.length) {
+      const selects = [];
+      const solids = Array.from(new Set(q.pairs.map(pair => pair[1])));
+      q.pairs.forEach((pair, index) => {
+        const row = document.createElement("label");
+        row.style.display = "grid"; row.style.gap = "6px"; row.style.margin = "8px 0";
+        const caption = document.createElement("span");
+        caption.textContent = pair[0];
+        const select = document.createElement("select");
+        select.setAttribute("aria-label", "اختر المجسم الذي يشبه " + pair[0]);
+        const placeholder = document.createElement("option");
+        placeholder.value = ""; placeholder.textContent = "اختر المجسم";
+        select.appendChild(placeholder);
+        solids.forEach(solid => {
+          const option = document.createElement("option");
+          option.value = solid; option.textContent = solid; select.appendChild(option);
+        });
+        row.append(caption, select); answers.appendChild(row); selects.push(select);
+      });
+      const check = document.createElement("button");
+      check.type = "button"; check.textContent = "تحقق من المطابقة";
+      check.addEventListener("click", () => {
+        const values = selects.map(select => select.value);
+        if (values.some(value => !value)) {
+          feedback.textContent = "أكمل المطابقة لجميع الأشياء أولاً.";
+          return;
+        }
+        submit(values, check);
+      });
+      answers.appendChild(check);
+      if (autoSpeak) speakQuestion(spokenQuestion);
+      return;
+    }
     if (q.type === "read_graph" && q.data && typeof q.data === "object" && !Array.isArray(q.data)) {
       const table = document.createElement("table");
       table.className = "activity-data-table";
