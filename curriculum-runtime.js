@@ -316,11 +316,7 @@
     listen.addEventListener("click", () => speakQuestion(spokenQuestion));
     answers.appendChild(listen);
     finish.textContent = "إكمال الدرس ⭐";
-    const submit = (value, selectedButton) => {
-      if (answered.has(questionIndex)) return;
-      cancelSpeech();
-      let correctAnswer = false;
-      if (q.type === "trace_numeral") {
+if (q.type === "trace_numeral") {
       const numerals = Array.isArray(q.numerals) ? q.numerals.map(String).slice(0, 6) : [];
       const instructions = document.createElement("p");
       instructions.className = "muted";
@@ -498,11 +494,16 @@
         }
       });
       answers.append(palette, preview, status, undo, reset, check);
-    } else if (q.type === "sequence_order") {
-        const expected = Array.isArray(q.answer) ? q.answer : [];
-        correctAnswer = Array.isArray(value) && value.length === expected.length &&
-          value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(expected[i]));
-      } else if (Array.isArray(q.answer)) {
+    }
+    if (q.type === "trace_numeral" || q.type === "create_pattern") {
+      if (autoSpeak) speakQuestion(spokenQuestion);
+      return;
+    }
+    const submit = (value, selectedButton) => {
+      if (answered.has(questionIndex)) return;
+      cancelSpeech();
+      let correctAnswer = false;
+      if (Array.isArray(q.answer)) {
         correctAnswer = Array.isArray(value) && value.length === q.answer.length &&
           value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(q.answer[i]));
       } else {
