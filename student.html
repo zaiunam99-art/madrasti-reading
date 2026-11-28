@@ -191,14 +191,14 @@ function validateStudentTransfer(data) {
   const allowedSubjects = ["القراءة","الرياضيات","العلوم","اللغة الإنجليزية"];
   if (!child || typeof child !== "object" || Array.isArray(child) ||
       typeof child.id !== "string" || !/^[A-Za-z0-9_-]{1,80}$/.test(child.id) ||
-      typeof child.name !== "string" || !["boy","girl","neutral"].includes(child.gender) ||
-      typeof child.grade !== "string" || !child.grade.trim() ||
+      typeof child.name !== "string" || child.name.length > 80 || !["boy","girl","neutral"].includes(child.gender) ||
+      typeof child.grade !== "string" || !child.grade.trim() || child.grade.length > 60 ||
       !["🧒","👦","👧","🦊","🐼"].includes(child.avatar) ||
       !["default","slow","none"].includes(child.voice) ||
       !Number.isInteger(child.dailyCount) || child.dailyCount < 1 || child.dailyCount > 10 ||
-      !Array.isArray(child.subjects) || !child.subjects.length ||
+      !Array.isArray(child.subjects) || !child.subjects.length || child.subjects.length > 4 ||
       child.subjects.some(subject => !allowedSubjects.includes(subject)) ||
-      !Number.isFinite(child.completed) || child.completed < 0) {
+      !Number.isInteger(child.completed) || child.completed < 0 || child.completed > 10000) {
     throw new Error("بيانات ملف الطالب لا تجتاز التحقق.");
   }
   if (data.progressRaw !== null && typeof data.progressRaw !== "string") {
@@ -211,7 +211,7 @@ function validateStudentTransfer(data) {
     if (!incoming || typeof incoming !== "object" || Array.isArray(incoming) ||
         Object.keys(incoming).some(key => key !== child.id) ||
         (incoming[child.id] !== undefined && (!Array.isArray(incoming[child.id]) ||
-          incoming[child.id].length > 10000 || incoming[child.id].some(id => typeof id !== "string")))) {
+          incoming[child.id].length > 10000 || incoming[child.id].some(id => typeof id !== "string" || !id.length || id.length > 120)))) {
       throw new Error("بنية سجل التقدم غير صالحة.");
     }
   }
