@@ -14,7 +14,7 @@ test("pattern activity is rendered before the answer submission handler", () => 
   const renderer = runtime.slice(renderStart, runtime.indexOf("\n  function openLesson", renderStart));
   assert.match(renderer, /q\.type === "trace_numeral" \|\| q\.type === "create_pattern"/);
   assert.match(renderer, /return;/);
-  assert.match(renderer, /answers\\.append\\(palette, preview, status, undo, reset, check\\)/);
+  assert.match(renderer, /answers\.append\(palette, preview, status, undo, reset, check\)/);
 });
 
 test("pattern validator accepts only complete alternating two-colour patterns", () => {
