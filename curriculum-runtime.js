@@ -220,6 +220,14 @@
     if ("speechSynthesis" in window) speechSynthesis.cancel();
     setTeacherSpeaking(false);
   }
+  function selectArabicVoice(voices) {
+    const arabicVoices = (Array.isArray(voices) ? voices : [])
+      .filter(voice => /^ar(?:-|$)/i.test(String(voice.lang || "")) &&
+        !/^ar-IQ(?:-|$)/i.test(String(voice.lang || "")));
+    return arabicVoices.find(voice => /^ar-SA(?:-|$)/i.test(voice.lang)) ||
+      arabicVoices.find(voice => /^ar$/i.test(voice.lang)) ||
+      arabicVoices[0] || null;
+  }
   function speakQuestion(text) {
     const feedback = document.getElementById("feedback");
     cancelSpeech();
@@ -234,10 +242,8 @@
     const generation = speechLifecycle.begin();
     utterance = new SpeechSynthesisUtterance(String(text || ""));
     const voices = speechSynthesis.getVoices();
-    utterance.voice = voices.find(voice => /^ar-IQ/i.test(voice.lang)) ||
-      voices.find(voice => /^ar-SA/i.test(voice.lang)) ||
-      voices.find(voice => /^ar/i.test(voice.lang)) || null;
-    utterance.lang = utterance.voice?.lang || "ar-IQ";
+    utterance.voice = selectArabicVoice(voices);
+    utterance.lang = utterance.voice?.lang || "ar-SA";
     utterance.rate = active?.voice === "slow" ? 0.72 : 0.88;
     utterance.onstart = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(true); };
     utterance.onend = utterance.onerror = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(false); };
@@ -290,18 +296,18 @@
       } else {
         correctAnswer = choiceMatches(value, q.answer);
       }
-      answered.add(questionIndex);
-      assessedCount++;
-      if (correctAnswer) {
-        score++;
-        feedback.textContent = q.feedbackCorrect || "إجابة صحيحة! أحسنت ⭐";
-        feedback.style.color = "var(--g)";
-        if (selectedButton) selectedButton.style.outline = "3px solid #43a77e";
-      } else {
-        feedback.textContent = q.feedbackTryAgain || "محاولة جيدة. راجع الشرح ثم حاول مرة أخرى في المراجعة.";
+      if (!correctAnswer) {
+        feedback.textContent = q.feedbackTryAgain || "لا بأس، حاول مرة أخرى. أنا هنا لمساعدتك.";
         feedback.style.color = "#a45a22";
         if (selectedButton) selectedButton.style.outline = "3px solid #e8b46d";
+        return;
       }
+      answered.add(questionIndex);
+      assessedCount++;
+      score++;
+      feedback.textContent = q.feedbackCorrect || "إجابة صحيحة! أحسنت ⭐";
+      feedback.style.color = "var(--g)";
+      if (selectedButton) selectedButton.style.outline = "3px solid #43a77e";
       answers.querySelectorAll("button,input,select").forEach(el => el.disabled = true);
       const next = document.createElement("button");
       next.type = "button";
@@ -395,6 +401,8 @@
       next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
       answers.appendChild(next);
     }
+    // ابدأ بقراءة السؤال وخياراته فور ظهورها، دون انتظار ضغط زر الاستماع.
+    speakQuestion(spokenQuestion);
   }
   function openLesson(lesson) {
     current = lesson; activeLesson = lesson;
@@ -553,8 +561,8 @@
     parts.push(...lessonExamples(current));
     utterance = new SpeechSynthesisUtterance(parts.filter(Boolean).join(". "));
     const voices = speechSynthesis.getVoices();
-    utterance.voice = voices.find(voice => /^ar-IQ/i.test(voice.lang)) || voices.find(voice => /^ar-SA/i.test(voice.lang)) || voices.find(voice => /^ar/i.test(voice.lang)) || null;
-    utterance.lang = utterance.voice?.lang || "ar-IQ";
+    utterance.voice = selectArabicVoice(voices);
+    utterance.lang = utterance.voice?.lang || "ar-SA";
     utterance.rate = active?.voice === "slow" ? 0.72 : 0.88;
     utterance.onstart = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(true); };
     utterance.onend = utterance.onerror = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(false); };
