@@ -46,6 +46,8 @@ jobs:
         run: node --test scripts/test-child-deletion.test.mjs
       - name: Test transactional lesson completion
         run: node --test scripts/test-lesson-completion.test.mjs
+      - name: Test lesson mastery enforcement
+        run: node --test scripts/test-mastery-enforcement.test.mjs
       - name: Test speech lifecycle cancellation
         run: node --test scripts/test-speech-lifecycle.test.mjs
       - name: Test MSA narration, automatic question reading, and retries
