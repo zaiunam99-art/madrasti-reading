@@ -5,7 +5,7 @@
   const cache = new Map();
   function readCompletedMap() {
     try {
-      const raw = localStorage.getItem("madrastiCompletedLessonsV1");
+      const raw = localStorage.getItem("madrastiStudentProgressV1");
       if (!raw) return {};
       const value = JSON.parse(raw);
       if (!value || typeof value !== "object" || Array.isArray(value)) {
@@ -756,7 +756,7 @@
         : "لم يُعتمد إكمال الدرس بعد؛ أكمل متطلبات الإتقان المحددة ثم حاول مجدداً.";
       return;
     }
-    const progressKey = "madrastiCompletedLessonsV1";
+    const progressKey = "madrastiStudentProgressV1";
     const childId = active.id;
     let previousProgress;
     try {
