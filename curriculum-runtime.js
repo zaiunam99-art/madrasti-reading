@@ -443,7 +443,87 @@
     listen.addEventListener("click", () => speakQuestion(spokenQuestion));
     answers.appendChild(listen);
     finish.textContent = "إكمال الدرس ⭐";
-if (q.type === "trace_numeral") {
+if (q.type === "shade_fraction") {
+      const parts = Number.isInteger(q.parts) && q.parts >= 2 ? Math.min(q.parts, 12) : 0;
+      const shade = Number.isInteger(q.shade) && q.shade >= 0 ? q.shade : -1;
+      const instruction = document.createElement("p");
+      instruction.className = "muted";
+      instruction.textContent = parts && shade >= 0 && shade <= parts
+        ? "اختر " + shade + " من " + parts + " أجزاء متساوية لتمثيل الكسر " + String(q.fraction || "") + "."
+        : "تعذر عرض هذا التمثيل؛ بيانات عدد الأجزاء غير صالحة.";
+      answers.appendChild(instruction);
+      if (parts && shade >= 0 && shade <= parts) {
+        const pieces = document.createElement("div");
+        pieces.className = "fraction-pieces";
+        pieces.style.display = "grid";
+        pieces.style.gridTemplateColumns = "repeat(" + Math.min(parts, 4) + ", minmax(48px, 1fr))";
+        pieces.style.gap = "8px";
+        pieces.style.maxWidth = "360px";
+        const selected = new Set();
+        const controls = [];
+        const count = document.createElement("p");
+        count.className = "muted";
+        const updateCount = () => { count.textContent = "الأجزاء المختارة: " + selected.size + " من " + parts; };
+        for (let index = 0; index < parts; index++) {
+          const piece = document.createElement("button");
+          piece.type = "button";
+          piece.className = "alt";
+          piece.textContent = "الجزء " + (index + 1);
+          piece.setAttribute("aria-pressed", "false");
+          piece.setAttribute("aria-label", "الجزء " + (index + 1) + " غير مظلل");
+          piece.style.minHeight = "64px";
+          piece.style.border = "2px solid #8b9aad";
+          piece.style.background = "#fff";
+          piece.addEventListener("click", () => {
+            if (selected.has(index)) selected.delete(index);
+            else selected.add(index);
+            const active = selected.has(index);
+            piece.setAttribute("aria-pressed", String(active));
+            piece.setAttribute("aria-label", "الجزء " + (index + 1) + (active ? " مظلل" : " غير مظلل"));
+            piece.style.background = active ? "#f4c76f" : "#fff";
+            piece.style.borderColor = active ? "#b7791f" : "#8b9aad";
+            updateCount();
+          });
+          controls.push(piece);
+          pieces.appendChild(piece);
+        }
+        updateCount();
+        const check = document.createElement("button");
+        check.type = "button";
+        check.textContent = "تحقق من التمثيل";
+        check.addEventListener("click", () => {
+          if (selected.size !== shade) {
+            feedback.textContent = "حاول مرة أخرى: ظلّل " + shade + " أجزاء بالضبط.";
+            feedback.style.color = "#a45a22";
+            setTeacherMood("encourage", "أنت قريب من الحل! راجع عدد الأجزاء المظللة 🌱");
+            return;
+          }
+          feedback.textContent = "أحسنت! مثّلت الكسر " + String(q.fraction || "") + " بصورة صحيحة. ⭐";
+          feedback.style.color = "var(--g)";
+          setTeacherMood("happy", "رائع! لقد مثّلت الكسر بصورة صحيحة ⭐");
+          controls.forEach(control => { control.disabled = true; });
+          check.disabled = true;
+          const next = document.createElement("button");
+          next.type = "button";
+          next.className = "alt";
+          next.textContent = questionIndex < qs.length - 1 ? "الانتقال إلى النشاط التالي ←" : "الانتقال إلى نهاية الدرس";
+          next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
+          answers.appendChild(next);
+        });
+        answers.append(pieces, count, check);
+      } else {
+        const next = document.createElement("button");
+        next.type = "button";
+        next.className = "alt";
+        next.textContent = "تجاوز النشاط";
+        next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
+        answers.appendChild(next);
+      }
+      const note = document.createElement("p");
+      note.className = "muted";
+      note.textContent = "هذا تدريب تفاعلي على تمثيل الكسر، ولا يُحتسب ضمن نتيجة الإتقان الآلية.";
+      answers.appendChild(note);
+    } else if (q.type === "trace_numeral") {
       const numerals = Array.isArray(q.numerals) ? q.numerals.map(String).slice(0, 6) : [];
       const instructions = document.createElement("p");
       instructions.className = "muted";
@@ -632,7 +712,7 @@ if (q.type === "trace_numeral") {
       });
       answers.append(palette, preview, status, undo, reset, check);
     }
-    if (q.type === "trace_numeral" || q.type === "create_pattern") {
+    if (q.type === "trace_numeral" || q.type === "create_pattern" || q.type === "shade_fraction") {
       if (autoSpeak) speakQuestion(spokenQuestion);
       return;
     }
