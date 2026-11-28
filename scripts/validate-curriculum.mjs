@@ -201,8 +201,8 @@ for (const file of files) {
         errors.push({ file: relative(".", file), lesson: lesson.id || index,
           message: "إعداد mastery يجب أن يكون كائناً" });
       } else {
-        const required = Number(mastery.requiredCorrect);
-        const checks = Number(mastery.totalChecks);
+        const required = mastery.requiredCorrect;
+        const checks = mastery.totalChecks;
         const validInteger = value => Number.isInteger(value) && value >= 0;
         if (!validInteger(required) || !validInteger(checks) || checks < 1 ||
             required > checks || checks > assessable) {
