@@ -321,17 +321,22 @@
       cancelSpeech();
       let correctAnswer = false;
       if (q.type === "create_pattern") {
-      const colors = Array.isArray(q.colors) && q.colors.length >= 2
-        ? q.colors.slice(0, 6).map(String)
-        : ["أحمر", "أصفر", "أزرق", "أخضر"];
+      const suppliedColors = Array.isArray(q.colors)
+        ? Array.from(new Set(q.colors.map(String))).slice(0, 6) : [];
+      const colors = suppliedColors.length >= 2
+        ? suppliedColors : ["أحمر", "أصفر", "أزرق", "أخضر"];
       const minimumItems = Number.isInteger(q.minimumItems) && q.minimumItems >= 4
         ? Math.min(q.minimumItems, 12) : 6;
       const chosenColors = [];
       const pattern = [];
       const palette = document.createElement("div");
       palette.className = "pattern-palette";
+      palette.setAttribute("role", "group");
+      palette.setAttribute("aria-label", "اختيار لونين للنمط");
       const preview = document.createElement("div");
       preview.className = "pattern-preview";
+      preview.setAttribute("role", "list");
+      preview.setAttribute("aria-label", "معاينة النمط الذي أنشأه الطالب");
       preview.setAttribute("aria-live", "polite");
       const status = document.createElement("p");
       status.className = "muted";
@@ -343,6 +348,11 @@
           token.textContent = color;
           token.setAttribute("aria-label", "العنصر " + (index + 1) + ": " + color);
           token.className = "pattern-token";
+          token.style.display = "inline-block";
+          token.style.margin = "4px";
+          token.style.padding = "8px 12px";
+          token.style.border = "2px solid #7b8aa0";
+          token.style.borderRadius = "12px";
           preview.appendChild(token);
         });
         status.textContent = "العناصر المختارة: " + pattern.length + " من " + minimumItems +
