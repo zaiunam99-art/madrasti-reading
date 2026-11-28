@@ -79,3 +79,13 @@ test("lesson view includes an accessible question progress meter and celebration
   assert.match(rt, /السؤال /);
   assert.match(rt, /notice celebration/);
 });
+
+test("mascot reacts warmly to correct and incorrect answers", () => {
+  assert.match(runtime, /function setTeacherMood\\(mood, message\\)/);
+  assert.ok(runtime.includes('setTeacherMood("happy"'));
+  assert.ok(runtime.includes('setTeacherMood("encourage"'));
+  assert.ok(student.includes("teacher-cheer"));
+  assert.ok(student.includes("teacher-nod"));
+  assert.ok(student.includes(".mood-happy"));
+  assert.ok(student.includes(".mood-encourage"));
+});
