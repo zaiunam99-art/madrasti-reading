@@ -60,7 +60,7 @@ select{min-width:220px;max-width:100%;padding:11px 13px;border:2px solid var(--l
     <div class="gate-icon" aria-hidden="true">🧭</div>
     <span class="tag">بوابة التعلّم</span>
     <h1>مرحباً بك في عالم مدرستي!</h1>
-    <p class="muted">اختر ملفك الذي أعدّه ولي الأمر على هذا الجهاز، ثم ابدأ دروسك.</p>
+    <p class="muted">اختر ملفك المستورد من ولي الأمر، ثم ابدأ دروسك.</p>
     <div class="row" style="justify-content:center">
       <select id="studentPicker" aria-label="اختر ملف الطالب"><option value="">اختر ملف الطالب</option></select>
       <button id="startStudent" type="button">ابدأ التعلّم ⭐</button>
@@ -220,18 +220,18 @@ async function importStudentProfile(event) {
     const parsed = validateStudentTransfer(JSON.parse(await file.text()));
     const previousProfiles = localStorage.getItem(STUDENT_PROFILES_KEY);
     const previousProgress = localStorage.getItem(STUDENT_PROGRESS_KEY);
-    const nextFamily = [...family.filter(item => item.id !== parsed.child.id), parsed.child];
     let progress = {};
     if (previousProgress !== null) {
       progress = JSON.parse(previousProgress);
       if (!progress || typeof progress !== "object" || Array.isArray(progress)) throw new Error("سجل التقدم المحلي غير صالح؛ لم نغيّر البيانات.");
     }
+    const id = parsed.child.id;
     if (Object.keys(parsed.incoming).length) {
-      const id = parsed.child.id;
       const merged = new Set([...(Array.isArray(progress[id]) ? progress[id] : []), ...(parsed.incoming[id] || [])]);
       progress[id] = [...merged];
-      parsed.child.completed = progress[id].length;
     }
+    parsed.child.completed = Math.max(parsed.child.completed, Array.isArray(progress[id]) ? progress[id].length : 0);
+    const nextFamily = [...family.filter(item => item.id !== id), parsed.child];
     try {
       localStorage.setItem(STUDENT_PROFILES_KEY, JSON.stringify(nextFamily));
       if (Object.keys(parsed.incoming).length) localStorage.setItem(STUDENT_PROGRESS_KEY, JSON.stringify(progress));
