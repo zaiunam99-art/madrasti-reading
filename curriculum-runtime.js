@@ -125,6 +125,21 @@
     const activities = Array.isArray(lesson?.activities) ? lesson.activities : [];
     return [...activities, ...quiz].filter(item => item && typeof item === "object" && !Array.isArray(item));
   }
+  function masteryRequirement(lesson) {
+    const questions = questionList(lesson);
+    const evaluableCount = questions.filter(item =>
+      Object.prototype.hasOwnProperty.call(item, "answer") && item.answer !== undefined && item.answer !== null
+    ).length;
+    const mastery = lesson?.mastery && typeof lesson.mastery === "object" ? lesson.mastery : {};
+    const configuredRequired = Number(mastery.requiredCorrect);
+    const configuredChecks = Number(mastery.totalChecks);
+    const requiredCorrect = Number.isFinite(configuredRequired) && configuredRequired >= 0
+      ? Math.floor(configuredRequired) : evaluableCount;
+    const totalChecks = Number.isFinite(configuredChecks) && configuredChecks >= 0
+      ? Math.floor(configuredChecks) : requiredCorrect;
+    return { requiredCorrect, totalChecks, evaluableCount,
+      valid: requiredCorrect <= evaluableCount && totalChecks <= evaluableCount };
+  }
   function questionPrompt(item) {
     const explicit = item.q || item.prompt || item.question || item.instruction || item.task;
     if (explicit) return String(explicit);
@@ -261,10 +276,23 @@
     const finish = document.getElementById("finishLesson");
     answers.innerHTML = "";
     if (!q) {
-      qTitle.textContent = "انتهت أسئلة هذا الدرس";
-      answers.innerHTML = '<p class="muted">أحسنت! راجع الشرح والأمثلة، ثم أكمل الدرس.</p>';
-      finish.disabled = false;
-      finish.textContent = "إكمال الدرس ⭐";
+      const requirement = masteryRequirement(lesson);
+      qTitle.textContent = "انتهت أنشطة هذا الدرس";
+      answers.innerHTML = '<p class="muted">أحسنت! راجع الشرح والأمثلة، ثم تحقق من إتقان المهارات المطلوبة.</p>';
+      const masteryMet = requirement.valid && score >= requirement.requiredCorrect && assessedCount >= requirement.totalChecks;
+      finish.disabled = !masteryMet;
+      finish.textContent = masteryMet ? "إكمال الدرس ⭐" : "لم يكتمل الإتقان بعد";
+      if (!requirement.valid) {
+        feedback.textContent = "توجد مشكلة في إعداد تقييم هذا الدرس؛ عدد الأسئلة القابلة للتقييم أقل من متطلبات الإتقان. لن نسجل إكماله قبل مراجعة المحتوى.";
+        feedback.style.color = "#a45a22";
+      } else if (!masteryMet) {
+        feedback.textContent = "تحتاج إلى الإجابة الصحيحة عن " + requirement.requiredCorrect +
+          " أسئلة على الأقل، وإكمال " + requirement.totalChecks + " من فحوص الدرس قبل اعتماده.";
+        feedback.style.color = "#a45a22";
+      } else {
+        feedback.textContent = "أحسنت! حققت متطلبات الإتقان لهذا الدرس.";
+        feedback.style.color = "var(--g)";
+      }
       return;
     }
     const questionText = questionPrompt(q);
@@ -515,6 +543,14 @@
     if (!current || !active) return;
     const qs = questionList(current);
     if (qs.length && questionIndex < qs.length) return;
+    const requirement = masteryRequirement(current);
+    if (!requirement.valid || score < requirement.requiredCorrect || assessedCount < requirement.totalChecks) {
+      const feedback = document.getElementById("feedback");
+      if (feedback) feedback.textContent = !requirement.valid
+        ? "لم يُعتمد إكمال الدرس: إعداد متطلبات الإتقان في ملف هذا الدرس يحتاج إلى مراجعة."
+        : "لم يُعتمد إكمال الدرس بعد؛ أكمل متطلبات الإتقان المحددة ثم حاول مجدداً.";
+      return;
+    }
     const progressKey = "madrastiCompletedLessonsV1";
     const childId = active.id;
     let previousProgress;
