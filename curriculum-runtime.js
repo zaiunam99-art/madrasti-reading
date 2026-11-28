@@ -403,6 +403,8 @@
           feedback.textContent = "رائع! أنشأت نمطاً صحيحاً يتكرر بانتظام. ⭐";
           feedback.style.color = "var(--g)";
           check.disabled = true;
+          undo.disabled = true;
+          reset.disabled = true;
           palette.querySelectorAll("button").forEach(control => control.disabled = true);
         } else {
           feedback.textContent = "اقتربت من الحل! راجع ترتيب اللونين، واجعل النمط نفسه يتكرر دون تغيير.";
