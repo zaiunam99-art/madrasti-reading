@@ -52,6 +52,8 @@ jobs:
         run: node --test scripts/test-mastery-enforcement.test.mjs
       - name: Test interactive pattern activity
         run: node --test scripts/test-pattern-activity.test.mjs
+      - name: Test numeral tracing activity
+        run: node --test scripts/test-trace-numeral-activity.test.mjs
       - name: Test speech lifecycle cancellation
         run: node --test scripts/test-speech-lifecycle.test.mjs
       - name: Test MSA narration, automatic question reading, and retries
