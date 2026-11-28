@@ -106,3 +106,12 @@ test("promotes stored make-number and fact-family answer sets into answerable qu
   assert.deepEqual(plain[0].answer, activities[0].answers);
   assert.deepEqual(plain[1].answer, activities[1].facts);
 });
+
+
+test("keeps fraction shading as one practical activity without inventing an answer key", () => {
+  const activity = { type: "shade_fraction", fraction: "1/4", parts: 4, shade: 1 };
+  const result = runInNewContext(match[0] + "\\nquestionList(lesson);", { lesson: { activities: [activity] } });
+  const plain = JSON.parse(JSON.stringify(result));
+  assert.deepEqual(plain, [activity]);
+  assert.equal(Object.hasOwn(plain[0], "answer"), false);
+});
