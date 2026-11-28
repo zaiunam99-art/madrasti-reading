@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 const student = readFileSync(new URL("../student.html", import.meta.url), "utf8");
 const parent = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const manifest = JSON.parse(readFileSync(new URL("../student.webmanifest", import.meta.url), "utf8"));
+const parentManifest = JSON.parse(readFileSync(new URL("../manifest.webmanifest", import.meta.url), "utf8"));
 const worker = readFileSync(new URL("../sw.js", import.meta.url), "utf8");
 
 test("student app has a dedicated standalone entry and manifest", () => {
@@ -13,6 +14,10 @@ test("student app has a dedicated standalone entry and manifest", () => {
   assert.equal(manifest.start_url, "/student.html");
   assert.equal(manifest.lang, "ar");
   assert.equal(manifest.dir, "rtl");
+  assert.equal(manifest.id, "/student.html");
+  assert.equal(parentManifest.start_url, "/index.html");
+  assert.equal(parentManifest.id, "/index.html");
+  assert.notEqual(parentManifest.id, manifest.id);
 });
 
 test("student app does not expose parent account-management controls", () => {
