@@ -21,7 +21,7 @@ test("Arabic narration prefers a non-Iraqi Arabic voice and defaults safely", ()
 });
 
 test("every rendered question is spoken automatically after its controls are created", () => {
-  const start = runtime.indexOf("  function renderQuestion()");
+  const start = runtime.indexOf("  function renderQuestion(");
   const end = runtime.indexOf("\n  function openLesson", start);
   assert.ok(start >= 0 && end > start, "question renderer must exist");
   const renderer = runtime.slice(start, end);
@@ -30,7 +30,7 @@ test("every rendered question is spoken automatically after its controls are cre
 });
 
 test("incorrect answers leave the current question available for another attempt", () => {
-  const start = runtime.indexOf("  function renderQuestion()");
+  const start = runtime.indexOf("  function renderQuestion(");
   const end = runtime.indexOf("\n  function openLesson", start);
   const renderer = runtime.slice(start, end);
   const wrongAnswer = renderer.indexOf("if (!correctAnswer)");
