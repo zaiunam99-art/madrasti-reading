@@ -5,7 +5,7 @@ const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
 const globalLessonIds = new Map();
-const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0 };
+const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, duplicateLessonOrders: 0 };
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -184,6 +184,35 @@ for (const file of files) {
 
     if (!lesson.title) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا عنوان" });
     if (!lesson.objective) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا هدف معلن" });
+
+    if (!Array.isArray(lesson.explanation) || lesson.explanation.length === 0) {
+      stats.lessonsWithoutExplanation++;
+      warnings.push({ file: relative(".", file), lesson: lesson.id || index,
+        message: "الدرس بلا شرح تعليمي منظم؛ يلزم التحقق من وجود شرح مناسب قبل اعتماده" });
+    }
+    if (!Array.isArray(lesson.activities) || lesson.activities.length === 0) {
+      stats.lessonsWithoutActivities++;
+      warnings.push({ file: relative(".", file), lesson: lesson.id || index,
+        message: "الدرس بلا أنشطة؛ قد لا يقدم ممارسة تفاعلية كافية" });
+    }
+    if (!Array.isArray(lesson.quiz) || lesson.quiz.length === 0) {
+      stats.lessonsWithoutQuiz++;
+      warnings.push({ file: relative(".", file), lesson: lesson.id || index,
+        message: "الدرس بلا أسئلة تقييمية؛ لا يمكن التحقق من فهم الطالب بهذا الاختبار" });
+    }
+    if (!Array.isArray(lesson.bookPages) || lesson.bookPages.length !== 2 ||
+        !lesson.bookPages.every(page => Number.isInteger(page) && page > 0) ||
+        lesson.bookPages[0] > lesson.bookPages[1]) {
+      stats.lessonsWithoutBookPages++;
+      warnings.push({ file: relative(".", file), lesson: lesson.id || index,
+        message: "نطاق صفحات المصدر مفقود أو غير صالح؛ يلزم ربط الدرس بموضعه في الكتاب" });
+    }
+    if (index > 0 && Number.isFinite(lesson.order) && Number.isFinite(lessonRows[index - 1]?.order) &&
+        lesson.order <= lessonRows[index - 1].order) {
+      stats.duplicateLessonOrders++;
+      warnings.push({ file: relative(".", file), lesson: lesson.id || index,
+        message: "ترتيب الدرس ليس تصاعدياً مقارنة بالدرس السابق؛ راجع تسلسل العرض" });
+    }
 
     const assessable = [...(Array.isArray(lesson.activities) ? lesson.activities : []),
       ...(Array.isArray(lesson.quiz) ? lesson.quiz : [])]
