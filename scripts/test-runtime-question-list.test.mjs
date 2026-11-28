@@ -89,6 +89,8 @@ test("converts near-double answer objects and ascending sequences into evaluable
   const result = runInNewContext(match[0] + "\nquestionList(lesson);", { lesson: { activities } });
   const plain = JSON.parse(JSON.stringify(result));
   assert.deepEqual(plain.slice(0, 3).map(item => item.answer), [9, 10, 11]);
+  assert.match(plain[0].q, /ضعف العدد/);
+  assert.match(plain[2].q, /ضعف العدد/);
   assert.deepEqual(plain[3].answer, [18, 31, 42, 57]);
   assert.match(plain[3].q, /تصاعدياً/);
 });
