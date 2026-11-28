@@ -264,7 +264,7 @@
     utterance.onend = utterance.onerror = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(false); };
     speechSynthesis.speak(utterance);
   }
-  let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), utterance = null;
+  let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), resolved = new Set(), utterance = null;
   function renderQuestion(autoSpeak = true) {
     cancelSpeech();
     const lesson = current;
@@ -325,13 +325,34 @@
         correctAnswer = choiceMatches(value, q.answer);
       }
       if (!correctAnswer) {
-        feedback.textContent = q.feedbackTryAgain || "لا بأس، حاول مرة أخرى. أنا هنا لمساعدتك.";
+        if (!resolved.has(questionIndex)) {
+          resolved.add(questionIndex);
+          assessedCount++;
+        }
+        feedback.textContent = q.feedbackTryAgain || "لا بأس، يمكنك المحاولة مرة أخرى، أو الانتقال إلى السؤال التالي.";
         feedback.style.color = "#a45a22";
         if (selectedButton) selectedButton.style.outline = "3px solid #e8b46d";
+        // لا نمنع إعادة المحاولة، لكن نتيح متابعة الاختبار دون إجبار الطالب على تكرار السؤال إلى ما لا نهاية.
+        if (!answers.querySelector("[data-continue-after-error]")) {
+          const continueButton = document.createElement("button");
+          continueButton.type = "button";
+          continueButton.className = "alt";
+          continueButton.dataset.continueAfterError = "true";
+          continueButton.textContent = questionIndex < qs.length - 1 ? "متابعة إلى السؤال التالي ←" : "عرض نتيجة الدرس";
+          continueButton.addEventListener("click", () => {
+            answered.add(questionIndex);
+            questionIndex++;
+            renderQuestion();
+          });
+          answers.appendChild(continueButton);
+        }
         return;
       }
       answered.add(questionIndex);
-      assessedCount++;
+      if (!resolved.has(questionIndex)) {
+        resolved.add(questionIndex);
+        assessedCount++;
+      }
       score++;
       feedback.textContent = q.feedbackCorrect || "إجابة صحيحة! أحسنت ⭐";
       feedback.style.color = "var(--g)";
@@ -434,7 +455,7 @@
   }
   function openLesson(lesson) {
     current = lesson; activeLesson = lesson;
-    questionIndex = 0; score = 0; assessedCount = 0; answered = new Set();
+    questionIndex = 0; score = 0; assessedCount = 0; answered = new Set(); resolved = new Set();
     const title = lesson.title || "درس جديد";
     document.getElementById("lessonHeading").textContent = lesson._unitTitle || "درس تفاعلي";
     document.getElementById("lessonMeta").textContent =
