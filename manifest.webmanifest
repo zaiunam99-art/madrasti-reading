@@ -11,7 +11,7 @@
   "description": "تطبيق ولي الأمر لإدارة ملفات الأبناء ومتابعة تقدمهم في مدرستي",
   "icons": [
     {
-      "src": "/icon.svg",
+      "src": "/parent-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
