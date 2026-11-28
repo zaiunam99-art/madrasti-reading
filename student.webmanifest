@@ -11,7 +11,7 @@
   "description": "مساحة تعلم مستقلة للطالب في مدرستي التفاعلية",
   "icons": [
     {
-      "src": "/icon.svg",
+      "src": "/student-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
