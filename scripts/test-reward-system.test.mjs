@@ -43,3 +43,25 @@ test("student home renders an earned-badge journey from the existing progress re
   assert.match(runtime, /بطل المعرفة/);
   assert.match(runtime, /madrastiStudentProgressV1/);
 });
+
+test("reward journey displays four visual stations with locked and unlocked states", () => {
+  const renderStart = runtime.indexOf("  function renderRewardJourney(summary) {");
+  const renderEnd = runtime.indexOf("  function appendCompletedLesson(", renderStart);
+  const renderer = runtime.slice(renderStart, renderEnd);
+  const render = (stars) => runInNewContext(
+    renderer + "\\nrenderRewardJourney({stars, earned:[], next:null});",
+    { escHtml: value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])) }
+  );
+  const fresh = render(0);
+  assert.match(fresh, /خريطة مغامرتك/);
+  assert.match(fresh, /قائد الرحلة/);
+  assert.match(fresh, /عند إكمال 20 درساً/);
+  assert.match(fresh, /aria-valuenow="0"/);
+  const midway = render(7);
+  assert.match(midway, /تم فتح الوسام/);
+  assert.match(midway, /المحطة التالية: بطل المعرفة/);
+  assert.match(midway, /aria-valuenow="40"/);
+  const finished = render(20);
+  assert.match(finished, /وصلت إلى نهاية هذه الرحلة/);
+  assert.match(finished, /aria-valuenow="100"/);
+});
