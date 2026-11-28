@@ -23,6 +23,40 @@
       ? progress[childId] : null;
     return Array.isArray(ids) ? ids.filter(id => typeof id === "string") : [];
   }
+  // Rewards derive from the canonical per-child completion list, so backups and
+  // transfers carry them automatically and replaying a lesson never adds stars.
+  function rewardSummary(lessonIds) {
+    const stars = new Set((Array.isArray(lessonIds) ? lessonIds : [])
+      .filter(id => typeof id === "string" && id.length > 0)).size;
+    const milestones = [
+      { id: "first", threshold: 1, title: "أول نجمة", symbol: "🌟", description: "أكملت أول درس بنجاح" },
+      { id: "explorer", threshold: 5, title: "المستكشف الصغير", symbol: "🧭", description: "أكملت خمسة دروس" },
+      { id: "champion", threshold: 10, title: "بطل المعرفة", symbol: "🏆", description: "أكملت عشرة دروس" }
+    ];
+    const earned = milestones.filter(item => stars >= item.threshold);
+    const next = milestones.find(item => stars < item.threshold) || null;
+    return { stars, earned, next };
+  }
+  function renderRewardJourney(summary) {
+    const badges = summary.earned.map(item =>
+      '<span class="reward-badge" title="' + escHtml(item.description) + '" style="display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:14px;background:#fff4d8;border:1px solid #edcf86;color:#76501c;font-weight:700">' +
+      item.symbol + ' ' + escHtml(item.title) + '</span>'
+    ).join("");
+    const locked = summary.next
+      ? '<span class="reward-next" style="color:#63736d">الوسام التالي: ' + escHtml(summary.next.title) +
+        ' · أكمِل ' + Math.max(0, summary.next.threshold - summary.stars) + ' درساً آخر</span>'
+      : '<span class="reward-next" style="color:#287a5d;font-weight:700">اكتملت جميع أوسمة هذه المرحلة! 🎉</span>';
+    const previousMilestone = summary.earned.length ? summary.earned[summary.earned.length - 1].threshold : 0;
+    const progress = summary.next
+      ? Math.round((summary.stars - previousMilestone) / (summary.next.threshold - previousMilestone) * 100)
+      : 100;
+    return '<section class="quest-card reward-journey" aria-label="رحلة النجوم والأوسمة" style="margin:18px 0;padding:16px;border-radius:20px;background:linear-gradient(135deg,#fff8e8,#eef9f2);border:1px solid #e6d9b6">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><strong>🏅 أوسمة رحلتك</strong><span style="font-weight:800;color:#76501c">⭐ ' + summary.stars + ' نجمة</span></div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0">' +
+      (badges || '<span style="color:#63736d">ابدأ مغامرتك لتحصل على أول وسام!</span>') + '</div>' +
+      '<div style="height:9px;border-radius:20px;background:#e3e9e3;overflow:hidden"><div style="height:100%;width:' + progress + '%;background:linear-gradient(90deg,#e9b84e,#63b58a);border-radius:20px"></div></div>' +
+      '<div style="margin-top:9px;font-size:13px">' + locked + '</div></section>';
+  }
   function appendCompletedLesson(progress, childId, lessonId) {
     const previous = completedLessonIds(progress, childId);
     return {
@@ -788,10 +822,11 @@ if (q.type === "trace_numeral") {
       document.getElementById("subjectLessons")?.remove();
       return;
     }
-    const completedTotal = completedLessonIds(readCompletedMap(), active.id).length;
+    const rewards = rewardSummary(completedLessonIds(readCompletedMap(), active.id));
+    const completedTotal = rewards.stars;
     const learningLevel = completedTotal >= 10 ? "مستكشف متميز" : completedTotal >= 5 ? "مغامر نشيط" : completedTotal >= 1 ? "متعلم واعد" : "بداية المغامرة";
     const subjectEmoji = subject => ({ "القراءة":"📖", "الرياضيات":"🧩", "العلوم":"🔬", "اللغة الإنجليزية":"🔤" }[subject] || "🎨");
-    area.innerHTML = '<div class="game-hero"><div class="row"><div style="font-size:54px" aria-hidden="true">' + escHtml(active.avatar || "🧒") + '</div><div><span class="tag">✨ ' + learningLevel + '</span><h2>أهلاً يا ' + escHtml(active.name || "بطل التعلّم") + '!</h2><p class="muted">' + escHtml(active.grade) + ' · هيا نكتشف شيئاً جديداً اليوم!</p></div></div><div class="game-stats"><span class="game-stat">⭐ ' + completedTotal + ' نجوم إنجاز</span><span class="game-stat">🎯 ' + Number(active.dailyCount || 1) + ' درس يومياً لكل مادة</span></div></div><h3>🗺️ اختر عالمك</h3><div class="cards">' +
+    area.innerHTML = '<div class="game-hero"><div class="row"><div style="font-size:54px" aria-hidden="true">' + escHtml(active.avatar || "🧒") + '</div><div><span class="tag">✨ ' + learningLevel + '</span><h2>أهلاً يا ' + escHtml(active.name || "بطل التعلّم") + '!</h2><p class="muted">' + escHtml(active.grade) + ' · هيا نكتشف شيئاً جديداً اليوم!</p></div></div><div class="game-stats"><span class="game-stat">⭐ ' + completedTotal + ' نجوم إنجاز</span><span class="game-stat">🎯 ' + Number(active.dailyCount || 1) + ' درس يومياً لكل مادة</span></div></div>' + renderRewardJourney(rewards) + '<h3>🗺️ اختر عالمك</h3><div class="cards">' +
       (active.subjects || []).map(subject => '<div class="card subject"><span><span style="font-size:27px" aria-hidden="true">' + subjectEmoji(subject) + '</span> <strong>' + escHtml(subject) + '</strong></span><button class="alt" data-subject="' + escHtml(subject) + '">هيا نلعب! 🎮</button></div>').join("") + '</div><p class="muted">كل درس تنجزه يضيف نجمة إلى سجل رحلتك. يمكنك العودة إلى أي مادة في أي وقت.</p>';
     area.querySelectorAll("[data-subject]").forEach(button => button.addEventListener("click", () => window.openSubject(button.dataset.subject)));
   };
