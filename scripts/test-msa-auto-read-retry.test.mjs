@@ -29,16 +29,19 @@ test("every rendered question is spoken automatically after its controls are cre
   assert.ok(renderer.indexOf("answers.appendChild(next);") < renderer.indexOf("speakQuestion(spokenQuestion);"));
 });
 
-test("incorrect answers leave the current question available for another attempt", () => {
+test("incorrect answers allow retries and offer an explicit continue action", () => {
   const start = runtime.indexOf("  function renderQuestion(");
   const end = runtime.indexOf("\n  function openLesson", start);
   const renderer = runtime.slice(start, end);
   const wrongAnswer = renderer.indexOf("if (!correctAnswer)");
   const retryReturn = renderer.indexOf("return;", wrongAnswer);
-  const markAnswered = renderer.indexOf("answered.add(questionIndex)");
-  assert.ok(wrongAnswer >= 0 && retryReturn > wrongAnswer, "incorrect answer must return without advancing");
-  assert.ok(markAnswered > retryReturn, "question is marked answered only after a correct response");
-  assert.ok(renderer.indexOf("answers.querySelectorAll", markAnswered) > markAnswered,
+  const continueAction = renderer.indexOf('continueButton.addEventListener("click"', wrongAnswer);
+  const correctMark = renderer.indexOf("answered.add(questionIndex);", retryReturn);
+  assert.ok(wrongAnswer >= 0 && retryReturn > wrongAnswer, "incorrect answer must not advance automatically");
+  assert.ok(continueAction > wrongAnswer && continueAction < retryReturn, "wrong answer must offer an explicit continue action");
+  assert.ok(renderer.indexOf("questionIndex++;", continueAction) > continueAction, "continue action advances only when selected");
+  assert.ok(correctMark > retryReturn, "correct response marks the question answered");
+  assert.ok(renderer.indexOf("answers.querySelectorAll", correctMark) > correctMark,
     "controls are disabled only after a correct response");
 });
 
