@@ -40,3 +40,11 @@ test("student app uses the parent's local profile store without claiming cross-d
   assert.match(student, /على هذا الجهاز فقط/);
   assert.doesNotMatch(student, /fetch\s*\([^)]*(?:family|profile|account)/i);
 });
+test("parent app contains no embedded student learning screens or student runtime", () => {
+  for (const legacy of ['id="childView"', 'id="lessonView"', 'id="childPicker"', 'function selectChild(', 'function openSubject(', 'curriculum-runtime.js']) {
+    assert.equal(parent.includes(legacy), false, "parent app must not contain " + legacy);
+  }
+  assert.match(parent, /href="\/student\.html"/);
+  assert.match(parent, /id="guardianView"/);
+});
+
