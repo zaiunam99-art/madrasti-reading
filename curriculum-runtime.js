@@ -249,6 +249,15 @@
     const el = makeTeacher();
     if (el) el.classList.toggle("speaking", Boolean(on));
   }
+  function setTeacherMood(mood, message) {
+    const el = makeTeacher();
+    const label = document.getElementById("teacherMood");
+    if (el) {
+      el.classList.remove("mood-happy", "mood-encourage", "mood-ready");
+      el.classList.add("mood-" + (["happy", "encourage", "ready"].includes(mood) ? mood : "ready"));
+    }
+    if (label && message) label.textContent = message;
+  }
   function createSpeechLifecycle() {
     let generation = 0;
     return {
@@ -295,6 +304,7 @@
   let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), resolved = new Set(), utterance = null;
   function renderQuestion(autoSpeak = true) {
     cancelSpeech();
+    setTeacherMood("ready", "هيا نكتشف الإجابة معاً! ✨");
     const lesson = current;
     const qs = questionList(lesson);
     const q = qs[questionIndex];
@@ -552,6 +562,7 @@ if (q.type === "trace_numeral") {
         }
         feedback.textContent = q.feedbackTryAgain || "لا بأس، يمكنك المحاولة مرة أخرى، أو الانتقال إلى السؤال التالي.";
         feedback.style.color = "#a45a22";
+        setTeacherMood("encourage", "لا بأس! أنت تتعلّم مع كل محاولة. جرّب مرة أخرى 🌱");
         if (selectedButton) selectedButton.style.outline = "3px solid #e8b46d";
         // لا نمنع إعادة المحاولة، لكن نتيح متابعة الاختبار دون إجبار الطالب على تكرار السؤال إلى ما لا نهاية.
         if (!answers.querySelector("[data-continue-after-error]")) {
@@ -577,6 +588,7 @@ if (q.type === "trace_numeral") {
       score++;
       feedback.textContent = q.feedbackCorrect || "إجابة صحيحة! أحسنت ⭐";
       feedback.style.color = "var(--g)";
+      setTeacherMood("happy", "رائع! إجابة صحيحة، لقد أبدعت! ⭐");
       if (selectedButton) selectedButton.style.outline = "3px solid #43a77e";
       answers.querySelectorAll("button,input,select").forEach(el => el.disabled = true);
       const next = document.createElement("button");
