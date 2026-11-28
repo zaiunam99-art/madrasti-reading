@@ -662,6 +662,9 @@ if (q.type === "trace_numeral") {
     if (q.type === "read_graph" && q.data && typeof q.data === "object" && !Array.isArray(q.data)) {
       const table = document.createElement("table");
       table.className = "activity-data-table";
+      table.style.width = "100%";
+      table.style.borderCollapse = "collapse";
+      table.style.margin = "12px 0";
       const caption = document.createElement("caption");
       caption.textContent = "بيانات مخطط الصور";
       table.appendChild(caption);
@@ -670,6 +673,9 @@ if (q.type === "trace_numeral") {
         const cell = document.createElement("th");
         cell.scope = "col";
         cell.textContent = label;
+        cell.style.padding = "10px";
+        cell.style.border = "1px solid var(--line, #cbd5e1)";
+        cell.style.background = "var(--soft, #f1f5f9)";
         head.appendChild(cell);
       });
       const thead = document.createElement("thead");
@@ -681,6 +687,8 @@ if (q.type === "trace_numeral") {
         [category, amount].forEach(value => {
           const cell = document.createElement("td");
           cell.textContent = String(value);
+          cell.style.padding = "10px";
+          cell.style.border = "1px solid var(--line, #cbd5e1)";
           row.appendChild(cell);
         });
         body.appendChild(row);
