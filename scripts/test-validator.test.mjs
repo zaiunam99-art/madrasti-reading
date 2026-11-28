@@ -130,6 +130,13 @@ test("supports legacy sequence lessons with printed pages and teacher scripts", 
       }, {
         type: "listening",
         expected: "إجابة شفوية مناسبة"
+      }, {
+        type: "count_back",
+        start: 7,
+        steps: 2,
+        answer: 5
+      }, {
+        type: "unmapped_activity"
       }],
       mastery: { requiredCorrect: 1, totalChecks: 1 }
     }]
@@ -142,11 +149,12 @@ test("supports legacy sequence lessons with printed pages and teacher scripts", 
   assert.equal(report.stats.lessonsWithoutQuiz, 0);
   assert.equal(report.stats.lessonsWithoutBookPages, 0);
   assert.equal(report.stats.lessonsWithoutAutoAssessment, 0);
-  assert.equal(report.stats.activitiesWithAnswer, 1);
-  assert.equal(report.stats.activitiesWithoutAnswer, 1);
+  assert.equal(report.stats.activitiesWithAnswer, 2);
+  assert.equal(report.stats.activitiesWithoutAnswer, 2);
   assert.equal(report.stats.activitiesWithOptions, 1);
-  assert.equal(report.stats.activitiesWithoutPrompt, 1);
+  assert.equal(report.stats.activitiesWithoutPrompt, 3);
   assert.equal(report.stats.activitiesUsingFallbackText, 1);
-  assert.equal(report.stats.activitiesWithoutDisplayText, 0);
+  assert.equal(report.stats.activitiesUsingGeneratedPrompt, 1);
+  assert.equal(report.stats.activitiesWithoutDisplayText, 1);
   assert.deepEqual(report.errors, []);
 });
