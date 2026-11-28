@@ -222,6 +222,24 @@
         return [item];
       });
   }
+  function clockTimeParts(item) {
+    if (!item || typeof item !== "object") return null;
+    const directHour = Number.isInteger(item.hour) ? item.hour : null;
+    const directMinute = Number.isInteger(item.minute) ? item.minute : null;
+    if (directHour !== null && directMinute !== null &&
+        directHour >= 1 && directHour <= 12 && directMinute >= 0 && directMinute < 60) {
+      return { hour: directHour, minute: directMinute };
+    }
+    const normalizeDigits = value => String(value).replace(/[٠-٩]/g, digit => "٠١٢٣٤٥٦٧٨٩".indexOf(digit))
+      .replace(/[۰-۹]/g, digit => "۰۱۲۳۴۵۶۷۸۹".indexOf(digit));
+    for (const candidate of [item.prompt, item.q, item.answer]) {
+      const match = normalizeDigits(candidate ?? "").match(/(?:^|\D)(\d{1,2})\s*:\s*(\d{2})(?:\D|$)/);
+      if (!match) continue;
+      const hour = Number(match[1]), minute = Number(match[2]);
+      if (hour >= 1 && hour <= 12 && minute >= 0 && minute < 60) return { hour, minute };
+    }
+    return null;
+  }
   function masteryRequirement(lesson) {
     const questions = questionList(lesson);
     const evaluableCount = questions.filter(item =>
@@ -432,6 +450,54 @@
     qTitle.textContent = questionText;
     feedback.textContent = "";
     finish.disabled = true;
+    if (q.type === "read_clock" || q.type === "clock_reading") {
+      const time = clockTimeParts(q);
+      if (time) {
+        const ns = "http://www.w3.org/2000/svg";
+        const face = document.createElementNS(ns, "svg");
+        face.setAttribute("viewBox", "0 0 200 200");
+        face.setAttribute("width", "min(100%, 240px)");
+        face.setAttribute("role", "img");
+        face.setAttribute("aria-label", "ساعة تعليمية تعرض " + time.hour + ":" + String(time.minute).padStart(2, "0"));
+        face.style.display = "block";
+        face.style.margin = "12px auto";
+        const circle = document.createElementNS(ns, "circle");
+        circle.setAttribute("cx", "100"); circle.setAttribute("cy", "100");
+        circle.setAttribute("r", "82"); circle.setAttribute("fill", "#fff8e8");
+        circle.setAttribute("stroke", "#58718a"); circle.setAttribute("stroke-width", "4");
+        face.appendChild(circle);
+        for (let number = 1; number <= 12; number++) {
+          const angle = (number * 30 - 90) * Math.PI / 180;
+          const label = document.createElementNS(ns, "text");
+          label.setAttribute("x", String(100 + Math.cos(angle) * 65));
+          label.setAttribute("y", String(105 + Math.sin(angle) * 65));
+          label.setAttribute("text-anchor", "middle");
+          label.setAttribute("font-size", "15");
+          label.setAttribute("font-weight", "700");
+          label.setAttribute("fill", "#29445d");
+          label.textContent = String(number);
+          face.appendChild(label);
+        }
+        const hand = (length, angle, width, color) => {
+          const line = document.createElementNS(ns, "line");
+          line.setAttribute("x1", "100"); line.setAttribute("y1", "100");
+          line.setAttribute("x2", String(100 + Math.cos(angle) * length));
+          line.setAttribute("y2", String(100 + Math.sin(angle) * length));
+          line.setAttribute("stroke", color); line.setAttribute("stroke-width", String(width));
+          line.setAttribute("stroke-linecap", "round");
+          face.appendChild(line);
+        };
+        const minuteAngle = (time.minute * 6 - 90) * Math.PI / 180;
+        const hourAngle = (((time.hour % 12) + time.minute / 60) * 30 - 90) * Math.PI / 180;
+        hand(39, hourAngle, 7, "#315b85");
+        hand(58, minuteAngle, 4, "#d17b36");
+        const pin = document.createElementNS(ns, "circle");
+        pin.setAttribute("cx", "100"); pin.setAttribute("cy", "100");
+        pin.setAttribute("r", "5"); pin.setAttribute("fill", "#29445d");
+        face.appendChild(pin);
+        answers.appendChild(face);
+      }
+    }
     const options = Array.isArray(q.choices) ? q.choices : (Array.isArray(q.options) ? q.options : []);
     const spokenQuestion = [questionText, options.length ? "الخيارات: " + options.map(displayChoice).join("، ") : ""]
       .filter(Boolean).join(". ");
