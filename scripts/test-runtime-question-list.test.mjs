@@ -73,7 +73,7 @@ test("converts structured before/after and previous/next references into scored 
     { type: "before_after", day: "الخميس", before: "الأربعاء", after: "الجمعة" },
     { type: "previous_next", number: 70, previous: 69, next: 71 }
   ];
-  const result = runInNewContext(match[0] + "\\nquestionList(lesson);", { lesson: { activities } });
+  const result = runInNewContext(match[0] + "\nquestionList(lesson);", { lesson: { activities } });
   const plain = JSON.parse(JSON.stringify(result));
   assert.deepEqual(plain.map(item => item.answer), ["الأربعاء", "الجمعة", 69, 71]);
   assert.equal(plain.length, 4);
@@ -86,7 +86,7 @@ test("converts near-double answer objects and ascending sequences into evaluable
     { type: "double_plus_minus_one", n: 5, answers: { less: 9, double: 10, more: 11 } },
     { type: "order_numbers", numbers: [42, 18, 57, 31], ascending: [18, 31, 42, 57] }
   ];
-  const result = runInNewContext(match[0] + "\\nquestionList(lesson);", { lesson: { activities } });
+  const result = runInNewContext(match[0] + "\nquestionList(lesson);", { lesson: { activities } });
   const plain = JSON.parse(JSON.stringify(result));
   assert.deepEqual(plain.slice(0, 3).map(item => item.answer), [9, 10, 11]);
   assert.deepEqual(plain[3].answer, [18, 31, 42, 57]);
