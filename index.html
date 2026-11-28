@@ -56,7 +56,50 @@ select{min-width:220px;max-width:100%;padding:11px 13px;border:2px solid var(--l
 @media(max-width:600px){.teacher{min-height:145px}.teacher-character{width:105px;height:135px}}
 @media(max-width:600px){.top{align-items:flex-start}.brand{font-size:22px}.row>*{flex:1}.row button{flex:0 0 auto}select{width:100%}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-.guardian-open{background:#fff;color:#155b48;border:1px solid #ffffff80;box-shadow:none;padding:8px 12px;font-size:13px}.guardian-panel{border:2px solid #efdca9;background:#fffdf5}.guardian-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.guardian-field{width:100%;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:inherit}.guardian-card{border:1px solid var(--line);background:#fff;border-radius:15px;padding:12px;margin:8px 0}.guardian-card .row{justify-content:space-between}.guardian-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.guardian-actions button{font-size:12px;padding:8px 10px}.guardian-lock{position:fixed;inset:0;background:#10271dcc;z-index:20;display:grid;place-items:center;padding:16px}.guardian-lock-card{width:min(430px,100%);background:#fff;border-radius:22px;padding:22px;box-shadow:0 20px 60px #0003}.guardian-lock-card input{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;font:inherit;margin:8px 0}.guardian-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}</style>
+.guardian-open{background:#fff;color:#155b48;border:1px solid #ffffff80;box-shadow:none;padding:8px 12px;font-size:13px}.guardian-panel{border:2px solid #efdca9;background:#fffdf5}.guardian-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.guardian-field{width:100%;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:inherit}.guardian-card{border:1px solid var(--line);background:#fff;border-radius:15px;padding:12px;margin:8px 0}.guardian-card .row{justify-content:space-between}.guardian-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.guardian-actions button{font-size:12px;padding:8px 10px}.guardian-lock{position:fixed;inset:0;background:#10271dcc;z-index:20;display:grid;place-items:center;padding:16px}.guardian-lock-card{width:min(430px,100%);background:#fff;border-radius:22px;padding:22px;box-shadow:0 20px 60px #0003}.guardian-lock-card input{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;font:inherit;margin:8px 0}.guardian-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+/* هوية مرحة: رحلة تعليمية تشبه اللعبة */
+:root{--forest:#6252c7;--leaf:#18a58a;--mint:#eff0ff;--ink:#29264a;--muted:#777493;--line:#e6e3fa;--paper:#fff9ef;--sun:#ffc94f;--white:#fff}
+body{background:radial-gradient(circle at 8% 16%,#ffe3ef 0 6%,transparent 6.5%),radial-gradient(circle at 92% 32%,#d9f8ec 0 8%,transparent 8.5%),radial-gradient(circle at 76% 88%,#fff0c9 0 9%,transparent 9.5%),linear-gradient(145deg,#fffaf2,#f1f0ff)}
+header{background:linear-gradient(120deg,#6755d5,#8b67df 58%,#ed83ae);box-shadow:0 12px 30px #6655c52b}
+.brand{letter-spacing:.3px}
+.panel{border:2px solid #fff;background:#ffffffed;box-shadow:0 12px 30px #5747a015,0 3px 0 #e9e4fb}
+button{background:linear-gradient(135deg,#6857d8,#8c67df);box-shadow:0 4px 0 #4939a8;border-radius:18px}
+button:hover{box-shadow:0 6px 0 #4939a8}
+button.alt{background:#fff;color:#5c4bc1;border:2px solid #e7e1ff;box-shadow:0 3px 0 #dcd5f5}
+button.alt:hover{box-shadow:0 5px 0 #dcd5f5}
+.tag{background:#fff0bf;color:#805a08;border:1px solid #ffe29a}
+.teacher{background:linear-gradient(115deg,#fff0f6,#fff7dc 55%,#e9fff5);border:2px solid #ffe3ed;box-shadow:0 6px 0 #f8e5ed}
+.teacher-copy strong{color:#6252c7}
+.lessonbox{border:3px solid #e8e2ff;background:linear-gradient(160deg,#fff,#fffafd);box-shadow:0 12px 0 #eae5ff,0 20px 36px #5543a015}
+.bigletter{color:#6554ce}
+#answers button{border-radius:20px;min-height:54px;background:linear-gradient(135deg,#20ae91,#42c7a8);box-shadow:0 4px 0 #14836d}
+#answers button:nth-child(3n+2){background:linear-gradient(135deg,#ffad5c,#ffc66a);box-shadow:0 4px 0 #d88735}
+#answers button:nth-child(3n){background:linear-gradient(135deg,#ec77a8,#f39ac0);box-shadow:0 4px 0 #bd5684}
+.game-hero{position:relative;overflow:hidden;padding:18px;border-radius:24px;background:linear-gradient(115deg,#f0edff,#fff0f6 55%,#e9fff5);border:2px solid #e7e0ff;margin:12px 0 18px}
+.game-hero:after{content:"✦  ✧  ✦";position:absolute;left:15px;top:8px;color:#e7b64a;font-size:25px;letter-spacing:8px;opacity:.8}
+.game-stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.game-stat{background:#fff;border:1px solid #e9e3ff;border-radius:15px;padding:7px 13px;font-weight:900;color:#6252c7;box-shadow:0 3px 0 #e9e3ff}
+.game-progress{height:11px;background:#e8e4f7;border-radius:20px;overflow:hidden;margin-top:10px;max-width:460px}
+.game-progress span{display:block;height:100%;background:linear-gradient(90deg,#ffbd55,#f17da9,#7bcfb1);border-radius:20px;transition:width .35s ease}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px;margin:12px 0}
+.card{position:relative;background:linear-gradient(155deg,#fff,#fffafd);border:2px solid #ece7ff;border-radius:22px;padding:17px;box-shadow:0 5px 0 #e8e2fb;transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-3px) rotate(-.3deg);box-shadow:0 8px 0 #e8e2fb}
+.card h3{color:#40377e}
+.card.subject{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:92px;background:linear-gradient(130deg,#fff,#f5f1ff)}
+.card.subject:before{content:"";position:absolute;right:0;top:14px;bottom:14px;width:6px;border-radius:8px;background:#8b7be4}
+.card.subject:nth-child(4n+2){background:linear-gradient(130deg,#fff,#fff0f6)}
+.card.subject:nth-child(4n+2):before{background:#ec83ad}
+.card.subject:nth-child(4n+3){background:linear-gradient(130deg,#fff,#eafff6)}
+.card.subject:nth-child(4n+3):before{background:#52c3a0}
+.card.subject:nth-child(4n){background:linear-gradient(130deg,#fff,#fff6df)}
+.card.subject:nth-child(4n):before{background:#f0b84f}
+.quest-card{border-style:dashed;border-color:#f1c96c;background:linear-gradient(135deg,#fff9e9,#fff)}
+.progressrow{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#777493;font-size:13px;margin:12px 0}
+.lesson-path{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:12px 0}
+.path-dot{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#eeeaff;color:#6252c7;font-weight:900;border:2px solid #ddd5ff}
+.path-dot.done{background:#dff9ee;color:#16876e;border-color:#a8e9d0}
+@media(max-width:600px){.game-hero{padding:14px}.game-stat{font-size:12px}.cards{gap:11px}.card{padding:14px}}
+</style>
 </head>
 <body>
 <header><div class="wrap top"><div class="brand">🎒 مدرستي <small>نتعلّم ونكتشف كل يوم</small></div><div class="row"><span class="pill">📚 رحلة المعرفة تبدأ بخطوة</span><button class="guardian-open" id="openGuardian" type="button">⚙️ ولي الأمر</button></div></div></header>
