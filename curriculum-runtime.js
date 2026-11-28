@@ -302,6 +302,10 @@
     const answers = document.getElementById("answers");
     const feedback = document.getElementById("feedback");
     const finish = document.getElementById("finishLesson");
+    const progressLabel = document.getElementById("questionProgressLabel");
+    const progressBar = document.getElementById("questionProgressBar");
+    if (progressLabel) progressLabel.textContent = q ? "السؤال " + (questionIndex + 1) + " من " + qs.length : "أكملت أنشطة هذا الدرس";
+    if (progressBar) progressBar.style.width = (qs.length ? Math.min(100, questionIndex / qs.length * 100) : 100) + "%";
     answers.innerHTML = "";
     if (!q) {
       const requirement = masteryRequirement(lesson);
@@ -827,7 +831,7 @@ if (q.type === "trace_numeral") {
     document.getElementById("childView").classList.remove("hidden");
     window.selectChild(childId);
     const note = document.createElement("p");
-    note.className = "notice";
+    note.className = "notice celebration";
     const unassessedCount = qs.filter(item =>
       !Object.prototype.hasOwnProperty.call(item, "answer") || item.answer === undefined || item.answer === null
     ).length;
