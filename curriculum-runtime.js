@@ -31,7 +31,8 @@
     const milestones = [
       { id: "first", threshold: 1, title: "أول نجمة", symbol: "🌟", description: "أكملت أول درس بنجاح" },
       { id: "explorer", threshold: 5, title: "المستكشف الصغير", symbol: "🧭", description: "أكملت خمسة دروس" },
-      { id: "champion", threshold: 10, title: "بطل المعرفة", symbol: "🏆", description: "أكملت عشرة دروس" }
+      { id: "champion", threshold: 10, title: "بطل المعرفة", symbol: "🏆", description: "أكملت عشرة دروس" },
+      { id: "leader", threshold: 20, title: "قائد الرحلة", symbol: "🚀", description: "أكملت عشرين درساً" }
     ];
     const earned = milestones.filter(item => stars >= item.threshold);
     const next = milestones.find(item => stars < item.threshold) || null;
