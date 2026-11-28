@@ -48,6 +48,8 @@ jobs:
         run: node --test scripts/test-lesson-completion.test.mjs
       - name: Test speech lifecycle cancellation
         run: node --test scripts/test-speech-lifecycle.test.mjs
+      - name: Test MSA narration, automatic question reading, and retries
+        run: node --test scripts/test-msa-auto-read-retry.test.mjs
       - name: Test view navigation resets lesson context
         run: node --test scripts/test-view-navigation.test.mjs
       - name: Test offline service worker behavior
