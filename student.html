@@ -209,7 +209,7 @@ function validateStudentTransfer(data) {
       throw new Error("بنية سجل التقدم غير صالحة.");
     }
   }
-  return { child: {...child, subjects:[...new Set(child.subjects)]}, incoming };
+  return { child: {...child, subjects:[...new Set(child.subjects)], completed:Array.isArray(incoming[child.id])?incoming[child.id].length:child.completed}, incoming };
 }
 async function importStudentProfile(event) {
   const input = event.currentTarget;
@@ -230,6 +230,7 @@ async function importStudentProfile(event) {
       const id = parsed.child.id;
       const merged = new Set([...(Array.isArray(progress[id]) ? progress[id] : []), ...(parsed.incoming[id] || [])]);
       progress[id] = [...merged];
+      parsed.child.completed = progress[id].length;
     }
     try {
       localStorage.setItem(STUDENT_PROFILES_KEY, JSON.stringify(nextFamily));
