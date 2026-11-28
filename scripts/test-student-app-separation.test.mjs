@@ -56,3 +56,16 @@ test("student entry explains that guardian profiles can be created in the same a
   assert.doesNotMatch(app, /استورد ملفاً يصدره ولي الأمر/);
   assert.match(app, /id="openGuardian"/);
 });
+
+
+test("student interface uses a playful game-like visual identity", () => {
+  for (const className of [".game-hero", ".game-stats", ".game-stat", ".quest-card", ".lesson-path", ".path-dot"]) {
+    assert.ok(app.includes(className), className);
+  }
+  assert.match(app, /linear-gradient\\(120deg,#6755d5,#8b67df 58%,#ed83ae\\)/);
+  assert.match(app, /prefers-reduced-motion:reduce/);
+  assert.match(rt, /نجوم إنجاز/);
+  assert.match(rt, /هيا نلعب!/);
+  assert.match(rt, /ابدأ المغامرة/);
+  assert.match(rt, /مهمة اليوم/);
+});
