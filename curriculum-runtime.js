@@ -488,6 +488,16 @@ if (q.type === "trace_numeral") {
           undo.disabled = true;
           reset.disabled = true;
           palette.querySelectorAll("button").forEach(control => control.disabled = true);
+          const next = document.createElement("button");
+          next.type = "button";
+          next.className = "alt";
+          next.textContent = questionIndex < qs.length - 1 ? "الانتقال إلى النشاط التالي ←" : "الانتقال إلى نهاية الدرس";
+          next.addEventListener("click", () => {
+            answered.add(questionIndex);
+            questionIndex++;
+            renderQuestion();
+          });
+          answers.appendChild(next);
         } else {
           feedback.textContent = "اقتربت من الحل! راجع ترتيب اللونين، واجعل النمط نفسه يتكرر دون تغيير.";
           feedback.style.color = "#a45a22";
