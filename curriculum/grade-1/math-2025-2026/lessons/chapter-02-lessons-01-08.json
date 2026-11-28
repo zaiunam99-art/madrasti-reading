@@ -448,7 +448,7 @@
       ],
       "mastery": {
         "requiredCorrect": 2,
-        "totalChecks": 3,
+        "totalChecks": 2,
         "allowRetry": true
       }
     },
