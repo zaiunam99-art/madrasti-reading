@@ -2,32 +2,34 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const parent = readFileSync(new URL("../index.html", import.meta.url), "utf8");
-const student = readFileSync(new URL("../student.html", import.meta.url), "utf8");
+const app = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+const alias = readFileSync(new URL("../student.html", import.meta.url), "utf8");
 const runtime = readFileSync(new URL("../curriculum-runtime.js", import.meta.url), "utf8");
 
-test("parent exports one validated child profile and only that child's progress", () => {
-  assert.match(parent, /function exportStudentProfile\(id\)/);
-  assert.match(parent, /format:'madrasti-student-transfer',version:1/);
-  assert.match(parent, /\[id\]:Array\.isArray\(all\[id\]\)/);
-  assert.match(parent, /function validateStudentTransfer\(data\)/);
-  assert.match(parent, /Object\.keys\(progress\)\.some\(key=>key!==child\.id\)/);
+test("unified app exports one validated child profile and only that child's progress", () => {
+  assert.match(app, /function exportGuardianChild\(id\)/);
+  assert.match(app, /format:"madrasti-student-transfer",version:1/);
+  assert.match(app, /\[id\]:Array\.isArray\(all\[id\]\)/);
+  assert.match(app, /function validateStudentTransfer\(data\)/);
+  assert.match(app, /Object\.keys\(incoming\)\.some\(key => key !== child\.id\)/);
 });
 
-test("student imports a validated profile into its separate local store", () => {
-  assert.match(student, /function importStudentProfile\(event\)/);
-  assert.match(student, /STUDENT_PROFILES_KEY/);
-  assert.match(student, /STUDENT_PROGRESS_KEY/);
-  assert.match(student, /previousProfiles/);
-  assert.match(student, /previousProgress/);
-  assert.match(student, /تعذر حفظ الملف على هذا الجهاز/);
+test("unified app imports student profiles into the shared local profile store", () => {
+  assert.match(app, /function importStudentProfile\(event\)/);
+  assert.match(app, /STUDENT_PROFILES_KEY/);
+  assert.match(app, /STUDENT_PROGRESS_KEY/);
+  assert.match(app, /previousProfiles/);
+  assert.match(app, /previousProgress/);
+  assert.match(app, /تعذر حفظ الملف على هذا الجهاز/);
 });
 
-test("student exports progress and parent imports it only for a matching child", () => {
-  assert.match(student, /function exportStudentProgress\(\)/);
-  assert.match(parent, /function importStudentProgress\(input\)/);
-  assert.match(parent, /if\(!existing\)throw new Error/);
-  assert.match(parent, /merged=\[\.\.\.new Set/);
+test("guardian management and student experience share the same profile store", () => {
+  assert.match(app, /function renderGuardianChildren\(\)/);
+  assert.match(app, /function startStudent\(\)/);
+  assert.match(app, /function exportStudentProgress\(\)/);
+  assert.match(app, /madrastiStudentProfilesV1/);
+  assert.match(app, /madrastiStudentProgressV1/);
+  assert.match(alias, /location\.replace\("\/"\)/);
 });
 
 test("lesson runtime reads and writes the isolated student progress store", () => {
