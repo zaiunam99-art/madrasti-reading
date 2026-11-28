@@ -1,15 +1,21 @@
 {
-  "name": "مدرستي - منصة التعلم",
-  "short_name": "مدرستي",
+  "name": "مدرستي - تطبيق ولي الأمر",
+  "short_name": "مدرستي الأسرة",
   "lang": "ar",
   "dir": "rtl",
-  "start_url": "/",
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#f6faf7",
   "theme_color": "#176b55",
-  "description": "منصة تعليمية تفاعلية للأطفال وأولياء الأمور",
+  "description": "تطبيق ولي الأمر لإدارة ملفات الأبناء ومتابعة تقدمهم في مدرستي",
   "icons": [
-    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
-  ]
+    {
+      "src": "/parent-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "id": "/index.html"
 }

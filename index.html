@@ -2,11 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#176b55">
-<title>مدرستي | منصة التعلم</title>
-<link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icon.svg" type="image/svg+xml">
+<title>مدرستي | تطبيق ولي الأمر</title>
+<link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/parent-icon.svg" type="image/svg+xml">
 <style>
 :root{--g:#176b55;--g2:#23856b;--mint:#eaf6ef;--ink:#18352d;--muted:#687d74;--line:#e0ece5;--paper:#f6faf7;--gold:#f2c66d;--white:#fff}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.75}button,input,select{font:inherit}button{border:0;border-radius:13px;padding:11px 16px;background:var(--g);color:white;font-weight:700;cursor:pointer}button.alt{background:var(--mint);color:var(--g)}button.ghost{background:transparent;color:var(--g);border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.75}button,input,select{font:inherit}button{border:0;border-radius:13px;padding:11px 16px;background:var(--g);color:white;font-weight:700;cursor:pointer}button.alt{background:var(--mint);color:var(--g)}.app-link{display:inline-block;text-decoration:none;border-radius:13px;padding:11px 16px;color:var(--g);background:var(--mint);font-weight:700}.button-link{display:inline-block;text-decoration:none;border-radius:13px;padding:11px 16px;background:var(--g);color:#fff;font-weight:700}button.ghost{background:transparent;color:var(--g);border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}
 header{background:linear-gradient(120deg,#145b49,#2b9878);color:white;padding:18px 0 30px}.wrap{max-width:1050px;margin:auto;padding:0 16px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:24px;font-weight:800}.brand small{display:block;font-size:12px;font-weight:400;color:#d9f2e8}.pill{border-radius:30px;background:#ffffff20;padding:6px 12px;font-size:12px}
 main{padding:20px 0 55px}.welcome{margin-top:-18px;position:relative;background:white;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 8px 25px #173e2a10}.muted{color:var(--muted);font-size:14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.panel,.card{background:white;border:1px solid var(--line);border-radius:18px;padding:17px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:22px 0 12px}h1,h2,h3,p{margin-top:0}h2{font-size:20px;margin-bottom:5px}h3{font-size:17px;margin-bottom:5px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.child{display:flex;align-items:center;gap:12px}.avatar{width:58px;height:58px;border-radius:18px;background:var(--mint);display:grid;place-items:center;font-size:32px;flex:none}.tag{display:inline-block;background:var(--mint);color:var(--g);border-radius:20px;padding:2px 10px;font-size:12px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.bar{height:8px;border-radius:9px;background:#eaf0ec;overflow:hidden;margin:9px 0}.bar span{display:block;height:100%;background:#32a078;width:0}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.tabs button.active{background:var(--g);color:#fff}.tabs button:not(.active){background:white;color:var(--g);border:1px solid var(--line)}
 label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,select{width:100%;padding:11px;border:1px solid #d5e4da;border-radius:11px;background:white;color:var(--ink)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.checkrow{display:flex;gap:8px;align-items:center;font-size:14px;margin:7px 0}.checkrow input{width:auto}.hidden{display:none!important}.empty{text-align:center;padding:26px;color:var(--muted)}.subject{display:flex;align-items:center;justify-content:space-between;gap:8px}.subject .emoji{font-size:25px}.lessonbox{border:2px solid #dceee5;background:white;border-radius:22px;padding:20px;margin-top:15px}.bigletter{text-align:center;font-size:66px;color:var(--g);font-weight:800;padding:10px}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:9px}.choices button{min-height:54px}.feedback{min-height:32px;font-weight:700;margin-top:8px}.progressrow{display:flex;justify-content:space-between;font-size:13px}.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}.notice{background:#fff8e8;border:1px solid #f1dfb4;border-radius:13px;padding:12px;font-size:13px;color:#745a20}.modalback{position:fixed;inset:0;background:#10271fcc;display:grid;place-items:center;padding:16px;z-index:5}.modal{background:white;border-radius:20px;padding:20px;width:min(520px,100%);max-height:90vh;overflow:auto}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -15,7 +15,7 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 <body>
 <header><div class="wrap top"><div class="brand">📚 مدرستي <small>نتعلّم كل يوم… خطوة أجمل نحو المعرفة</small></div><span class="pill">دروس المنهج التفاعلية · نسخة تجريبية</span></div></header>
 <main class="wrap">
-<section class="welcome"><div class="row" style="justify-content:space-between"><div><h2 id="hello">أهلاً بك في مدرستي</h2><div class="muted" id="subtitle">مساحة الأسرة للتعلّم والمتابعة</div></div><span class="tag">تعمل على الهاتف والكمبيوتر</span></div><div class="tabs"><button id="guardianTab" class="active" onclick="showView('guardian')">👨‍👩‍👧 لوحة ولي الأمر</button><button id="childTab" onclick="showView('child')">🎒 مساحة الطالب</button></div></section>
+<section class="welcome"><div class="row" style="justify-content:space-between"><div><h2 id="hello">أهلاً بك في مدرستي</h2><div class="muted" id="subtitle">مساحة الأسرة للتعلّم والمتابعة</div></div><span class="tag">تعمل على الهاتف والكمبيوتر</span></div><div class="tabs"><span class="tag">👨‍👩‍👧 تطبيق ولي الأمر</span><a class="button-link" href="/student.html" aria-label="فتح تطبيق الطالب المستقل">🎒 فتح تطبيق الطالب المستقل</a></div></section>
 
 <section id="guardianView">
 <div class="section-head"><div><h2>ملفات الأبناء</h2><div class="muted">أضف ملفاً لكل طفل وحدد صفه ومواده وخطة تعلمه.</div></div><button onclick="openChildForm()">＋ إضافة طالب</button></div>
@@ -23,8 +23,14 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 <button type="button" class="alt" onclick="exportFamilyBackup()">تنزيل نسخة احتياطية</button>
 <button type="button" class="ghost" onclick="document.getElementById('familyBackupFile').click()">استعادة نسخة احتياطية</button>
 <input id="familyBackupFile" type="file" accept="application/json,.json" hidden onchange="importFamilyBackup(this)">
+<button type="button" class="alt" onclick="document.getElementById('studentProgressFile').click()">استيراد تقدم الطالب</button>
+<input id="studentProgressFile" type="file" accept="application/json,.json" hidden onchange="importStudentProgress(this)">
 </div>
-<p class="muted">النسخة الاحتياطية تحفظ ملفات الأبناء وسجل التقدم في ملف على جهازك. احتفظ به في مكان خاص؛ فهو قد يحتوي أسماء الأطفال.</p>
+<p class="muted">النسخة الاحتياطية تحفظ بيانات الأسرة كاملة. لنقل ملف طفل إلى جهاز آخر:
+١. اضغط «تصدير ملف الطالب» بجوار اسمه.
+٢. انقل الملف إلى جهاز الطالب وافتح تطبيق الطالب ثم اختر «استيراد ملف الطالب».
+٣. بعد التعلّم، صدّر التقدم من تطبيق الطالب وأعد الملف إلى هنا عبر «استيراد تقدم الطالب».
+ملفات النقل غير مشفرة وقد تحتوي أسماء الأطفال وإعداداتهم؛ شاركها مع ولي الأمر فقط واحفظها في مكان خاص.</p>
 <div id="children" class="cards"></div>
 <div class="grid">
 <section class="panel"><h2>📚 مكتبة المناهج</h2><p class="muted">المناهج المتاحة حالياً: القراءة والرياضيات للصف الأول (إصدار 2025–2026). بقية الصفوف قيد التحقق.</p><div class="card"><strong>العراق · الصف الأول الابتدائي</strong><p class="muted">المواد التي أُعدت لها دروس أولية: القراءة والرياضيات، إصدار 2025–2026. تظهر الدروس بعد إنشاء ملف الطالب واختيار المادة من مساحته.</p><span class="tag">108 دروس أولية في المستودع</span></div><label for="pdfUpload">اختيار كتاب PDF ومعاينته محلياً</label><input id="pdfUpload" type="file" accept="application/pdf" onchange="previewPdf(this)"><div id="pdfInfo" class="muted">لم يتم اختيار ملف.</div></section>
@@ -32,15 +38,6 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 </div>
 </section>
 
-<section id="childView" class="hidden">
-<div class="section-head"><div><h2>مساحة التعلّم</h2><div class="muted">اختر ملفك لفتح موادك ودروسك.</div></div><button class="ghost" onclick="showView('guardian')">العودة لولي الأمر</button></div>
-<div class="panel"><label for="childPicker">ملف الطالب</label><select id="childPicker" onchange="selectChild(this.value)"><option value="">اختر ملفاً</option></select><div id="studentArea" class="hidden"></div><div id="noStudent" class="empty">أضف ملف طالب من لوحة ولي الأمر أولاً.</div></div>
-</section>
-
-<section id="lessonView" class="hidden">
-<div class="section-head"><div><h2 id="lessonHeading">درس اليوم</h2><div class="muted" id="lessonMeta"></div></div><button class="alt" onclick="backToStudent()">← العودة للمواد</button></div>
-<div class="lessonbox"><div class="tag">درس تفاعلي تجريبي</div><div class="bigletter" id="lessonSymbol">ب</div><h2 id="lessonName">نتعلم حرف الباء</h2><p id="lessonDesc">استمع إلى الشرح ثم اختر الإجابة الصحيحة.</p><div class="row"><button class="alt" onclick="playLesson()">🔊 استمع / أعد الشرح</button><button class="ghost" onclick="stopLessonAudio()">إيقاف الصوت</button></div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3 id="questionText">أي كلمة تبدأ بحرف الباء؟</h3><div class="choices" id="answers"></div><div id="feedback" class="feedback" aria-live="polite"></div><button id="finishLesson" disabled onclick="finishLesson()">إكمال الدرس ⭐</button></div>
-</section>
 <div class="foot">مدرستي · نموذج أولي للتجربة وتطوير المتطلبات</div>
 </main>
 
@@ -61,8 +58,7 @@ function loadFamily(){
         completed:Math.max(0,Number(c.completed)||0)}));
   }catch(error){console.warn('تعذر قراءة ملفات الطلاب المحفوظة:',error);return []}
 }
-let family=loadFamily();let active=null,correct=false,activeLesson=null;
-const lessons=[{title:'حرف الباء',symbol:'ب',desc:'هذا حرف الباء. نستمع إلى صوته ونشاهده في بداية الكلمات.',q:'أي كلمة تبدأ بحرف الباء؟',answers:['باب','موز','دار'],right:'باب',subject:'القراءة'},{title:'حرف الميم',symbol:'م',desc:'هذا حرف الميم. كرر صوته، ثم اختر الكلمة المناسبة.',q:'أي كلمة تبدأ بحرف الميم؟',answers:['بيت','موز','نور'],right:'موز',subject:'القراءة'},{title:'حرف الدال',symbol:'د',desc:'نتعرف اليوم إلى حرف الدال ونميّز صوته.',q:'أي كلمة تبدأ بحرف الدال؟',answers:['دار','باب','موز'],right:'دار',subject:'القراءة'}];
+let family=loadFamily();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(family));return true}catch(error){alert('تعذر حفظ التغييرات على هذا الجهاز. تحقق من مساحة التخزين وإعدادات المتصفح.');return false}}
 function validateFamilyBackup(data){
   if(!data||typeof data!=='object'||Array.isArray(data)||data.format!=='madrasti-family-backup'||data.version!==1||!Array.isArray(data.family)||data.family.length>100)throw new Error('ملف النسخة الاحتياطية غير صالح أو غير مدعوم.');
@@ -110,6 +106,62 @@ function exportFamilyBackup(){
     setTimeout(()=>URL.revokeObjectURL(url),1000);
   }catch(error){alert('تعذر إنشاء النسخة الاحتياطية على هذا الجهاز.')}
 }
+
+function validateStudentTransfer(data){
+  if(!data||typeof data!=='object'||Array.isArray(data)||data.format!=='madrasti-student-transfer'||data.version!==1)throw new Error('ملف نقل الطالب غير صالح أو غير مدعوم.');
+  const child=data.child,allowed=['القراءة','الرياضيات','العلوم','اللغة الإنجليزية'];
+  if(!child||typeof child!=='object'||Array.isArray(child)||typeof child.id!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(child.id)||
+    typeof child.name!=='string'||!['boy','girl','neutral'].includes(child.gender)||typeof child.grade!=='string'||!child.grade.trim()||
+    !['🧒','👦','👧','🦊','🐼'].includes(child.avatar)||!['default','slow','none'].includes(child.voice)||
+    !Number.isInteger(child.dailyCount)||child.dailyCount<1||child.dailyCount>10||!Array.isArray(child.subjects)||!child.subjects.length||
+    child.subjects.some(subject=>!allowed.includes(subject))||!Number.isFinite(child.completed)||child.completed<0)throw new Error('بيانات ملف الطالب لا تجتاز التحقق.');
+  if(data.progressRaw!==null&&typeof data.progressRaw!=='string')throw new Error('سجل التقدم غير صالح.');
+  let progress={};
+  if(typeof data.progressRaw==='string'){
+    if(data.progressRaw.length>500000)throw new Error('سجل التقدم أكبر من الحد المسموح.');
+    progress=JSON.parse(data.progressRaw);
+    if(!progress||typeof progress!=='object'||Array.isArray(progress)||Object.keys(progress).some(key=>key!==child.id)||
+      (progress[child.id]!==undefined&&(!Array.isArray(progress[child.id])||progress[child.id].length>10000||progress[child.id].some(id=>typeof id!=='string'))))throw new Error('بنية سجل التقدم غير صالحة.');
+  }
+  return {child:{...child,subjects:[...new Set(child.subjects)]},progress};
+}
+function exportStudentProfile(id){
+  const child=family.find(item=>item.id===id);if(!child)return;
+  try{
+    const raw=localStorage.getItem('madrastiCompletedLessonsV1');let progressRaw=null;
+    if(raw!==null){const all=JSON.parse(raw);if(!all||typeof all!=='object'||Array.isArray(all))throw new Error('سجل التقدم غير صالح.');
+      progressRaw=JSON.stringify({[id]:Array.isArray(all[id])?[...new Set(all[id].filter(value=>typeof value==='string'))]:[]});}
+    const payload={format:'madrasti-student-transfer',version:1,exportedAt:new Date().toISOString(),child,progressRaw};
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');
+    link.href=url;link.download='madrasti-student-'+id+'.json';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }catch(error){alert(error.message||'تعذر تصدير ملف الطالب.')}
+}
+async function importStudentProgress(input){
+  const file=input?.files?.[0];if(!file)return;
+  try{
+    if(file.size>600000)throw new Error('حجم ملف النقل أكبر من الحد المسموح.');
+    const parsed=validateStudentTransfer(JSON.parse(await file.text()));
+    const existing=family.find(child=>child.id===parsed.child.id);
+    if(!existing)throw new Error('لم نعثر على ملف الطالب المطابق. أنشئ ملفه أو استعده أولاً.');
+    const incoming=parsed.progress[parsed.child.id];
+    if(!Array.isArray(incoming)||!incoming.length)throw new Error('لا يحتوي الملف على تقدم محفوظ لنقله بعد.');
+    const previousFamily=family,previousProfiles=localStorage.getItem(KEY),previousProgress=localStorage.getItem('madrastiCompletedLessonsV1');
+    let current={};
+    if(previousProgress!==null){current=JSON.parse(previousProgress);if(!current||typeof current!=='object'||Array.isArray(current))throw new Error('سجل تقدم الأسرة غير صالح؛ لم نغيّر البيانات.');}
+    const id=parsed.child.id,merged=[...new Set([...(Array.isArray(current[id])?current[id]:[]),...incoming])];
+    current[id]=merged;
+    const nextFamily=family.map(child=>child.id===id?{...child,completed:merged.length}:child);
+    try{localStorage.setItem(KEY,JSON.stringify(nextFamily));localStorage.setItem('madrastiCompletedLessonsV1',JSON.stringify(current));}
+    catch(error){
+      try{if(previousProfiles===null)localStorage.removeItem(KEY);else localStorage.setItem(KEY,previousProfiles);
+        if(previousProgress===null)localStorage.removeItem('madrastiCompletedLessonsV1');else localStorage.setItem('madrastiCompletedLessonsV1',previousProgress);}
+      catch(rollbackError){console.warn('تعذر استعادة بيانات الأسرة بعد فشل النقل:',rollbackError);}
+      throw new Error('تعذر حفظ التقدم؛ تمت محاولة استعادة البيانات السابقة.');
+    }
+    family=nextFamily;renderAll();alert('تم استيراد تقدم '+(existing.name||'الطالب')+' بنجاح. عدد الدروس المسجلة: '+merged.length+'. تنبيه: ملف النقل محلي وغير موثق من خادم؛ لا يُعد إثباتاً رسمياً للإنجاز.');
+  }catch(error){alert(error.message||'تعذر استيراد تقدم الطالب.')}finally{input.value=''}
+}
+
 async function importFamilyBackup(input){
   const file=input?.files?.[0];
   if(!file)return;
@@ -120,9 +172,7 @@ async function importFamilyBackup(input){
     if(!confirm('ستُستبدل ملفات الأبناء وسجل التقدم الحاليان بمحتويات النسخة الاحتياطية. هل تريد المتابعة؟'))return;
     const restored=applyFamilyBackup(data,localStorage);
     family=restored.family;
-    active=null;
-    window.stopLessonAudio?.();
-    showView('guardian');
+    showView();
     alert(typeof restored.progressRaw==='string'&&(()=>{try{const parsed=JSON.parse(restored.progressRaw);return !parsed||typeof parsed!=='object'||Array.isArray(parsed)}catch(error){return true}})()
       ?'تمت استعادة ملفات الأبناء، لكن سجل التقدم داخل النسخة غير صالح؛ أوقفنا تسجيل الإنجاز لحماية البيانات.'
       :'تمت استعادة ملفات الأبناء وسجل التقدم على هذا الجهاز بنجاح.');
@@ -174,7 +224,7 @@ async function previewPdf(input){
   }
 }
 
-function showView(v){const wasInLesson=!document.getElementById('lessonView').classList.contains('hidden');if(wasInLesson&&window.selectChild)window.selectChild(active?.id);else if(v!=='child'&&window.stopLessonAudio)window.stopLessonAudio();document.getElementById('guardianView').classList.toggle('hidden',v!=='guardian');document.getElementById('childView').classList.toggle('hidden',v!=='child');document.getElementById('lessonView').classList.add('hidden');document.getElementById('guardianTab').classList.toggle('active',v==='guardian');document.getElementById('childTab').classList.toggle('active',v==='child');document.getElementById('hello').textContent=v==='guardian'?'لوحة ولي الأمر':'أهلاً بك في مساحة التعلّم';renderAll()}
+function showView(){document.getElementById('guardianView').classList.remove('hidden');document.getElementById('hello').textContent='لوحة ولي الأمر';renderAll()}
 function openChildForm(id){const c=family.find(x=>x.id===id);document.getElementById('childForm').reset();document.getElementById('editId').value=c?.id||'';document.getElementById('formTitle').textContent=c?'تعديل ملف الطالب':'إضافة طالب';document.getElementById('childName').value=c?.name||'';document.getElementById('gender').value=c?.gender||'neutral';document.getElementById('grade').value=c?.grade||'الأول الابتدائي';document.getElementById('avatar').value=c?.avatar||'🧒';document.getElementById('voice').value=c?.voice||'default';document.getElementById('dailyCount').value=c?.dailyCount||1;document.querySelectorAll('input[name=subject]').forEach(x=>x.checked=c?c.subjects.includes(x.value):x.value==='القراءة');document.getElementById('modal').classList.remove('hidden')}
 function closeForm(){document.getElementById('modal').classList.add('hidden')}
 function saveChild(e){e.preventDefault();const id=document.getElementById('editId').value||String(Date.now());const old=family.find(x=>x.id===id);const c={id,name:document.getElementById('childName').value.trim(),gender:document.getElementById('gender').value,grade:document.getElementById('grade').value,avatar:document.getElementById('avatar').value,voice:document.getElementById('voice').value,dailyCount:Math.max(1,Math.min(10,Number(document.getElementById('dailyCount').value)||1)),subjects:[...document.querySelectorAll('input[name=subject]:checked')].map(x=>x.value),completed:old?.completed||0};if(!c.subjects.length){alert('اختر مادة واحدة على الأقل.');return}const previousFamily=family;if(old)family=family.map(x=>x.id===id?c:x);else family=[...family,c];if(!save()){family=previousFamily;return}closeForm();renderAll()}
@@ -208,19 +258,11 @@ function deleteChild(id){
     return;
   }
   family=nextFamily;
-  if(active?.id===id){active=null;stopLessonAudio?.()}
   renderAll()
 }
-function renderAll(){document.getElementById('children').innerHTML=family.length?family.map(c=>'<article class="card"><div class="child"><div class="avatar">'+esc(c.avatar)+'</div><div><strong>'+(esc(c.name)||'الطالب')+'</strong><div class="muted">'+esc(c.grade)+' · '+c.subjects.length+' مواد</div></div></div><div class="progressrow"><span>الدروس المكتملة</span><strong>'+c.completed+'</strong></div><div class="bar"><span style="width:'+Math.min(c.completed/3*100,100)+'%"></span></div><div class="actions"><button class="alt" onclick="enterChild(\''+c.id+'\')">فتح مساحة الطالب</button><button class="ghost" onclick="openChildForm(\''+c.id+'\')">تعديل</button><button class="ghost" onclick="deleteChild(\''+c.id+'\')">حذف</button></div></article>').join(''):'<div class="panel empty">لم تضف ملفات بعد. اضغط «إضافة طالب» لإنشاء أول ملف.</div>';document.getElementById('familyStats').innerHTML=family.length?'<strong>'+family.length+'</strong> ملفات طلاب · <strong>'+family.reduce((a,c)=>a+c.completed,0)+'</strong> دروس مكتملة':'لا توجد بيانات بعد';const picker=document.getElementById('childPicker');const selected=picker.value;picker.innerHTML='<option value="">اختر ملفاً</option>'+family.map(c=>'<option value="'+c.id+'">'+esc(c.name||'الطالب')+' – '+esc(c.grade)+'</option>').join('');if(family.some(c=>c.id===selected))picker.value=selected;document.getElementById('noStudent').classList.toggle('hidden',family.length>0)}
-function enterChild(id){showView('child');document.getElementById('childPicker').value=id;selectChild(id)}
-function selectChild(id){active=family.find(c=>c.id===id)||null;const area=document.getElementById('studentArea');area.classList.toggle('hidden',!active);document.getElementById('noStudent').classList.toggle('hidden',!!active||family.length>0);if(!active)return;area.innerHTML='<div class="child" style="margin:16px 0"><div class="avatar">'+esc(active.avatar)+'</div><div><h2>مرحباً '+esc(active.name||'بطل التعلّم')+' 🌟</h2><div class="muted">'+esc(active.grade)+'</div></div></div><h3>موادي</h3><div class="cards">'+active.subjects.map(s=>'<div class="card subject"><span><span class="emoji">'+(s==='القراءة'?'📖':s==='الرياضيات'?'➗':s==='العلوم'?'🌱':'🔤')+'</span> '+esc(s)+'</span><button class="alt" onclick="openSubject(\''+s+'\')">ابدأ</button></div>').join('')+'</div><p class="muted">خطة التعلّم: '+active.dailyCount+' درس يومياً لكل مادة.</p>'}
-function openSubject(s){if(s!=='القراءة'){alert('تم إعداد مساحة هذه المادة في النموذج. ستضاف دروسها عند إدخال منهجها.');return}activeLesson=lessons[Math.min(active.completed,lessons.length-1)];correct=false;document.getElementById('childView').classList.add('hidden');document.getElementById('lessonView').classList.remove('hidden');document.getElementById('lessonHeading').textContent='درس القراءة';document.getElementById('lessonMeta').textContent=(active.name||'الطالب')+' · '+active.grade;document.getElementById('lessonSymbol').textContent=activeLesson.symbol;document.getElementById('lessonName').textContent=activeLesson.title;document.getElementById('lessonDesc').textContent=activeLesson.desc;document.getElementById('questionText').textContent=activeLesson.q;document.getElementById('feedback').textContent='';document.getElementById('finishLesson').disabled=true;document.getElementById('answers').innerHTML=activeLesson.answers.map(a=>'<button class="alt" onclick="answer(\''+a+'\')">'+a+'</button>').join('')}
-function answer(a){const f=document.getElementById('feedback');if(a===activeLesson.right){f.textContent='أحسنت! إجابة صحيحة ⭐';f.style.color='var(--g)';correct=true;document.getElementById('finishLesson').disabled=false}else{f.textContent='محاولة جميلة! استمع مرة أخرى وحاول.';f.style.color='#a45a22'}}
-function finishLesson(){if(!correct||!active)return;active.completed++;save();document.getElementById('lessonView').classList.add('hidden');document.getElementById('childView').classList.remove('hidden');selectChild(active.id);alert('رائع! تم تسجيل إكمال الدرس في بيانات هذه التجربة.')}
-function backToStudent(){document.getElementById('lessonView').classList.add('hidden');document.getElementById('childView').classList.remove('hidden');if(active)selectChild(active.id)}
-function playLesson(){if(!activeLesson||active?.voice==='none')return;if(!('speechSynthesis'in window)){alert('متصفحك لا يدعم النطق الصوتي.');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(activeLesson.title+'. '+activeLesson.desc+'. '+activeLesson.q);u.lang='ar-IQ';u.rate=active?.voice==='slow'?.72:.88;speechSynthesis.speak(u)}
+function renderAll(){document.getElementById('children').innerHTML=family.length?family.map(c=>'<article class="card"><div class="child"><div class="avatar">'+esc(c.avatar)+'</div><div><strong>'+(esc(c.name)||'الطالب')+'</strong><div class="muted">'+esc(c.grade)+' · '+c.subjects.length+' مواد</div></div></div><div class="progressrow"><span>الدروس المكتملة</span><strong>'+c.completed+'</strong></div><div class="bar"><span style="width:'+Math.min(c.completed/3*100,100)+'%"></span></div><div class="actions"><a class="alt app-link" href="/student.html">فتح تطبيق الطالب</a><button class="ghost" onclick="openChildForm(\''+c.id+'\')">تعديل</button><button class="ghost" onclick="deleteChild(\''+c.id+'\')">حذف</button><button class="ghost" data-id="'+c.id+'" onclick="exportStudentProfile(this.dataset.id)">تصدير ملف الطالب</button></div></article>').join(''):'<div class="panel empty">لم تضف ملفات بعد. اضغط «إضافة طالب» لإنشاء أول ملف.</div>';document.getElementById('familyStats').innerHTML=family.length?'<strong>'+family.length+'</strong> ملفات طلاب · <strong>'+family.reduce((a,c)=>a+c.completed,0)+'</strong> دروس مكتملة':'لا توجد بيانات بعد';}
 function previewPdf(el){const f=el.files[0];document.getElementById('pdfInfo').textContent=f?'تم اختيار: '+f.name+' ('+Math.round(f.size/1024)+' KB). الرفع السحابي ومعالجة الصفحات غير مفعّلين بعد.':'لم يتم اختيار ملف.'}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 renderAll();
-</script><script src="/curriculum-runtime.js"></script><script>if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {})); }</script>
+</script><script>if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {})); }</script>
 </body></html>

@@ -32,6 +32,8 @@ jobs:
         run: node --test scripts/test-grade2-math-index.test.mjs
       - name: Test validator edge cases
         run: node --test scripts/test-validator.test.mjs
+      - name: Test curriculum mastery validation
+        run: node --test scripts/test-curriculum-mastery-validation.test.mjs
       - name: Test local progress storage handling
         run: node --test scripts/test-progress-storage.test.mjs
       - name: Test runtime question list filtering
@@ -46,8 +48,16 @@ jobs:
         run: node --test scripts/test-child-deletion.test.mjs
       - name: Test transactional lesson completion
         run: node --test scripts/test-lesson-completion.test.mjs
+      - name: Test lesson mastery enforcement
+        run: node --test scripts/test-mastery-enforcement.test.mjs
+      - name: Test interactive pattern activity
+        run: node --test scripts/test-pattern-activity.test.mjs
+      - name: Test numeral tracing activity
+        run: node --test scripts/test-trace-numeral-activity.test.mjs
       - name: Test speech lifecycle cancellation
         run: node --test scripts/test-speech-lifecycle.test.mjs
+      - name: Test MSA narration, automatic question reading, and retries
+        run: node --test scripts/test-msa-auto-read-retry.test.mjs
       - name: Test view navigation resets lesson context
         run: node --test scripts/test-view-navigation.test.mjs
       - name: Test offline service worker behavior
@@ -56,3 +66,7 @@ jobs:
         run: node --test scripts/test-pdf-preview.test.mjs
       - name: Test family backup and restore
         run: node --test scripts/test-family-backup.test.mjs
+      - name: Test separate student application entry
+        run: node --test scripts/test-student-app-separation.test.mjs
+      - name: Test student profile and progress transfer
+        run: node --test scripts/test-student-transfer.test.mjs

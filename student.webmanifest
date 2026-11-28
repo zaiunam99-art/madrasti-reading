@@ -1,0 +1,21 @@
+{
+  "name": "مدرستي - مساحة الطالب",
+  "short_name": "مدرستي الطالب",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/student.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4faf5",
+  "theme_color": "#176b55",
+  "description": "مساحة تعلم مستقلة للطالب في مدرستي التفاعلية",
+  "icons": [
+    {
+      "src": "/student-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "id": "/student.html"
+}

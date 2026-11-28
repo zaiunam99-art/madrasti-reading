@@ -11,7 +11,7 @@ const handler = runtime.slice(start, end + 4);
 
 function runFinish({ failFamilySave = false, alreadyCompleted = false } = {}) {
   const previousProgress = JSON.stringify(alreadyCompleted ? { child_a: ["lesson-1"] } : {});
-  const values = new Map([["madrastiCompletedLessonsV1", previousProgress]]);
+  const values = new Map([["madrastiStudentProgressV1", previousProgress]]);
   const messages = [];
   const elements = {
     feedback: { textContent: "" },
@@ -23,11 +23,12 @@ function runFinish({ failFamilySave = false, alreadyCompleted = false } = {}) {
     window: { selectChild() {} },
     current: { id: "lesson-1", quiz: [] },
     active: { id: "child_a", completed: 2 },
-    questionIndex: 0,
+    questionIndex: 1,
     assessedCount: 1,
     score: 1,
-    questionList() { return []; },
-    readCompletedMap() { return JSON.parse(values.get("madrastiCompletedLessonsV1") || "{}"); },
+    questionList() { return [{ answer: 1 }]; },
+    masteryRequirement() { return { requiredCorrect: 1, totalChecks: 1, evaluableCount: 1, valid: true }; },
+    readCompletedMap() { return JSON.parse(values.get("madrastiStudentProgressV1") || "{}"); },
     appendCompletedLesson(map, childId, lessonId) {
       const ids = Array.isArray(map[childId]) ? map[childId] : [];
       return { map: { ...map, [childId]: [...new Set([...ids, lessonId])] }, alreadyCompleted: ids.includes(lessonId) };
@@ -47,7 +48,7 @@ function runFinish({ failFamilySave = false, alreadyCompleted = false } = {}) {
 
 test("rolls back lesson progress and does not leave the lesson when family save fails", () => {
   const result = runFinish({ failFamilySave: true });
-  assert.equal(result.values.get("madrastiCompletedLessonsV1"), JSON.stringify({}));
+  assert.equal(result.values.get("madrastiStudentProgressV1"), JSON.stringify({}));
   assert.equal(result.sandbox.active.completed, 2);
   assert.match(result.elements.feedback.textContent, /لم يتم اعتماد إكمال الدرس/);
   assert.equal(result.messages.length, 0);
@@ -55,29 +56,30 @@ test("rolls back lesson progress and does not leave the lesson when family save 
 
 test("commits progress and family counter when both saves succeed", () => {
   const result = runFinish();
-  assert.deepEqual(JSON.parse(result.values.get("madrastiCompletedLessonsV1")), { child_a: ["lesson-1"] });
+  assert.deepEqual(JSON.parse(result.values.get("madrastiStudentProgressV1")), { child_a: ["lesson-1"] });
   assert.equal(result.sandbox.active.completed, 3);
   assert.equal(result.messages.length, 1);
 });
 
 test("reopening an already completed lesson does not increment the family counter", () => {
   const result = runFinish({ alreadyCompleted: true });
-  assert.deepEqual(JSON.parse(result.values.get("madrastiCompletedLessonsV1")), { child_a: ["lesson-1"] });
+  assert.deepEqual(JSON.parse(result.values.get("madrastiStudentProgressV1")), { child_a: ["lesson-1"] });
   assert.equal(result.sandbox.active.completed, 2);
 });
 
 test("does not overwrite a malformed saved progress record", () => {
   const malformed = "{broken-progress-json";
-  const values = new Map([["madrastiCompletedLessonsV1", malformed]]);
+  const values = new Map([["madrastiStudentProgressV1", malformed]]);
   const feedback = { textContent: "" };
   const sandbox = {
     window: { selectChild() {} },
     current: { id: "lesson-1", quiz: [] },
     active: { id: "child_a", completed: 2 },
-    questionIndex: 0,
+    questionIndex: 1,
     assessedCount: 1,
     score: 1,
-    questionList() { return []; },
+    questionList() { return [{ answer: 1 }]; },
+    masteryRequirement() { return { requiredCorrect: 1, totalChecks: 1, evaluableCount: 1, valid: true }; },
     readCompletedMap() { return null; },
     appendCompletedLesson() { throw new Error("must not append corrupt progress"); },
     localStorage: {
@@ -93,7 +95,7 @@ test("does not overwrite a malformed saved progress record", () => {
   const end = runtime.indexOf("\n  };", start);
   const handler = runtime.slice(start, end + 4);
   runInNewContext(handler + "; window.finishLesson();", sandbox);
-  assert.equal(values.get("madrastiCompletedLessonsV1"), malformed);
+  assert.equal(values.get("madrastiStudentProgressV1"), malformed);
   assert.equal(sandbox.active.completed, 2);
   assert.match(feedback.textContent, /تعذر حفظ تقدمك/);
 });

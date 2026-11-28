@@ -5,7 +5,7 @@
   const cache = new Map();
   function readCompletedMap() {
     try {
-      const raw = localStorage.getItem("madrastiCompletedLessonsV1");
+      const raw = localStorage.getItem("madrastiStudentProgressV1");
       if (!raw) return {};
       const value = JSON.parse(raw);
       if (!value || typeof value !== "object" || Array.isArray(value)) {
@@ -120,10 +120,31 @@
         item.answer !== undefined ? "الإجابة: " + item.answer : ""].filter(Boolean).join(" — ");
     }).filter(Boolean);
   }
+  function isAlternatingPattern(pattern, minimumItems = 6) {
+    return Array.isArray(pattern) && Number.isInteger(minimumItems) &&
+      minimumItems >= 4 && pattern.length >= minimumItems &&
+      pattern[0] !== pattern[1] &&
+      pattern.every((color, index) => color === pattern[index % 2]);
+  }
   function questionList(lesson) {
     const quiz = Array.isArray(lesson?.quiz) ? lesson.quiz : [];
     const activities = Array.isArray(lesson?.activities) ? lesson.activities : [];
     return [...activities, ...quiz].filter(item => item && typeof item === "object" && !Array.isArray(item));
+  }
+  function masteryRequirement(lesson) {
+    const questions = questionList(lesson);
+    const evaluableCount = questions.filter(item =>
+      Object.prototype.hasOwnProperty.call(item, "answer") && item.answer !== undefined && item.answer !== null
+    ).length;
+    const mastery = lesson?.mastery && typeof lesson.mastery === "object" ? lesson.mastery : {};
+    const configuredRequired = mastery.requiredCorrect;
+    const configuredChecks = mastery.totalChecks;
+    const requiredCorrect = Number.isInteger(configuredRequired) && configuredRequired >= 0
+      ? configuredRequired : (configuredRequired === undefined ? evaluableCount : -1);
+    const totalChecks = Number.isInteger(configuredChecks) && configuredChecks >= 0
+      ? configuredChecks : (configuredChecks === undefined ? requiredCorrect : -1);
+    return { requiredCorrect, totalChecks, evaluableCount,
+      valid: evaluableCount > 0 && requiredCorrect >= 0 && totalChecks >= 1 && requiredCorrect <= totalChecks && totalChecks <= evaluableCount };
   }
   function questionPrompt(item) {
     const explicit = item.q || item.prompt || item.question || item.instruction || item.task;
@@ -220,6 +241,14 @@
     if ("speechSynthesis" in window) speechSynthesis.cancel();
     setTeacherSpeaking(false);
   }
+  function selectArabicVoice(voices) {
+    const arabicVoices = (Array.isArray(voices) ? voices : [])
+      .filter(voice => /^ar(?:-|$)/i.test(String(voice.lang || "")) &&
+        !/^ar-IQ(?:-|$)/i.test(String(voice.lang || "")));
+    return arabicVoices.find(voice => /^ar-SA(?:-|$)/i.test(voice.lang)) ||
+      arabicVoices.find(voice => /^ar$/i.test(voice.lang)) ||
+      arabicVoices[0] || null;
+  }
   function speakQuestion(text) {
     const feedback = document.getElementById("feedback");
     cancelSpeech();
@@ -234,17 +263,15 @@
     const generation = speechLifecycle.begin();
     utterance = new SpeechSynthesisUtterance(String(text || ""));
     const voices = speechSynthesis.getVoices();
-    utterance.voice = voices.find(voice => /^ar-IQ/i.test(voice.lang)) ||
-      voices.find(voice => /^ar-SA/i.test(voice.lang)) ||
-      voices.find(voice => /^ar/i.test(voice.lang)) || null;
-    utterance.lang = utterance.voice?.lang || "ar-IQ";
+    utterance.voice = selectArabicVoice(voices);
+    utterance.lang = utterance.voice?.lang || "ar-SA";
     utterance.rate = active?.voice === "slow" ? 0.72 : 0.88;
     utterance.onstart = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(true); };
     utterance.onend = utterance.onerror = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(false); };
     speechSynthesis.speak(utterance);
   }
-  let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), utterance = null;
-  function renderQuestion() {
+  let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), resolved = new Set(), utterance = null;
+  function renderQuestion(autoSpeak = true) {
     cancelSpeech();
     const lesson = current;
     const qs = questionList(lesson);
@@ -255,10 +282,23 @@
     const finish = document.getElementById("finishLesson");
     answers.innerHTML = "";
     if (!q) {
-      qTitle.textContent = "انتهت أسئلة هذا الدرس";
-      answers.innerHTML = '<p class="muted">أحسنت! راجع الشرح والأمثلة، ثم أكمل الدرس.</p>';
-      finish.disabled = false;
-      finish.textContent = "إكمال الدرس ⭐";
+      const requirement = masteryRequirement(lesson);
+      qTitle.textContent = "انتهت أنشطة هذا الدرس";
+      answers.innerHTML = '<p class="muted">أحسنت! راجع الشرح والأمثلة، ثم تحقق من إتقان المهارات المطلوبة.</p>';
+      const masteryMet = requirement.valid && score >= requirement.requiredCorrect && assessedCount >= requirement.totalChecks;
+      finish.disabled = !masteryMet;
+      finish.textContent = masteryMet ? "إكمال الدرس ⭐" : "لم يكتمل الإتقان بعد";
+      if (!requirement.valid) {
+        feedback.textContent = "توجد مشكلة في إعداد تقييم هذا الدرس؛ عدد الأسئلة القابلة للتقييم أقل من متطلبات الإتقان. لن نسجل إكماله قبل مراجعة المحتوى.";
+        feedback.style.color = "#a45a22";
+      } else if (!masteryMet) {
+        feedback.textContent = "تحتاج إلى الإجابة الصحيحة عن " + requirement.requiredCorrect +
+          " أسئلة على الأقل، وإكمال " + requirement.totalChecks + " من فحوص الدرس قبل اعتماده.";
+        feedback.style.color = "#a45a22";
+      } else {
+        feedback.textContent = "أحسنت! حققت متطلبات الإتقان لهذا الدرس.";
+        feedback.style.color = "var(--g)";
+      }
       return;
     }
     const questionText = questionPrompt(q);
@@ -276,32 +316,232 @@
     listen.addEventListener("click", () => speakQuestion(spokenQuestion));
     answers.appendChild(listen);
     finish.textContent = "إكمال الدرس ⭐";
+if (q.type === "trace_numeral") {
+      const numerals = Array.isArray(q.numerals) ? q.numerals.map(String).slice(0, 6) : [];
+      const instructions = document.createElement("p");
+      instructions.className = "muted";
+      instructions.textContent = "اتبع شكل الرقم بإصبعك أو بالفأرة، ثم أعد المحاولة إذا رغبت. هذا تدريب كتابي لا يتعرف إلى جودة الخط آلياً.";
+      answers.appendChild(instructions);
+      numerals.forEach((numeral, index) => {
+        const card = document.createElement("section");
+        card.className = "trace-card";
+        const heading = document.createElement("h4");
+        heading.textContent = "تتبّع العدد " + numeral;
+        const canvas = document.createElement("canvas");
+        canvas.width = 360;
+        canvas.height = 170;
+        canvas.style.width = "min(100%, 360px)";
+        canvas.style.height = "170px";
+        canvas.style.border = "2px dashed #9aa8b8";
+        canvas.style.borderRadius = "14px";
+        canvas.style.background = "#fff";
+        canvas.style.touchAction = "none";
+        canvas.tabIndex = 0;
+        canvas.setAttribute("role", "img");
+        canvas.setAttribute("aria-label", "مساحة تدريب لتتبّع الرقم " + numeral + "، استخدم إصبعك أو الفأرة للرسم");
+        const context = canvas.getContext("2d");
+        const drawGuide = () => {
+          if (!context) return;
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.save();
+          context.globalAlpha = 0.18;
+          context.fillStyle = "#52657a";
+          context.font = "bold 118px sans-serif";
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          context.fillText(numeral, canvas.width / 2, canvas.height / 2 + 2);
+          context.restore();
+        };
+        drawGuide();
+        let drawing = false;
+        const point = event => {
+          const rect = canvas.getBoundingClientRect();
+          return {
+            x: (event.clientX - rect.left) * canvas.width / rect.width,
+            y: (event.clientY - rect.top) * canvas.height / rect.height
+          };
+        };
+        canvas.addEventListener("pointerdown", event => {
+          if (!context) return;
+          event.preventDefault();
+          drawing = true;
+          if (canvas.setPointerCapture) canvas.setPointerCapture(event.pointerId);
+          const p = point(event);
+          context.beginPath();
+          context.moveTo(p.x, p.y);
+        });
+        canvas.addEventListener("pointermove", event => {
+          if (!drawing || !context) return;
+          event.preventDefault();
+          const p = point(event);
+          context.lineWidth = 7;
+          context.lineCap = "round";
+          context.lineJoin = "round";
+          context.strokeStyle = "#2877c7";
+          context.lineTo(p.x, p.y);
+          context.stroke();
+        });
+        const stopDrawing = () => { drawing = false; if (context) context.closePath(); };
+        canvas.addEventListener("pointerup", stopDrawing);
+        canvas.addEventListener("pointercancel", stopDrawing);
+        const clear = document.createElement("button");
+        clear.type = "button";
+        clear.className = "alt";
+        clear.textContent = "مسح المحاولة";
+        clear.addEventListener("click", drawGuide);
+        card.append(heading, canvas, clear);
+        answers.appendChild(card);
+      });
+      const note = document.createElement("p");
+      note.className = "muted";
+      note.textContent = "عند الانتهاء، اعرض كتابتك على المعلم أو ولي الأمر للمراجعة. لن تُحتسب جودة الكتابة ضمن نتيجة الإتقان الآلية.";
+      answers.appendChild(note);
+      const next = document.createElement("button");
+      next.type = "button";
+      next.className = "alt";
+      next.textContent = questionIndex < qs.length - 1 ? "الانتقال إلى النشاط التالي ←" : "الانتقال إلى نهاية الدرس";
+      next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
+      answers.appendChild(next);
+    } else if (q.type === "create_pattern") {
+      const suppliedColors = Array.isArray(q.colors)
+        ? Array.from(new Set(q.colors.map(String))).slice(0, 6) : [];
+      const colors = suppliedColors.length >= 2
+        ? suppliedColors : ["أحمر", "أصفر", "أزرق", "أخضر"];
+      const minimumItems = Number.isInteger(q.minimumItems) && q.minimumItems >= 4
+        ? Math.min(q.minimumItems, 12) : 6;
+      const chosenColors = [];
+      const pattern = [];
+      const palette = document.createElement("div");
+      palette.className = "pattern-palette";
+      palette.setAttribute("role", "group");
+      palette.setAttribute("aria-label", "اختيار لونين للنمط");
+      const preview = document.createElement("div");
+      preview.className = "pattern-preview";
+      preview.setAttribute("role", "list");
+      preview.setAttribute("aria-label", "معاينة النمط الذي أنشأه الطالب");
+      preview.setAttribute("aria-live", "polite");
+      const status = document.createElement("p");
+      status.className = "muted";
+      status.textContent = "اختر لونين مختلفين، ثم كوّن نمطاً يتكرر ثلاث مرات.";
+      const renderPattern = () => {
+        preview.innerHTML = "";
+        pattern.forEach((color, index) => {
+          const token = document.createElement("span");
+          token.textContent = color;
+          token.setAttribute("aria-label", "العنصر " + (index + 1) + ": " + color);
+          token.className = "pattern-token";
+          token.style.display = "inline-block";
+          token.style.margin = "4px";
+          token.style.padding = "8px 12px";
+          token.style.border = "2px solid #7b8aa0";
+          token.style.borderRadius = "12px";
+          preview.appendChild(token);
+        });
+        status.textContent = "العناصر المختارة: " + pattern.length + " من " + minimumItems +
+          (chosenColors.length ? " · اللونان: " + chosenColors.join(" و") : "");
+      };
+      colors.forEach((color, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "alt";
+        button.textContent = color;
+        button.addEventListener("click", () => {
+          if (chosenColors.length < 2 && !chosenColors.includes(color)) {
+            chosenColors.push(color);
+            if (chosenColors.length === 2) {
+              palette.querySelectorAll("button").forEach(control => {
+                control.disabled = !chosenColors.includes(control.textContent);
+              });
+              status.textContent = "أحسنت! ابدأ بتكرار اللونين بالتناوب حتى تكوّن " + minimumItems + " عناصر.";
+            }
+          }
+          if (chosenColors.includes(color) && pattern.length < minimumItems) {
+            pattern.push(color);
+            renderPattern();
+          }
+        });
+        palette.appendChild(button);
+      });
+      const undo = document.createElement("button");
+      undo.type = "button"; undo.className = "alt"; undo.textContent = "التراجع عن آخر لون";
+      undo.addEventListener("click", () => { pattern.pop(); renderPattern(); });
+      const reset = document.createElement("button");
+      reset.type = "button"; reset.className = "alt"; reset.textContent = "إعادة النشاط";
+      reset.addEventListener("click", () => {
+        chosenColors.length = 0; pattern.length = 0;
+        palette.querySelectorAll("button").forEach(control => control.disabled = false);
+        renderPattern();
+      });
+      const check = document.createElement("button");
+      check.type = "button"; check.textContent = "تحقق من النمط";
+      check.addEventListener("click", () => {
+        if (chosenColors.length !== 2 || pattern.length < minimumItems) {
+          feedback.textContent = "اختر لونين مختلفين، وأكمل " + minimumItems + " عناصر أولاً.";
+          feedback.style.color = "#a45a22";
+          return;
+        }
+        const valid = isAlternatingPattern(pattern, minimumItems);
+        if (valid) {
+          feedback.textContent = "رائع! أنشأت نمطاً صحيحاً يتكرر بانتظام. ⭐";
+          feedback.style.color = "var(--g)";
+          check.disabled = true;
+          undo.disabled = true;
+          reset.disabled = true;
+          palette.querySelectorAll("button").forEach(control => control.disabled = true);
+        } else {
+          feedback.textContent = "اقتربت من الحل! راجع ترتيب اللونين، واجعل النمط نفسه يتكرر دون تغيير.";
+          feedback.style.color = "#a45a22";
+        }
+      });
+      answers.append(palette, preview, status, undo, reset, check);
+    }
+    if (q.type === "trace_numeral" || q.type === "create_pattern") {
+      if (autoSpeak) speakQuestion(spokenQuestion);
+      return;
+    }
     const submit = (value, selectedButton) => {
       if (answered.has(questionIndex)) return;
       cancelSpeech();
       let correctAnswer = false;
-      if (q.type === "sequence_order") {
-        const expected = Array.isArray(q.answer) ? q.answer : [];
-        correctAnswer = Array.isArray(value) && value.length === expected.length &&
-          value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(expected[i]));
-      } else if (Array.isArray(q.answer)) {
+      if (Array.isArray(q.answer)) {
         correctAnswer = Array.isArray(value) && value.length === q.answer.length &&
           value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(q.answer[i]));
       } else {
         correctAnswer = choiceMatches(value, q.answer);
       }
-      answered.add(questionIndex);
-      assessedCount++;
-      if (correctAnswer) {
-        score++;
-        feedback.textContent = q.feedbackCorrect || "إجابة صحيحة! أحسنت ⭐";
-        feedback.style.color = "var(--g)";
-        if (selectedButton) selectedButton.style.outline = "3px solid #43a77e";
-      } else {
-        feedback.textContent = q.feedbackTryAgain || "محاولة جيدة. راجع الشرح ثم حاول مرة أخرى في المراجعة.";
+      if (!correctAnswer) {
+        if (!resolved.has(questionIndex)) {
+          resolved.add(questionIndex);
+          assessedCount++;
+        }
+        feedback.textContent = q.feedbackTryAgain || "لا بأس، يمكنك المحاولة مرة أخرى، أو الانتقال إلى السؤال التالي.";
         feedback.style.color = "#a45a22";
         if (selectedButton) selectedButton.style.outline = "3px solid #e8b46d";
+        // لا نمنع إعادة المحاولة، لكن نتيح متابعة الاختبار دون إجبار الطالب على تكرار السؤال إلى ما لا نهاية.
+        if (!answers.querySelector("[data-continue-after-error]")) {
+          const continueButton = document.createElement("button");
+          continueButton.type = "button";
+          continueButton.className = "alt";
+          continueButton.dataset.continueAfterError = "true";
+          continueButton.textContent = questionIndex < qs.length - 1 ? "متابعة إلى السؤال التالي ←" : "عرض نتيجة الدرس";
+          continueButton.addEventListener("click", () => {
+            answered.add(questionIndex);
+            questionIndex++;
+            renderQuestion();
+          });
+          answers.appendChild(continueButton);
+        }
+        return;
       }
+      answered.add(questionIndex);
+      if (!resolved.has(questionIndex)) {
+        resolved.add(questionIndex);
+        assessedCount++;
+      }
+      score++;
+      feedback.textContent = q.feedbackCorrect || "إجابة صحيحة! أحسنت ⭐";
+      feedback.style.color = "var(--g)";
+      if (selectedButton) selectedButton.style.outline = "3px solid #43a77e";
       answers.querySelectorAll("button,input,select").forEach(el => el.disabled = true);
       const next = document.createElement("button");
       next.type = "button";
@@ -386,19 +626,21 @@
     } else {
       const note = document.createElement("p");
       note.className = "muted";
-      note.textContent = questionText + " هذا تدريب عملي؛ نفّذه مع المعلم أو ولي الأمر ثم اضغط متابعة.";
+      note.textContent = questionText + " هذا تدريب عملي لا يُقيّم آلياً حالياً. نفّذه مع المعلم أو ولي الأمر، ثم انتقل إلى النشاط التالي. لن يُحتسب ضمن نتيجة الإتقان.";
       answers.appendChild(note);
       const next = document.createElement("button");
       next.type = "button";
       next.className = "alt";
-      next.textContent = questionIndex < qs.length - 1 ? "أنهيت النشاط، تابع ←" : "أنهيت النشاط، أكمل الدرس ⭐";
+      next.textContent = questionIndex < qs.length - 1 ? "الانتقال إلى النشاط التالي ←" : "الانتقال إلى نهاية الدرس";
       next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
       answers.appendChild(next);
     }
+    // ابدأ بقراءة السؤال وخياراته فور ظهوره، إلا عند دمجه مع ترحيب بداية الدرس.
+    if (autoSpeak) speakQuestion(spokenQuestion);
   }
   function openLesson(lesson) {
     current = lesson; activeLesson = lesson;
-    questionIndex = 0; score = 0; assessedCount = 0; answered = new Set();
+    questionIndex = 0; score = 0; assessedCount = 0; answered = new Set(); resolved = new Set();
     const title = lesson.title || "درس جديد";
     document.getElementById("lessonHeading").textContent = lesson._unitTitle || "درس تفاعلي";
     document.getElementById("lessonMeta").textContent =
@@ -421,7 +663,17 @@
     if (teacherMood) teacherMood.textContent = "هيا نتعلم معاً 🌟";
     document.getElementById("childView").classList.add("hidden");
     document.getElementById("lessonView").classList.remove("hidden");
-    renderQuestion();
+    renderQuestion(false);
+    const firstQuestion = questionList(lesson)[0];
+    const firstOptions = Array.isArray(firstQuestion?.choices) ? firstQuestion.choices :
+      (Array.isArray(firstQuestion?.options) ? firstQuestion.options : []);
+    const openingParts = [
+      active?.name ? "مرحباً " + active.name + "، أنا معلّمك، وسنتعلم اليوم معاً." : "مرحباً بك! أنا معلّمك، وسنتعلم اليوم معاً.",
+      title, desc, ...explanation, ...examples,
+      firstQuestion ? questionPrompt(firstQuestion) : "",
+      firstOptions.length ? "الخيارات: " + firstOptions.map(displayChoice).join("، ") : ""
+    ];
+    speakQuestion(openingParts.filter(Boolean).join(". "));
   }
   window.MadrastiCurriculum = { loadSubject, lessonBody, questionList };
   let subjectRequestId = 0;
@@ -497,7 +749,15 @@
     if (!current || !active) return;
     const qs = questionList(current);
     if (qs.length && questionIndex < qs.length) return;
-    const progressKey = "madrastiCompletedLessonsV1";
+    const requirement = masteryRequirement(current);
+    if (!requirement.valid || score < requirement.requiredCorrect || assessedCount < requirement.totalChecks) {
+      const feedback = document.getElementById("feedback");
+      if (feedback) feedback.textContent = !requirement.valid
+        ? "لم يُعتمد إكمال الدرس: إعداد متطلبات الإتقان في ملف هذا الدرس يحتاج إلى مراجعة."
+        : "لم يُعتمد إكمال الدرس بعد؛ أكمل متطلبات الإتقان المحددة ثم حاول مجدداً.";
+      return;
+    }
+    const progressKey = "madrastiStudentProgressV1";
     const childId = active.id;
     let previousProgress;
     try {
@@ -533,9 +793,14 @@
     window.selectChild(childId);
     const note = document.createElement("p");
     note.className = "notice";
+    const unassessedCount = qs.filter(item =>
+      !Object.prototype.hasOwnProperty.call(item, "answer") || item.answer === undefined || item.answer === null
+    ).length;
     note.textContent = assessedCount
-      ? "أحسنت! نتيجتك: " + score + " من " + assessedCount + " سؤالاً قابلاً للتقييم. تم حفظ تقدمك على هذا الجهاز."
-      : "أحسنت! أنهيت أنشطة الدرس. تم حفظ تقدمك على هذا الجهاز.";
+      ? "أحسنت! نتيجتك: " + score + " من " + assessedCount + " سؤالاً قابلاً للتقييم. " +
+        (unassessedCount ? "تذكّر أن هناك " + unassessedCount + " أنشطة عملية تحتاج إلى تنفيذ ومراجعة مع المعلم أو ولي الأمر؛ لم تدخل في نتيجة الإتقان. " : "") +
+        "تم حفظ تقدمك على هذا الجهاز."
+      : "تم حفظ إنهاء الجزء العملي، لكن هذا الدرس لا يحتوي على أسئلة قابلة للتقييم الآلي.";
     document.getElementById("studentArea").prepend(note);
   };
   window.stopLessonAudio = cancelSpeech;
@@ -553,8 +818,8 @@
     parts.push(...lessonExamples(current));
     utterance = new SpeechSynthesisUtterance(parts.filter(Boolean).join(". "));
     const voices = speechSynthesis.getVoices();
-    utterance.voice = voices.find(voice => /^ar-IQ/i.test(voice.lang)) || voices.find(voice => /^ar-SA/i.test(voice.lang)) || voices.find(voice => /^ar/i.test(voice.lang)) || null;
-    utterance.lang = utterance.voice?.lang || "ar-IQ";
+    utterance.voice = selectArabicVoice(voices);
+    utterance.lang = utterance.voice?.lang || "ar-SA";
     utterance.rate = active?.voice === "slow" ? 0.72 : 0.88;
     utterance.onstart = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(true); };
     utterance.onend = utterance.onerror = () => { if (speechLifecycle.isCurrent(generation)) setTeacherSpeaking(false); };

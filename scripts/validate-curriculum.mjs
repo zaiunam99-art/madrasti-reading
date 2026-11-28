@@ -5,7 +5,7 @@ const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
 const globalLessonIds = new Map();
-const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0 };
+const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0 };
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -184,6 +184,34 @@ for (const file of files) {
 
     if (!lesson.title) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا عنوان" });
     if (!lesson.objective) warnings.push({ file: relative(".", file), lesson: index, message: "الدرس بلا هدف معلن" });
+
+    const assessable = [...(Array.isArray(lesson.activities) ? lesson.activities : []),
+      ...(Array.isArray(lesson.quiz) ? lesson.quiz : [])]
+      .filter(item => item && typeof item === "object" &&
+        Object.hasOwn(item, "answer") && item.answer !== undefined && item.answer !== null).length;
+    if (!assessable) {
+      stats.lessonsWithoutAutoAssessment++;
+      warnings.push({ file: relative(".", file), lesson: lesson.id || index,
+        message: "لا يحتوي الدرس على أسئلة ذات إجابات مرجعية؛ لا يمكن اعتماد إتقانه آلياً حالياً" });
+    }
+    if (lesson.mastery !== undefined) {
+      stats.masteryConfigured++;
+      const mastery = lesson.mastery;
+      if (!mastery || typeof mastery !== "object" || Array.isArray(mastery)) {
+        errors.push({ file: relative(".", file), lesson: lesson.id || index,
+          message: "إعداد mastery يجب أن يكون كائناً" });
+      } else {
+        const required = mastery.requiredCorrect;
+        const checks = mastery.totalChecks;
+        const validInteger = value => Number.isInteger(value) && value >= 0;
+        if (!validInteger(required) || !validInteger(checks) || checks < 1 ||
+            required > checks || checks > assessable) {
+          errors.push({ file: relative(".", file), lesson: lesson.id || index,
+            requiredCorrect: mastery.requiredCorrect, totalChecks: mastery.totalChecks,
+            assessable, message: "متطلبات mastery غير متوافقة: يجب أن تكون أعداداً صحيحة، وأن يكون 1 ≤ totalChecks ≤ عدد الأسئلة القابلة للتقييم، وrequiredCorrect ≤ totalChecks" });
+        }
+      }
+    }
   }
 
   inspect(data, file);
