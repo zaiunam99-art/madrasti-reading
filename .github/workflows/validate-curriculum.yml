@@ -2,7 +2,7 @@ name: Validate Madrasti curriculum
 
 on:
   push:
-    branches: [main, work/msa-auto-read-retry]
+    branches: [main, work/msa-auto-read-retry, work/madrasti-ui, work/madrasti-curriculum]
   pull_request:
     branches: [main]
   workflow_dispatch:
