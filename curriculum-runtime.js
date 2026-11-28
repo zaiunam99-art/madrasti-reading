@@ -144,7 +144,7 @@
     const totalChecks = Number.isInteger(configuredChecks) && configuredChecks >= 0
       ? configuredChecks : (configuredChecks === undefined ? requiredCorrect : -1);
     return { requiredCorrect, totalChecks, evaluableCount,
-      valid: evaluableCount > 0 && totalChecks >= 1 && requiredCorrect <= totalChecks && totalChecks <= evaluableCount };
+      valid: evaluableCount > 0 && requiredCorrect >= 0 && totalChecks >= 1 && requiredCorrect <= totalChecks && totalChecks <= evaluableCount };
   }
   function questionPrompt(item) {
     const explicit = item.q || item.prompt || item.question || item.instruction || item.task;
