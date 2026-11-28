@@ -178,7 +178,19 @@
   function questionList(lesson) {
     const quiz = Array.isArray(lesson?.quiz) ? lesson.quiz : [];
     const activities = Array.isArray(lesson?.activities) ? lesson.activities : [];
-    return [...activities, ...quiz].filter(item => item && typeof item === "object" && !Array.isArray(item));
+    return [...activities, ...quiz]
+      .filter(item => item && typeof item === "object" && !Array.isArray(item))
+      .flatMap(item => {
+        if (item.type !== "read_graph" || !Array.isArray(item.questions) || !item.questions.length) return [item];
+        return item.questions
+          .filter(question => question && typeof question === "object" && !Array.isArray(question))
+          .map(question => ({
+            ...item,
+            ...question,
+            type: "read_graph",
+            q: question.q || question.prompt || question.question || question.instruction || "أجب عن السؤال المتعلق بمخطط الصور."
+          }));
+      });
   }
   function masteryRequirement(lesson) {
     const questions = questionList(lesson);
@@ -647,6 +659,41 @@ if (q.type === "trace_numeral") {
       next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
       answers.appendChild(next);
     };
+    if (q.type === "read_graph" && q.data && typeof q.data === "object" && !Array.isArray(q.data)) {
+      const table = document.createElement("table");
+      table.className = "activity-data-table";
+      const caption = document.createElement("caption");
+      caption.textContent = "بيانات مخطط الصور";
+      table.appendChild(caption);
+      const head = document.createElement("tr");
+      ["الفئة", "العدد"].forEach(label => {
+        const cell = document.createElement("th");
+        cell.scope = "col";
+        cell.textContent = label;
+        head.appendChild(cell);
+      });
+      const thead = document.createElement("thead");
+      thead.appendChild(head);
+      table.appendChild(thead);
+      const body = document.createElement("tbody");
+      Object.entries(q.data).forEach(([category, amount]) => {
+        const row = document.createElement("tr");
+        [category, amount].forEach(value => {
+          const cell = document.createElement("td");
+          cell.textContent = String(value);
+          row.appendChild(cell);
+        });
+        body.appendChild(row);
+      });
+      table.appendChild(body);
+      answers.appendChild(table);
+      if (q.key !== undefined && q.key !== null) {
+        const keyNote = document.createElement("p");
+        keyNote.className = "muted";
+        keyNote.textContent = "قيمة الرمز الواحد: " + q.key;
+        answers.appendChild(keyNote);
+      }
+    }
     if (q.type === "sequence_order") {
       const items = Array.isArray(q.items) ? q.items : [];
       const selects = [];
