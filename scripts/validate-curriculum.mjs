@@ -291,10 +291,11 @@ for (const file of files) {
         stats.activityTypes[activity.type] = (stats.activityTypes[activity.type] || 0) + 1;
       }
     }
-    const assessable = [...(Array.isArray(lesson.activities) ? lesson.activities : []),
+    const assessable = [
+      ...(Array.isArray(lesson.activities) ? lesson.activities : []),
       ...(Array.isArray(lesson.quiz) ? lesson.quiz : [])
-      .filter(item => item && typeof item === "object" &&
-        Object.hasOwn(item, "answer") && item.answer !== undefined && item.answer !== null).length;
+    ].filter(item => item && typeof item === "object" &&
+      Object.hasOwn(item, "answer") && item.answer !== undefined && item.answer !== null).length;
     if (!assessable) {
       stats.lessonsWithoutAutoAssessment++;
       warnings.push({ file: relative(".", file), lesson: lesson.id || index,
