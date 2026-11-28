@@ -34,22 +34,27 @@ test("parent app links to the separate student experience", () => {
   assert.doesNotMatch(parent, /onclick="enterChild\(/);
 });
 
-test("offline shell caches the student app and preserves its navigation fallback", () => {
+test("offline shell caches both applications and preserves navigation fallbacks", () => {
   assert.match(worker, /"\/student\.html"/);
   assert.match(worker, /"\/student\.webmanifest"/);
+  assert.match(worker, /madrasti-shell-v7/);
   assert.match(worker, /url\.pathname === "\/student\.html" \? "\/student\.html" : "\/index\.html"/);
 });
 
-test("student app uses the parent's local profile store without claiming cross-device sync", () => {
-  assert.match(student, /madrastiFamilyDemoV2/);
-  assert.match(student, /على هذا الجهاز فقط/);
-  assert.doesNotMatch(student, /fetch\s*\([^)]*(?:family|profile|account)/i);
+test("student app uses separate local profile and progress stores", () => {
+  assert.match(student, /madrastiStudentProfilesV1/);
+  assert.match(student, /madrastiStudentProgressV1/);
+  assert.doesNotMatch(student, /madrastiFamilyDemoV2/);
+  assert.match(student, /function importStudentProfile/);
+  assert.match(student, /function exportStudentProgress/);
+  assert.match(student, /madrasti-student-transfer/);
 });
-test("parent app contains no embedded student learning screens or student runtime", () => {
-  for (const legacy of ['id="childView"', 'id="lessonView"', 'id="childPicker"', 'function selectChild(', 'function openSubject(', 'curriculum-runtime.js']) {
+
+test("parent app contains no embedded student learning screens or runtime", () => {
+  for (const legacy of ['id="childView"', 'id="lessonView"', 'id="childPicker"', "function selectChild(", "function openSubject(", "curriculum-runtime.js"]) {
     assert.equal(parent.includes(legacy), false, "parent app must not contain " + legacy);
   }
   assert.match(parent, /href="\/student\.html"/);
-  assert.match(parent, /id="guardianView"/);\n  assert.match(parent, /id="children"/);
+  assert.match(parent, /id="guardianView"/);
+  assert.match(parent, /id="children"/);
 });
-
