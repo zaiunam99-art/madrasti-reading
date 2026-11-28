@@ -11,7 +11,7 @@ test("the root entry is the single unified student-first application", () => {
   assert.match(app, /<title>مدرستي \| التعلّم<\/title>/);
   assert.match(app, /href="\/manifest\.webmanifest"/);
   assert.equal(manifest.start_url, "/");
-  assert.equal(manifest.id, "/");
+  assert.equal(manifest.id, "/index.html");
   assert.equal(manifest.lang, "ar");
   assert.equal(manifest.dir, "rtl");
   assert.equal(manifest.icons[0].src, "/student-icon.svg");
