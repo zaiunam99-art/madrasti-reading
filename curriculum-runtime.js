@@ -734,16 +734,16 @@ if (q.type === "trace_numeral") {
       const dailyPlan = data.lessons.map((lesson, index) => ({ lesson, index }))
         .filter(item => !done.has(item.lesson.id)).slice(0, dailyCount);
       const dailyMarkup = dailyPlan.length
-        ? '<h3>⭐ خطة اليوم</h3><p class="muted">اختر حتى ' + dailyCount + ' دروس جديدة لهذا اليوم. يمكنك متابعة بقية الدروس متى شئت.</p><div class="cards">' +
-          dailyPlan.map(item => '<article class="card"><div class="tag">خطة اليوم · ' + escHtml(item.lesson._unitTitle) + '</div><h3>' + escHtml(item.lesson.title) + '</h3><p class="muted">' + escHtml(item.lesson.objective || "") + '</p><button type="button" class="alt" data-daily-lesson="' + item.index + '">ابدأ درس اليوم</button></article>').join("") + '</div>'
-        : '<div class="notice">أكملت جميع دروس هذه المادة المتاحة حالياً. يمكنك إعادة أي درس من القائمة أدناه.</div>';
+        ? '<div class="game-hero quest-card"><span class="tag">🎯 مهمة اليوم</span><h3>هل أنت مستعد لمغامرة جديدة؟</h3><p class="muted">اختر حتى ' + dailyCount + ' دروس جديدة اليوم، واجمع نجوم المعرفة مع كل إنجاز.</p><div class="cards">' +
+          dailyPlan.map(item => '<article class="card quest-card"><div class="tag">🗺️ ' + escHtml(item.lesson._unitTitle) + '</div><h3>' + escHtml(item.lesson.title) + '</h3><p class="muted">' + escHtml(item.lesson.objective || "") + '</p><button type="button" data-daily-lesson="' + item.index + '">انطلق! 🚀</button></article>').join("") + '</div></div>'
+        : '<div class="game-hero"><span class="tag">🏆 إنجاز رائع</span><h3>لقد أنهيت مهام هذه المادة المتاحة!</h3><p class="muted">يمكنك إعادة أي درس لتثبيت ما تعلمته.</p></div>';
       const wrap = document.createElement("section");
       wrap.id = listId;
       wrap.className = "panel";
-      wrap.innerHTML = '<h3>' + escHtml(subject) + ' · ' + escHtml(data.edition) + '</h3><p class="muted">الدروس مرتبة حسب فهرس الكتاب. عدد الدروس المتاحة: ' + data.lessons.length + ' · المكتمل: ' + data.lessons.filter(lesson => done.has(lesson.id)).length + '</p>' +
+      wrap.innerHTML = '<div class="game-hero"><span class="tag">🌈 عالم ' + escHtml(subject) + '</span><h3>كل درس خطوة جديدة في مغامرتك!</h3><p class="muted">أنجزت ' + data.lessons.filter(lesson => done.has(lesson.id)).length + ' من ' + data.lessons.length + ' دروس متاحة في هذه المادة.</p><div class="lesson-path">' + data.lessons.map((lesson, i) => '<span class="path-dot ' + (done.has(lesson.id) ? 'done' : '') + '" title="' + escHtml(lesson.title) + '">' + (done.has(lesson.id) ? '✓' : (i+1)) + '</span>').join('') + '</div></div>' +
         (progressUnavailable ? '<div class="notice">تعذر قراءة سجل التقدم المحفوظ على هذا الجهاز. لم نحذف البيانات، لكننا أوقفنا تسجيل الإنجاز لحمايتها. قد لا تظهر الدروس المكتملة بدقة حتى تتم معالجة سجل التخزين.</div>' : '') +
-        dailyMarkup + '<hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>📚 جميع دروس المادة</h3><div class="cards">' +
-        data.lessons.map((lesson, i) => '<article class="card"><div class="tag">' + escHtml(lesson._unitTitle) + '</div><h3>' + escHtml(lesson.title) + '</h3><p class="muted">' + escHtml(lesson.objective || "") + '</p><div class="progressrow"><span>' + escHtml(pagesLabel(lesson._pages)) + '</span><strong>' + (done.has(lesson.id) ? "مكتمل ✓" : "درس " + (i+1)) + '</strong></div><button type="button" class="alt" data-lesson="' + i + '">' + (done.has(lesson.id) ? "إعادة الدرس" : "ابدأ الدرس") + '</button></article>').join("") + '</div>';
+        dailyMarkup + '<hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>🧩 اختر مغامرتك التالية</h3><div class="cards">' +
+        data.lessons.map((lesson, i) => '<article class="card"><div class="tag">' + (done.has(lesson.id) ? '🏅 مرحلة مكتملة' : '⭐ المرحلة ' + (i+1)) + ' · ' + escHtml(lesson._unitTitle) + '</div><h3>' + escHtml(lesson.title) + '</h3><p class="muted">' + escHtml(lesson.objective || "") + '</p><div class="progressrow"><span>' + escHtml(pagesLabel(lesson._pages)) + '</span><strong>' + (done.has(lesson.id) ? "نجمة محفوظة ✓" : "بانتظارك ✨") + '</strong></div><button type="button" class="alt" data-lesson="' + i + '">' + (done.has(lesson.id) ? "العب مرة أخرى ↻" : "ابدأ المغامرة 🚀") + '</button></article>').join("") + '</div>';
       area.appendChild(wrap);
       wrap.querySelectorAll("[data-lesson]").forEach(button => button.addEventListener("click", () => openLesson(data.lessons[Number(button.dataset.lesson)])));
       wrap.querySelectorAll("[data-daily-lesson]").forEach(button => button.addEventListener("click", () => openLesson(data.lessons[Number(button.dataset.dailyLesson)])));
@@ -772,8 +772,11 @@ if (q.type === "trace_numeral") {
       document.getElementById("subjectLessons")?.remove();
       return;
     }
-    area.innerHTML = '<div class="child" style="margin:16px 0"><div class="avatar">' + escHtml(active.avatar || "🧒") + '</div><div><h2>مرحباً ' + escHtml(active.name || "بطل التعلّم") + ' 🌟</h2><div class="muted">' + escHtml(active.grade) + '</div></div></div><h3>موادي</h3><div class="cards">' +
-      (active.subjects || []).map(subject => '<div class="card subject"><span>' + escHtml(subject) + '</span><button class="alt" data-subject="' + escHtml(subject) + '">افتح الدروس</button></div>').join("") + '</div><p class="muted">خطة التعلّم: ' + Number(active.dailyCount || 1) + ' درس يومياً لكل مادة.</p>';
+    const completedTotal = completedLessonIds(readCompletedMap(), active.id).length;
+    const learningLevel = completedTotal >= 10 ? "مستكشف متميز" : completedTotal >= 5 ? "مغامر نشيط" : completedTotal >= 1 ? "متعلم واعد" : "بداية المغامرة";
+    const subjectEmoji = subject => ({ "القراءة":"📖", "الرياضيات":"🧩", "العلوم":"🔬", "اللغة الإنجليزية":"🔤" }[subject] || "🎨");
+    area.innerHTML = '<div class="game-hero"><div class="row"><div style="font-size:54px" aria-hidden="true">' + escHtml(active.avatar || "🧒") + '</div><div><span class="tag">✨ ' + learningLevel + '</span><h2>أهلاً يا ' + escHtml(active.name || "بطل التعلّم") + '!</h2><p class="muted">' + escHtml(active.grade) + ' · هيا نكتشف شيئاً جديداً اليوم!</p></div></div><div class="game-stats"><span class="game-stat">⭐ ' + completedTotal + ' نجوم إنجاز</span><span class="game-stat">🎯 ' + Number(active.dailyCount || 1) + ' درس يومياً لكل مادة</span></div></div><h3>🗺️ اختر عالمك</h3><div class="cards">' +
+      (active.subjects || []).map(subject => '<div class="card subject"><span><span style="font-size:27px" aria-hidden="true">' + subjectEmoji(subject) + '</span> <strong>' + escHtml(subject) + '</strong></span><button class="alt" data-subject="' + escHtml(subject) + '">هيا نلعب! 🎮</button></div>').join("") + '</div><p class="muted">كل درس تنجزه يضيف نجمة إلى سجل رحلتك. يمكنك العودة إلى أي مادة في أي وقت.</p>';
     area.querySelectorAll("[data-subject]").forEach(button => button.addEventListener("click", () => window.openSubject(button.dataset.subject)));
   };
   window.answer = function() {};
