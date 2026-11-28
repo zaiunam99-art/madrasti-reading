@@ -27,7 +27,7 @@ test("student exports progress and parent imports it only for a matching child",
   assert.match(student, /function exportStudentProgress\(\)/);
   assert.match(parent, /function importStudentProgress\(input\)/);
   assert.match(parent, /if\(!existing\)throw new Error/);
-  assert.match(parent, /const merged=\[\.\.\.new Set/);
+  assert.match(parent, /merged=\\[\\.\\.\\.new Set/);
 });
 
 test("lesson runtime reads and writes the isolated student progress store", () => {
