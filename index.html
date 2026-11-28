@@ -141,7 +141,8 @@ function migrateLegacyParentData() {
     console.warn("تعذرت محاولة دمج البيانات القديمة؛ بقيت النسخ الأصلية محفوظة:", error);
   }
 }
-migrateLegacyParentData();\nfunction loadFamily() {
+migrateLegacyParentData();
+function loadFamily() {
   try {
     const parsed = JSON.parse(localStorage.getItem(STUDENT_PROFILES_KEY) || "[]");
     if (!Array.isArray(parsed)) return [];
