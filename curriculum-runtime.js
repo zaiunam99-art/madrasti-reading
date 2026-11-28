@@ -120,6 +120,12 @@
         item.answer !== undefined ? "الإجابة: " + item.answer : ""].filter(Boolean).join(" — ");
     }).filter(Boolean);
   }
+  function isAlternatingPattern(pattern, minimumItems = 6) {
+    return Array.isArray(pattern) && Number.isInteger(minimumItems) &&
+      minimumItems >= 4 && pattern.length >= minimumItems &&
+      pattern[0] !== pattern[1] &&
+      pattern.every((color, index) => color === pattern[index % 2]);
+  }
   function questionList(lesson) {
     const quiz = Array.isArray(lesson?.quiz) ? lesson.quiz : [];
     const activities = Array.isArray(lesson?.activities) ? lesson.activities : [];
@@ -382,9 +388,7 @@
           feedback.style.color = "#a45a22";
           return;
         }
-        const unit = pattern.slice(0, 2);
-        const valid = unit[0] !== unit[1] &&
-          pattern.every((color, index) => color === unit[index % 2]);
+        const valid = isAlternatingPattern(pattern, minimumItems);
         if (valid) {
           feedback.textContent = "رائع! أنشأت نمطاً صحيحاً يتكرر بانتظام. ⭐";
           feedback.style.color = "var(--g)";
