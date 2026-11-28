@@ -64,6 +64,17 @@ test("offline navigation falls back to the cached application shell", async () =
   assert.equal(await event.response, shell);
 });
 
+test("offline navigation to the student app falls back to the cached student page", async () => {
+  const studentShell = { body: "cached student app" };
+  const worker = createWorker({
+    fetchImpl: async () => { throw new Error("offline"); },
+    cached: new Map([["/student.html", studentShell]])
+  });
+  const event = makeEvent({ method: "GET", url: "https://madrasti.test/student.html", mode: "navigate", destination: "document" });
+  worker.listeners.get("fetch")(event);
+  assert.equal(await event.response, studentShell);
+});
+
 test("an uncached curriculum JSON request does not receive HTML as a fake fallback", async () => {
   const worker = createWorker({ fetchImpl: async () => { throw new Error("offline"); } });
   const event = makeEvent({ method: "GET", url: "https://madrasti.test/curriculum/grade-1/reading.json", mode: "cors", destination: "" });
