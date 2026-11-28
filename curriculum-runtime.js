@@ -131,12 +131,12 @@
       Object.prototype.hasOwnProperty.call(item, "answer") && item.answer !== undefined && item.answer !== null
     ).length;
     const mastery = lesson?.mastery && typeof lesson.mastery === "object" ? lesson.mastery : {};
-    const configuredRequired = Number(mastery.requiredCorrect);
-    const configuredChecks = Number(mastery.totalChecks);
-    const requiredCorrect = Number.isFinite(configuredRequired) && configuredRequired >= 0
-      ? Math.floor(configuredRequired) : evaluableCount;
-    const totalChecks = Number.isFinite(configuredChecks) && configuredChecks >= 0
-      ? Math.floor(configuredChecks) : requiredCorrect;
+    const configuredRequired = mastery.requiredCorrect;
+    const configuredChecks = mastery.totalChecks;
+    const requiredCorrect = Number.isInteger(configuredRequired) && configuredRequired >= 0
+      ? configuredRequired : (configuredRequired === undefined ? evaluableCount : -1);
+    const totalChecks = Number.isInteger(configuredChecks) && configuredChecks >= 0
+      ? configuredChecks : (configuredChecks === undefined ? requiredCorrect : -1);
     return { requiredCorrect, totalChecks, evaluableCount,
       valid: evaluableCount > 0 && totalChecks >= 1 && requiredCorrect <= totalChecks && totalChecks <= evaluableCount };
   }
