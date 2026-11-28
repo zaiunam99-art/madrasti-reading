@@ -38,7 +38,7 @@ test("student progress is isolated by child identifier", () => {
 
 test("student home renders an earned-badge journey from the existing progress record", () => {
   assert.match(runtime, /renderRewardJourney\(rewards\)/);
-  assert.match(runtime, /أوسمة رحلتك/);
+  assert.match(runtime, /خريطة مغامرتك/);
   assert.match(runtime, /المستكشف الصغير/);
   assert.match(runtime, /بطل المعرفة/);
   assert.match(runtime, /madrastiStudentProgressV1/);
@@ -49,7 +49,7 @@ test("reward journey displays four visual stations with locked and unlocked stat
   const renderEnd = runtime.indexOf("  function appendCompletedLesson(", renderStart);
   const renderer = runtime.slice(renderStart, renderEnd);
   const render = (stars) => runInNewContext(
-    renderer + "\\nrenderRewardJourney({stars, earned:[], next:null});",
+    renderer + String.fromCharCode(10) + "renderRewardJourney({stars, earned:[], next:null});",
     { escHtml: value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])) }
   );
   const fresh = render(0);
