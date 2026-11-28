@@ -154,7 +154,7 @@ async function importStudentProgress(input){
       catch(rollbackError){console.warn('تعذر استعادة بيانات الأسرة بعد فشل النقل:',rollbackError);}
       throw new Error('تعذر حفظ التقدم؛ تمت محاولة استعادة البيانات السابقة.');
     }
-    family=nextFamily;renderAll();alert('تم استيراد تقدم '+(existing.name||'الطالب')+' بنجاح. عدد الدروس المسجلة: '+merged.length+'.');
+    family=nextFamily;renderAll();alert('تم استيراد تقدم '+(existing.name||'الطالب')+' بنجاح. عدد الدروس المسجلة: '+merged.length+'. تنبيه: ملف النقل محلي وغير موثق من خادم؛ لا يُعد إثباتاً رسمياً للإنجاز.');
   }catch(error){alert(error.message||'تعذر استيراد تقدم الطالب.')}finally{input.value=''}
 }
 
