@@ -50,6 +50,6 @@ test("parent app contains no embedded student learning screens or student runtim
     assert.equal(parent.includes(legacy), false, "parent app must not contain " + legacy);
   }
   assert.match(parent, /href="\/student\.html"/);
-  assert.match(parent, /id="guardianView"/);
+  assert.match(parent, /id="guardianView"/);\n  assert.match(parent, /id="children"/);
 });
 
