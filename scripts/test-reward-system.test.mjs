@@ -50,7 +50,7 @@ test("reward journey displays four visual stations with locked and unlocked stat
   const renderer = runtime.slice(renderStart, renderEnd);
   const render = (stars) => runInNewContext(
     renderer + String.fromCharCode(10) + "renderRewardJourney({stars, earned:[], next:null});",
-    { escHtml: value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])) }
+    { stars, escHtml: value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])) }
   );
   const fresh = render(0);
   assert.match(fresh, /خريطة مغامرتك/);
