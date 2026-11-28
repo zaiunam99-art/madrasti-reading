@@ -66,3 +66,20 @@ test("legacy page and affected curriculum metadata contain no Iraqi-only locale 
   assert.doesNotMatch(mathA, /ar-IQ/);
   assert.doesNotMatch(mathB, /ar-IQ/);
 });
+
+
+test("student teacher uses a full-body accessible mascot with speech animation", () => {
+  const student = readFileSync(new URL("../student.html", import.meta.url), "utf8");
+  const start = runtime.indexOf("  function makeTeacher()");
+  const end = runtime.indexOf("\n  function setTeacherSpeaking", start);
+  const maker = runtime.slice(start, end);
+  assert.match(maker, /teacher-character/);
+  assert.match(maker, /viewBox="0 0 160 200"/);
+  assert.match(maker, /teacher-mouth/);
+  assert.match(maker, /role="img"/);
+  assert.match(student, /\.teacher-character/);
+  assert.match(student, /teacher-bob/);
+  assert.match(student, /\.teacher\.speaking \.teacher-mouth/);
+  assert.match(student, /teacher\.gender-girl \.teacher-clothes/);
+  assert.match(student, /teacher\.gender-boy \.teacher-clothes/);
+});
