@@ -71,3 +71,19 @@ test("manual activities are not presented as self-certified completion or counte
   assert.match(runtime, /أنشطة عملية تحتاج إلى تنفيذ ومراجعة مع المعلم أو ولي الأمر/);
   assert.doesNotMatch(runtime, /أنهيت النشاط، تابع/);
 });
+
+test("rejects impossible mastery configurations where correct answers exceed checks", () => {
+  const result = requirementFor({
+    mastery: { requiredCorrect: 2, totalChecks: 1 },
+    activities: [{ answer: 1 }, { answer: 2 }]
+  });
+  assert.equal(result.valid, false);
+});
+
+test("rejects zero required checks even when the lesson has assessable questions", () => {
+  const result = requirementFor({
+    mastery: { requiredCorrect: 0, totalChecks: 0 },
+    activities: [{ answer: 1 }]
+  });
+  assert.equal(result.valid, false);
+});
