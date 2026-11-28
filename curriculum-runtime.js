@@ -320,7 +320,93 @@
       if (answered.has(questionIndex)) return;
       cancelSpeech();
       let correctAnswer = false;
-      if (q.type === "create_pattern") {
+      if (q.type === "trace_numeral") {
+      const numerals = Array.isArray(q.numerals) ? q.numerals.map(String).slice(0, 6) : [];
+      const instructions = document.createElement("p");
+      instructions.className = "muted";
+      instructions.textContent = "اتبع شكل الرقم بإصبعك أو بالفأرة، ثم أعد المحاولة إذا رغبت. هذا تدريب كتابي لا يتعرف إلى جودة الخط آلياً.";
+      answers.appendChild(instructions);
+      numerals.forEach((numeral, index) => {
+        const card = document.createElement("section");
+        card.className = "trace-card";
+        const heading = document.createElement("h4");
+        heading.textContent = "تتبّع العدد " + numeral;
+        const canvas = document.createElement("canvas");
+        canvas.width = 360;
+        canvas.height = 170;
+        canvas.style.width = "min(100%, 360px)";
+        canvas.style.height = "170px";
+        canvas.style.border = "2px dashed #9aa8b8";
+        canvas.style.borderRadius = "14px";
+        canvas.style.background = "#fff";
+        canvas.style.touchAction = "none";
+        canvas.tabIndex = 0;
+        canvas.setAttribute("role", "img");
+        canvas.setAttribute("aria-label", "مساحة تدريب لتتبّع الرقم " + numeral + "، استخدم إصبعك أو الفأرة للرسم");
+        const context = canvas.getContext("2d");
+        const drawGuide = () => {
+          if (!context) return;
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.save();
+          context.globalAlpha = 0.18;
+          context.fillStyle = "#52657a";
+          context.font = "bold 118px sans-serif";
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          context.fillText(numeral, canvas.width / 2, canvas.height / 2 + 2);
+          context.restore();
+        };
+        drawGuide();
+        let drawing = false;
+        const point = event => {
+          const rect = canvas.getBoundingClientRect();
+          return {
+            x: (event.clientX - rect.left) * canvas.width / rect.width,
+            y: (event.clientY - rect.top) * canvas.height / rect.height
+          };
+        };
+        canvas.addEventListener("pointerdown", event => {
+          if (!context) return;
+          event.preventDefault();
+          drawing = true;
+          if (canvas.setPointerCapture) canvas.setPointerCapture(event.pointerId);
+          const p = point(event);
+          context.beginPath();
+          context.moveTo(p.x, p.y);
+        });
+        canvas.addEventListener("pointermove", event => {
+          if (!drawing || !context) return;
+          event.preventDefault();
+          const p = point(event);
+          context.lineWidth = 7;
+          context.lineCap = "round";
+          context.lineJoin = "round";
+          context.strokeStyle = "#2877c7";
+          context.lineTo(p.x, p.y);
+          context.stroke();
+        });
+        const stopDrawing = () => { drawing = false; if (context) context.closePath(); };
+        canvas.addEventListener("pointerup", stopDrawing);
+        canvas.addEventListener("pointercancel", stopDrawing);
+        const clear = document.createElement("button");
+        clear.type = "button";
+        clear.className = "alt";
+        clear.textContent = "مسح المحاولة";
+        clear.addEventListener("click", drawGuide);
+        card.append(heading, canvas, clear);
+        answers.appendChild(card);
+      });
+      const note = document.createElement("p");
+      note.className = "muted";
+      note.textContent = "عند الانتهاء، اعرض كتابتك على المعلم أو ولي الأمر للمراجعة. لن تُحتسب جودة الكتابة ضمن نتيجة الإتقان الآلية.";
+      answers.appendChild(note);
+      const next = document.createElement("button");
+      next.type = "button";
+      next.className = "alt";
+      next.textContent = questionIndex < qs.length - 1 ? "الانتقال إلى النشاط التالي ←" : "الانتقال إلى نهاية الدرس";
+      next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
+      answers.appendChild(next);
+    } else if (q.type === "create_pattern") {
       const suppliedColors = Array.isArray(q.colors)
         ? Array.from(new Set(q.colors.map(String))).slice(0, 6) : [];
       const colors = suppliedColors.length >= 2
