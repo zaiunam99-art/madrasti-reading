@@ -23,3 +23,7 @@ test("restore attempts to roll back both stores if writing fails", () => {
   assert.match(html, /const oldProfiles=localStorage\.getItem\(STUDENT_PROFILES_KEY\),oldProgress=localStorage\.getItem\(STUDENT_PROGRESS_KEY\)/);
   assert.match(html, /تعذرت الاستعادة؛ أُعيدت البيانات السابقة/);
 });
+
+test("restore accepts the previous family backup format for compatibility", () => {
+  assert.match(html, /\["madrasti-unified-backup","madrasti-family-backup"\]/);
+});
