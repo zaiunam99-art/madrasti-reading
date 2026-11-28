@@ -224,6 +224,22 @@
       case "picture_talk": return "تأمّل الصورة، واذكر ما تراه، ثم كوّن جملة تصفها.";
       case "listening": return "استمع جيداً إلى المعلم أو ولي الأمر، ثم أجب عمّا فهمته.";
       case "picture_observation": return "لاحظ تفاصيل الصورة، واذكر الأشياء أو الاختلافات التي تلاحظها.";
+      case "match_solid_object": return "تأمل أسماء الأشياء والمجسمات، ثم صِل كل شيء بالمجسم الذي يشبهه.";
+      case "match_number_words": return "اقرأ الأعداد وأسماءها، ثم صِل كل عدد باسمه الصحيح.";
+      case "place_value": {
+        const place = item.expected && typeof item.expected === "object" ? item.expected : {};
+        return "حلّل العدد " + value("number") + " إلى عشرات وآحاد، ثم حدّد عدد العشرات والآحاد.";
+      }
+      case "compose_number": return "كوّن العدد من " + value("tens") + " عشرات و" + value("ones") + " آحاد.";
+      case "complete_pattern": return "أكمل النمط العددي: " + (Array.isArray(item.sequence) ? item.sequence.map(value => value === null ? "؟" : value).join("، ") : "") + ".";
+      case "skip_count": return "ابدأ من " + value("start") + "، وعدّ " + value("count") + " مرات بمقدار " + value("step") + " إلى " + (item.direction === "backward" ? "الخلف" : "الأمام") + ".";
+      case "compare_numbers": return "قارن بين العددين " + value("a") + " و" + value("b") + "، ثم اختر علامة المقارنة المناسبة.";
+      case "previous_next": return "اكتب العدد السابق والعدد التالي للعدد " + value("number") + ".";
+      case "order_numbers": return "رتّب الأعداد الآتية تصاعدياً: " + (Array.isArray(item.numbers) ? item.numbers.join("، ") : "") + ".";
+      case "tens_add": return "أوجد ناتج جمع " + value("a") + " + " + value("b") + " باستعمال العشرات الكاملة.";
+      case "tens_subtract": return "أوجد ناتج طرح " + value("b") + " من " + value("a") + " باستعمال العشرات الكاملة.";
+      case "two_digit_add": return "أوجد ناتج " + value("a") + " + " + value("b") + "، واجمع الآحاد ثم العشرات.";
+      case "two_digit_subtract": return "أوجد ناتج " + value("a") + " − " + value("b") + "، وابدأ بطرح الآحاد ثم العشرات.";
       default:
         if (item.expected !== undefined) return "المطلوب: " + value("expected") + ". نفّذ النشاط واشرح طريقتك.";
         if (item.goal !== undefined) return "حاول الوصول إلى الهدف: " + value("goal") + "، ثم اشرح إجابتك.";
