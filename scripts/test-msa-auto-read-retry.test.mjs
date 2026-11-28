@@ -41,3 +41,15 @@ test("incorrect answers leave the current question available for another attempt
   assert.ok(renderer.indexOf("answers.querySelectorAll", markAnswered) > markAnswered,
     "controls are disabled only after a correct response");
 });
+
+test("opening a lesson speaks a welcome, explanation, and the first question in order", () => {
+  const start = runtime.indexOf("  function openLesson(lesson)");
+  const end = runtime.indexOf("\n  window.MadrastiCurriculum", start);
+  assert.ok(start >= 0 && end > start, "lesson opener must exist");
+  const opener = runtime.slice(start, end);
+  assert.match(opener, /renderQuestion\(false\)/);
+  assert.match(opener, /مرحباً بك! أنا معلّمك/);
+  assert.match(opener, /\.\.\.explanation/);
+  assert.match(opener, /firstQuestion \? questionPrompt\(firstQuestion\)/);
+  assert.match(opener, /speakQuestion\(openingParts\.filter\(Boolean\)\.join\("\. "\)\)/);
+});
