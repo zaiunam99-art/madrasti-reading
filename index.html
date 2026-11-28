@@ -58,6 +58,12 @@ select{min-width:220px;max-width:100%;padding:11px 13px;border:2px solid var(--l
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 .guardian-open{background:#fff;color:#155b48;border:1px solid #ffffff80;box-shadow:none;padding:8px 12px;font-size:13px}.guardian-panel{border:2px solid #efdca9;background:#fffdf5}.guardian-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.guardian-field{width:100%;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:inherit}.guardian-card{border:1px solid var(--line);background:#fff;border-radius:15px;padding:12px;margin:8px 0}.guardian-card .row{justify-content:space-between}.guardian-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.guardian-actions button{font-size:12px;padding:8px 10px}.guardian-lock{position:fixed;inset:0;background:#10271dcc;z-index:20;display:grid;place-items:center;padding:16px}.guardian-lock-card{width:min(430px,100%);background:#fff;border-radius:22px;padding:22px;box-shadow:0 20px 60px #0003}.guardian-lock-card input{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;font:inherit;margin:8px 0}.guardian-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
 /* هوية مرحة: رحلة تعليمية تشبه اللعبة */
+.teacher.mood-happy .teacher-character{animation:teacher-cheer .55s ease-in-out 2}
+.teacher.mood-encourage .teacher-character{animation:teacher-nod .65s ease-in-out 1}
+.teacher.mood-happy .teacher-copy strong{color:#15956f}
+.teacher.mood-encourage .teacher-copy strong{color:#b47a26}
+@keyframes teacher-cheer{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-9px) rotate(-5deg)}55%{transform:translateY(-3px) rotate(5deg)}}
+@keyframes teacher-nod{0%,100%{transform:translateY(0)}35%{transform:translateY(-3px) rotate(-3deg)}70%{transform:translateY(1px) rotate(2deg)}}
 .question-progress{margin:12px 0 18px;padding:10px 13px;border-radius:15px;background:#f5f2ff;color:#6252c7;font-weight:800;font-size:13px}
 .question-progress-track{height:9px;border-radius:20px;background:#e3def7;overflow:hidden;margin-top:7px}
 .question-progress-track span{display:block;width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,#ffc45a,#ec83ae,#59c9a4);transition:width .3s ease}
