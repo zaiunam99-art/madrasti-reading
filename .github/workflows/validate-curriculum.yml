@@ -60,3 +60,5 @@ jobs:
         run: node --test scripts/test-pdf-preview.test.mjs
       - name: Test family backup and restore
         run: node --test scripts/test-family-backup.test.mjs
+      - name: Test separate student application entry
+        run: node --test scripts/test-student-app-separation.test.mjs
