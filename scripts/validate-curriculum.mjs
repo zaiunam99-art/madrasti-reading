@@ -5,7 +5,16 @@ const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
 const globalLessonIds = new Map();
-const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, lessonsUsingPrintedPages: 0, lessonsUsingTeacherScript: 0, lessonsWithoutObjective: 0, lessonsWithoutExamples: 0, activityTypes: {}, activitiesWithAnswer: 0, activitiesWithoutAnswer: 0, activitiesWithOptions: 0, activitiesWithoutPrompt: 0, activitiesUsingFallbackText: 0, activitiesWithoutDisplayText: 0, activitiesWithoutType: 0, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0, indexesWithoutSourceTitle: 0, indexesWithoutSourcePageCount: 0, duplicateIndexGroupNumbers: 0 };
+const generatedPromptTypes = new Set([
+  "make_number", "remove_objects", "count_back", "count_forward",
+  "number_line_add", "number_line_subtract", "fact_family",
+  "double_plus_minus_one", "make_ten_add", "before_after", "sequence_days",
+  "read_clock", "clock_reading", "set_clock", "shade_fraction",
+  "identify_fraction", "make_ten", "draw_model", "build_picture_graph",
+  "collect_and_graph", "read_graph", "visual_representation", "trace_numeral",
+  "picture_talk", "listening", "picture_observation"
+]);
+const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, lessonsUsingPrintedPages: 0, lessonsUsingTeacherScript: 0, lessonsWithoutObjective: 0, lessonsWithoutExamples: 0, activityTypes: {}, activitiesWithAnswer: 0, activitiesWithoutAnswer: 0, activitiesWithOptions: 0, activitiesWithoutPrompt: 0, activitiesUsingFallbackText: 0, activitiesUsingGeneratedPrompt: 0, activitiesWithoutDisplayText: 0, activitiesWithoutType: 0, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0, indexesWithoutSourceTitle: 0, indexesWithoutSourcePageCount: 0, duplicateIndexGroupNumbers: 0 };
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -304,6 +313,8 @@ for (const file of files) {
         stats.activitiesWithoutPrompt++;
         if ([activity.expected, activity.goal].some(value => typeof value === "string" && value.trim())) {
           stats.activitiesUsingFallbackText++;
+        } else if (generatedPromptTypes.has(activity.type)) {
+          stats.activitiesUsingGeneratedPrompt++;
         } else {
           stats.activitiesWithoutDisplayText++;
         }
