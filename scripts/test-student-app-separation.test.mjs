@@ -6,6 +6,7 @@ const app = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const alias = readFileSync(new URL("../student.html", import.meta.url), "utf8");
 const manifest = JSON.parse(readFileSync(new URL("../manifest.webmanifest", import.meta.url), "utf8"));
 const worker = readFileSync(new URL("../sw.js", import.meta.url), "utf8");
+const rt = readFileSync(new URL("../curriculum-runtime.js", import.meta.url), "utf8");
 
 test("the root entry is the single unified student-first application", () => {
   assert.match(app, /<title>مدرستي \| التعلّم<\/title>/);
