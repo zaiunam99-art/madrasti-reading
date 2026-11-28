@@ -32,15 +32,6 @@ label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}input,selec
 </div>
 </section>
 
-<section id="childView" class="hidden">
-<div class="section-head"><div><h2>مساحة التعلّم</h2><div class="muted">اختر ملفك لفتح موادك ودروسك.</div></div><button class="ghost" onclick="showView('guardian')">العودة لولي الأمر</button></div>
-<div class="panel"><label for="childPicker">ملف الطالب</label><select id="childPicker" onchange="selectChild(this.value)"><option value="">اختر ملفاً</option></select><div id="studentArea" class="hidden"></div><div id="noStudent" class="empty">أضف ملف طالب من لوحة ولي الأمر أولاً.</div></div>
-</section>
-
-<section id="lessonView" class="hidden">
-<div class="section-head"><div><h2 id="lessonHeading">درس اليوم</h2><div class="muted" id="lessonMeta"></div></div><button class="alt" onclick="backToStudent()">← العودة للمواد</button></div>
-<div class="lessonbox"><div class="tag">درس تفاعلي تجريبي</div><div class="bigletter" id="lessonSymbol">ب</div><h2 id="lessonName">نتعلم حرف الباء</h2><p id="lessonDesc">استمع إلى الشرح ثم اختر الإجابة الصحيحة.</p><div class="row"><button class="alt" onclick="playLesson()">🔊 استمع / أعد الشرح</button><button class="ghost" onclick="stopLessonAudio()">إيقاف الصوت</button></div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3 id="questionText">أي كلمة تبدأ بحرف الباء؟</h3><div class="choices" id="answers"></div><div id="feedback" class="feedback" aria-live="polite"></div><button id="finishLesson" disabled onclick="finishLesson()">إكمال الدرس ⭐</button></div>
-</section>
 <div class="foot">مدرستي · نموذج أولي للتجربة وتطوير المتطلبات</div>
 </main>
 
