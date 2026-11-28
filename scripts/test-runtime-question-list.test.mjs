@@ -37,3 +37,32 @@ test("handles missing or non-array question collections safely", () => {
     assert.deepEqual(JSON.parse(JSON.stringify(result)), []);
   }
 });
+
+
+test("expands picture graph activities into separately answerable subquestions", () => {
+  const graph = {
+    type: "read_graph",
+    data: { "قطط": 3, "طيور": 5 },
+    key: 1,
+    questions: [
+      { q: "أي الحيوانات أكثر؟", answer: "طيور" },
+      { q: "كم عدد القطط؟", answer: 3 }
+    ]
+  };
+  const trailingQuiz = { type: "number_entry", answer: 9 };
+  const sandbox = { lesson: { activities: [graph], quiz: [trailingQuiz] } };
+  const result = runInNewContext(match[0] + "\\nquestionList(lesson);", sandbox);
+  const plain = JSON.parse(JSON.stringify(result));
+  assert.equal(plain.length, 3);
+  assert.deepEqual(plain.slice(0, 2).map(item => item.q), ["أي الحيوانات أكثر؟", "كم عدد القطط؟"]);
+  assert.deepEqual(plain.slice(0, 2).map(item => item.answer), ["طيور", 3]);
+  assert.deepEqual(plain[0].data, graph.data);
+  assert.equal(plain[0].key, 1);
+  assert.equal(plain[2].type, "number_entry");
+});
+
+test("keeps picture graph activities without subquestions as a single open activity", () => {
+  const graph = { type: "read_graph", data: { "تفاح": 2 }, questions: [] };
+  const result = runInNewContext(match[0] + "\\nquestionList(lesson);", { lesson: { activities: [graph] } });
+  assert.deepEqual(JSON.parse(JSON.stringify(result)), [graph]);
+});
