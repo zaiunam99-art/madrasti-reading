@@ -331,6 +331,7 @@ async function hashGuardianPin(pin) {
   return [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2,"0")).join("");
 }
 async function requestGuardianAccess() {
+  window.stopLessonAudio?.();
   const saved = localStorage.getItem(GUARDIAN_PIN_KEY);
   const pin = window.prompt(saved ? "أدخل رمز ولي الأمر:" : "أنشئ رمزاً محلياً لولي الأمر (4 إلى 8 أرقام):");
   if (pin === null) return;
