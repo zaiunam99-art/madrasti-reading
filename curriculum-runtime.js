@@ -38,24 +38,38 @@
     return { stars, earned, next };
   }
   function renderRewardJourney(summary) {
-    const badges = summary.earned.map(item =>
-      '<span class="reward-badge" title="' + escHtml(item.description) + '" style="display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:14px;background:#fff4d8;border:1px solid #edcf86;color:#76501c;font-weight:700">' +
-      item.symbol + ' ' + escHtml(item.title) + '</span>'
-    ).join("");
-    const locked = summary.next
-      ? '<span class="reward-next" style="color:#63736d">الوسام التالي: ' + escHtml(summary.next.title) +
-        ' · أكمِل ' + Math.max(0, summary.next.threshold - summary.stars) + ' درساً آخر</span>'
-      : '<span class="reward-next" style="color:#287a5d;font-weight:700">اكتملت جميع أوسمة هذه المرحلة! 🎉</span>';
-    const previousMilestone = summary.earned.length ? summary.earned[summary.earned.length - 1].threshold : 0;
-    const progress = summary.next
-      ? Math.round((summary.stars - previousMilestone) / (summary.next.threshold - previousMilestone) * 100)
+    const milestones = [
+      { id: "first", threshold: 1, title: "أول نجمة", symbol: "🌟", description: "أكملت أول درس بنجاح" },
+      { id: "explorer", threshold: 5, title: "المستكشف الصغير", symbol: "🧭", description: "أكملت خمسة دروس" },
+      { id: "champion", threshold: 10, title: "بطل المعرفة", symbol: "🏆", description: "أكملت عشرة دروس" },
+      { id: "leader", threshold: 20, title: "قائد الرحلة", symbol: "🚀", description: "أكملت عشرين درساً" }
+    ];
+    const next = milestones.find(item => summary.stars < item.threshold) || null;
+    const previous = [...milestones].reverse().find(item => summary.stars >= item.threshold);
+    const progress = next
+      ? Math.max(0, Math.min(100, Math.round((summary.stars - (previous?.threshold || 0)) /
+          (next.threshold - (previous?.threshold || 0)) * 100)))
       : 100;
-    return '<section class="quest-card reward-journey" aria-label="رحلة النجوم والأوسمة" style="margin:18px 0;padding:16px;border-radius:20px;background:linear-gradient(135deg,#fff8e8,#eef9f2);border:1px solid #e6d9b6">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><strong>🏅 أوسمة رحلتك</strong><span style="font-weight:800;color:#76501c">⭐ ' + summary.stars + ' نجمة</span></div>' +
-      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0">' +
-      (badges || '<span style="color:#63736d">ابدأ مغامرتك لتحصل على أول وسام!</span>') + '</div>' +
-      '<div style="height:9px;border-radius:20px;background:#e3e9e3;overflow:hidden"><div style="height:100%;width:' + progress + '%;background:linear-gradient(90deg,#e9b84e,#63b58a);border-radius:20px"></div></div>' +
-      '<div style="margin-top:9px;font-size:13px">' + locked + '</div></section>';
+    const stations = milestones.map(item => {
+      const unlocked = summary.stars >= item.threshold;
+      return '<li class="reward-station' + (unlocked ? ' is-unlocked' : '') + '">' +
+        '<span class="reward-station-icon" aria-hidden="true">' + (unlocked ? item.symbol : '🔒') + '</span>' +
+        '<span class="reward-station-copy"><strong>' + escHtml(item.title) + '</strong>' +
+        '<small>' + (unlocked ? 'تم فتح الوسام' : 'عند إكمال ' + item.threshold + ' درساً') + '</small></span>' +
+        '<span class="reward-station-state" aria-label="' + (unlocked ? 'مفتوح' : 'مقفل') + '">' +
+        (unlocked ? '✓' : item.threshold) + '</span></li>';
+    }).join("");
+    const nextText = next
+      ? 'المحطة التالية: ' + escHtml(next.title) + ' · بقي ' + (next.threshold - summary.stars) + ' درساً'
+      : 'وصلت إلى نهاية هذه الرحلة! أنت قائد رائع! 🎉';
+    return '<section class="quest-card reward-journey" aria-label="خريطة رحلة النجوم والأوسمة">' +
+      '<div class="reward-heading"><strong>🗺️ خريطة مغامرتك</strong><span class="reward-total">⭐ ' + summary.stars + ' نجمة</span></div>' +
+      '<p class="reward-intro">كل درس تنجزه يفتح لك محطة جديدة في طريق المعرفة.</p>' +
+      '<ol class="reward-route">' + stations + '</ol>' +
+      '<div class="reward-progress-label"><span>التقدم نحو المحطة التالية</span><strong>' + progress + '%</strong></div>' +
+      '<div class="reward-progress-track" role="progressbar" aria-label="التقدم نحو الوسام التالي" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + progress + '">' +
+      '<span style="width:' + progress + '%"></span></div>' +
+      '<p class="reward-next">' + nextText + '</p></section>';
   }
   function appendCompletedLesson(progress, childId, lessonId) {
     const previous = completedLessonIds(progress, childId);
