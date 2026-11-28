@@ -66,14 +66,14 @@ select{min-width:220px;max-width:100%;padding:11px 13px;border:2px solid var(--l
       <button id="startStudent" type="button">ابدأ التعلّم ⭐</button>
     </div>
     <p id="gateMessage" class="notice" role="status">تُحمّل ملفات الطلاب المحفوظة محلياً على هذا الجهاز فقط.</p>
-    <p class="muted">هل تحتاج إلى إعداد ملف طالب؟ <a href="/index.html">افتح تطبيق ولي الأمر</a>.</p>
+    <div class="row" style="justify-content:center;margin-top:12px"><button class="alt" type="button" id="importStudentProfile">استيراد ملف الطالب من ولي الأمر</button><input id="studentProfileFile" type="file" accept="application/json,.json" hidden></div><p class="muted">يمكن نقل الملف بين جهاز ولي الأمر وجهاز الطالب باستخدام ملف خاص. لا حاجة إلى إنشاء حساب أو اتصال سحابي.</p><p class="muted">هل تحتاج إلى إنشاء ملف أو إدارته؟ <a href="/index.html">افتح تطبيق ولي الأمر</a>.</p>
   </div>
 </section>
 <section id="childView" class="hidden">
   <div class="panel">
     <div class="row" style="justify-content:space-between">
       <div><span class="tag">مساحتي التعليمية</span><h2 id="studentWelcome">أهلاً بك!</h2><p class="muted">اختر مادة لعرض الدروس المتاحة.</p></div>
-      <button class="alt" type="button" id="switchStudent">تغيير الطالب</button>
+      <div class="row"><button class="alt" type="button" id="exportStudentProgress">تصدير التقدم إلى ولي الأمر</button><button class="alt" type="button" id="switchStudent">تغيير الطالب</button></div>
     </div>
     <div id="noStudent" class="hidden"></div>
     <div id="studentArea" class="hidden"></div>
@@ -99,10 +99,11 @@ select{min-width:220px;max-width:100%;padding:11px 13px;border:2px solid var(--l
 <p class="foot">هذه المساحة مخصصة للتعلّم. إدارة ملفات الطلاب وإعداداتهم تتم من تطبيق ولي الأمر.</p>
 </main>
 <script>
-const FAMILY_KEY = "madrastiFamilyDemoV2";
+const STUDENT_PROFILES_KEY = "madrastiStudentProfilesV1";
+const STUDENT_PROGRESS_KEY = "madrastiStudentProgressV1";
 function loadFamily() {
   try {
-    const parsed = JSON.parse(localStorage.getItem(FAMILY_KEY) || "[]");
+    const parsed = JSON.parse(localStorage.getItem(STUDENT_PROFILES_KEY) || "[]");
     if (!Array.isArray(parsed)) return [];
     return parsed.filter(child => child && typeof child === "object" && !Array.isArray(child) &&
       typeof child.id === "string" && /^[A-Za-z0-9_-]{1,80}$/.test(child.id))
@@ -127,7 +128,7 @@ let family = loadFamily();
 let active = null;
 let activeLesson = null;
 function save() {
-  try { localStorage.setItem(FAMILY_KEY, JSON.stringify(family)); return true; }
+  try { localStorage.setItem(STUDENT_PROFILES_KEY, JSON.stringify(family)); return true; }
   catch (error) { return false; }
 }
 function escapeText(value) {
@@ -140,8 +141,8 @@ function renderStudentPicker() {
     escapeText(child.name || "الطالب") + " — " + escapeText(child.grade) + "</option>").join("");
   const message = document.getElementById("gateMessage");
   message.textContent = family.length
-    ? "تم العثور على " + family.length + " ملفاً على هذا الجهاز. اختر ملفك للمتابعة."
-    : "لا توجد ملفات طلاب على هذا الجهاز. افتح تطبيق ولي الأمر وأنشئ ملفاً أولاً.";
+    ? "توجد " + family.length + " ملفات طالب مستوردة على هذا الجهاز. اختر ملفك للمتابعة."
+    : "لا يوجد ملف طالب بعد. استورد ملفاً يصدره ولي الأمر، ثم ابدأ التعلّم.";
   document.getElementById("startStudent").disabled = family.length === 0;
 }
 function startStudent() {
@@ -172,6 +173,109 @@ function showStudentGate() {
 }
 document.getElementById("startStudent").addEventListener("click", startStudent);
 document.getElementById("switchStudent").addEventListener("click", showStudentGate);
+document.getElementById("importStudentProfile").addEventListener("click", () => document.getElementById("studentProfileFile").click());
+document.getElementById("studentProfileFile").addEventListener("change", importStudentProfile);
+document.getElementById("exportStudentProgress").addEventListener("click", exportStudentProgress);
+function validateStudentTransfer(data) {
+  if (!data || typeof data !== "object" || Array.isArray(data) ||
+      data.format !== "madrasti-student-transfer" || data.version !== 1) {
+    throw new Error("ملف النقل غير صالح أو غير مدعوم.");
+  }
+  const child = data.child;
+  const allowedSubjects = ["القراءة","الرياضيات","العلوم","اللغة الإنجليزية"];
+  if (!child || typeof child !== "object" || Array.isArray(child) ||
+      typeof child.id !== "string" || !/^[A-Za-z0-9_-]{1,80}$/.test(child.id) ||
+      typeof child.name !== "string" || !["boy","girl","neutral"].includes(child.gender) ||
+      typeof child.grade !== "string" || !child.grade.trim() ||
+      !["🧒","👦","👧","🦊","🐼"].includes(child.avatar) ||
+      !["default","slow","none"].includes(child.voice) ||
+      !Number.isInteger(child.dailyCount) || child.dailyCount < 1 || child.dailyCount > 10 ||
+      !Array.isArray(child.subjects) || !child.subjects.length ||
+      child.subjects.some(subject => !allowedSubjects.includes(subject)) ||
+      !Number.isFinite(child.completed) || child.completed < 0) {
+    throw new Error("بيانات ملف الطالب لا تجتاز التحقق.");
+  }
+  if (data.progressRaw !== null && typeof data.progressRaw !== "string") {
+    throw new Error("سجل التقدم في ملف النقل غير صالح.");
+  }
+  let incoming = {};
+  if (typeof data.progressRaw === "string") {
+    if (data.progressRaw.length > 500000) throw new Error("سجل التقدم أكبر من الحد المسموح.");
+    incoming = JSON.parse(data.progressRaw);
+    if (!incoming || typeof incoming !== "object" || Array.isArray(incoming) ||
+        Object.keys(incoming).some(key => key !== child.id) ||
+        (incoming[child.id] !== undefined && (!Array.isArray(incoming[child.id]) ||
+          incoming[child.id].length > 10000 || incoming[child.id].some(id => typeof id !== "string")))) {
+      throw new Error("بنية سجل التقدم غير صالحة.");
+    }
+  }
+  return { child: {...child, subjects:[...new Set(child.subjects)]}, incoming };
+}
+async function importStudentProfile(event) {
+  const input = event.currentTarget;
+  const file = input.files?.[0];
+  if (!file) return;
+  try {
+    if (file.size > 600000) throw new Error("حجم ملف النقل أكبر من الحد المسموح.");
+    const parsed = validateStudentTransfer(JSON.parse(await file.text()));
+    const previousProfiles = localStorage.getItem(STUDENT_PROFILES_KEY);
+    const previousProgress = localStorage.getItem(STUDENT_PROGRESS_KEY);
+    const nextFamily = [...family.filter(item => item.id !== parsed.child.id), parsed.child];
+    let progress = {};
+    if (previousProgress !== null) {
+      progress = JSON.parse(previousProgress);
+      if (!progress || typeof progress !== "object" || Array.isArray(progress)) throw new Error("سجل التقدم المحلي غير صالح؛ لم نغيّر البيانات.");
+    }
+    if (Object.keys(parsed.incoming).length) {
+      const id = parsed.child.id;
+      const merged = new Set([...(Array.isArray(progress[id]) ? progress[id] : []), ...(parsed.incoming[id] || [])]);
+      progress[id] = [...merged];
+    }
+    try {
+      localStorage.setItem(STUDENT_PROFILES_KEY, JSON.stringify(nextFamily));
+      if (Object.keys(parsed.incoming).length) localStorage.setItem(STUDENT_PROGRESS_KEY, JSON.stringify(progress));
+    } catch (error) {
+      try {
+        if (previousProfiles === null) localStorage.removeItem(STUDENT_PROFILES_KEY);
+        else localStorage.setItem(STUDENT_PROFILES_KEY, previousProfiles);
+        if (previousProgress === null) localStorage.removeItem(STUDENT_PROGRESS_KEY);
+        else localStorage.setItem(STUDENT_PROGRESS_KEY, previousProgress);
+      } catch (rollbackError) { console.warn("تعذرت استعادة التخزين السابق:", rollbackError); }
+      throw new Error("تعذر حفظ الملف على هذا الجهاز؛ لم نتمكن من إكمال النقل.");
+    }
+    family = nextFamily;
+    renderStudentPicker();
+    document.getElementById("studentPicker").value = parsed.child.id;
+    document.getElementById("gateMessage").textContent = "تم استيراد ملف " + (parsed.child.name || "الطالب") + " بنجاح. اضغط «ابدأ التعلّم».";
+  } catch (error) {
+    document.getElementById("gateMessage").textContent = error.message || "تعذر استيراد ملف الطالب.";
+  } finally {
+    input.value = "";
+  }
+}
+function exportStudentProgress() {
+  if (!active) return;
+  try {
+    const raw = localStorage.getItem(STUDENT_PROGRESS_KEY);
+    let progressRaw = null;
+    if (raw !== null) {
+      const all = JSON.parse(raw);
+      if (!all || typeof all !== "object" || Array.isArray(all)) throw new Error("سجل التقدم غير صالح.");
+      progressRaw = JSON.stringify({[active.id]: Array.isArray(all[active.id]) ? [...new Set(all[active.id].filter(id => typeof id === "string"))] : []});
+    }
+    const payload = {format:"madrasti-student-transfer",version:1,exportedAt:new Date().toISOString(),child:active,progressRaw};
+    const blob = new Blob([JSON.stringify(payload,null,2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "madrasti-student-progress.json";
+    document.body.appendChild(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    document.getElementById("feedback").textContent = "تم تجهيز ملف تقدمك. أرسله إلى ولي الأمر لاستيراده في تطبيق الأسرة.";
+  } catch (error) {
+    document.getElementById("feedback").textContent = error.message || "تعذر تصدير التقدم.";
+  }
+}
 renderStudentPicker();
 </script>
 <script src="/curriculum-runtime.js"></script>
