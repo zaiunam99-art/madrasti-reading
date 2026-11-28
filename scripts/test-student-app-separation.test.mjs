@@ -70,3 +70,12 @@ test("student interface uses a playful game-like visual identity", () => {
   assert.match(rt, /ابدأ المغامرة/);
   assert.match(rt, /مهمة اليوم/);
 });
+
+
+test("lesson view includes an accessible question progress meter and celebration styling", () => {
+  assert.match(app, /id="questionProgressLabel"/);
+  assert.match(app, /question-progress-track/);
+  assert.match(app, /\\.celebration/);
+  assert.match(rt, /السؤال /);
+  assert.match(rt, /notice celebration/);
+});
