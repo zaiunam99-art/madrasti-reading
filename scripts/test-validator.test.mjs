@@ -139,5 +139,9 @@ test("supports legacy sequence lessons with printed pages and teacher scripts", 
   assert.equal(report.stats.lessonsWithoutQuiz, 0);
   assert.equal(report.stats.lessonsWithoutBookPages, 0);
   assert.equal(report.stats.lessonsWithoutAutoAssessment, 0);
+  assert.equal(report.stats.activitiesWithAnswer, 1);
+  assert.equal(report.stats.activitiesWithoutAnswer, 0);
+  assert.equal(report.stats.activitiesWithOptions, 1);
+  assert.equal(report.stats.activitiesWithoutPrompt, 0);
   assert.deepEqual(report.errors, []);
 });
