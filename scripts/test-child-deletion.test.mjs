@@ -17,7 +17,8 @@ function runDelete({ failProgress = false, confirmed = true, selected = false } 
   ]);
   let fail = failProgress, renders = 0, switches = 0, alerts = [];
   const sandbox = {
-    family: original, active: selected ? {id:"child_a"} : null,\n    STUDENT_PROFILES_KEY: "madrastiStudentProfilesV1", STUDENT_PROGRESS_KEY: "madrastiStudentProgressV1",
+    family: original, active: selected ? {id:"child_a"} : null,
+    STUDENT_PROFILES_KEY: "madrastiStudentProfilesV1", STUDENT_PROGRESS_KEY: "madrastiStudentProgressV1",
     confirm() { return confirmed; }, alert(message) { alerts.push(message); },
     renderGuardianChildren() { renders++; }, renderStudentPicker() {},
     showStudentGate() { switches++; }, loadFamily() { return original; },
