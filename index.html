@@ -130,11 +130,19 @@ button.alt:hover{box-shadow:0 5px 0 #dcd5f5}
 .path-dot{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#eeeaff;color:#6252c7;font-weight:900;border:2px solid #ddd5ff}
 .path-dot.done{background:#dff9ee;color:#16876e;border-color:#a8e9d0}
 @media(max-width:600px){.game-hero{padding:14px}.game-stat{font-size:12px}.cards{gap:11px}.card{padding:14px}}
+
+/* تحسينات الإتاحة والتنقل بلوحة المفاتيح */
+.skip-link{position:fixed;z-index:100;top:10px;right:10px;transform:translateY(-160%);padding:10px 16px;border-radius:12px;background:#fff;color:#123f32;border:3px solid #f2bd4d;font-weight:900;box-shadow:0 4px 14px #173d3026}
+.skip-link:focus{transform:translateY(0);outline:3px solid #173d30;outline-offset:3px}
+:where(a,button,select,input,textarea,[tabindex]):focus-visible{outline:3px solid #8a4fd6;outline-offset:3px}
+button:focus-visible{box-shadow:0 0 0 5px #8a4fd633,0 4px 0 #0d4939}
+@media(forced-colors:active){.skip-link{border:2px solid LinkText}.reward-progress-track{border:1px solid CanvasText}.reward-progress-track span{background:Highlight}}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">انتقل إلى المحتوى الرئيسي</a>
 <header><div class="wrap top"><div class="brand">🎒 مدرستي <small>نتعلّم ونكتشف كل يوم</small></div><div class="row"><span class="pill">📚 رحلة المعرفة تبدأ بخطوة</span><button class="guardian-open" id="openGuardian" type="button">⚙️ ولي الأمر</button></div></div></header>
-<main class="wrap">
+<main class="wrap" id="main-content" tabindex="-1">
 <section class="panel" id="studentGate">
   <div class="gate">
     <div class="gate-icon" aria-hidden="true">🧭</div>
