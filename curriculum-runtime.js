@@ -181,15 +181,39 @@
     return [...activities, ...quiz]
       .filter(item => item && typeof item === "object" && !Array.isArray(item))
       .flatMap(item => {
-        if (item.type !== "read_graph" || !Array.isArray(item.questions) || !item.questions.length) return [item];
-        return item.questions
-          .filter(question => question && typeof question === "object" && !Array.isArray(question))
-          .map(question => ({
-            ...item,
-            ...question,
-            type: "read_graph",
-            q: question.q || question.prompt || question.question || question.instruction || "أجب عن السؤال المتعلق بمخطط الصور."
-          }));
+        if (item.type === "read_graph" && Array.isArray(item.questions) && item.questions.length) {
+          return item.questions
+            .filter(question => question && typeof question === "object" && !Array.isArray(question))
+            .map(question => ({
+              ...item,
+              ...question,
+              type: "read_graph",
+              q: question.q || question.prompt || question.question || question.instruction || "أجب عن السؤال المتعلق بمخطط الصور."
+            }));
+        }
+        if (item.type === "before_after" && item.before !== undefined && item.after !== undefined) {
+          return [
+            { ...item, q: "ما اليوم الذي يسبق " + String(item.day || "هذا اليوم") + "؟", answer: item.before },
+            { ...item, q: "ما اليوم الذي يلي " + String(item.day || "هذا اليوم") + "؟", answer: item.after }
+          ];
+        }
+        if (item.type === "previous_next" && item.previous !== undefined && item.next !== undefined) {
+          return [
+            { ...item, q: "ما العدد السابق للعدد " + String(item.number) + "؟", answer: item.previous },
+            { ...item, q: "ما العدد التالي للعدد " + String(item.number) + "؟", answer: item.next }
+          ];
+        }
+        if (item.type === "double_plus_minus_one" && item.answers && typeof item.answers === "object") {
+          return [
+            { ...item, q: "ما العدد الأقل بواحد من " + String(item.n) + "؟", answer: item.answers.less },
+            { ...item, q: "ما ضعف العدد " + String(item.n) + "؟", answer: item.answers.double },
+            { ...item, q: "ما العدد الأكبر بواحد من " + String(item.n) + "؟", answer: item.answers.more }
+          ].filter(question => question.answer !== undefined && question.answer !== null);
+        }
+        if (item.type === "order_numbers" && Array.isArray(item.ascending) && item.ascending.length) {
+          return [{ ...item, q: "رتّب الأعداد الآتية تصاعدياً: " + (Array.isArray(item.numbers) ? item.numbers.join("، ") : ""), answer: item.ascending }];
+        }
+        return [item];
       });
   }
   function masteryRequirement(lesson) {
