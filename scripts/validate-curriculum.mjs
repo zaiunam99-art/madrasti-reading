@@ -5,7 +5,7 @@ const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
 const globalLessonIds = new Map();
-const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0 };
+const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0, indexesWithoutSourceTitle: 0, indexesWithoutSourcePageCount: 0, duplicateIndexGroupNumbers: 0 };
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -105,15 +105,47 @@ async function verifyIndexes() {
       errors.push({ file: relative(".", indexPath), message: `تعذر قراءة فهرس المنهج: ${error.message}` });
       continue;
     }
+    const sourceTitle = index.source?.title || index.source?.file;
+    if (typeof sourceTitle !== "string" || !sourceTitle.trim()) {
+      stats.indexesWithoutSourceTitle++;
+      warnings.push({ file: relative(".", indexPath), message: "فهرس المنهج لا يحدد عنوان المصدر الأصلي" });
+    }
+    if (!Number.isInteger(index.source?.pages) || index.source.pages < 1) {
+      stats.indexesWithoutSourcePageCount++;
+      warnings.push({ file: relative(".", indexPath), message: "عدد صفحات المصدر غير موثق برقم صحيح موجب" });
+    }
+
     const groups = index.units || index.chapters || [];
     if (!Array.isArray(groups)) {
       errors.push({ file: relative(".", indexPath), message: "حقل الوحدات أو الفصول ليس مصفوفة" });
       continue;
     }
+    const seenGroupNumbers = new Set();
+    let previousGroupNumber = null;
     for (const [groupIndex, group] of groups.entries()) {
       if (!group || typeof group !== "object" || Array.isArray(group)) {
         errors.push({ file: relative(".", indexPath), message: "عنصر الوحدة أو الفصل ليس كائناً صالحاً" });
         continue;
+      }
+
+      const groupNumber = group.sequence ?? group.number;
+      if (groupNumber !== undefined) {
+        if (!Number.isInteger(groupNumber) || groupNumber < 0) {
+          errors.push({ file: relative(".", indexPath), group: groupIndex,
+            message: "رقم أو ترتيب الوحدة أو الفصل يجب أن يكون عدداً صحيحاً غير سالب" });
+        } else {
+          if (seenGroupNumbers.has(groupNumber)) {
+            stats.duplicateIndexGroupNumbers++;
+            errors.push({ file: relative(".", indexPath), group: groupIndex, groupNumber,
+              message: "رقم أو ترتيب الوحدة أو الفصل مكرر داخل الفهرس" });
+          }
+          if (previousGroupNumber !== null && groupNumber <= previousGroupNumber) {
+            warnings.push({ file: relative(".", indexPath), group: groupIndex, groupNumber,
+              message: "ترتيب الوحدات أو الفصول ليس تصاعدياً" });
+          }
+          seenGroupNumbers.add(groupNumber);
+          previousGroupNumber = groupNumber;
+        }
       }
 
       // Grade-one indexes are the currently active content scope. Report incomplete
