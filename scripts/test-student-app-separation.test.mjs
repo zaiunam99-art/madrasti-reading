@@ -38,7 +38,7 @@ test("offline shell caches the unified application and curriculum resources", ()
   assert.match(worker, /"\/index\.html"/);
   assert.match(worker, /"\/student-icon\.svg"/);
   assert.match(worker, /madrasti-shell-v10/);
-  assert.match(worker, /url\.pathname === "\/student\.html" \? "\/index\.html" : "\/index\.html"/);
+  assert.match(worker, /caches\.match\("\/index\.html"\)/);
   assert.match(worker, /"\/curriculum\/grade-1\/reading-2025-2026\/lessons\/unit-01-my-family\.json"/);
   assert.match(worker, /"\/curriculum\/grade-1\/math-2025-2026\/lessons\/chapter-09-lessons-01-04\.json"/);
 });
