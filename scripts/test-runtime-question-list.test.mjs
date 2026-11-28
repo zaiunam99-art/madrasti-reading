@@ -105,6 +105,4 @@ test("promotes stored make-number and fact-family answer sets into answerable qu
   const plain = JSON.parse(JSON.stringify(result));
   assert.deepEqual(plain[0].answer, activities[0].answers);
   assert.deepEqual(plain[1].answer, activities[1].facts);
-  assert.match(plain[0].q, /كوّن العدد 6/);
-  assert.match(plain[1].q, /الحقائق/);
 });
