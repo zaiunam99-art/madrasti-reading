@@ -191,6 +191,12 @@
               q: question.q || question.prompt || question.question || question.instruction || "أجب عن السؤال المتعلق بمخطط الصور."
             }));
         }
+        if (item.type === "make_number" && Array.isArray(item.answers) && item.answers.length) {
+          return [{ ...item, answer: item.answers }];
+        }
+        if (item.type === "fact_family" && Array.isArray(item.facts) && item.facts.length) {
+          return [{ ...item, answer: item.facts }];
+        }
         if (item.type === "before_after" && item.before !== undefined && item.after !== undefined) {
           return [
             { ...item, q: "ما اليوم الذي يسبق " + String(item.day || "هذا اليوم") + "؟", answer: item.before },
@@ -635,8 +641,15 @@ if (q.type === "trace_numeral") {
       cancelSpeech();
       let correctAnswer = false;
       if (Array.isArray(q.answer)) {
-        correctAnswer = Array.isArray(value) && value.length === q.answer.length &&
-          value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(q.answer[i]));
+        if (["make_number", "fact_family"].includes(q.type)) {
+          const submitted = Array.isArray(value) ? value.map(normalizedAnswer).sort() : [];
+          const expected = q.answer.map(normalizedAnswer).sort();
+          correctAnswer = submitted.length === expected.length &&
+            submitted.every((item, index) => item === expected[index]);
+        } else {
+          correctAnswer = Array.isArray(value) && value.length === q.answer.length &&
+            value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(q.answer[i]));
+        }
       } else {
         correctAnswer = choiceMatches(value, q.answer);
       }
