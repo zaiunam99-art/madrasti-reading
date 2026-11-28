@@ -6,8 +6,8 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#f4faf5",
-  "theme_color": "#176b55",
+  "background_color": "#fffaf2",
+  "theme_color": "#6755d5",
   "description": "منصة تعليمية موحدة للطالب والأسرة",
   "icons": [
     {
