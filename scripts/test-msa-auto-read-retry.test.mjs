@@ -62,7 +62,7 @@ test("legacy page and affected curriculum metadata contain no Iraqi-only locale 
   const mathA = readFileSync(new URL("../curriculum/grade-1/math-2025-2026/lessons/chapter-01-lessons-01-02.json", import.meta.url), "utf8");
   const mathB = readFileSync(new URL("../curriculum/grade-1/math-2025-2026/lessons/chapter-01-lessons-03-05.json", import.meta.url), "utf8");
   assert.doesNotMatch(index, /ar-IQ/i);
-  assert.match(runtime, /!\/\^ar-IQ/);
+  assert.ok(runtime.includes("!/^ar-IQ"), "student voice selector must exclude Iraqi-only voices");
   assert.doesNotMatch(mathA, /ar-IQ/);
   assert.doesNotMatch(mathB, /ar-IQ/);
 });
