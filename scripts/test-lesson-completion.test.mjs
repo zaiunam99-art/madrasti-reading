@@ -26,7 +26,8 @@ function runFinish({ failFamilySave = false, alreadyCompleted = false } = {}) {
     questionIndex: 0,
     assessedCount: 1,
     score: 1,
-    questionList() { return []; },
+    questionList() { return [{ answer: 1 }]; },
+    masteryRequirement() { return { requiredCorrect: 1, totalChecks: 1, evaluableCount: 1, valid: true }; },
     readCompletedMap() { return JSON.parse(values.get("madrastiCompletedLessonsV1") || "{}"); },
     appendCompletedLesson(map, childId, lessonId) {
       const ids = Array.isArray(map[childId]) ? map[childId] : [];
@@ -77,7 +78,8 @@ test("does not overwrite a malformed saved progress record", () => {
     questionIndex: 0,
     assessedCount: 1,
     score: 1,
-    questionList() { return []; },
+    questionList() { return [{ answer: 1 }]; },
+    masteryRequirement() { return { requiredCorrect: 1, totalChecks: 1, evaluableCount: 1, valid: true }; },
     readCompletedMap() { return null; },
     appendCompletedLesson() { throw new Error("must not append corrupt progress"); },
     localStorage: {
