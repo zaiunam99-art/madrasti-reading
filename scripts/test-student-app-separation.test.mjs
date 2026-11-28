@@ -2,67 +2,50 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const student = readFileSync(new URL("../student.html", import.meta.url), "utf8");
-const parent = readFileSync(new URL("../index.html", import.meta.url), "utf8");
-const manifest = JSON.parse(readFileSync(new URL("../student.webmanifest", import.meta.url), "utf8"));
-const parentManifest = JSON.parse(readFileSync(new URL("../manifest.webmanifest", import.meta.url), "utf8"));
+const app = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+const alias = readFileSync(new URL("../student.html", import.meta.url), "utf8");
+const manifest = JSON.parse(readFileSync(new URL("../manifest.webmanifest", import.meta.url), "utf8"));
 const worker = readFileSync(new URL("../sw.js", import.meta.url), "utf8");
 
-test("student app has a dedicated standalone entry and manifest", () => {
-  assert.match(student, /<title>مدرستي \| مساحة الطالب<\/title>/);
-  assert.match(student, /rel="manifest" href="\/student\.webmanifest"/);
-  assert.equal(manifest.start_url, "/student.html");
+test("the root entry is the single unified student-first application", () => {
+  assert.match(app, /<title>مدرستي \| التعلّم<\/title>/);
+  assert.match(app, /href="\/manifest\.webmanifest"/);
+  assert.equal(manifest.start_url, "/");
+  assert.equal(manifest.id, "/");
   assert.equal(manifest.lang, "ar");
   assert.equal(manifest.dir, "rtl");
-  assert.equal(manifest.id, "/student.html");
-  assert.equal(parentManifest.start_url, "/index.html");
-  assert.equal(parentManifest.id, "/index.html");
-  assert.notEqual(parentManifest.id, manifest.id);
-  assert.equal(parentManifest.icons[0].src, "/parent-icon.svg");
   assert.equal(manifest.icons[0].src, "/student-icon.svg");
-  assert.match(parent, /parent-icon\.svg/);
-  assert.match(student, /student-icon\.svg/);
+  assert.match(app, /id="studentGate"/);
+  assert.match(app, /id="childView"/);
+  assert.match(app, /id="lessonView"/);
 });
 
-test("student app does not expose parent account-management controls", () => {
-  for (const forbidden of ["guardianView", "familyStats", "openChildForm", "deleteChild", "exportFamilyBackup", "importFamilyBackup"]) {
-    assert.equal(student.includes(forbidden), false, "student page must not contain " + forbidden);
-  }
-  assert.match(student, /إدارة ملفات الطلاب وإعداداتهم تتم من تطبيق ولي الأمر/);
-  assert.match(student, /href="\/index\.html"/);
+test("guardian management is embedded in the same app and locally PIN-gated", () => {
+  for (const marker of ['id="openGuardian"','id="guardianPanel"','id="guardianForm"','id="guardianChildren"','id="changeGuardianPin"']) assert.ok(app.includes(marker), marker);
+  assert.match(app, /madrastiGuardianPinHashV1/);
+  assert.match(app, /madrasti-unified-backup/);
+  assert.match(app, /madrastiStudentProfilesV1/);
+  assert.match(app, /madrastiStudentProgressV1/);
+  assert.match(app, /madrastiFamilyDemoV2/);
+  assert.match(app, /madrastiCompletedLessonsV1/);
 });
 
-test("parent app links to the separate student experience", () => {
-  assert.match(parent, /href="\/student\.html"/);
-  assert.match(parent, /تطبيق الطالب المستقل/);
-  assert.doesNotMatch(parent, /onclick="enterChild\(/);
+test("legacy student URL forwards to the unified root application", () => {
+  assert.match(alias, /location\.replace\("\/"\)/);
 });
 
-test("offline shell caches both applications and preserves navigation fallbacks", () => {
-  assert.match(worker, /"\/student\.html"/);
-  assert.match(worker, /"\/student\.webmanifest"/);
-  assert.match(worker, /"\/parent-icon\.svg"/);
+test("offline shell caches the unified application and curriculum resources", () => {
+  assert.match(worker, /"\/index\.html"/);
   assert.match(worker, /"\/student-icon\.svg"/);
+  assert.match(worker, /madrasti-shell-v10/);
+  assert.match(worker, /url\.pathname === "\/student\.html" \? "\/index\.html" : "\/index\.html"/);
   assert.match(worker, /"\/curriculum\/grade-1\/reading-2025-2026\/lessons\/unit-01-my-family\.json"/);
   assert.match(worker, /"\/curriculum\/grade-1\/math-2025-2026\/lessons\/chapter-09-lessons-01-04\.json"/);
-  assert.match(worker, /madrasti-shell-v9/);
-  assert.match(worker, /url\.pathname === "\/student\.html" \? "\/student\.html" : "\/index\.html"/);
 });
 
-test("student app uses separate local profile and progress stores", () => {
-  assert.match(student, /madrastiStudentProfilesV1/);
-  assert.match(student, /madrastiStudentProgressV1/);
-  assert.doesNotMatch(student, /madrastiFamilyDemoV2/);
-  assert.match(student, /function importStudentProfile/);
-  assert.match(student, /function exportStudentProgress/);
-  assert.match(student, /madrasti-student-transfer/);
-});
-
-test("parent app contains no embedded student learning screens or runtime", () => {
-  for (const legacy of ['id="childView"', 'id="lessonView"', 'id="childPicker"', "function selectChild(", "function openSubject(", "curriculum-runtime.js"]) {
-    assert.equal(parent.includes(legacy), false, "parent app must not contain " + legacy);
-  }
-  assert.match(parent, /href="\/student\.html"/);
-  assert.match(parent, /id="guardianView"/);
-  assert.match(parent, /id="children"/);
+test("the student learning engine remains integrated", () => {
+  assert.match(app, /curriculum-runtime\.js/);
+  assert.match(app, /function importStudentProfile/);
+  assert.match(app, /function exportStudentProgress/);
+  assert.match(app, /function startStudent/);
 });
