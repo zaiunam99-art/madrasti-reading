@@ -18,6 +18,10 @@ test("student app has a dedicated standalone entry and manifest", () => {
   assert.equal(parentManifest.start_url, "/index.html");
   assert.equal(parentManifest.id, "/index.html");
   assert.notEqual(parentManifest.id, manifest.id);
+  assert.equal(parentManifest.icons[0].src, "/parent-icon.svg");
+  assert.equal(manifest.icons[0].src, "/student-icon.svg");
+  assert.match(parent, /parent-icon\.svg/);
+  assert.match(student, /student-icon\.svg/);
 });
 
 test("student app does not expose parent account-management controls", () => {
@@ -37,7 +41,7 @@ test("parent app links to the separate student experience", () => {
 test("offline shell caches both applications and preserves navigation fallbacks", () => {
   assert.match(worker, /"\/student\.html"/);
   assert.match(worker, /"\/student\.webmanifest"/);
-  assert.match(worker, /madrasti-shell-v7/);
+  assert.match(worker, /madrasti-shell-v8/);
   assert.match(worker, /url\.pathname === "\/student\.html" \? "\/student\.html" : "\/index\.html"/);
 });
 
