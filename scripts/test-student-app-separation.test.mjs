@@ -63,7 +63,7 @@ test("student interface uses a playful game-like visual identity", () => {
   for (const className of [".game-hero", ".game-stats", ".game-stat", ".quest-card", ".lesson-path", ".path-dot"]) {
     assert.ok(app.includes(className), className);
   }
-  assert.match(app, /linear-gradient\\(120deg,#6755d5,#8b67df 58%,#ed83ae\\)/);
+  assert.ok(app.includes("linear-gradient(120deg,#6755d5,#8b67df 58%,#ed83ae)"));
   assert.match(app, /prefers-reduced-motion:reduce/);
   assert.match(rt, /نجوم إنجاز/);
   assert.match(rt, /هيا نلعب!/);
