@@ -478,7 +478,7 @@ function exportGuardianBackup() {
     family,progressRaw:localStorage.getItem(STUDENT_PROGRESS_KEY)};
   const blob = new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
   const url=URL.createObjectURL(blob),link=document.createElement("a");
-  link.href=url;link.download="madrasti-backup.json";link.click();URL.revokeObjectURL(url);
+  link.href=url;link.download="madrasti-backup.json";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 async function importGuardianBackup(event) {
   const file=event.target.files?.[0]; if(!file)return;
