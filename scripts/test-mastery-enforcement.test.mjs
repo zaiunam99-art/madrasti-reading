@@ -87,3 +87,12 @@ test("rejects zero required checks even when the lesson has assessable questions
   });
   assert.equal(result.valid, false);
 });
+
+test("counts each attempted assessment once while allowing a retry or a move forward", () => {
+  assert.match(runtime, /let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set\(\), resolved = new Set\(\)/);
+  assert.match(runtime, /if \(!resolved\.has\(questionIndex\)\) \{\s*resolved\.add\(questionIndex\);\s*assessedCount\+\+;/);
+  assert.match(runtime, /متابعة إلى السؤال التالي/);
+  assert.match(runtime, /لا نمنع إعادة المحاولة/);
+  assert.match(runtime, /score\+\+;/);
+  assert.match(runtime, /answered\.add\(questionIndex\);\s*questionIndex\+\+;\s*renderQuestion\(\);/);
+});
