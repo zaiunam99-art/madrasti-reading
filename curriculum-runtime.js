@@ -250,7 +250,7 @@
     speechSynthesis.speak(utterance);
   }
   let current = null, questionIndex = 0, score = 0, assessedCount = 0, answered = new Set(), utterance = null;
-  function renderQuestion() {
+  function renderQuestion(autoSpeak = true) {
     cancelSpeech();
     const lesson = current;
     const qs = questionList(lesson);
@@ -401,8 +401,8 @@
       next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
       answers.appendChild(next);
     }
-    // ابدأ بقراءة السؤال وخياراته فور ظهورها، دون انتظار ضغط زر الاستماع.
-    speakQuestion(spokenQuestion);
+    // ابدأ بقراءة السؤال وخياراته فور ظهوره، إلا عند دمجه مع ترحيب بداية الدرس.
+    if (autoSpeak) speakQuestion(spokenQuestion);
   }
   function openLesson(lesson) {
     current = lesson; activeLesson = lesson;
@@ -429,7 +429,17 @@
     if (teacherMood) teacherMood.textContent = "هيا نتعلم معاً 🌟";
     document.getElementById("childView").classList.add("hidden");
     document.getElementById("lessonView").classList.remove("hidden");
-    renderQuestion();
+    renderQuestion(false);
+    const firstQuestion = questionList(lesson)[0];
+    const firstOptions = Array.isArray(firstQuestion?.choices) ? firstQuestion.choices :
+      (Array.isArray(firstQuestion?.options) ? firstQuestion.options : []);
+    const openingParts = [
+      active?.name ? "مرحباً " + active.name + "، أنا معلّمك، وسنتعلم اليوم معاً." : "مرحباً بك! أنا معلّمك، وسنتعلم اليوم معاً.",
+      title, desc, ...explanation, ...examples,
+      firstQuestion ? questionPrompt(firstQuestion) : "",
+      firstOptions.length ? "الخيارات: " + firstOptions.map(displayChoice).join("، ") : ""
+    ];
+    speakQuestion(openingParts.filter(Boolean).join(". "));
   }
   window.MadrastiCurriculum = { loadSubject, lessonBody, questionList };
   let subjectRequestId = 0;
