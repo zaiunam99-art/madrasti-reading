@@ -110,3 +110,34 @@ test("rejects malformed activity and quiz collections", t => {
   assert.ok(report.errors.some(error => error.message.includes("عنصر activities")));
   assert.ok(report.errors.some(error => error.message.includes("حقل quiz")));
 });
+
+test("supports legacy sequence lessons with printed pages and teacher scripts", t => {
+  const root = makeFixture(t, {
+    lessonData: [{
+      id: "legacy-sequence",
+      title: "درس بصيغة التسلسل",
+      objective: "هدف قابل للملاحظة",
+      printedPages: [8, 9],
+      teacherScript: [
+        { role: "welcome", text: "أهلاً بك." },
+        { role: "explain", text: "هذا شرح تعليمي." }
+      ],
+      activities: [{
+        type: "multiple_choice",
+        prompt: "اختر الإجابة الصحيحة.",
+        options: ["أ", "ب"],
+        answer: "أ"
+      }],
+      mastery: { requiredCorrect: 1, totalChecks: 1 }
+    }]
+  });
+  const { status, report } = runValidator(root);
+  assert.equal(status, 0, JSON.stringify(report.errors));
+  assert.equal(report.stats.lessonsUsingPrintedPages, 1);
+  assert.equal(report.stats.lessonsUsingTeacherScript, 1);
+  assert.equal(report.stats.lessonsWithoutExplanation, 0);
+  assert.equal(report.stats.lessonsWithoutQuiz, 0);
+  assert.equal(report.stats.lessonsWithoutBookPages, 0);
+  assert.equal(report.stats.lessonsWithoutAutoAssessment, 0);
+  assert.deepEqual(report.errors, []);
+});
