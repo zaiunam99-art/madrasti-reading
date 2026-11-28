@@ -127,3 +127,21 @@ test("derives clock face times from structured fields and Arabic-digit prompts",
   const invalid = runInNewContext(helper[0] + "\nclockTimeParts(item);", { item: { hour: 14, minute: 75 } });
   assert.equal(invalid, null);
 });
+
+
+test("creates answer keys only from valid fraction, clock, and solid-pair references", () => {
+  const activities = [
+    { type: "shade_fraction", fraction: "1/2", parts: 2, shade: 1 },
+    { type: "set_clock", hour: 8, minute: 0 },
+    { type: "match_solid_object", pairs: [["قمع", "مخروط"], ["علبة", "مكعب"]] },
+    { type: "shade_fraction", fraction: "1/2", parts: 2, shade: 4 },
+    { type: "set_clock", hour: 14, minute: 0 }
+  ];
+  const result = runInNewContext(match[0] + "\nquestionList(lesson);", { lesson: { activities } });
+  const plain = JSON.parse(JSON.stringify(result));
+  assert.equal(plain[0].answer, 1);
+  assert.equal(plain[1].answer, "8:00");
+  assert.deepEqual(plain[2].answer, ["مخروط", "مكعب"]);
+  assert.equal(plain[3].answer, undefined);
+  assert.equal(plain[4].answer, undefined);
+});
