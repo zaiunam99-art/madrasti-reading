@@ -12,8 +12,8 @@ const generatedPromptTypes = new Set([
   "read_clock", "clock_reading", "set_clock", "shade_fraction",
   "identify_fraction", "make_ten", "draw_model", "build_picture_graph", "sequence_order", "create_pattern",
   "collect_and_graph", "read_graph", "visual_representation", "trace_numeral",
-  "picture_talk", "listening", "picture_observation", "match_solid_object",
-  "match_number_words", "place_value", "compose_number", "complete_pattern",
+  "picture_talk", "listening", "picture_observation",
+  "place_value", "compose_number", "complete_pattern",
   "skip_count", "compare_numbers", "previous_next", "order_numbers", "tens_add",
   "tens_subtract", "two_digit_add", "two_digit_subtract"
 ]);
