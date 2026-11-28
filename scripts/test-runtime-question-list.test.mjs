@@ -94,3 +94,17 @@ test("converts near-double answer objects and ascending sequences into evaluable
   assert.deepEqual(plain[3].answer, [18, 31, 42, 57]);
   assert.match(plain[3].q, /تصاعدياً/);
 });
+
+
+test("promotes stored make-number and fact-family answer sets into answerable questions", () => {
+  const activities = [
+    { type: "make_number", target: 6, answers: ["1+5", "2+4", "3+3"] },
+    { type: "fact_family", numbers: [1, 4, 5], facts: ["1+4=5", "4+1=5", "5-1=4", "5-4=1"] }
+  ];
+  const result = runInNewContext(match[0] + "\nquestionList(lesson);", { lesson: { activities } });
+  const plain = JSON.parse(JSON.stringify(result));
+  assert.deepEqual(plain[0].answer, activities[0].answers);
+  assert.deepEqual(plain[1].answer, activities[1].facts);
+  assert.match(plain[0].q, /كوّن العدد 6/);
+  assert.match(plain[1].q, /الحقائق/);
+});
