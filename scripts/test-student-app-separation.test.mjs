@@ -20,7 +20,7 @@ test("student app does not expose parent account-management controls", () => {
     assert.equal(student.includes(forbidden), false, "student page must not contain " + forbidden);
   }
   assert.match(student, /إدارة ملفات الطلاب وإعداداتهم تتم من تطبيق ولي الأمر/);
-  assert.match(student, /href="\\/index\\.html"/);
+  assert.match(student, /href="\/index\.html"/);
 });
 
 test("parent app links to the separate student experience", () => {
