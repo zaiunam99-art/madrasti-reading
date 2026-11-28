@@ -314,7 +314,89 @@
       if (answered.has(questionIndex)) return;
       cancelSpeech();
       let correctAnswer = false;
-      if (q.type === "sequence_order") {
+      if (q.type === "create_pattern") {
+      const colors = Array.isArray(q.colors) && q.colors.length >= 2
+        ? q.colors.slice(0, 6).map(String)
+        : ["أحمر", "أصفر", "أزرق", "أخضر"];
+      const minimumItems = Number.isInteger(q.minimumItems) && q.minimumItems >= 4
+        ? Math.min(q.minimumItems, 12) : 6;
+      const chosenColors = [];
+      const pattern = [];
+      const palette = document.createElement("div");
+      palette.className = "pattern-palette";
+      const preview = document.createElement("div");
+      preview.className = "pattern-preview";
+      preview.setAttribute("aria-live", "polite");
+      const status = document.createElement("p");
+      status.className = "muted";
+      status.textContent = "اختر لونين مختلفين، ثم كوّن نمطاً يتكرر ثلاث مرات.";
+      const renderPattern = () => {
+        preview.innerHTML = "";
+        pattern.forEach((color, index) => {
+          const token = document.createElement("span");
+          token.textContent = color;
+          token.setAttribute("aria-label", "العنصر " + (index + 1) + ": " + color);
+          token.className = "pattern-token";
+          preview.appendChild(token);
+        });
+        status.textContent = "العناصر المختارة: " + pattern.length + " من " + minimumItems +
+          (chosenColors.length ? " · اللونان: " + chosenColors.join(" و") : "");
+      };
+      colors.forEach((color, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "alt";
+        button.textContent = color;
+        button.addEventListener("click", () => {
+          if (chosenColors.length < 2 && !chosenColors.includes(color)) {
+            chosenColors.push(color);
+            if (chosenColors.length === 2) {
+              palette.querySelectorAll("button").forEach(control => {
+                control.disabled = !chosenColors.includes(control.textContent);
+              });
+              status.textContent = "أحسنت! ابدأ بتكرار اللونين بالتناوب حتى تكوّن " + minimumItems + " عناصر.";
+            }
+          }
+          if (chosenColors.includes(color) && pattern.length < minimumItems) {
+            pattern.push(color);
+            renderPattern();
+          }
+        });
+        palette.appendChild(button);
+      });
+      const undo = document.createElement("button");
+      undo.type = "button"; undo.className = "alt"; undo.textContent = "التراجع عن آخر لون";
+      undo.addEventListener("click", () => { pattern.pop(); renderPattern(); });
+      const reset = document.createElement("button");
+      reset.type = "button"; reset.className = "alt"; reset.textContent = "إعادة النشاط";
+      reset.addEventListener("click", () => {
+        chosenColors.length = 0; pattern.length = 0;
+        palette.querySelectorAll("button").forEach(control => control.disabled = false);
+        renderPattern();
+      });
+      const check = document.createElement("button");
+      check.type = "button"; check.textContent = "تحقق من النمط";
+      check.addEventListener("click", () => {
+        if (chosenColors.length !== 2 || pattern.length < minimumItems) {
+          feedback.textContent = "اختر لونين مختلفين، وأكمل " + minimumItems + " عناصر أولاً.";
+          feedback.style.color = "#a45a22";
+          return;
+        }
+        const unit = pattern.slice(0, 2);
+        const valid = unit[0] !== unit[1] &&
+          pattern.every((color, index) => color === unit[index % 2]);
+        if (valid) {
+          feedback.textContent = "رائع! أنشأت نمطاً صحيحاً يتكرر بانتظام. ⭐";
+          feedback.style.color = "var(--g)";
+          check.disabled = true;
+          palette.querySelectorAll("button").forEach(control => control.disabled = true);
+        } else {
+          feedback.textContent = "اقتربت من الحل! راجع ترتيب اللونين، واجعل النمط نفسه يتكرر دون تغيير.";
+          feedback.style.color = "#a45a22";
+        }
+      });
+      answers.append(palette, preview, status, undo, reset, check);
+    } else if (q.type === "sequence_order") {
         const expected = Array.isArray(q.answer) ? q.answer : [];
         correctAnswer = Array.isArray(value) && value.length === expected.length &&
           value.every((item, i) => normalizedAnswer(item) === normalizedAnswer(expected[i]));
