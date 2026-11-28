@@ -27,7 +27,8 @@ test("badge milestones unlock at one, five and ten completed lessons", () => {
   assert.equal(summarize(["a"]).earned.length, 1);
   assert.equal(summarize(["a","b","c","d","e"]).earned.length, 2);
   assert.equal(summarize(["a","b","c","d","e","f","g","h","i","j"]).earned.length, 3);
-  assert.equal(summarize(["a","b","c","d","e","f","g","h","i","j"]).next, null);
+  assert.equal(summarize(Array.from({length:20}, (_, i) => "lesson-" + i)).earned.length, 4);
+  assert.equal(summarize(Array.from({length:20}, (_, i) => "lesson-" + i)).next, null);
 });
 
 test("student progress is isolated by child identifier", () => {
