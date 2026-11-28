@@ -357,6 +357,7 @@ document.getElementById("guardianForm").addEventListener("submit", event => {
   };
   if (!child.subjects.length) { alert("اختر مادة واحدة على الأقل."); return; }
   family = old ? family.map(item => item.id === id ? child : item) : [...family,child];
+  if (active?.id === id) active = child;
   if (!save()) { family = previous; alert("تعذر حفظ الملف على هذا الجهاز."); return; }
   resetGuardianForm(); renderGuardianChildren(); renderStudentPicker();
   document.getElementById("guardianTitle").textContent = "إدارة ملفات الطلاب";
@@ -390,7 +391,7 @@ function exportGuardianChild(id) {
     const payload = {format:"madrasti-student-transfer",version:1,exportedAt:new Date().toISOString(),child,progressRaw};
     const blob = new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
     const url = URL.createObjectURL(blob), link = document.createElement("a");
-    link.href=url; link.download="madrasti-student-"+id+".json"; link.click(); URL.revokeObjectURL(url);
+    link.href=url; link.download="madrasti-student-"+id+".json"; document.body.appendChild(link); link.click(); link.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
   } catch(error) { alert(error.message || "تعذر تصدير الملف."); }
 }
 function exportGuardianBackup() {
