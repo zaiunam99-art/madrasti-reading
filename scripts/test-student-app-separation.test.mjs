@@ -83,9 +83,9 @@ test("lesson view includes an accessible question progress meter and celebration
 test("mascot reacts warmly to correct and incorrect answers", () => {
   assert.ok(rt.includes("function setTeacherMood(mood, message)"));
   assert.ok(rt.includes('setTeacherMood("happy"'));
-  assert.ok(runtime.includes('setTeacherMood("encourage"'));
+  assert.ok(rt.includes('setTeacherMood("encourage"'));
   assert.ok(app.includes("teacher-cheer"));
-  assert.ok(student.includes("teacher-nod"));
-  assert.ok(student.includes(".mood-happy"));
-  assert.ok(student.includes(".mood-encourage"));
+  assert.ok(app.includes("teacher-nod"));
+  assert.ok(app.includes(".mood-happy"));
+  assert.ok(app.includes(".mood-encourage"));
 });
