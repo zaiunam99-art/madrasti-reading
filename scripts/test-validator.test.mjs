@@ -155,7 +155,8 @@ test("supports legacy sequence lessons with printed pages and teacher scripts", 
   assert.equal(report.stats.activitiesWithoutPrompt, 3);
   assert.equal(report.stats.activitiesUsingFallbackText, 1);
   assert.equal(report.stats.activitiesUsingGeneratedPrompt, 1);
-  assert.equal(report.stats.activitiesWithoutDisplayText, 1);
+  assert.equal(report.stats.activitiesUsingGenericFallback, 1);
+  assert.equal(report.stats.activitiesWithoutDisplayText, 0);
   assert.deepEqual(report.errors, []);
 });
 
