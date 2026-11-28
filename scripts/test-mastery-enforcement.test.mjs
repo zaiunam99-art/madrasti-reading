@@ -64,3 +64,10 @@ test("completion handler refuses to save progress when mastery is unmet", () => 
   assert.deepEqual(writes, []);
   assert.match(feedback.textContent, /لم يُعتمد إكمال الدرس/);
 });
+
+test("manual activities are not presented as self-certified completion or counted as mastery", () => {
+  assert.match(runtime, /هذا تدريب عملي لا يُقيّم آلياً حالياً/);
+  assert.match(runtime, /لن يُحتسب ضمن نتيجة الإتقان/);
+  assert.match(runtime, /أنشطة عملية تحتاج إلى تنفيذ ومراجعة مع المعلم أو ولي الأمر/);
+  assert.doesNotMatch(runtime, /أنهيت النشاط، تابع/);
+});
