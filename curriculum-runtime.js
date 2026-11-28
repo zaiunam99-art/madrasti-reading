@@ -205,9 +205,9 @@
         }
         if (item.type === "double_plus_minus_one" && item.answers && typeof item.answers === "object") {
           return [
-            { ...item, q: "ما العدد الأقل بواحد من " + String(item.n) + "؟", answer: item.answers.less },
+            { ...item, q: "ما العدد الأقل بواحد من ضعف العدد " + String(item.n) + "؟", answer: item.answers.less },
             { ...item, q: "ما ضعف العدد " + String(item.n) + "؟", answer: item.answers.double },
-            { ...item, q: "ما العدد الأكبر بواحد من " + String(item.n) + "؟", answer: item.answers.more }
+            { ...item, q: "ما العدد الأكبر بواحد من ضعف العدد " + String(item.n) + "؟", answer: item.answers.more }
           ].filter(question => question.answer !== undefined && question.answer !== null);
         }
         if (item.type === "order_numbers" && Array.isArray(item.ascending) && item.ascending.length) {
