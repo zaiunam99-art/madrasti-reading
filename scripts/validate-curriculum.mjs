@@ -5,7 +5,7 @@ const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
 const globalLessonIds = new Map();
-const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, lessonsUsingPrintedPages: 0, lessonsUsingTeacherScript: 0, lessonsWithoutObjective: 0, lessonsWithoutExamples: 0, activityTypes: {}, activitiesWithAnswer: 0, activitiesWithoutAnswer: 0, activitiesWithOptions: 0, activitiesWithoutPrompt: 0, activitiesWithoutType: 0, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0, indexesWithoutSourceTitle: 0, indexesWithoutSourcePageCount: 0, duplicateIndexGroupNumbers: 0 };
+const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, lessonsUsingPrintedPages: 0, lessonsUsingTeacherScript: 0, lessonsWithoutObjective: 0, lessonsWithoutExamples: 0, activityTypes: {}, activitiesWithAnswer: 0, activitiesWithoutAnswer: 0, activitiesWithOptions: 0, activitiesWithoutPrompt: 0, activitiesUsingFallbackText: 0, activitiesWithoutDisplayText: 0, activitiesWithoutType: 0, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0, indexesWithoutSourceTitle: 0, indexesWithoutSourcePageCount: 0, duplicateIndexGroupNumbers: 0 };
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -300,7 +300,14 @@ for (const file of files) {
       }
       if (Array.isArray(activity.choices) || Array.isArray(activity.options)) stats.activitiesWithOptions++;
       if (![activity.q, activity.prompt, activity.question, activity.instruction, activity.task]
-        .some(value => typeof value === "string" && value.trim())) stats.activitiesWithoutPrompt++;
+        .some(value => typeof value === "string" && value.trim())) {
+        stats.activitiesWithoutPrompt++;
+        if ([activity.expected, activity.goal].some(value => typeof value === "string" && value.trim())) {
+          stats.activitiesUsingFallbackText++;
+        } else {
+          stats.activitiesWithoutDisplayText++;
+        }
+      }
     }
     const assessable = [
       ...(Array.isArray(lesson.activities) ? lesson.activities : []),
