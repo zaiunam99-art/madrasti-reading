@@ -219,7 +219,29 @@
     el = document.createElement("div");
     el.id = "teacherAvatar";
     el.className = "teacher";
-    el.innerHTML = '<div class="teacher-face" aria-hidden="true"><span class="teacher-eyes">●　●</span><span class="teacher-mouth">●</span></div><div><strong id="teacherName">المعلّم الصغير</strong><div class="muted" id="teacherMood">أنا هنا لأساعدك على التعلّم 🌟</div></div>';
+    el.innerHTML = `<div class="teacher-character" role="img" aria-label="شخصية المعلم التعليمية">
+      <svg viewBox="0 0 160 200" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="teacher-shirt" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#69c6a0"/><stop offset="1" stop-color="#247a60"/></linearGradient>
+          <linearGradient id="teacher-face" x1="0" y1="0" x2="0.8" y2="1"><stop stop-color="#ffe1b7"/><stop offset="1" stop-color="#e9ad7d"/></linearGradient>
+        </defs>
+        <ellipse cx="80" cy="190" rx="42" ry="7" fill="#173e3020"/>
+        <path d="M56 143 51 177q-1 8 7 9h13l8-36M91 150l8 36h13q8-1 6-9l-9-39" fill="#355b91"/>
+        <path d="M48 181q-7 4-4 10h29q4-8-4-11M98 190h30q4-8-5-11l-17-1Z" fill="#f4c76f" stroke="#b78039" stroke-width="2"/>
+        <path d="M43 83q-9 5-12 27l-8 25q-2 8 6 11 7 2 10-6l13-26M117 83q9 5 12 27l8 25q2 8-6 11-7 2-10-6l-13-26" fill="url(#teacher-shirt)" stroke="#1c684f" stroke-width="3" stroke-linejoin="round"/>
+        <path class="teacher-clothes" d="M52 78q28-18 56 0l10 65q-38 19-76 0Z" fill="url(#teacher-shirt)" stroke="#1c684f" stroke-width="3"/>
+        <path d="M70 73h20v16H70z" fill="#e7ad7e"/>
+        <path d="M45 46q0-35 35-35t35 35v20q0 36-35 36T45 66Z" fill="url(#teacher-face)" stroke="#b97b56" stroke-width="2"/>
+        <path d="M43 51q-7-40 37-43 43 2 39 42-8-9-15-24-16 16-52 17l-9 8Z" fill="#563b31"/>
+        <path d="M58 58q8-7 16 0M88 58q8-7 16 0" fill="none" stroke="#51372e" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="67" cy="62" r="3.5" fill="#273b42"/><circle cx="96" cy="62" r="3.5" fill="#273b42"/>
+        <path class="teacher-mouth" d="M72 78q8 8 16 0" fill="none" stroke="#9b4d43" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M62 111q18 11 36 0" fill="none" stroke="#f5d27e" stroke-width="4" stroke-linecap="round"/>
+        <path d="M69 123h22v20H69z" fill="#f5d27e" stroke="#c79543" stroke-width="2"/>
+        <path d="M74 128h12" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+        <path d="M34 120q-8 6-8 15M126 120q8 6 8 15" fill="none" stroke="#f4c76f" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div><div class="teacher-copy"><strong id="teacherName">المعلّم الصغير</strong><div class="muted" id="teacherMood">أنا هنا لأساعدك على التعلّم 🌟</div></div>`;
     box.insertBefore(el, box.firstChild);
     return el;
   }
