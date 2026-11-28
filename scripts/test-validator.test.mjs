@@ -127,6 +127,9 @@ test("supports legacy sequence lessons with printed pages and teacher scripts", 
         prompt: "اختر الإجابة الصحيحة.",
         options: ["أ", "ب"],
         answer: "أ"
+      }, {
+        type: "listening",
+        expected: "إجابة شفوية مناسبة"
       }],
       mastery: { requiredCorrect: 1, totalChecks: 1 }
     }]
@@ -140,8 +143,10 @@ test("supports legacy sequence lessons with printed pages and teacher scripts", 
   assert.equal(report.stats.lessonsWithoutBookPages, 0);
   assert.equal(report.stats.lessonsWithoutAutoAssessment, 0);
   assert.equal(report.stats.activitiesWithAnswer, 1);
-  assert.equal(report.stats.activitiesWithoutAnswer, 0);
+  assert.equal(report.stats.activitiesWithoutAnswer, 1);
   assert.equal(report.stats.activitiesWithOptions, 1);
-  assert.equal(report.stats.activitiesWithoutPrompt, 0);
+  assert.equal(report.stats.activitiesWithoutPrompt, 1);
+  assert.equal(report.stats.activitiesUsingFallbackText, 1);
+  assert.equal(report.stats.activitiesWithoutDisplayText, 0);
   assert.deepEqual(report.errors, []);
 });
