@@ -5,7 +5,7 @@ const root = process.argv[2] || "curriculum";
 const errors = [];
 const warnings = [];
 const globalLessonIds = new Map();
-const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, duplicateLessonOrders: 0 };
+const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0 };
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -110,12 +110,41 @@ async function verifyIndexes() {
       errors.push({ file: relative(".", indexPath), message: "حقل الوحدات أو الفصول ليس مصفوفة" });
       continue;
     }
-    for (const group of groups) {
+    for (const [groupIndex, group] of groups.entries()) {
       if (!group || typeof group !== "object" || Array.isArray(group)) {
         errors.push({ file: relative(".", indexPath), message: "عنصر الوحدة أو الفصل ليس كائناً صالحاً" });
         continue;
       }
+
+      // Grade-one indexes are the currently active content scope. Report incomplete
+      // source metadata as warnings, while malformed supplied page ranges are errors.
+      if (indexPath.includes("grade-1/")) {
+        stats.indexGroups++;
+        if (typeof group.title !== "string" || !group.title.trim()) {
+          stats.groupsWithoutTitle++;
+          warnings.push({ file: relative(".", indexPath), group: groupIndex,
+            message: "الوحدة أو الفصل بلا عنوان واضح" });
+        }
+        const pageRange = group.bookPages ?? group.pdfPages;
+        if (!Array.isArray(pageRange) || pageRange.length !== 2 ||
+            !pageRange.every(page => Number.isInteger(page) && page > 0) ||
+            pageRange[0] > pageRange[1]) {
+          stats.groupsWithoutSourcePages++;
+          warnings.push({ file: relative(".", indexPath), group: groupIndex,
+            message: "نطاق صفحات مصدر الوحدة أو الفصل مفقود أو غير صالح" });
+        } else if (Number.isInteger(index.source?.pages) && pageRange[1] > index.source.pages) {
+          errors.push({ file: relative(".", indexPath), group: groupIndex, pageRange,
+            sourcePages: index.source.pages,
+            message: "نطاق صفحات الوحدة أو الفصل يتجاوز عدد صفحات المصدر المعلن" });
+        }
+      }
+
       const linked = group.lessonFiles || (group.lessonFile ? [group.lessonFile] : []);
+      if (indexPath.includes("grade-1/") && Array.isArray(linked) && linked.length === 0) {
+        stats.groupsWithoutLinkedLessons++;
+        warnings.push({ file: relative(".", indexPath), group: groupIndex,
+          message: "الوحدة أو الفصل غير مرتبط بملفات دروس" });
+      }
       if (!Array.isArray(linked)) {
         errors.push({ file: relative(".", indexPath), message: "روابط ملفات الدروس يجب أن تكون مصفوفة" });
         continue;
