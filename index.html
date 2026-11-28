@@ -102,7 +102,7 @@ select{min-width:220px;max-width:100%;padding:11px 13px;border:2px solid var(--l
     <button id="finishLesson" type="button" onclick="finishLesson()" disabled>إكمال الدرس ⭐</button>
   </div>
 </section>
-<section id="guardianPanel" class="panel guardian-panel hidden" aria-labelledby="guardianTitle"><div class="row" style="justify-content:space-between"><div><span class="tag">إعدادات الأسرة</span><h2 id="guardianTitle">إدارة ملفات الطلاب</h2><p class="muted">أضف ملفات الأبناء، واضبط المواد والصوت، واحفظ نسخة احتياطية.</p></div><button class="alt" id="closeGuardian" type="button">إغلاق</button></div><div id="guardianNotice" class="notice">تُحفظ البيانات محلياً على هذا الجهاز فقط. رمز الدخول قفل محلي بسيط وليس نظام مصادقة آمناً.</div><h3>إضافة طالب أو تعديل ملف</h3><form id="guardianForm"><input type="hidden" id="guardianEditId"><div class="guardian-grid"><label>اسم الطالب (اختياري)<input class="guardian-field" id="guardianName" maxlength="40" placeholder="اسم الطالب"></label><label>الصف الدراسي<select class="guardian-field" id="guardianGrade"><option>الأول الابتدائي</option><option>الثاني الابتدائي</option><option>الثالث الابتدائي</option><option>الرابع الابتدائي</option><option>الخامس الابتدائي</option><option>السادس الابتدائي</option></select></label><label>الجنس<select class="guardian-field" id="guardianGender"><option value="neutral">دون تحديد</option><option value="boy">ذكر</option><option value="girl">أنثى</option></select></label><label>الشخصية<select class="guardian-field" id="guardianAvatar"><option value="🧒">شخصية محايدة</option><option value="👦">ولد</option><option value="👧">بنت</option><option value="🦊">ثعلب</option><option value="🐼">باندا</option></select></label><label>الصوت التعليمي<select class="guardian-field" id="guardianVoice"><option value="default">الصوت العربي المتاح</option><option value="slow">صوت بطيء</option><option value="none">بدون صوت</option></select></label><label>عدد الدروس اليومية لكل مادة<input class="guardian-field" id="guardianDaily" type="number" min="1" max="10" value="1"></label></div><p><strong>المواد المفعّلة</strong></p><div class="guardian-grid"><label><input type="checkbox" name="guardianSubject" value="القراءة" checked> 📖 القراءة</label><label><input type="checkbox" name="guardianSubject" value="الرياضيات"> ➗ الرياضيات</label><label><input type="checkbox" name="guardianSubject" value="العلوم"> 🌱 العلوم</label><label><input type="checkbox" name="guardianSubject" value="اللغة الإنجليزية"> 🔤 اللغة الإنجليزية</label></div><div class="guardian-toolbar"><button type="submit">حفظ ملف الطالب</button><button class="alt" type="button" id="resetGuardianForm">مسح الحقول</button></div></form><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><div class="row" style="justify-content:space-between"><h3>ملفات الأبناء</h3><span class="tag" id="guardianCount">0 ملفات</span></div><div id="guardianChildren"></div><div class="guardian-toolbar"><button class="alt" type="button" id="exportFamilyBackup">تنزيل نسخة احتياطية</button><button class="alt" type="button" id="importFamilyBackupButton">استعادة نسخة احتياطية</button><input id="familyBackupFile" type="file" accept="application/json,.json" hidden></div><p class="muted">ملفات النسخ الاحتياطي غير مشفرة. احتفظ بها في مكان خاص ولا تشاركها علناً.</p><div class="guardian-toolbar"><button class="alt" type="button" id="changeGuardianPin">تغيير رمز الدخول</button></div></section><p class="foot">مدرستي · مساحة تعليمية واحدة للطالب والأسرة</p>
+<section id="guardianPanel" class="panel guardian-panel hidden" aria-labelledby="guardianTitle"><div class="row" style="justify-content:space-between"><div><span class="tag">إعدادات الأسرة</span><h2 id="guardianTitle">إدارة ملفات الطلاب</h2><p class="muted">أضف ملفات الأبناء، واضبط المواد والصوت، واحفظ نسخة احتياطية.</p></div><button class="alt" id="closeGuardian" type="button">إغلاق</button></div><div id="guardianNotice" class="notice">تُحفظ البيانات محلياً على هذا الجهاز فقط. رمز الدخول قفل محلي بسيط وليس نظام مصادقة آمناً.</div><h3>إضافة طالب أو تعديل ملف</h3><form id="guardianForm"><input type="hidden" id="guardianEditId"><div class="guardian-grid"><label>اسم الطالب (اختياري)<input class="guardian-field" id="guardianName" maxlength="40" placeholder="اسم الطالب"></label><label>الصف الدراسي<select class="guardian-field" id="guardianGrade"><option>الأول الابتدائي</option><option>الثاني الابتدائي</option><option>الثالث الابتدائي</option><option>الرابع الابتدائي</option><option>الخامس الابتدائي</option><option>السادس الابتدائي</option></select></label><label>الجنس<select class="guardian-field" id="guardianGender"><option value="neutral">دون تحديد</option><option value="boy">ذكر</option><option value="girl">أنثى</option></select></label><label>الشخصية<select class="guardian-field" id="guardianAvatar"><option value="🧒">شخصية محايدة</option><option value="👦">ولد</option><option value="👧">بنت</option><option value="🦊">ثعلب</option><option value="🐼">باندا</option></select></label><label>الصوت التعليمي<select class="guardian-field" id="guardianVoice"><option value="default">الصوت العربي المتاح</option><option value="slow">صوت بطيء</option><option value="none">بدون صوت</option></select></label><label>عدد الدروس اليومية لكل مادة<input class="guardian-field" id="guardianDaily" type="number" min="1" max="10" value="1"></label></div><p><strong>المواد المفعّلة</strong></p><div class="guardian-grid"><label><input type="checkbox" name="guardianSubject" value="القراءة" checked> 📖 القراءة</label><label><input type="checkbox" name="guardianSubject" value="الرياضيات"> ➗ الرياضيات</label><label><input type="checkbox" name="guardianSubject" value="العلوم"> 🌱 العلوم</label><label><input type="checkbox" name="guardianSubject" value="اللغة الإنجليزية"> 🔤 اللغة الإنجليزية</label></div><div class="guardian-toolbar"><button type="submit">حفظ ملف الطالب</button><button class="alt" type="button" id="resetGuardianForm">مسح الحقول</button></div></form><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><div class="row" style="justify-content:space-between"><h3>ملفات الأبناء</h3><span class="tag" id="guardianCount">0 ملفات</span></div><div id="guardianChildren"></div><h3>معاينة كتاب PDF من هذا الجهاز</h3><label for="pdfUpload">اختيار كتاب PDF</label><input class="guardian-field" id="pdfUpload" type="file" accept="application/pdf" onchange="previewPdf(this)"><div id="pdfInfo" class="muted">لم يتم اختيار ملف.</div><p class="muted">تُفتح المعاينة محلياً فقط؛ لا يُرفع الكتاب ولا يُستخرج محتواه تلقائياً.</p><div class="guardian-toolbar"><button class="alt" type="button" id="exportFamilyBackup">تنزيل نسخة احتياطية</button><button class="alt" type="button" id="importFamilyBackupButton">استعادة نسخة احتياطية</button><input id="familyBackupFile" type="file" accept="application/json,.json" hidden></div><p class="muted">ملفات النسخ الاحتياطي غير مشفرة. احتفظ بها في مكان خاص ولا تشاركها علناً.</p><div class="guardian-toolbar"><button class="alt" type="button" id="changeGuardianPin">تغيير رمز الدخول</button></div></section><p class="foot">مدرستي · مساحة تعليمية واحدة للطالب والأسرة</p>
 </main>
 <script>
 const STUDENT_PROFILES_KEY = "madrastiStudentProfilesV1";
@@ -428,6 +428,49 @@ function exportGuardianChild(id) {
     const url = URL.createObjectURL(blob), link = document.createElement("a");
     link.href=url; link.download="madrasti-student-"+id+".json"; document.body.appendChild(link); link.click(); link.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
   } catch(error) { alert(error.message || "تعذر تصدير الملف."); }
+}
+let previewPdfUrl = null;
+let previewPdfRequest = 0;
+async function previewPdf(input) {
+  const requestId = ++previewPdfRequest;
+  const info = document.getElementById("pdfInfo");
+  if (!info) return;
+  if (previewPdfUrl) { URL.revokeObjectURL(previewPdfUrl); previewPdfUrl = null; }
+  info.textContent = "";
+  const file = input?.files?.[0];
+  if (!file) { info.textContent = "لم يتم اختيار ملف."; return; }
+  if (file.type && file.type !== "application/pdf") {
+    info.textContent = "الملف المحدد ليس من نوع PDF.";
+    return;
+  }
+  let signature = "";
+  try { signature = await file.slice(0,5).text(); }
+  catch (error) {
+    if (requestId === previewPdfRequest) info.textContent = "تعذر قراءة الملف المحدد.";
+    return;
+  }
+  if (requestId !== previewPdfRequest) return;
+  if (signature !== "%PDF-") {
+    info.textContent = "تعذر التحقق من الملف: لا يبدو أنه ملف PDF صالح.";
+    return;
+  }
+  try {
+    const url = URL.createObjectURL(file);
+    if (requestId !== previewPdfRequest) { URL.revokeObjectURL(url); return; }
+    previewPdfUrl = url;
+    info.textContent = "تم التحقق من ملف PDF. ستُفتح المعاينة من جهازك فقط؛ لم يُرفع الملف ولم يُستخرج نصه تلقائياً. ";
+    const link = document.createElement("a");
+    link.href = previewPdfUrl;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "فتح الكتاب";
+    info.appendChild(link);
+  } catch (error) {
+    if (requestId === previewPdfRequest) {
+      previewPdfUrl = null;
+      info.textContent = "تعذر إنشاء معاينة لهذا الملف على هذا الجهاز.";
+    }
+  }
 }
 function exportGuardianBackup() {
   const backup = {format:"madrasti-unified-backup",version:1,createdAt:new Date().toISOString(),
