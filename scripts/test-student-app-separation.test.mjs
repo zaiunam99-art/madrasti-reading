@@ -49,3 +49,10 @@ test("the student learning engine remains integrated", () => {
   assert.match(app, /function exportStudentProgress/);
   assert.match(app, /function startStudent/);
 });
+
+
+test("student entry explains that guardian profiles can be created in the same app", () => {
+  assert.match(app, /يستطيع ولي الأمر إنشاء ملف من زر «ولي الأمر» أعلى الصفحة/);
+  assert.doesNotMatch(app, /استورد ملفاً يصدره ولي الأمر/);
+  assert.match(app, /id="openGuardian"/);
+});
