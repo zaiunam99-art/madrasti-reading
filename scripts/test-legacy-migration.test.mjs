@@ -28,7 +28,7 @@ function runMigration(seed) {
 test("migration merges old profiles and progress without deleting legacy records", () => {
   const legacyProfiles = JSON.stringify([{id:"child_a",name:"أ"},{id:"child_b",name:"ب"}]);
   const currentProfiles = JSON.stringify([{id:"child_a",name:"أحدث"},{id:"child_c",name:"ج"}]);
-  const legacyProgress = JSON.stringify({child_a:["read-1","read-1"],child_b:["read-2"]});
+  const legacyProgress = JSON.stringify({child_a:["read-1","read-1"],child_b:["read-2"],orphan:["ghost-lesson"],child_c:["x".repeat(121)]});
   const currentProgress = JSON.stringify({child_a:["read-0"],child_c:["math-1"]});
   const {store,migrate} = runMigration({
     madrastiFamilyDemoV2:legacyProfiles,
@@ -42,6 +42,7 @@ test("migration merges old profiles and progress without deleting legacy records
   assert.deepEqual(JSON.parse(store.get("madrastiStudentProgressV1")),{
     child_a:["read-0","read-1"],child_c:["math-1"],child_b:["read-2"]
   });
+  assert.equal(JSON.parse(store.get("madrastiStudentProgressV1")).orphan,undefined);
   assert.equal(store.get("madrastiFamilyDemoV2"),legacyProfiles);
   assert.equal(store.get("madrastiCompletedLessonsV1"),legacyProgress);
   assert.equal(store.get("madrastiLegacyMigrationV1"),"done");
