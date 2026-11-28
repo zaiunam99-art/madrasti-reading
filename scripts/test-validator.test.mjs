@@ -203,6 +203,27 @@ test("keeps matching activities visible as unresolved when no matching renderer 
   });
   const { status, report } = runValidator(root);
   assert.equal(status, 0, JSON.stringify(report.errors));
-  assert.equal(report.stats.activitiesWithoutDisplayText, 2);
-  assert.equal(report.warnings.filter(warning => warning.message.includes("لا يحتوي سؤالاً أو تعليمات")).length, 2);
+  assert.equal(report.stats.activitiesWithoutDisplayText, 0);
+  assert.equal(report.stats.activitiesUsingGenericFallback, 2);
+  assert.equal(report.warnings.filter(warning => warning.message.includes("تعليمات عامة")).length, 2);
+});
+
+
+test("counts embedded answer references separately from the runtime answer field", t => {
+  const root = makeFixture(t, {
+    lessonData: [{
+      id: "embedded-reference",
+      title: "إجابات مضمّنة",
+      objective: "تدريب",
+      activities: [
+        { type: "make_number", target: 4, answers: ["1+3", "2+2"] },
+        { type: "fact_family", numbers: [1, 4, 5], facts: ["1+4=5"] },
+        { type: "picture_talk", prompt: "صف الصورة." }
+      ]
+    }]
+  });
+  const { status, report } = runValidator(root);
+  assert.equal(status, 0, JSON.stringify(report.errors));
+  assert.equal(report.stats.activitiesWithoutAnswer, 3);
+  assert.equal(report.stats.activitiesWithEmbeddedReference, 2);
 });
