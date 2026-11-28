@@ -10,11 +10,14 @@ test("unified backup exports student profiles and the isolated progress store", 
   assert.match(html, /family,progressRaw:localStorage\.getItem\(STUDENT_PROGRESS_KEY\)/);
 });
 
-test("restore validates backup format, child records, and progress before replacement", () => {
+test("restore accepts supported current and legacy backup formats", () => {
   assert.match(html, /async function importGuardianBackup\(event\)/);
-  assert.match(html, /data\.format!=="madrasti-unified-backup"/);
+  assert.match(html, /\["madrasti-unified-backup","madrasti-family-backup"\]/);
   assert.match(html, /data\.version!==1/);
   assert.match(html, /data\.family\.length>100/);
+});
+
+test("restore validates child progress and confirms before replacing data", () => {
   assert.match(html, /progress\[id\]\.some\(v=>typeof v!=="string"\|\|v\.length>120\)/);
   assert.match(html, /ستُستبدل ملفات الطلاب وسجل التقدم الحاليان/);
 });
@@ -22,8 +25,4 @@ test("restore validates backup format, child records, and progress before replac
 test("restore attempts to roll back both stores if writing fails", () => {
   assert.match(html, /const oldProfiles=localStorage\.getItem\(STUDENT_PROFILES_KEY\),oldProgress=localStorage\.getItem\(STUDENT_PROGRESS_KEY\)/);
   assert.match(html, /تعذرت الاستعادة؛ أُعيدت البيانات السابقة/);
-});
-
-test("restore accepts the previous family backup format for compatibility", () => {
-  assert.match(html, /\["madrasti-unified-backup","madrasti-family-backup"\]/);
 });
