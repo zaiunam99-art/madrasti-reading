@@ -420,12 +420,12 @@
     } else {
       const note = document.createElement("p");
       note.className = "muted";
-      note.textContent = questionText + " هذا تدريب عملي؛ نفّذه مع المعلم أو ولي الأمر ثم اضغط متابعة.";
+      note.textContent = questionText + " هذا تدريب عملي لا يُقيّم آلياً حالياً. نفّذه مع المعلم أو ولي الأمر، ثم انتقل إلى النشاط التالي. لن يُحتسب ضمن نتيجة الإتقان.";
       answers.appendChild(note);
       const next = document.createElement("button");
       next.type = "button";
       next.className = "alt";
-      next.textContent = questionIndex < qs.length - 1 ? "أنهيت النشاط، تابع ←" : "أنهيت النشاط، أكمل الدرس ⭐";
+      next.textContent = questionIndex < qs.length - 1 ? "الانتقال إلى النشاط التالي ←" : "الانتقال إلى نهاية الدرس";
       next.addEventListener("click", () => { questionIndex++; renderQuestion(); });
       answers.appendChild(next);
     }
@@ -587,9 +587,14 @@
     window.selectChild(childId);
     const note = document.createElement("p");
     note.className = "notice";
+    const unassessedCount = qs.filter(item =>
+      !Object.prototype.hasOwnProperty.call(item, "answer") || item.answer === undefined || item.answer === null
+    ).length;
     note.textContent = assessedCount
-      ? "أحسنت! نتيجتك: " + score + " من " + assessedCount + " سؤالاً قابلاً للتقييم. تم حفظ تقدمك على هذا الجهاز."
-      : "أحسنت! أنهيت أنشطة الدرس. تم حفظ تقدمك على هذا الجهاز.";
+      ? "أحسنت! نتيجتك: " + score + " من " + assessedCount + " سؤالاً قابلاً للتقييم. " +
+        (unassessedCount ? "تذكّر أن هناك " + unassessedCount + " أنشطة عملية تحتاج إلى تنفيذ ومراجعة مع المعلم أو ولي الأمر؛ لم تدخل في نتيجة الإتقان. " : "") +
+        "تم حفظ تقدمك على هذا الجهاز."
+      : "تم حفظ إنهاء الجزء العملي، لكن هذا الدرس لا يحتوي على أسئلة قابلة للتقييم الآلي.";
     document.getElementById("studentArea").prepend(note);
   };
   window.stopLessonAudio = cancelSpeech;
