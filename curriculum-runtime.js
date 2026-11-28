@@ -138,7 +138,7 @@
     const totalChecks = Number.isFinite(configuredChecks) && configuredChecks >= 0
       ? Math.floor(configuredChecks) : requiredCorrect;
     return { requiredCorrect, totalChecks, evaluableCount,
-      valid: evaluableCount > 0 && requiredCorrect <= evaluableCount && totalChecks <= evaluableCount };
+      valid: evaluableCount > 0 && totalChecks >= 1 && requiredCorrect <= totalChecks && totalChecks <= evaluableCount };
   }
   function questionPrompt(item) {
     const explicit = item.q || item.prompt || item.question || item.instruction || item.task;
