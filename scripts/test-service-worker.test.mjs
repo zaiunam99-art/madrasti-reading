@@ -8,6 +8,7 @@ const source = readFileSync(new URL("../sw.js", import.meta.url), "utf8");
 function createWorker({ fetchImpl, cached = new Map() }) {
   const listeners = new Map();
   const writes = [];
+  const precached = [];
   const worker = {
     location: { origin: "https://madrasti.test" },
     clients: { claim() {} },
@@ -21,7 +22,7 @@ function createWorker({ fetchImpl, cached = new Map() }) {
     },
     async open() {
       return {
-        async addAll() {},
+        async addAll(paths) { precached.push(...paths); },
         async put(request, response) {
           writes.push(request.url);
           cached.set(request.url, response);
@@ -38,7 +39,7 @@ function createWorker({ fetchImpl, cached = new Map() }) {
     URL,
     console: { warn() {} }
   });
-  return { listeners, writes, cached };
+  return { listeners, writes, cached, precached };
 }
 
 function makeEvent(request) {
@@ -122,4 +123,16 @@ test("curriculum JSON uses its last cached copy when the device is offline", asy
   const event = makeEvent({ method: "GET", url: "https://madrasti.test/curriculum/unit.json", mode: "cors", destination: "" });
   worker.listeners.get("fetch")(event);
   assert.equal(await event.response, cachedLesson);
+});
+
+
+test("installation pre-caches all grade-one reading and mathematics lessons", async () => {
+  const worker = createWorker({ fetchImpl: async () => { throw new Error("not used"); } });
+  let installPromise;
+  worker.listeners.get("install")({ waitUntil(promise) { installPromise = Promise.resolve(promise); } });
+  await installPromise;
+  assert.ok(worker.precached.includes("/student.html"));
+  assert.ok(worker.precached.includes("/curriculum/grade-1/reading-2025-2026/lessons/unit-01-my-family.json"));
+  assert.ok(worker.precached.includes("/curriculum/grade-1/math-2025-2026/lessons/chapter-09-lessons-01-04.json"));
+  assert.equal(worker.precached.filter(path => path.startsWith("/curriculum/") && path.endsWith(".json")).length, 25);
 });
