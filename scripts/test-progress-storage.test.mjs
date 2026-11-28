@@ -19,7 +19,7 @@ function readWith(raw, { throwOnRead = false } = {}) {
     localStorage: {
       getItem(key) {
         calls++;
-        assert.equal(key, "madrastiCompletedLessonsV1");
+        assert.equal(key, "madrastiStudentProgressV1");
         if (throwOnRead) throw new Error("storage unavailable");
         return raw;
       }
