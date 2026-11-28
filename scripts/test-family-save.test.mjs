@@ -4,8 +4,10 @@ import { readFileSync } from "node:fs";
 import { runInNewContext } from "node:vm";
 
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
-const match = html.match(/document\.getElementById\("guardianForm"\)\.addEventListener\("submit", (event => \{[\s\S]*?\n\}\));/);
-assert.ok(match, "embedded guardian form save handler must exist");
+const start = html.indexOf('document.getElementById("guardianForm").addEventListener("submit", event => {');
+const end = html.indexOf("\n});", start);
+assert.ok(start >= 0 && end > start, "embedded guardian form save handler must exist");
+const handlerSource = html.slice(start + 'document.getElementById("guardianForm").addEventListener("submit", '.length, end);
 
 function invoke({ saveResult = true, subjects = ["القراءة"], existing = [] } = {}) {
   const values = {
@@ -24,8 +26,7 @@ function invoke({ saveResult = true, subjects = ["القراءة"], existing = [
     renderStudentPicker() {}, resetGuardianForm() { resets++; },
     alert(message) { alerts.push(message); }
   };
-  runInNewContext(match[1] + "; handler=undefined;", sandbox);
-  const handler = runInNewContext("(" + match[1] + ")", sandbox);
+  const handler = runInNewContext("(" + handlerSource + ")", sandbox);
   handler({ preventDefault() {} });
   return { family: sandbox.family, renders, resets, saves, alerts };
 }
