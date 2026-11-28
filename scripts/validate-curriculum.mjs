@@ -12,7 +12,10 @@ const generatedPromptTypes = new Set([
   "read_clock", "clock_reading", "set_clock", "shade_fraction",
   "identify_fraction", "make_ten", "draw_model", "build_picture_graph", "sequence_order", "create_pattern",
   "collect_and_graph", "read_graph", "visual_representation", "trace_numeral",
-  "picture_talk", "listening", "picture_observation"
+  "picture_talk", "listening", "picture_observation", "match_solid_object",
+  "match_number_words", "place_value", "compose_number", "complete_pattern",
+  "skip_count", "compare_numbers", "previous_next", "order_numbers", "tens_add",
+  "tens_subtract", "two_digit_add", "two_digit_subtract"
 ]);
 const stats = { jsonFiles: 0, lessons: 0, answerChecks: 0, unitsOrChapters: 0, indexFiles: 0, linkedLessonFiles: 0, sequenceChecks: 0, masteryConfigured: 0, lessonsWithoutAutoAssessment: 0, lessonsWithoutExplanation: 0, lessonsWithoutActivities: 0, lessonsWithoutQuiz: 0, lessonsWithoutBookPages: 0, lessonsUsingPrintedPages: 0, lessonsUsingTeacherScript: 0, lessonsWithoutObjective: 0, lessonsWithoutExamples: 0, activityTypes: {}, activitiesWithAnswer: 0, activitiesWithoutAnswer: 0, activitiesWithOptions: 0, activitiesWithoutPrompt: 0, activitiesUsingFallbackText: 0, activitiesUsingGeneratedPrompt: 0, activitiesWithoutDisplayText: 0, activitiesWithoutType: 0, duplicateLessonOrders: 0, indexGroups: 0, groupsWithoutTitle: 0, groupsWithoutSourcePages: 0, groupsWithoutLinkedLessons: 0, indexesWithoutSourceTitle: 0, indexesWithoutSourcePageCount: 0, duplicateIndexGroupNumbers: 0 };
 
