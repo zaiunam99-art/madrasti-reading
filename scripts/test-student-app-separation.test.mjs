@@ -43,7 +43,9 @@ test("offline shell caches both applications and preserves navigation fallbacks"
   assert.match(worker, /"\/student\.webmanifest"/);
   assert.match(worker, /"\/parent-icon\.svg"/);
   assert.match(worker, /"\/student-icon\.svg"/);
-  assert.match(worker, /madrasti-shell-v8/);
+  assert.match(worker, /"\/curriculum\/grade-1\/reading-2025-2026\/lessons\/unit-01-my-family\.json"/);
+  assert.match(worker, /"\/curriculum\/grade-1\/math-2025-2026\/lessons\/chapter-09-lessons-01-04\.json"/);
+  assert.match(worker, /madrasti-shell-v9/);
   assert.match(worker, /url\.pathname === "\/student\.html" \? "\/student\.html" : "\/index\.html"/);
 });
 
