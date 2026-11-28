@@ -41,6 +41,8 @@ test("parent app links to the separate student experience", () => {
 test("offline shell caches both applications and preserves navigation fallbacks", () => {
   assert.match(worker, /"\/student\.html"/);
   assert.match(worker, /"\/student\.webmanifest"/);
+  assert.match(worker, /"\/parent-icon\.svg"/);
+  assert.match(worker, /"\/student-icon\.svg"/);
   assert.match(worker, /madrasti-shell-v8/);
   assert.match(worker, /url\.pathname === "\/student\.html" \? "\/student\.html" : "\/index\.html"/);
 });
