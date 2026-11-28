@@ -53,3 +53,12 @@ test("opening a lesson speaks a welcome, explanation, and the first question in 
   assert.match(opener, /firstQuestion \? questionPrompt\(firstQuestion\)/);
   assert.match(opener, /speakQuestion\(openingParts\.filter\(Boolean\)\.join\("\. "\)\)/);
 });
+
+test("legacy page and affected curriculum metadata contain no Iraqi-only locale preference", () => {
+  const index = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  const mathA = readFileSync(new URL("../curriculum/grade-1/math-2025-2026/lessons/chapter-01-lessons-01-02.json", import.meta.url), "utf8");
+  const mathB = readFileSync(new URL("../curriculum/grade-1/math-2025-2026/lessons/chapter-01-lessons-03-05.json", import.meta.url), "utf8");
+  assert.doesNotMatch(index, /ar-IQ/);
+  assert.doesNotMatch(mathA, /ar-IQ/);
+  assert.doesNotMatch(mathB, /ar-IQ/);
+});
